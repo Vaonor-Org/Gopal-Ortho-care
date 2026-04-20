@@ -1059,99 +1059,11 @@ body.emergency-bar-hidden #navbar{top:0;}
 <!-- ============================================================
      EMERGENCY BAR
 ============================================================ -->
-<div id="emergency-bar" role="banner">
-  <div class="emergency-bar__inner">
-    <div class="emergency-bar__center">
-      <span class="emergency-bar__alert-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3L12 3zM12 9v5M12 17h.01" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span class="emergency-bar__text">24/7 Emergency Orthopaedic Care - Call: <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span>
-      <a href="tel:+919597040918" class="emergency-bar__cta">Call Now</a>
-    </div>
-    <button class="emergency-bar__close" id="emergency-bar-close" aria-label="Dismiss emergency banner">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke-width="1.9" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-</div>
-
-<!-- ============================================================
-     NAVBAR
-============================================================ -->
-<nav id="navbar" aria-label="Main navigation">
-  <div class="navbar__inner">
-    <a href="index.html" class="navbar__logo" aria-label="Gopal Ortho — Home">
-      <span class="logo-gopal">GOPAL</span><span class="logo-divider" aria-hidden="true"></span><span class="logo-ortho">ORTHO</span>
-    </a>
-    <ul class="navbar__links" role="list">
-      <li><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
-      <li><a href="about/index.html" class="nav-link">About</a></li>
-      <li class="nav-item">
-        <a href="services/index.html" class="nav-link">Services ▾</a>
-        <div class="mega-menu" role="navigation" aria-label="Services submenu">
-          <a href="services/index.html#fracture" class="mega-item">
-            <div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2L6 22M18 7l-6 15M8 7l8 0" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div><div class="mega-item-title">Fracture &amp; Trauma</div><div class="mega-item-sub">Emergency &amp; planned fixation</div></div>
-          </a>
-          <a href="services/index.html#joint" class="mega-item">
-            <div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="10" r="5" stroke="#0A6EBD" stroke-width="1.5"/><path d="M12 15v7" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div><div class="mega-item-title">Joint Replacement</div><div class="mega-item-sub">Knee &amp; hip arthroplasty</div></div>
-          </a>
-          <a href="services/index.html#spine" class="mega-item">
-            <div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="8" y="2" width="8" height="6" rx="2" stroke="#0A6EBD" stroke-width="1.5"/><rect x="8" y="10" width="8" height="6" rx="2" stroke="#0A6EBD" stroke-width="1.5"/><rect x="8" y="18" width="8" height="4" rx="2" stroke="#0A6EBD" stroke-width="1.5"/></svg></div>
-            <div><div class="mega-item-title">Spine Surgery</div><div class="mega-item-sub">Disc, stenosis, deformity</div></div>
-          </a>
-          <a href="services/index.html#sports" class="mega-item">
-            <div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#0A6EBD" stroke-width="1.5"/><path d="M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div><div class="mega-item-title">Sports Medicine</div><div class="mega-item-sub">ACL, meniscus, rotator cuff</div></div>
-          </a>
-          <a href="services/index.html#physio" class="mega-item">
-            <div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="5" r="3" stroke="#0A6EBD" stroke-width="1.5"/><path d="M5 10h14M7 10v12M17 10v12" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div><div class="mega-item-title">Physiotherapy</div><div class="mega-item-sub">Rehab &amp; recovery programs</div></div>
-          </a>
-          <a href="services/index.html#pain" class="mega-item">
-            <div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div><div class="mega-item-title">Pain Management</div><div class="mega-item-sub">Injections, PRP, nerve blocks</div></div>
-          </a>
-        </div>
-      </li>
-      <li><a href="doctors/index.html" class="nav-link">Doctors</a></li>
-      <li><a href="contact/index.html" class="nav-link">Contact</a></li>
-    </ul>
-    <div class="navbar__actions">
-      <a href="tel:+919597040918" class="nav-phone" aria-label="Call us">
-        <svg viewBox="0 0 24 24" fill="none" width="14" height="14" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015 12.84 19.79 19.79 0 011.88 4.2 2 2 0 013.86 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.44c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        095970 40918
-      </a>
-      <a href="booking/index.html" class="btn btn-primary navbar__cta" id="nav-booking-cta">Book Appointment</a>
-      <button id="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Drawer -->
-<div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <div class="drawer-panel">
-    <button class="drawer-close" id="drawer-close" aria-label="Close menu">
-      <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </button>
-    <div style="margin-top:3rem;">
-      <a href="index.html" class="drawer-nav-link">Home</a>
-      <a href="about/index.html" class="drawer-nav-link">About</a>
-      <a href="services/index.html" class="drawer-nav-link">Services</a>
-      <a href="doctors/index.html" class="drawer-nav-link">Doctors</a>
-      <a href="contact/index.html" class="drawer-nav-link">Contact</a>
-    </div>
-    <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.75rem;">
-      <a href="tel:+919597040918" class="btn btn-primary" style="width:100%;justify-content:center;">
-        <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015 12.84 19.79 19.79 0 011.88 4.2 2 2 0 013.86 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.44c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Call Now
-      </a>
-      <a href="booking/index.html" class="btn btn-ghost" style="width:100%;justify-content:center;color:#1A1A1A;border-color:#D6E6F5;">Book Appointment</a>
-    </div>
-  </div>
-</div>
+<div id="site-header"></div>
+<script src="components/navbar-loader.js"></script>
+<script>
+  loadSharedNavbar({ basePath: '', activePage: 'home' });
+</script>
 
 <!-- ============================================================
      HERO — SCAN ANIMATION
@@ -1787,55 +1699,6 @@ body.emergency-bar-hidden #navbar{top:0;}
      JAVASCRIPT
 ============================================================ -->
 <script>
-/* ─── Navbar scroll state ─── */
-const navbar = document.getElementById('navbar');
-const emergencyBar = document.getElementById('emergency-bar');
-let lastScrollY = window.scrollY;
-const emergencyHideDelta = 12;
-
-function handleTopBarsOnScroll() {
-  const currentScrollY = window.scrollY;
-  navbar.classList.toggle('scrolled', currentScrollY > 40);
-
-  if (!emergencyBar || document.body.classList.contains('emergency-bar-hidden')) {
-    lastScrollY = currentScrollY;
-    return;
-  }
-
-  const scrollDiff = currentScrollY - lastScrollY;
-  if (currentScrollY <= 10) {
-    document.body.classList.remove('emergency-bar-collapsed');
-  } else if (scrollDiff > emergencyHideDelta) {
-    document.body.classList.add('emergency-bar-collapsed');
-  } else if (scrollDiff < -emergencyHideDelta) {
-    document.body.classList.remove('emergency-bar-collapsed');
-  }
-
-  lastScrollY = currentScrollY;
-}
-
-window.addEventListener('scroll', handleTopBarsOnScroll, {passive: true});
-handleTopBarsOnScroll();
-
-const emergencyBarClose = document.getElementById('emergency-bar-close');
-if (emergencyBarClose) {
-  emergencyBarClose.addEventListener('click', () => {
-    document.body.classList.remove('emergency-bar-collapsed');
-    document.body.classList.add('emergency-bar-hidden');
-  });
-}
-
-/* ─── Mobile drawer ─── */
-const drawer = document.getElementById('mobile-drawer');
-const toggle = document.getElementById('mobile-toggle');
-const closeBtn = document.getElementById('drawer-close');
-const openDrawer = () => { drawer.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; };
-const closeDrawer = () => { drawer.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
-toggle.addEventListener('click', openDrawer);
-closeBtn.addEventListener('click', closeDrawer);
-drawer.addEventListener('click', e => { if (e.target === drawer) closeDrawer(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-
 /* ─── Parallax (rAF-throttled) ─── */
 const sportsSection = document.getElementById('sports');
 const runningImg = document.getElementById('running-img');

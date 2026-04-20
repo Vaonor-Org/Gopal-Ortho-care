@@ -15,22 +15,6 @@
     .container{max-width:1320px;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:52px;padding:0 1.75rem;border-radius:9999px;font-family:'DM Sans',sans-serif;font-size:.9375rem;font-weight:500;cursor:pointer;transition:all .35s ease;border:none;white-space:nowrap;text-decoration:none;}
     .btn-primary{background:#0A6EBD;color:white;}.btn-primary:hover{background:#C8973A;transform:translateY(-1px);}
-    .emergency-bar{width:100%;height:40px;background:#062A45;display:flex;align-items:center;position:sticky;top:0;z-index:1000;}
-    .emergency-bar__inner{max-width:1320px;width:100%;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);display:flex;align-items:center;justify-content:space-between;}
-    .emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.9);}
-    .emergency-bar__phone{color:#7DD3FC;font-weight:500;}
-    .emergency-bar__cta{display:inline-flex;align-items:center;height:26px;padding:0 .875rem;border-radius:9999px;border:1px solid #C8973A;color:#C8973A;font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;text-decoration:none;}
-    .navbar{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid #D6E6F5;padding:0 clamp(1.25rem,5vw,5rem);}
-    .navbar__inner{max-width:1320px;margin:0 auto;height:66px;display:flex;align-items:center;gap:2rem;}
-    .navbar__logo{display:flex;align-items:center;text-decoration:none;}
-    .navbar__logo-gopal{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;color:#0A6EBD;line-height:1;}
-    .navbar__logo-div{width:1px;height:20px;background:#C8973A;margin:0 .5rem;display:block;}
-    .navbar__logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.125rem;color:#1A1A1A;}
-    .navbar__links{display:flex;gap:.25rem;margin:0 auto;}
-    .navbar__link{padding:.5rem .75rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:#1A1A1A;text-decoration:none;border-radius:6px;}
-    .navbar__link:hover,.navbar__link.active{color:#0A6EBD;}
-    .navbar__cta{flex-shrink:0;height:44px;font-size:.8125rem;padding:0 1.25rem;}
-    @media(max-width:1024px){.navbar__links,.navbar__cta{display:none;}}
     .page-hero{background:linear-gradient(135deg,#062A45,#0A6EBD);padding:clamp(4rem,8vw,7rem) 0 clamp(3rem,6vw,5rem);}
     .page-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.75rem;}
     .page-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;color:white;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1rem;}
@@ -65,15 +49,11 @@
 </head>
 <body>
 
-<div class="emergency-bar"><div class="emergency-bar__inner"><span class="emergency-bar__text">24/7 Emergency — <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span><a href="tel:+919597040918" class="emergency-bar__cta">Call Now</a></div></div>
-
-<nav class="navbar" aria-label="Main navigation">
-  <div class="navbar__inner">
-    <a href="../index.html" class="navbar__logo"><span class="navbar__logo-gopal">Gopal</span><span class="navbar__logo-div"></span><span class="navbar__logo-ortho">Ortho</span></a>
-    <ul class="navbar__links"><li><a href="../index.html" class="navbar__link">Home</a></li><li><a href="../about/index.html" class="navbar__link">About</a></li><li><a href="../services/index.html" class="navbar__link">Services</a></li><li><a href="index.html" class="navbar__link active">Doctors</a></li><li><a href="../contact/index.html" class="navbar__link">Contact</a></li></ul>
-    <a href="../booking/index.html" class="btn btn-primary navbar__cta">Book Appointment</a>
-  </div>
-</nav>
+<div id="site-header"></div>
+<script src="../components/navbar-loader.js"></script>
+<script>
+  loadSharedNavbar({ basePath: '../', activePage: 'doctors' });
+</script>
 
 <div class="page-hero">
   <div class="container">

@@ -17,35 +17,11 @@
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<!-- Emergency Bar -->
-<div class="emergency-bar" id="emergency-bar" role="banner" aria-label="Emergency">
-  <div class="emergency-bar__inner">
-    <div class="emergency-bar__left">
-      <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#E53E3E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="9" x2="12" y2="13" stroke="#E53E3E" stroke-width="1.75" stroke-linecap="round"/><circle cx="12" cy="17" r="0.75" fill="#E53E3E"/></svg>
-      <span class="emergency-bar__text">24/7 Emergency Orthopaedic Care — <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span>
-    </div>
-    <div class="emergency-bar__right">
-      <a href="tel:+919597040918" class="emergency-bar__cta">Call Now</a>
-      <button class="emergency-bar__dismiss" id="emergency-dismiss" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" width="14" height="14" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/></svg></button>
-    </div>
-  </div>
-</div>
-
-<!-- Navbar -->
-<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-  <div class="navbar__inner">
-    <a href="/" class="navbar__logo" aria-label="Gopal Ortho"><span class="navbar__logo-gopal">Gopal</span><span class="navbar__logo-divider" aria-hidden="true"></span><span class="navbar__logo-ortho">Ortho</span><span class="navbar__logo-dot" aria-hidden="true"></span></a>
-    <ul class="navbar__links" role="list">
-      <li><a href="/" class="navbar__link">Home</a></li>
-      <li><a href="/about" class="navbar__link">About</a></li>
-      <li><a href="/services" class="navbar__link">Services</a></li>
-      <li><a href="/doctors" class="navbar__link">Doctors</a></li>
-      <li><a href="/contact" class="navbar__link">Contact</a></li>
-    </ul>
-    <a href="/booking" class="navbar__cta btn btn-primary" aria-current="page">Book Appointment</a>
-    <button class="navbar__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer"><span class="navbar__hamburger-line"></span><span class="navbar__hamburger-line"></span><span class="navbar__hamburger-line"></span></button>
-  </div>
-</nav>
+<div id="site-header"></div>
+<script src="../components/navbar-loader.js"></script>
+<script>
+  loadSharedNavbar({ basePath: '../', activePage: 'booking' });
+</script>
 
 <!-- Page Hero -->
 <div class="booking-hero">
@@ -476,35 +452,8 @@
 </a>
 
 <style>
-/* -- Booking page styles included inline -- */
-.emergency-bar{width:100%;height:40px;background:#062A45;display:flex;align-items:center;position:relative;z-index:1000;}
-.emergency-bar__inner{max-width:1320px;width:100%;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-.emergency-bar__left{display:flex;align-items:center;gap:.5rem;flex:1;}
-.emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.92);}
-.emergency-bar__phone{color:rgba(255,255,255,.92);font-weight:500;text-decoration:none;}
-.emergency-bar__right{display:flex;align-items:center;gap:.75rem;}
-.emergency-bar__cta{display:inline-flex;align-items:center;height:26px;padding:0 .875rem;border-radius:9999px;border:1px solid #C8973A;color:#C8973A;font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;text-decoration:none;transition:all .2s ease;}
-.emergency-bar__cta:hover{background:#C8973A;color:white;}
-.emergency-bar__dismiss{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:transparent;border:none;cursor:pointer;}
-.navbar{position:fixed;top:40px;left:0;right:0;z-index:800;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);height:66px;display:flex;align-items:center;box-shadow:0 2px 24px rgba(6,42,69,.08);}
-.navbar--scrolled{top:0!important;}
-.navbar__inner{max-width:1320px;width:100%;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);display:flex;align-items:center;gap:2rem;}
-.navbar__logo{display:flex;align-items:center;text-decoration:none;}
-.navbar__logo-gopal{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;color:#0A6EBD;line-height:1;}
-.navbar__logo-divider{width:1px;height:20px;background:#C8973A;margin:0 .5rem;}
-.navbar__logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.125rem;color:#1A1A1A;line-height:1;}
-.navbar__logo-dot{width:5px;height:5px;border-radius:50%;background:#C8973A;margin-left:2px;align-self:flex-start;margin-top:3px;}
-.navbar__links{display:flex;align-items:center;gap:.25rem;list-style:none;padding:0;margin:0 auto;}
-.navbar__link{position:relative;padding:.5rem .75rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:#1A1A1A;text-decoration:none;border-radius:6px;}
-.navbar__link::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 1.5rem);height:1.5px;background:#C8973A;border-radius:9999px;transition:transform .25s ease;}
-.navbar__link:hover::after{transform:translateX(-50%) scaleX(1);}
-.navbar__cta{flex-shrink:0;height:44px;padding:0 1.25rem;font-size:.8125rem;}
-.navbar__hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;padding:8px;background:transparent;border:none;cursor:pointer;margin-left:auto;}
-.navbar__hamburger-line{display:block;width:22px;height:2px;background:#1A1A1A;border-radius:2px;}
-@media(max-width:1024px){.navbar__links,.navbar__cta:not([aria-current]){display:none;}.navbar__hamburger{display:flex;}}
-
 /* Booking hero */
-.booking-hero{background:linear-gradient(135deg,#041C30,#062A45);padding:clamp(5rem,10vw,8rem) 0 clamp(2.5rem,5vw,4rem);margin-top:106px;}
+.booking-hero{background:linear-gradient(135deg,#041C30,#062A45);padding:clamp(5rem,10vw,8rem) 0 clamp(2.5rem,5vw,4rem);}
 .booking-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C8973A;margin-bottom:.75rem;}
 .booking-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:white;letter-spacing:-0.02em;line-height:1.1;}
 .booking-hero__sub{font-family:'DM Sans',sans-serif;font-size:1rem;color:rgba(255,255,255,.65);margin-top:.5rem;}
@@ -667,18 +616,6 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 </script>
 <script>
-// ---- Emergency bar ----
-(function(){
-  var bar=document.getElementById('emergency-bar'), btn=document.getElementById('emergency-dismiss');
-  if(sessionStorage.getItem('emergencyBarDismissed')==='1'&&bar){bar.style.display='none';document.getElementById('navbar').style.top='0';}
-  if(btn&&bar){btn.addEventListener('click',function(){bar.style.opacity='0';bar.style.height='0';bar.style.overflow='hidden';sessionStorage.setItem('emergencyBarDismissed','1');document.getElementById('navbar').style.top='0';});}
-})();
-// ---- Navbar scroll ----
-(function(){
-  var nav=document.getElementById('navbar');
-  window.addEventListener('scroll',function(){if(window.scrollY>10)nav.classList.add('navbar--scrolled');else nav.classList.remove('navbar--scrolled');},{passive:true});
-})();
-
 // ---- Booking Form Logic (Firebase-powered) ----
 (function(){
   var currentStep = 1;
