@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard – Gopal Ortho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;scroll-behavior:smooth;}
+body{min-height:100%;font-family:'DM Sans',sans-serif;background:#F0F7FF;color:#1A1A1A;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:'DM Sans',sans-serif;}
+:focus-visible{outline:2px solid #0A6EBD;outline-offset:3px;}
+
+/* ── Animations ── */
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.35;}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* ───────────────────────────────
+   SIDEBAR
+─────────────────────────────── */
+.sidebar{
+  position:fixed;top:0;left:0;
+  width:228px;height:100vh;
+  background:linear-gradient(180deg,#041C30 0%,#062A45 100%);
+  display:flex;flex-direction:column;
+  z-index:200;overflow-y:auto;
+  box-shadow:4px 0 24px rgba(0,0,0,0.18);
+}
+.sidebar-logo{
+  padding:1.5rem 1.25rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  flex-shrink:0;
+}
+.sidebar-logo-gopal{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.375rem;font-weight:700;color:#fff;letter-spacing:-0.03em;
+}
+.sidebar-logo-gopal span{color:#38BDF8;font-style:italic;}
+.sidebar-logo-sub{
+  font-size:.6875rem;color:rgba(255,255,255,0.35);
+  letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem;
+}
+.sidebar-role{
+  margin:.875rem 1.25rem .25rem;
+  background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);
+  border-radius:8px;padding:.5rem .75rem;
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.12em;color:#38BDF8;
+  flex-shrink:0;
+}
+.sidebar-role-dot{width:6px;height:6px;background:#38BDF8;border-radius:50%;animation:blink 2s ease infinite;flex-shrink:0;}
+.sidebar-nav{flex:1;padding:.5rem 0 .75rem;}
+.nav-label{
+  font-size:.5625rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,0.22);padding:.875rem 1.25rem .375rem;display:block;
+}
+.nav-item{
+  display:flex;align-items:center;gap:.75rem;
+  width:100%;padding:.6875rem 1.25rem;
+  font-size:.875rem;color:rgba(255,255,255,0.5);
+  border-left:3px solid transparent;
+  transition:background .18s,color .18s,border-color .18s;
+  white-space:nowrap;
+}
+.nav-item:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.85);}
+.nav-item.active{background:rgba(56,189,248,0.1);color:#fff;border-left-color:#38BDF8;}
+.nav-item svg{stroke:currentColor;flex-shrink:0;width:16px;height:16px;}
+.sidebar-footer{
+  padding:1rem 1.25rem;
+  border-top:1px solid rgba(255,255,255,0.07);
+  flex-shrink:0;
+}
+.logout-btn{
+  width:100%;display:flex;align-items:center;gap:.625rem;
+  padding:.6875rem .875rem;border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.45);font-size:.8125rem;
+  transition:background .18s,border-color .18s,color .18s;
+}
+.logout-btn:hover{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3);color:#FCA5A5;}
+.logout-btn svg{stroke:currentColor;width:16px;height:16px;flex-shrink:0;}
+
+/* ───────────────────────────────
+   MAIN AREA
+─────────────────────────────── */
+.main{
+  margin-left:228px;
+  display:flex;flex-direction:column;
+  min-height:100vh;
+}
+
+/* ── Topbar ── */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  height:60px;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid #D6E6F5;
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-shrink:0;
+}
+.topbar-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;font-weight:700;color:#062A45;
+  white-space:nowrap;
+}
+.topbar-right{display:flex;align-items:center;gap:.75rem;}
+.topbar-date{
+  font-family:'DM Mono',monospace;font-size:.6875rem;
+  color:#8A8A8A;background:#F0F7FF;
+  padding:.375rem .75rem;border-radius:6px;white-space:nowrap;
+}
+.live-badge{
+  display:inline-flex;align-items:center;gap:.375rem;
+  font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.12em;
+  color:#15803D;background:#F0FDF4;border:1px solid #86EFAC;
+  padding:.25rem .625rem;border-radius:9999px;white-space:nowrap;
+}
+.live-dot{width:5px;height:5px;background:#15803D;border-radius:50%;animation:blink 1.5s ease infinite;flex-shrink:0;}
+
+/* ── Content ── */
+.content{padding:1.75rem 2rem 2rem;flex:1;}
+
+/* ── Panels ── */
+.panel{display:none;animation:fadeIn .22s ease;}
+.panel.active{display:block;}
+
+/* ───────────────────────────────
+   SECTION HEADER
+─────────────────────────────── */
+.section-header{margin-bottom:1.5rem;}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.625rem;font-weight:700;color:#062A45;letter-spacing:-0.02em;
+}
+.section-sub{font-size:.875rem;color:#8A8A8A;margin-top:.25rem;}
+
+/* ───────────────────────────────
+   STAT CARDS (OVERVIEW)
+─────────────────────────────── */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1rem;
+  margin-bottom:1.75rem;
+}
+.stat-card{
+  background:#fff;border:1px solid #D6E6F5;border-radius:16px;
+  padding:1.375rem 1.25rem 1.25rem;
+  position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:16px 16px 0 0;
+}
+.stat-card.blue::before{background:linear-gradient(90deg,#0A6EBD,#38BDF8);}
+.stat-card.gold::before{background:linear-gradient(90deg,#C8973A,#E8C776);}
+.stat-card.green::before{background:linear-gradient(90deg,#15803D,#4ADE80);}
+.stat-card.red::before{background:linear-gradient(90deg,#DC2626,#F87171);}
+.stat-icon{
+  position:absolute;top:1.125rem;right:1.125rem;
+  width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.stat-card.blue .stat-icon{background:#E6F1FE;}
+.stat-card.gold .stat-icon{background:#FEF3C7;}
+.stat-card.green .stat-icon{background:#DCFCE7;}
+.stat-card.red .stat-icon{background:#FEE2E2;}
+.stat-num{
+  font-family:'DM Mono',monospace;font-size:2rem;font-weight:400;
+  color:#062A45;line-height:1;margin-bottom:.375rem;margin-top:.125rem;
+}
+.stat-label{font-size:.75rem;color:#8A8A8A;letter-spacing:.04em;}
+
+/* ───────────────────────────────
+   TABLE CARD  (reusable)
+─────────────────────────────── */
+.table-card{
+  background:#fff;border:1px solid #D6E6F5;
+  border-radius:16px;overflow:hidden;
+  margin-bottom:1.5rem;
+}
+.table-card:last-child{margin-bottom:0;}
+.table-header{
+  padding:1rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #E8F0FA;gap:1rem;flex-wrap:wrap;
+}
+.table-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.0625rem;font-weight:700;color:#062A45;
+}
+.table-filters{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;}
+.filter-input,.filter-select{
+  height:34px;padding:0 .75rem;
+  border:1.5px solid #D6E6F5;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.8125rem;color:#4A4A4A;
+  background:#fff;outline:none;cursor:pointer;
+}
+.filter-input:focus,.filter-select:focus{border-color:#0A6EBD;}
+/* Scrollable table wrapper */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;min-width:640px;}
+thead tr{background:#F8FBFF;}
+th{
+  font-size:.625rem;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:#8A8A8A;
+  padding:.75rem 1rem;text-align:left;
+  border-bottom:1px solid #E8F0FA;white-space:nowrap;
+}
+td{
+  font-size:.875rem;color:#1A1A1A;
+  padding:.8125rem 1rem;
+  border-bottom:1px solid #F0F7FF;
+  vertical-align:middle;
+}
+tr:last-child td{border:none;}
+tr:hover td{background:#F8FBFF;}
+.loading-row td,.empty-row td{text-align:center;padding:2.5rem 1rem;color:#8A8A8A;font-size:.875rem;}
+
+/* ───────────────────────────────
+   BADGES
+─────────────────────────────── */
+.badge{
+  display:inline-flex;align-items:center;gap:.25rem;
+  padding:.2rem .6rem;border-radius:9999px;
+  font-size:.6875rem;font-weight:500;white-space:nowrap;
+}
+.badge-pending{background:#FEF3C7;color:#92400E;}
+.badge-confirmed{background:#DCFCE7;color:#15803D;}
+.badge-cancelled{background:#FEE2E2;color:#DC2626;}
+.badge-completed{background:#E0F2FE;color:#0369A1;}
+.badge-arrived{background:#F3E8FF;color:#7C3AED;}
+.badge-online{background:#E6F1FE;color:#0A6EBD;}
+.badge-walkin{background:#F3E8FF;color:#7C3AED;}
+
+/* ───────────────────────────────
+   ACTION BUTTONS (table rows)
+─────────────────────────────── */
+.action-btn{
+  display:inline-flex;align-items:center;
+  height:28px;padding:0 .625rem;
+  border-radius:6px;border:1px solid;
+  font-size:.625rem;font-weight:500;cursor:pointer;
+  transition:background .15s,color .15s;
+  margin-right:.2rem;white-space:nowrap;
+}
+.action-confirm{background:#DCFCE7;border-color:#86EFAC;color:#15803D;}
+.action-confirm:hover{background:#15803D;color:#fff;border-color:#15803D;}
+.action-cancel{background:#FEE2E2;border-color:#FCA5A5;color:#DC2626;}
+.action-cancel:hover{background:#DC2626;color:#fff;border-color:#DC2626;}
+.action-complete{background:#E0F2FE;border-color:#7DD3FC;color:#0369A1;}
+.action-complete:hover{background:#0369A1;color:#fff;border-color:#0369A1;}
+
+/* ───────────────────────────────
+   AVAILABILITY
+─────────────────────────────── */
+.date-row{
+  display:flex;align-items:center;gap:.75rem;
+  margin-bottom:1.375rem;flex-wrap:wrap;
+}
+.date-row label{font-size:.875rem;font-weight:500;color:#4A4A4A;}
+.date-row input[type=date]{
+  height:40px;padding:0 .875rem;
+  border:1.5px solid #D6E6F5;border-radius:10px;
+  font-size:.875rem;color:#1A1A1A;
+  background:#fff;outline:none;cursor:pointer;
+}
+.date-row input[type=date]:focus{border-color:#0A6EBD;}
+
+.avail-card{
+  background:#fff;border:1px solid #D6E6F5;
+  border-radius:16px;padding:1.5rem;
+  margin-bottom:1.5rem;
+}
+.avail-card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.125rem;font-weight:700;color:#062A45;
+  margin-bottom:1.25rem;
+  display:flex;align-items:center;gap:.625rem;
+}
+.avail-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:1.5rem;
+  align-items:start;
+}
+.avail-toggle-wrap{display:flex;flex-direction:column;gap:.75rem;}
+.avail-toggle-row{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1rem 1.125rem;
+  background:#F8FBFF;border:1px solid #E8F0FA;border-radius:12px;
+}
+.avail-toggle-label{font-size:.9375rem;font-weight:500;color:#1A1A1A;}
+.avail-toggle-sub{font-size:.75rem;color:#8A8A8A;margin-top:.2rem;}
+
+/* Toggle switch */
+.toggle-switch{position:relative;display:inline-block;width:48px;height:26px;flex-shrink:0;}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-track{
+  position:absolute;inset:0;background:#D1D5DB;border-radius:13px;
+  cursor:pointer;transition:background .25s;
+}
+.toggle-track::after{
+  content:'';position:absolute;left:3px;top:3px;
+  width:20px;height:20px;background:#fff;border-radius:50%;
+  transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,0.15);
+}
+.toggle-switch input:checked + .toggle-track{background:#0A6EBD;}
+.toggle-switch input:checked + .toggle-track::after{transform:translateX(22px);}
+
+/* OP form */
+.op-form{display:flex;flex-direction:column;gap:.875rem;}
+.op-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.op-field label{
+  display:block;font-size:.6875rem;font-weight:600;
+  color:#4A4A4A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.375rem;
+}
+.op-field input,.op-field select{
+  width:100%;height:42px;padding:0 .875rem;
+  border:1.5px solid #D6E6F5;border-radius:10px;
+  font-size:.9375rem;color:#1A1A1A;
+  background:#fff;outline:none;transition:border-color .2s;
+}
+.op-field input:focus,.op-field select:focus{border-color:#0A6EBD;}
+
+.btn-row{display:flex;gap:.625rem;flex-wrap:wrap;margin-top:.25rem;}
+.btn-save{
+  display:inline-flex;align-items:center;gap:.375rem;
+  height:40px;padding:0 1.25rem;
+  border-radius:9999px;border:none;
+  background:linear-gradient(135deg,#0A6EBD,#064A80);
+  color:#fff;font-size:.8125rem;font-weight:500;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+  white-space:nowrap;
+}
+.btn-save:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(10,110,189,0.28);}
+.btn-copy{background:linear-gradient(135deg,#C8973A,#A07025);}
+
+/* Slot grid */
+.slot-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+  gap:.5rem;padding:.25rem;
+}
+.slot-chip{
+  padding:.5rem .5rem;border-radius:8px;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.75rem;font-weight:500;
+  border:1.5px solid;line-height:1.3;
+}
+.slot-chip.available{background:#F0FDF4;border-color:#86EFAC;color:#15803D;}
+.slot-chip.booked{background:#FEE2E2;border-color:#FCA5A5;color:#DC2626;}
+.slot-chip.closed{background:#F3F4F6;border-color:#D1D5DB;color:#9CA3AF;}
+
+/* ───────────────────────────────
+   ANALYTICS
+─────────────────────────────── */
+.an-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;
+  margin-bottom:1.5rem;
+}
+.an-card{
+  background:#fff;border:1px solid #D6E6F5;border-radius:14px;
+  padding:1.125rem 1.25rem;
+  display:flex;flex-direction:column;gap:.25rem;
+}
+.an-card.highlight{border-color:#A8D8FF;background:#E6F1FE;}
+.an-num{font-family:'DM Mono',monospace;font-size:1.875rem;font-weight:400;color:#062A45;line-height:1;}
+.an-num.blue{color:#0A6EBD;}
+.an-label{font-size:.75rem;color:#8A8A8A;letter-spacing:.04em;margin-top:.125rem;}
+
+.charts-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.chart-card{
+  background:#fff;border:1px solid #D6E6F5;border-radius:16px;padding:1.375rem;
+}
+.chart-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:700;color:#062A45;
+  margin-bottom:1rem;
+}
+.chart-wrap{position:relative;height:220px;}
+
+/* ───────────────────────────────
+   SETTINGS
+─────────────────────────────── */
+.pwd-card{
+  background:#fff;border:1px solid #D6E6F5;
+  border-radius:16px;padding:1.75rem;
+}
+.pwd-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+.pwd-group{display:flex;flex-direction:column;gap:.75rem;}
+.pwd-group-title{font-size:.875rem;font-weight:600;margin-bottom:.125rem;}
+.pwd-field label{
+  display:block;font-size:.6875rem;font-weight:600;
+  color:#4A4A4A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.375rem;
+}
+.pwd-field input{
+  width:100%;height:44px;padding:0 .875rem;
+  border:1.5px solid #D6E6F5;border-radius:10px;
+  font-size:.9375rem;color:#1A1A1A;outline:none;
+  transition:border-color .2s;
+}
+.pwd-field input:focus{border-color:#0A6EBD;}
+.session-block{
+  padding-top:1.25rem;margin-top:1.25rem;
+  border-top:1px solid #E8F0FA;
+}
+.session-block-title{font-size:.875rem;font-weight:600;color:#1A1A1A;margin-bottom:.5rem;}
+
+/* ───────────────────────────────
+   TOAST
+─────────────────────────────── */
+.toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;
+  background:#062A45;color:#fff;
+  border:1px solid rgba(56,189,248,0.2);
+  border-radius:12px;padding:.875rem 1.25rem;
+  font-size:.875rem;
+  display:flex;align-items:center;gap:.5rem;
+  transform:translateY(80px);opacity:0;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;max-width:340px;
+}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-success{border-color:rgba(74,222,128,0.3);}
+.toast-error{border-color:rgba(248,113,113,0.3);}
+.toast-info{border-color:rgba(56,189,248,0.3);}
+
+/* ───────────────────────────────
+   RESPONSIVE
+─────────────────────────────── */
+@media(max-width:1100px){
+  .charts-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:960px){
+  .sidebar{width:200px;}
+  .main{margin-left:200px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .avail-grid{grid-template-columns:1fr;}
+  .pwd-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .sidebar{
+    position:static;width:100%;height:auto;
+    box-shadow:none;border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .main{margin-left:0;}
+  .content{padding:1.25rem;}
+  .topbar{padding:0 1.25rem;}
+  .charts-grid{grid-template-columns:1fr;}
+  .an-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .an-grid{grid-template-columns:1fr;}
+  .op-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div style="display:flex;min-height:100vh;">
+
+  <!-- ════ SIDEBAR ════ -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-gopal">Gopal <span>Ortho</span></div>
+      <div class="sidebar-logo-sub">Admin Portal</div>
+    </div>
+
+    <div class="sidebar-role">
+      <div class="sidebar-role-dot"></div>
+      Doctor / Admin
+    </div>
+
+    <div class="sidebar-nav">
+      <span class="nav-label">Overview</span>
+      <button class="nav-item active" onclick="showPanel('overview',this)">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" onclick="showPanel('availability',this)">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Availability
+      </button>
+
+      <span class="nav-label">Bookings</span>
+      <button class="nav-item" onclick="showPanel('bookings',this)">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        All Bookings
+      </button>
+      <button class="nav-item" onclick="showPanel('slots',this)">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Slot Monitor
+      </button>
+      <button class="nav-item" onclick="showPanel('analytics',this)">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Analytics
+      </button>
+
+      <span class="nav-label">Settings</span>
+      <button class="nav-item" onclick="showPanel('settings',this)">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Settings
+      </button>
+      <button class="nav-item" onclick="window.location.href='desk.html'">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Nurse Desk View
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><polyline points="16 17 21 12 16 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </nav>
+
+  <!-- ════ MAIN ════ -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-title" id="page-title">Dashboard Overview</div>
+      <div class="topbar-right">
+        <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+        <div class="topbar-date" id="topbar-date">—</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══════════════════════════
+           OVERVIEW PANEL
+      ══════════════════════════ -->
+      <div class="panel active" id="panel-overview">
+        <div class="section-header">
+          <h2 class="section-title">Today's Overview</h2>
+          <p class="section-sub" id="today-label">Loading…</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#0A6EBD" stroke-width="1.5"/></svg>
+            </div>
+            <div class="stat-num" id="stat-total">—</div>
+            <div class="stat-label">Total Appointments</div>
+          </div>
+          <div class="stat-card gold">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#C8973A" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="stat-num" id="stat-pending">—</div>
+            <div class="stat-label">Pending</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#15803D" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="10" stroke="#15803D" stroke-width="1.5"/></svg>
+            </div>
+            <div class="stat-num" id="stat-confirmed">—</div>
+            <div class="stat-label">Confirmed / Completed</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#DC2626" stroke-width="1.5"/><path d="M15 9l-6 6M9 9l6 6" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="stat-num" id="stat-cancelled">—</div>
+            <div class="stat-label">Cancelled</div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <span class="table-title">Today's Appointments</span>
+            <div class="live-badge"><div class="live-dot"></div>Real-time</div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr>
+                <th>#</th><th>Token</th><th>Patient</th><th>Mobile</th>
+                <th>Time</th><th>Service</th><th>Type</th><th>Status</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="today-tbody">
+                <tr class="loading-row"><td colspan="9">Loading appointments…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════
+           AVAILABILITY PANEL
+      ══════════════════════════ -->
+      <div class="panel" id="panel-availability">
+        <div class="section-header">
+          <h2 class="section-title">Manage Availability</h2>
+          <p class="section-sub">Set your OP hours and availability for any date</p>
+        </div>
+
+        <div class="date-row">
+          <label for="avail-date">Select Date:</label>
+          <input type="date" id="avail-date" onchange="loadAvailability()">
+        </div>
+
+        <div class="avail-card">
+          <div class="avail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#0A6EBD" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+            OP Configuration
+          </div>
+          <div class="avail-grid">
+            <!-- Toggles -->
+            <div class="avail-toggle-wrap">
+              <div class="avail-toggle-row">
+                <div>
+                  <div class="avail-toggle-label">OP Open Today</div>
+                  <div class="avail-toggle-sub">Toggle off if no consultations scheduled</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-open" onchange="saveAvailabilityField('isOpen', this.checked)">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+              <div class="avail-toggle-row">
+                <div>
+                  <div class="avail-toggle-label">Accept Walk-ins</div>
+                  <div class="avail-toggle-sub">Allow nurse desk to add walk-in patients</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-walkin" onchange="saveAvailabilityField('allowWalkin', this.checked)">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+              <div class="avail-toggle-row">
+                <div>
+                  <div class="avail-toggle-label">Online Booking</div>
+                  <div class="avail-toggle-sub">Allow patients to book from website</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-online" onchange="saveAvailabilityField('allowOnline', this.checked)">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+            </div>
+            <!-- OP Hours form -->
+            <div class="op-form">
+              <div class="op-row">
+                <div class="op-field">
+                  <label>OP Start Time</label>
+                  <input type="time" id="op-start" value="09:00">
+                </div>
+                <div class="op-field">
+                  <label>OP End Time</label>
+                  <input type="time" id="op-end" value="19:00">
+                </div>
+              </div>
+              <div class="op-field">
+                <label>Slot Duration (minutes)</label>
+                <select id="op-slot">
+                  <option value="15">15 min</option>
+                  <option value="20">20 min</option>
+                  <option value="30" selected>30 min</option>
+                  <option value="45">45 min</option>
+                  <option value="60">60 min</option>
+                </select>
+              </div>
+              <div class="op-field">
+                <label>Max Patients Per Day</label>
+                <input type="number" id="op-max" value="40" min="1" max="200">
+              </div>
+              <div class="btn-row">
+                <button class="btn-save" onclick="saveFullAvailability()">
+                  <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="1.5"/><path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Save Configuration
+                </button>
+                <button class="btn-save btn-copy" onclick="copyConfig()">Copy to Next 7 Days</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slot preview -->
+        <div class="table-card">
+          <div class="table-header">
+            <span class="table-title">Slot Preview</span>
+            <span style="font-size:.8125rem;color:#8A8A8A;" id="slot-preview-label">—</span>
+          </div>
+          <div style="padding:1.25rem;">
+            <div class="slot-grid" id="slot-preview-grid">
+              <p style="color:#8A8A8A;font-size:.875rem;grid-column:1/-1;">Select a date above to preview slots</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════
+           ALL BOOKINGS PANEL
+      ══════════════════════════ -->
+      <div class="panel" id="panel-bookings">
+        <div class="section-header">
+          <h2 class="section-title">All Bookings</h2>
+          <p class="section-sub">View and manage all patient appointments</p>
+        </div>
+        <div class="table-card">
+          <div class="table-header">
+            <span class="table-title">Bookings</span>
+            <div class="table-filters">
+              <input type="date" id="filter-date" class="filter-input" onchange="loadAllBookings()">
+              <select class="filter-select" id="filter-status" onchange="loadAllBookings()">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <select class="filter-select" id="filter-type" onchange="loadAllBookings()">
+                <option value="">All Types</option>
+                <option value="online">Online</option>
+                <option value="walkin">Walk-in</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr>
+                <th>Token</th><th>Patient</th><th>Mobile</th><th>Date</th>
+                <th>Time</th><th>Service</th><th>Type</th><th>Status</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="all-bookings-tbody">
+                <tr class="loading-row"><td colspan="9">Select filters and load bookings</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════
+           ANALYTICS PANEL
+      ══════════════════════════ -->
+      <div class="panel" id="panel-analytics">
+        <div class="section-header">
+          <h2 class="section-title">Analytics</h2>
+          <p class="section-sub">All-time patient and booking statistics</p>
+        </div>
+
+        <div class="an-grid">
+          <div class="an-card">
+            <div class="an-num" id="an-total">—</div>
+            <div class="an-label">Total Patients</div>
+          </div>
+          <div class="an-card">
+            <div class="an-num" id="an-walkin">—</div>
+            <div class="an-label">Walk-ins</div>
+          </div>
+          <div class="an-card">
+            <div class="an-num" id="an-online">—</div>
+            <div class="an-label">Online Bookings</div>
+          </div>
+          <div class="an-card">
+            <div class="an-num" id="an-completed">—</div>
+            <div class="an-label">Completed</div>
+          </div>
+          <div class="an-card">
+            <div class="an-num" id="an-cancelled">—</div>
+            <div class="an-label">Cancelled</div>
+          </div>
+          <div class="an-card highlight">
+            <div class="an-num blue" id="an-rate">—</div>
+            <div class="an-label">Completion Rate</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-title">Daily Patients — Last 7 Days</div>
+            <div class="chart-wrap"><canvas id="daily-chart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Booking Status</div>
+            <div class="chart-wrap"><canvas id="status-chart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Walk-in vs Online</div>
+            <div class="chart-wrap"><canvas id="type-chart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Top Services / Conditions</div>
+          <div id="service-breakdown" style="padding:.5rem 0;"></div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════
+           SLOT MONITOR PANEL
+      ══════════════════════════ -->
+      <div class="panel" id="panel-slots">
+        <div class="section-header">
+          <h2 class="section-title">Slot Monitor</h2>
+          <p class="section-sub">Real-time view of today's time slots</p>
+        </div>
+        <div class="table-card">
+          <div class="table-header">
+            <span class="table-title">Today's Slot Status</span>
+            <div class="live-badge"><div class="live-dot"></div>Real-time</div>
+          </div>
+          <div style="padding:1.375rem;">
+            <div style="display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem;">
+              <div style="display:flex;align-items:center;gap:.375rem;font-size:.8125rem;color:#4A4A4A;">
+                <div style="width:12px;height:12px;background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:3px;"></div> Available
+              </div>
+              <div style="display:flex;align-items:center;gap:.375rem;font-size:.8125rem;color:#4A4A4A;">
+                <div style="width:12px;height:12px;background:#FEE2E2;border:1.5px solid #FCA5A5;border-radius:3px;"></div> Booked
+              </div>
+              <div style="display:flex;align-items:center;gap:.375rem;font-size:.8125rem;color:#4A4A4A;">
+                <div style="width:12px;height:12px;background:#F3F4F6;border:1.5px solid #D1D5DB;border-radius:3px;"></div> Closed
+              </div>
+            </div>
+            <div class="slot-grid" id="monitor-slot-grid">
+              <p style="color:#8A8A8A;font-size:.875rem;grid-column:1/-1;">Loading slots…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════
+           SETTINGS PANEL
+      ══════════════════════════ -->
+      <div class="panel" id="panel-settings">
+        <div class="section-header">
+          <h2 class="section-title">Settings</h2>
+          <p class="section-sub">Manage account passwords via Firebase Auth</p>
+        </div>
+        <div class="pwd-card">
+          <div class="pwd-grid">
+            <div class="pwd-group">
+              <div class="pwd-group-title" style="color:#0A6EBD;">Admin (Doctor) Password</div>
+              <div class="pwd-field">
+                <label>New Password</label>
+                <input type="password" id="new-admin-pwd" placeholder="Enter new password (min 6 chars)">
+              </div>
+              <button class="btn-save" style="width:fit-content;" onclick="changePassword('admin','new-admin-pwd')">Update Admin Password</button>
+            </div>
+            <div class="pwd-group">
+              <div class="pwd-group-title" style="color:#7C3AED;">Nurse (Desk) Password</div>
+              <div class="pwd-field">
+                <label>New Password</label>
+                <input type="password" id="new-nurse-pwd" placeholder="Change via Firebase Console">
+              </div>
+              <button class="btn-save" style="width:fit-content;background:linear-gradient(135deg,#7C3AED,#5B21B6);" onclick="changePassword('nurse','new-nurse-pwd')">Update Nurse Password</button>
+            </div>
+          </div>
+          <div class="session-block">
+            <div class="session-block-title">Session Info</div>
+            <div id="current-creds" style="font-family:'DM Mono',monospace;font-size:.8125rem;color:#4A4A4A;line-height:2;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /wrapper -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Chart.js loaded AFTER DOM -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- App logic -->
+<script src="functionality/firebase-init.js"></script>
+<script src="functionality/dashboard.js"></script>
+</body>
+</html>

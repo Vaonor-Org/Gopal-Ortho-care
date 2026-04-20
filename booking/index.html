@@ -650,6 +650,22 @@
 @media(max-width:640px){.time-slots{grid-template-columns:repeat(2,1fr);}.booking-step__actions{flex-direction:column;}.booking-step__next,.booking-step__back{width:100%;justify-content:center;}}
 </style>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCJu7TeRp-umZinY5o1jhN6-LS8EnyM8W4",
+  authDomain: "gopal-8f354.firebaseapp.com",
+  databaseURL: "https://gopal-8f354-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "gopal-8f354",
+  storageBucket: "gopal-8f354.firebasestorage.app",
+  messagingSenderId: "385964781466",
+  appId: "1:385964781466:web:4ef5af2e69982d56f6d423"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+</script>
 <script>
 // ---- Emergency bar ----
 (function(){
@@ -663,15 +679,36 @@
   window.addEventListener('scroll',function(){if(window.scrollY>10)nav.classList.add('navbar--scrolled');else nav.classList.remove('navbar--scrolled');},{passive:true});
 })();
 
-// ---- Booking Form Logic ----
+// ---- Booking Form Logic (Firebase-powered) ----
 (function(){
   var currentStep = 1;
-  var formData = { dept:'', condition:'', doctor:'', date:'', time:'', name:'', mobile:'' };
-  var selectedDate = null;
+  var formData = { dept:'', condition:'', doctor:'', date:'', dateISO:'', time:'', name:'', mobile:'' };
+  var selectedDate = null;   // display string e.g. "April 20, 2026"
+  var selectedDateISO = null; // YYYY-MM-DD
   var selectedTime = null;
   var calYear, calMonth;
+  var availConfig = { isOpen:true, opStart:'09:00', opEnd:'19:00', slotDuration:30, allowOnline:true };
+  var bookedSlots = new Set();
 
-  // --- Dept cards ---
+  // ---- Helpers ----
+  function dateToISO(year, month, day) {
+    return year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+  }
+  function generateSlots(start, end, duration) {
+    var slots = [];
+    var parts = (start||'09:00').split(':'), sh=parseInt(parts[0]), sm=parseInt(parts[1]||0);
+    var eparts = (end||'19:00').split(':'), eh=parseInt(eparts[0]), em=parseInt(eparts[1]||0);
+    var cur = sh*60+sm, endMin = eh*60+em;
+    while (cur+duration<=endMin) {
+      var h=Math.floor(cur/60), m=cur%60;
+      var ampm=h>=12?'PM':'AM', hh=h>12?h-12:h===0?12:h;
+      slots.push(String(hh).padStart(2,'0')+':'+String(m).padStart(2,'0')+' '+ampm);
+      cur+=duration;
+    }
+    return slots;
+  }
+
+  // ---- Dept cards ----
   document.querySelectorAll('.dept-card').forEach(function(card){
     card.addEventListener('click',function(){
       document.querySelectorAll('.dept-card').forEach(function(c){c.classList.remove('selected');c.setAttribute('aria-pressed','false');});
@@ -681,7 +718,7 @@
     });
   });
 
-  // --- Step transitions ---
+  // ---- Step transitions ----
   function goToStep(from, to){
     var fromEl = document.getElementById('step-'+from);
     var toEl   = document.getElementById('step-'+to);
@@ -692,7 +729,7 @@
       fromEl.style.display='none';
       toEl.style.display='block';
       toEl.style.transform='translateX(60px)'; toEl.style.opacity='0';
-      toEl.offsetHeight; // force reflow
+      toEl.offsetHeight;
       toEl.style.transition='transform .4s ease-out,opacity .4s ease-out';
       toEl.style.transform='translateX(0)'; toEl.style.opacity='1';
       updateStepIndicator(to);
@@ -719,13 +756,20 @@
     var selDoctor = document.querySelector('input[name="doctor"]:checked');
     if(selDoctor){ formData.doctor = selDoctor.nextElementSibling.nextElementSibling.querySelector('.doctor-card__name').textContent; }
     if(!selectedDate||!selectedTime){ alert('Please select a date and time slot.'); return; }
-    formData.date = selectedDate; formData.time = selectedTime;
+    // Check slot is still available
+    if(bookedSlots.has(selectedTime)){
+      alert('Sorry, this slot was just booked. Please select another time.');
+      return;
+    }
+    formData.date = selectedDate;
+    formData.dateISO = selectedDateISO;
+    formData.time = selectedTime;
     goToStep(2,3);
   });
   document.getElementById('step2-back').addEventListener('click',function(){ goToStep(2,1); });
   document.getElementById('step3-back').addEventListener('click',function(){ goToStep(3,2); });
 
-  // --- Patient type toggle ---
+  // ---- Patient type toggle ----
   document.querySelectorAll('.patient-type-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
       document.querySelectorAll('.patient-type-btn').forEach(function(b){b.classList.remove('active');b.setAttribute('aria-pressed','false');});
@@ -733,36 +777,83 @@
     });
   });
 
-  // --- Form submit ---
+  // ---- Form submit → Firebase ----
   document.getElementById('booking-form').addEventListener('submit',function(e){
     e.preventDefault();
-    formData.name  = document.getElementById('patient-name').value;
-    formData.mobile = document.getElementById('patient-mobile').value;
+    formData.name  = document.getElementById('patient-name').value.trim();
+    formData.mobile = document.getElementById('patient-mobile').value.trim();
+    var patientType = (document.querySelector('.patient-type-btn.active')||{}).dataset && document.querySelector('.patient-type-btn.active').dataset.type || 'new';
+    var age = document.getElementById('patient-age').value;
+    var gender = document.querySelector('input[name="gender"]:checked');
+    var condition = document.getElementById('patient-condition').value.trim();
     if(!formData.name||!formData.mobile){ alert('Please fill in your name and mobile number.'); return; }
+
     var submitBtn = document.getElementById('booking-submit');
-    submitBtn.querySelector('.booking-submit__text').textContent = 'Sending...';
+    submitBtn.querySelector('.booking-submit__text').textContent = 'Confirming…';
     submitBtn.querySelector('.booking-submit__arrow').style.display='none';
     submitBtn.querySelector('.booking-submit__spinner').style.display='block';
     submitBtn.disabled=true;
-    setTimeout(function(){
-      // Populate summary
-      document.getElementById('summary-service').textContent = formData.condition || formData.dept || 'General';
-      document.getElementById('summary-doctor').textContent  = formData.doctor  || 'Next Available';
-      document.getElementById('summary-date').textContent    = formData.date    || '—';
-      document.getElementById('summary-time').textContent    = formData.time    || '—';
-      document.getElementById('summary-name').textContent    = formData.name    || '—';
-      // Show success
-      document.getElementById('step-indicator').style.display='none';
-      document.getElementById('step-3').style.display='none';
-      document.getElementById('booking-success').style.display='flex';
-    },1600);
+
+    // Double-check slot availability live
+    db.ref('/bookings').orderByChild('date').equalTo(formData.dateISO).once('value').then(function(snap){
+      var taken = new Set();
+      snap.forEach(function(child){
+        var b = child.val();
+        if(b.status!=='cancelled' && b.time) taken.add(b.time);
+      });
+      if(taken.has(formData.time)){
+        alert('Sorry, slot '+formData.time+' was just booked. Please go back and choose another time.');
+        submitBtn.querySelector('.booking-submit__text').textContent='Confirm Appointment';
+        submitBtn.querySelector('.booking-submit__arrow').style.display='inline';
+        submitBtn.querySelector('.booking-submit__spinner').style.display='none';
+        submitBtn.disabled=false;
+        return;
+      }
+      // Get next token number for that date
+      var tokens=[];
+      snap.forEach(function(child){ var b=child.val(); if(b.tokenNumber) tokens.push(b.tokenNumber); });
+      var token = tokens.length ? Math.max.apply(null,tokens)+1 : 1;
+
+      var booking = {
+        name: formData.name,
+        mobile: formData.mobile,
+        age: parseInt(age)||null,
+        gender: gender ? gender.value : null,
+        service: formData.condition || formData.dept || 'General',
+        condition: condition || formData.condition || '',
+        doctor: formData.doctor || 'Next Available',
+        date: formData.dateISO,
+        time: formData.time,
+        status: 'pending',
+        type: 'online',
+        tokenNumber: token,
+        patientType: patientType,
+        createdAt: Date.now()
+      };
+
+      db.ref('/bookings').push(booking).then(function(){
+        document.getElementById('summary-service').textContent = booking.service;
+        document.getElementById('summary-doctor').textContent  = booking.doctor;
+        document.getElementById('summary-date').textContent    = formData.date;
+        document.getElementById('summary-time').textContent    = formData.time;
+        document.getElementById('summary-name').textContent    = formData.name;
+        document.getElementById('step-indicator').style.display='none';
+        document.getElementById('step-3').style.display='none';
+        document.getElementById('booking-success').style.display='flex';
+      }).catch(function(err){
+        alert('Booking failed: '+err.message);
+        submitBtn.querySelector('.booking-submit__text').textContent='Confirm Appointment';
+        submitBtn.querySelector('.booking-submit__arrow').style.display='inline';
+        submitBtn.querySelector('.booking-submit__spinner').style.display='none';
+        submitBtn.disabled=false;
+      });
+    });
   });
 
-  // --- Calendar ---
+  // ---- Calendar ----
   var today = new Date();
   calYear  = today.getFullYear();
   calMonth = today.getMonth();
-
   var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
   function renderCalendar(){
@@ -786,16 +877,83 @@
       if(date.toDateString()===todayStr) cell.classList.add('today');
       if(!isPast){
         var dateStr=MONTHS[calMonth]+' '+d+', '+calYear;
+        var isoStr=dateToISO(calYear,calMonth,d);
         if(selectedDate===dateStr) cell.classList.add('selected');
         cell.setAttribute('aria-label', dateStr);
-        cell.addEventListener('click',(function(ds,el){return function(){
-          selectedDate=ds;
-          document.querySelectorAll('.cal-day').forEach(function(c){c.classList.remove('selected');});
-          el.classList.add('selected');
-        };})(dateStr,cell));
+        cell.addEventListener('click',(function(ds,iso,el){
+          return function(){
+            selectedDate=ds; selectedDateISO=iso;
+            document.querySelectorAll('.cal-day').forEach(function(c){c.classList.remove('selected');});
+            el.classList.add('selected');
+            loadSlotsForDate(iso);
+          };
+        })(dateStr,isoStr,cell));
       } else { cell.disabled=true; cell.setAttribute('aria-disabled','true'); }
       grid.appendChild(cell);
     }
+  }
+
+  // ---- Load slots from Firebase ----
+  function loadSlotsForDate(isoDate){
+    var container=document.getElementById('time-slots');
+    container.innerHTML='<p style="color:#8A8A8A;font-size:.8125rem;padding:.5rem;">Loading slots…</p>';
+    selectedTime=null;
+
+    Promise.all([
+      db.ref('/availability/'+isoDate).once('value'),
+      db.ref('/bookings').orderByChild('date').equalTo(isoDate).once('value')
+    ]).then(function(results){
+      var availSnap = results[0], bookSnap = results[1];
+      var config = availSnap.val() || { isOpen:true, allowOnline:true, opStart:'09:00', opEnd:'19:00', slotDuration:30 };
+      availConfig = config;
+
+      if(!config.isOpen || config.allowOnline===false){
+        container.innerHTML='<p style="color:#B94040;font-size:.8125rem;padding:.5rem;">OP is not available on this date. Please choose another date.</p>';
+        return;
+      }
+
+      bookedSlots = new Set();
+      bookSnap.forEach(function(child){
+        var b=child.val();
+        if(b.status!=='cancelled' && b.time) bookedSlots.add(b.time);
+      });
+
+      var slots = generateSlots(config.opStart, config.opEnd, config.slotDuration||30);
+      container.innerHTML='';
+      slots.forEach(function(t){
+        var btn=document.createElement('button'); btn.type='button';
+        var isBooked=bookedSlots.has(t);
+        btn.className='time-slot'+(isBooked?' booked':'');
+        btn.textContent=t;
+        if(isBooked){btn.disabled=true;btn.setAttribute('aria-label',t+' — booked');btn.title='Already booked';}
+        else{
+          btn.setAttribute('aria-label',t+' — available');
+          btn.addEventListener('click',function(){
+            selectedTime=t;
+            document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});
+            btn.classList.add('selected');
+          });
+        }
+        container.appendChild(btn);
+      });
+
+      // Real-time listener for slot changes
+      db.ref('/bookings').orderByChild('date').equalTo(isoDate).on('value',function(snap2){
+        var live=new Set();
+        snap2.forEach(function(c){ var b=c.val(); if(b.status!=='cancelled'&&b.time) live.add(b.time); });
+        bookedSlots=live;
+        document.querySelectorAll('#time-slots .time-slot').forEach(function(btn2){
+          var t2=btn2.textContent.trim();
+          var nowBooked=live.has(t2);
+          if(nowBooked && !btn2.classList.contains('booked')){
+            btn2.classList.add('booked');
+            btn2.classList.remove('selected');
+            btn2.disabled=true;
+            if(selectedTime===t2) selectedTime=null;
+          }
+        });
+      });
+    });
   }
 
   document.getElementById('cal-prev').addEventListener('click',function(){
@@ -806,26 +964,14 @@
   });
   renderCalendar();
 
-  // --- Time slots ---
-  var slots=['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM'];
-  var bookedSlots=['10:00 AM','12:00 PM','3:00 PM','5:00 PM'];
-  var slotsContainer=document.getElementById('time-slots');
-  slots.forEach(function(t){
-    var btn=document.createElement('button'); btn.type='button';
-    btn.className='time-slot'+(bookedSlots.includes(t)?' booked':'');
-    btn.textContent=t;
-    if(bookedSlots.includes(t)){btn.disabled=true;btn.setAttribute('aria-label',t+' — booked');}
-    else{
-      btn.addEventListener('click',function(){
-        selectedTime=t;
-        document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});
-        btn.classList.add('selected');
-      });
-    }
-    slotsContainer.appendChild(btn);
-  });
+  // Auto-load today's slots
+  var todayISO = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  selectedDate = MONTHS[today.getMonth()]+' '+today.getDate()+', '+today.getFullYear();
+  selectedDateISO = todayISO;
+  loadSlotsForDate(todayISO);
 
 })();
 </script>
 </body>
 </html>
+

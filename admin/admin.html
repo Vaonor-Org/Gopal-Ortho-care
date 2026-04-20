@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Gopal Ortho</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#041C30;display:flex;align-items:center;justify-content:center;min-height:100vh;color:rgba(255,255,255,0.7);font-size:.875rem;}
+</style>
+</head>
+<body>
+<p>Redirecting to admin dashboard…</p>
+<script>
+// admin.html simply enforces admin access and forwards to dashboard
+const session = JSON.parse(sessionStorage.getItem('gopalAdmin') || 'null');
+if (!session || !session.loggedIn) {
+  window.location.replace('login.html');
+} else if (session.role !== 'admin') {
+  window.location.replace('desk.html');
+} else {
+  window.location.replace('dashboard.html');
+}
+</script>
+</body>
+</html>
