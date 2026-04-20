@@ -33,6 +33,7 @@ ul{list-style:none;padding:0;margin:0;}
    TOKENS
 ================================================================ */
 :root{
+  --top-banner-height:42px;
   --primary:#0A6EBD;
   --primary-dark:#064A80;
   --primary-darker:#062A45;
@@ -86,48 +87,103 @@ ul{list-style:none;padding:0;margin:0;}
 .btn:hover::after{background:rgba(255,255,255,0.08);}
 .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 24px rgba(10,110,189,0.35);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(10,110,189,0.45);}
+.btn-secondary{
+  background:rgba(255,255,255,0.35);
+  color:var(--primary-dark);
+  border:1.5px solid rgba(10,110,189,0.55);
+  box-shadow:0 4px 16px rgba(10,110,189,0.08);
+}
+.btn-secondary:hover{
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:#fff;
+  border-color:transparent;
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(10,110,189,0.3);
+}
 .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.35);}
 .btn-ghost:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.6);transform:translateY(-2px);}
 .btn-gold{background:linear-gradient(135deg,var(--gold),#A07025);color:#fff;box-shadow:0 4px 24px rgba(200,151,58,0.35);}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(200,151,58,0.45);}
 .btn-sm{height:44px;padding:0 1.375rem;font-size:.875rem;}
 
+#hero-services-btn{
+  gap:.6rem;
+  padding-inline:1.95rem;
+  font-weight:600;
+}
+
+#hero-services-btn svg{
+  transition:transform .28s ease;
+}
+
+#hero-services-btn:hover svg{
+  transform:translateX(3px);
+}
+
 /* ================================================================
    EMERGENCY BAR
 ================================================================ */
 #emergency-bar{
   position:sticky;top:0;z-index:1001;
-  width:100%;height:42px;
-  background:linear-gradient(90deg,#041C30,#062A45,#041C30);
-  border-bottom:1px solid rgba(56,189,248,0.12);
+  width:100%;height:var(--top-banner-height);min-height:var(--top-banner-height);
+  background:linear-gradient(90deg,#0A5A94 0%,#0E6CAB 50%,#0A5A94 100%);
+  border-bottom:1px solid rgba(125,211,252,0.32);
   display:flex;align-items:center;
+  overflow:hidden;
+  transition:height .35s ease,min-height .35s ease,opacity .25s ease,border-color .35s ease;
 }
 .emergency-bar__inner{
-  max-width:1340px;width:100%;margin:0 auto;
-  padding:0 clamp(1.25rem,5vw,5rem);
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  position:relative;
+  width:100%;
+  min-height:var(--top-banner-height);
+  margin:0 auto;
+  padding:0 48px 0 clamp(1rem,2vw,1.5rem);
+  display:flex;align-items:center;justify-content:center;
 }
-.emergency-bar__left{display:flex;align-items:center;gap:1.5rem;}
-.emergency-badge{display:inline-flex;align-items:center;gap:.375rem;background:rgba(183,28,28,0.2);border:1px solid rgba(239,68,68,0.35);color:#FCA5A5;font-family:'DM Mono',monospace;font-size:.625rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .625rem;border-radius:4px;}
-.emergency-badge::before{content:'';width:6px;height:6px;background:#EF4444;border-radius:50%;animation:pulse-dot 1.2s ease infinite;}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
-.emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,0.7);letter-spacing:.02em;}
-.emergency-bar__phone{color:var(--accent-light);font-weight:600;font-family:'DM Mono',monospace;font-size:.75rem;margin-left:.25rem;}
-.emergency-bar__right{display:flex;align-items:center;gap:1rem;}
-.emergency-bar__cta{display:inline-flex;align-items:center;height:26px;padding:0 .875rem;border-radius:9999px;border:1px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;text-decoration:none;transition:all .25s;}
-.emergency-bar__cta:hover{background:var(--gold);color:#fff;}
+.emergency-bar__center{display:flex;align-items:center;justify-content:center;gap:.75rem;max-width:calc(100% - 8px);}
+.emergency-bar__alert-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:rgba(255,255,255,0.95);}
+.emergency-bar__alert-icon svg{width:16px;height:16px;stroke:currentColor;}
+.emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:clamp(.875rem,.95vw,1.12rem);font-weight:500;color:#fff;letter-spacing:.01em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(64vw,980px);}
+.emergency-bar__phone{color:#fff;font-weight:700;text-decoration:none;}
+.emergency-bar__cta{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 1rem;border-radius:9999px;background:#2EBEFF;color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;text-decoration:none;transition:background .2s ease,transform .2s ease;white-space:nowrap;flex-shrink:0;}
+.emergency-bar__cta:hover{background:#57CAFF;transform:translateY(-1px);}
+.emergency-bar__close{position:absolute;top:0;right:0;bottom:0;width:44px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.85);border-left:1px solid rgba(255,255,255,0.24);background:transparent;cursor:pointer;}
+.emergency-bar__close svg{width:16px;height:16px;stroke:currentColor;}
+.emergency-bar__close:hover{background:rgba(255,255,255,0.08);color:#fff;}
+body.emergency-bar-collapsed #emergency-bar{
+  height:0;
+  min-height:0;
+  opacity:0;
+  border-bottom-color:transparent;
+  pointer-events:none;
+}
+body.emergency-bar-collapsed #navbar{top:0;}
+body.emergency-bar-hidden #emergency-bar{display:none;}
+body.emergency-bar-hidden #navbar{top:0;}
+@media(max-width:900px){
+  :root{--top-banner-height:50px;}
+  #emergency-bar{height:var(--top-banner-height);min-height:var(--top-banner-height);}
+  .emergency-bar__inner{min-height:var(--top-banner-height);padding:0 44px 0 .875rem;}
+  .emergency-bar__center{gap:.55rem;}
+  .emergency-bar__text{font-size:.8125rem;max-width:57vw;}
+  .emergency-bar__cta{height:30px;padding:0 .8rem;font-size:.75rem;}
+}
+@media(max-width:640px){
+  .emergency-bar__alert-icon{display:none;}
+  .emergency-bar__text{max-width:54vw;}
+}
 
 /* ================================================================
    NAVBAR
 ================================================================ */
 #navbar{
-  position:sticky;top:42px;z-index:1000;
+  position:sticky;top:var(--top-banner-height);z-index:1000;
   width:100%;
   background:rgba(255,255,255,0.95);
   backdrop-filter:blur(20px) saturate(180%);
   -webkit-backdrop-filter:blur(20px) saturate(180%);
   border-bottom:1px solid var(--border);
-  transition:box-shadow var(--ease),background var(--ease);
+  transition:top .35s ease,box-shadow var(--ease),background var(--ease);
 }
 #navbar.scrolled{box-shadow:0 4px 48px rgba(6,42,69,0.12);background:rgba(255,255,255,0.98);}
 .navbar__inner{
@@ -136,10 +192,10 @@ ul{list-style:none;padding:0;margin:0;}
   height:68px;display:flex;align-items:center;gap:2rem;
 }
 .navbar__logo{display:flex;align-items:center;gap:0;text-decoration:none;flex-shrink:0;}
-.logo-gopal{font-family:'Cormorant Garamond',serif;font-size:1.625rem;font-weight:700;color:var(--primary);letter-spacing:-0.04em;line-height:1;}
-.logo-divider{width:1.5px;height:22px;background:var(--gold);margin:0 .625rem;opacity:0.7;}
-.logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.125rem;color:var(--text-dark);letter-spacing:.01em;}
-.logo-dot{color:var(--gold);font-size:1.125rem;}
+.logo-gopal{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0A4F86;letter-spacing:.01em;line-height:1;text-transform:uppercase;}
+.logo-divider{width:1px;height:32px;background:#D2DCE7;margin:0 .7rem;opacity:1;}
+.logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.8rem;color:#5FA9E8;letter-spacing:.02em;line-height:1;text-transform:uppercase;}
+@media(max-width:500px){.logo-gopal{font-size:1.5rem;}.logo-ortho{font-size:1.75rem;}.logo-divider{height:28px;margin:0 .5rem;}}
 .navbar__links{display:flex;gap:0;margin:0 auto;}
 .nav-link{position:relative;padding:.5rem .875rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:var(--text-medium);text-decoration:none;border-radius:8px;transition:color .25s;}
 .nav-link::after{content:'';position:absolute;bottom:4px;left:.875rem;right:.875rem;height:1.5px;background:var(--primary);transform:scaleX(0);transform-origin:center;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
@@ -199,35 +255,37 @@ ul{list-style:none;padding:0;margin:0;}
 ================================================================ */
 #hero{
   position:relative;
-  min-height:100svh;
-  background:linear-gradient(160deg,#041C30 0%,#062A45 40%,#083B5E 70%,#0A6EBD 130%);
+  min-height:88svh;
+  background:linear-gradient(180deg,#edf3f9 0%,#e4ebf5 100%);
   display:flex;align-items:center;
   overflow:hidden;
+  border-bottom:1px solid #d7e2ee;
 }
 /* Animated grid BG */
 .hero-grid-bg{
   position:absolute;inset:0;
   background-image:
-    linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
-    linear-gradient(90deg,rgba(56,189,248,0.04) 1px,transparent 1px);
-  background-size:60px 60px;
+    linear-gradient(rgba(10,110,189,0.035) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(10,110,189,0.035) 1px,transparent 1px);
+  background-size:72px 72px;
   pointer-events:none;
+  opacity:0.42;
 }
 /* Radial glow */
 .hero-glow{
   position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 70% 60% at 65% 50%,rgba(10,110,189,0.22) 0%,transparent 70%);
+  background:radial-gradient(ellipse 58% 55% at 72% 56%,rgba(140,178,214,0.32) 0%,rgba(140,178,214,0.18) 26%,transparent 70%);
 }
 /* Noise texture */
 .hero-noise{
-  position:absolute;inset:0;pointer-events:none;opacity:0.018;
+  position:absolute;inset:0;pointer-events:none;opacity:0.01;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 /* Floating orbs */
-.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
-.hero-orb-1{width:500px;height:500px;background:rgba(10,110,189,0.18);top:-100px;right:-80px;animation:orbFloat1 12s ease-in-out infinite;}
-.hero-orb-2{width:350px;height:350px;background:rgba(56,189,248,0.1);bottom:-80px;left:-60px;animation:orbFloat2 15s ease-in-out infinite;}
-.hero-orb-3{width:200px;height:200px;background:rgba(200,151,58,0.08);top:30%;left:30%;animation:orbFloat3 10s ease-in-out infinite;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+.hero-orb-1{width:420px;height:420px;background:rgba(132,168,204,0.2);top:-120px;right:-70px;animation:orbFloat1 12s ease-in-out infinite;}
+.hero-orb-2{width:300px;height:300px;background:rgba(215,228,242,0.55);bottom:-110px;left:-80px;animation:orbFloat2 15s ease-in-out infinite;}
+.hero-orb-3{width:220px;height:220px;background:rgba(200,151,58,0.08);top:35%;left:38%;animation:orbFloat3 10s ease-in-out infinite;}
 @keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,40px) scale(1.05);}}
 @keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,-30px) scale(1.08);}}
 @keyframes orbFloat3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-20px,20px) scale(1.03);}}
@@ -239,91 +297,243 @@ ul{list-style:none;padding:0;margin:0;}
   max-width:1340px;margin:0 auto;
   padding:0 clamp(1.25rem,5vw,5rem);
   width:100%;
-  display:grid;grid-template-columns:1fr auto;align-items:center;gap:4rem;
-  padding-top:5rem;padding-bottom:5rem;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:3.5rem;
+  padding-top:3.25rem;padding-bottom:3.25rem;
 }
 /* Left text block */
-.hero__content{max-width:560px;}
+.hero__content{max-width:610px;}
 .hero__eyebrow{
-  display:inline-flex;align-items:center;gap:.75rem;
-  font-family:'DM Mono',monospace;font-size:.625rem;font-weight:400;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);
-  margin-bottom:1.75rem;
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:'DM Sans',sans-serif;font-size:.8125rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:#0A6EBD;
+  margin-bottom:1.5rem;
 }
-.hero__eyebrow-line{width:40px;height:1px;background:linear-gradient(90deg,var(--accent),transparent);}
+.hero__eyebrow-line{width:0;height:0;display:none;}
 .hero__eyebrow-badge{
-  background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);
-  color:var(--accent-light);padding:.25rem .75rem;border-radius:9999px;
-  font-size:.5625rem;letter-spacing:.18em;
+  background:transparent;border:none;padding:0;border-radius:0;
+  color:inherit;font-size:inherit;letter-spacing:inherit;
 }
 .hero__heading{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(3rem,7vw,5.5rem);
-  font-weight:700;line-height:1.0;letter-spacing:-0.04em;
-  color:#fff;margin-bottom:1.75rem;
+  font-size:clamp(3.1rem,6vw,5.2rem);
+  font-weight:700;line-height:1.04;letter-spacing:-0.03em;
+  color:#0B4F88;margin-top:-8rem;margin-bottom:1.4rem;
 }
 .hero__heading em{
-  font-style:italic;
-  background:linear-gradient(135deg,var(--accent-light),var(--accent));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-style:normal;
+  background:none;
+  -webkit-text-fill-color:currentColor;
+  color:inherit;
 }
 .hero__sub{
-  font-family:'DM Sans',sans-serif;font-size:1.0625rem;line-height:1.75;
-  color:rgba(255,255,255,0.62);margin-bottom:2.5rem;max-width:460px;
+  font-family:'DM Sans',sans-serif;
+  font-size:clamp(1rem,1.8vw,1.15rem);
+  line-height:1.7;
+  color:#526172;
+  margin-bottom:2.2rem;
+  max-width:560px;
 }
-.hero__ctas{display:flex;flex-wrap:wrap;gap:.875rem;margin-bottom:3rem;}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.6rem;}
 /* trusted bar */
-.hero__trust{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
-.trust-pill{display:inline-flex;align-items:center;gap:.5rem;font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,0.45);letter-spacing:.04em;}
-.trust-divider{width:1px;height:14px;background:rgba(255,255,255,0.15);}
+.hero__trust{display:flex;align-items:center;gap:1rem 1.5rem;flex-wrap:wrap;}
+.trust-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:1.03rem;
+  color:#556372;
+  letter-spacing:0;
+  font-weight:500;
+}
+.trust-pill svg{flex-shrink:0;}
+.trust-pill path{stroke:#2D7A4F;}
+.trust-divider{display:none;}
 
 /* ================================================================
    HERO IMAGE
 ================================================================ */
 .hero-img-wrap{
   position:relative;
-  width:min(520px,48vw);
+  width:min(590px,52vw);
+  min-height:460px;
   flex-shrink:0;
   z-index:2;
   display:flex;align-items:flex-end;justify-content:center;
   animation:heroImgFloat 7s ease-in-out infinite;
 }
 @keyframes heroImgFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);}}
-/* Glow halo behind the image */
+/* Soft glow behind the image */
 .hero-img-wrap::before{
   content:'';
   position:absolute;
-  bottom:0;left:50%;
+  left:50%;
+  bottom:22px;
+  width:min(380px,74%);
+  aspect-ratio:1/1;
   transform:translateX(-50%);
-  width:80%;height:80%;
-  background:radial-gradient(ellipse at bottom,rgba(56,189,248,0.2) 0%,transparent 70%);
-  filter:blur(40px);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(170,194,219,0.42) 0%,rgba(170,194,219,0.18) 46%,rgba(170,194,219,0) 78%);
+  filter:blur(8px);
+  pointer-events:none;
+  z-index:0;
+}
+.hero-img-wrap::after{
+  content:'';
+  position:absolute;
+  width:min(390px,72%);
+  aspect-ratio:1/1;
+  left:50%;
+  top:34px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:rgba(189,206,225,0.52);
   pointer-events:none;
   z-index:0;
 }
 .hero-img{
   position:relative;z-index:1;
-  width:100%;
+  width:min(470px,92%);
   height:auto;
   object-fit:contain;
   object-position:bottom center;
-  /* Faint drop-shadow matching the blue knee glow */
-  filter:drop-shadow(0 30px 60px rgba(10,110,189,0.28)) drop-shadow(0 0 1px rgba(56,189,248,0.1));
+  filter:drop-shadow(0 22px 46px rgba(10,110,189,0.24));
   /* Fade in on load */
   animation:heroImgFadeIn 1s ease both;
 }
 @keyframes heroImgFadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
+.hero-target{
+  position:absolute;
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.5rem .85rem;
+  border-radius:999px;
+  background:rgba(255,255,255,0.8);
+  border:1px solid rgba(10,110,189,0.24);
+  box-shadow:0 10px 26px rgba(12,57,95,0.12);
+  backdrop-filter:blur(8px);
+  font-family:'DM Sans',sans-serif;
+  font-size:.8rem;
+  font-weight:600;
+  color:#0A6EBD;
+  letter-spacing:.01em;
+  z-index:2;
+  animation:targetFloat 4.6s ease-in-out infinite;
+}
+.hero-target svg{
+  width:14px;
+  height:14px;
+  flex-shrink:0;
+  stroke:currentColor;
+  animation:targetArrowNudge 1.3s ease-in-out infinite;
+}
+.hero-target::before{
+  content:'';
+  position:absolute;
+  height:2px;
+  width:var(--line-len,58px);
+  background:linear-gradient(90deg,rgba(10,110,189,0.7),rgba(10,110,189,0));
+  top:50%;
+  left:100%;
+  transform:translateY(-50%) rotate(var(--line-angle,0deg));
+  transform-origin:left center;
+  animation:targetBeam 2.2s linear infinite;
+}
+.hero-target::after{
+  content:'';
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#0A6EBD;
+  left:calc(100% + var(--line-len,58px));
+  top:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 0 0 rgba(10,110,189,0.45);
+  animation:targetPulse 1.9s ease-out infinite;
+}
+
+.hero-target--shoulder{
+  top:17%;
+  right:1%;
+  --line-len:78px;
+  --line-angle:0deg;
+  animation-delay:.15s;
+}
+.hero-target--hip{
+  top:50%;
+  left:-2%;
+  --line-len:88px;
+  --line-angle:0deg;
+  animation-delay:.45s;
+}
+.hero-target--knee{
+  top:71%;
+  right:8%;
+  --line-len:98px;
+  --line-angle:0deg;
+  animation-delay:.25s;
+}
+
+.hero-target--shoulder::before,
+.hero-target--knee::before{
+  left:auto;
+  right:100%;
+  transform-origin:right center;
+  background:linear-gradient(90deg,rgba(10,110,189,0),rgba(10,110,189,0.72));
+}
+
+.hero-target--shoulder::after,
+.hero-target--knee::after{
+  left:auto;
+  right:calc(100% + var(--line-len,58px));
+}
+
+@keyframes targetFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+}
+@keyframes targetArrowNudge{
+  0%,100%{transform:translateX(0);}
+  50%{transform:translateX(3px);}
+}
+@keyframes targetBeam{
+  0%{opacity:.35;}
+  50%{opacity:1;}
+  100%{opacity:.35;}
+}
+@keyframes targetPulse{
+  0%{box-shadow:0 0 0 0 rgba(10,110,189,0.5);}
+  80%{box-shadow:0 0 0 12px rgba(10,110,189,0);}
+  100%{box-shadow:0 0 0 0 rgba(10,110,189,0);}
+}
+
 @media(max-width:1100px){
-  .hero__inner{grid-template-columns:1fr;text-align:center;padding-top:4rem;}
+  .hero__inner{grid-template-columns:1fr;text-align:center;padding-top:2.8rem;padding-bottom:2.4rem;gap:2.2rem;}
   .hero__content{max-width:100%;}
-  .hero__sub{margin:0 auto 2.5rem;}
-  .hero__ctas{justify-content:center;}
-  .hero-img-wrap{width:min(340px,80vw);margin:2rem auto 0;}
+  .hero__sub{margin:0 auto 2rem;}
+  .hero__ctas{justify-content:center;margin-bottom:1.3rem;}
+  .hero__trust{justify-content:center;}
+  .hero-img-wrap{width:min(420px,92vw);min-height:340px;margin:1rem auto 0;}
+  .hero-target{font-size:.72rem;padding:.42rem .68rem;}
+  .hero-target::before,.hero-target::after{display:none;}
+  .hero-target--shoulder{top:12%;right:2%;}
+  .hero-target--hip{top:46%;left:0;}
+  .hero-target--knee{bottom:10%;right:3%;}
 }
 @media(max-width:600px){
-  .hero__heading{font-size:2.5rem;}
-  .hero-img-wrap{width:min(260px,85vw);}
+  .hero__heading{font-size:2.9rem;margin-top:-0.4rem;}
+  .hero__eyebrow{justify-content:center;font-size:.72rem;}
+  .hero__trust{gap:.75rem 1rem;}
+  .trust-pill{font-size:.92rem;}
+  .hero-img-wrap{width:min(340px,94vw);min-height:300px;}
+  .hero-img{width:min(310px,90%);}
+  .hero-img-wrap::after{width:min(250px,75%);}
+  .hero-target--hip{display:none;}
+  .hero-target--shoulder{top:8%;right:2%;}
+  .hero-target--knee{bottom:6%;right:0;}
 }
 
 /* ================================================================
@@ -466,6 +676,143 @@ ul{list-style:none;padding:0;margin:0;}
 @media(max-width:580px){.services-grid{grid-template-columns:1fr;}}
 
 /* ================================================================
+   PHYSIOTHERAPY HIGHLIGHT
+================================================================ */
+#physio-highlight{
+  background:#F4F6FA;
+  padding:clamp(3.75rem,7vw,6rem) 0;
+}
+.physio-highlight__card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-radius:22px;
+  overflow:hidden;
+  background:#F2F5F9;
+  border:1px solid #E1E9F1;
+  box-shadow:0 12px 34px rgba(6,42,69,0.08);
+}
+.physio-highlight__left{
+  position:relative;
+  min-height:620px;
+  background:linear-gradient(155deg,#0B548B 0%,#0A4E83 45%,#0A4A7C 100%);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:2.75rem;
+}
+.physio-highlight__icon-wrap{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.physio-highlight__icon{
+  width:88px;
+  height:88px;
+  color:rgba(116,191,235,0.35);
+}
+.physio-highlight__left-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.25rem;
+  font-weight:600;
+  color:#6CC3F4;
+  letter-spacing:-0.01em;
+  line-height:1.2;
+}
+.physio-highlight__right{
+  padding:clamp(2.25rem,5vw,3.5rem) clamp(2rem,4vw,3rem);
+}
+.physio-highlight__eyebrow{
+  font-family:'DM Sans',sans-serif;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#1A77BB;
+  margin-bottom:1rem;
+}
+.physio-highlight__heading{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,4.3vw,4rem);
+  font-weight:700;
+  letter-spacing:-0.02em;
+  line-height:1.05;
+  color:#0C4F86;
+}
+.physio-highlight__text{
+  margin-top:1.25rem;
+  max-width:560px;
+  font-family:'DM Sans',sans-serif;
+  font-size:1rem;
+  color:#4A5D70;
+  line-height:1.65;
+}
+.physio-highlight__status{
+  margin-top:1rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  height:34px;
+  padding:0 .875rem;
+  border-radius:999px;
+  background:#DDECE7;
+  color:#2A7A59;
+  font-family:'DM Sans',sans-serif;
+  font-size:.9375rem;
+  font-weight:600;
+}
+.physio-highlight__status-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#2A9B65;
+  box-shadow:0 0 0 5px rgba(42,155,101,0.17);
+}
+.physio-highlight__list{
+  margin-top:2.1rem;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.1rem 2.25rem;
+}
+.physio-highlight__list-item{
+  position:relative;
+  padding-left:1.45rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:1.05rem;
+  color:#42576B;
+  line-height:1.35;
+}
+.physio-highlight__list-item::before{
+  content:'\2192';
+  position:absolute;
+  left:0;
+  top:0;
+  color:#2483C9;
+  font-weight:700;
+}
+.physio-highlight__cta-wrap{margin-top:2.2rem;}
+.physio-highlight__cta{
+  height:48px;
+  padding:0 2rem;
+  font-size:.95rem;
+  font-weight:600;
+}
+.physio-highlight__cta svg{transition:transform .25s ease;}
+.physio-highlight__cta:hover svg{transform:translateX(4px);}
+@media(max-width:1020px){
+  .physio-highlight__card{grid-template-columns:1fr;}
+  .physio-highlight__left{min-height:360px;}
+}
+@media(max-width:720px){
+  .physio-highlight__right{padding:1.85rem 1.35rem 2rem;}
+  .physio-highlight__list{grid-template-columns:1fr;gap:.95rem;}
+  .physio-highlight__list-item{font-size:1rem;}
+  .physio-highlight__left-title{font-size:1.95rem;}
+  .physio-highlight__icon{width:72px;height:72px;}
+}
+
+/* ================================================================
    SPORTS / WHY SECTION — PARALLAX PANEL
 ================================================================ */
 #sports{
@@ -473,6 +820,14 @@ ul{list-style:none;padding:0;margin:0;}
   min-height:620px;
   overflow:hidden;
   display:flex;align-items:center;
+}
+#sports .container{
+  position:relative;
+  z-index:3;
+  max-width:none;
+  width:100%;
+  padding-left:calc(clamp(1rem,2.8vw,2.75rem) + 4%);
+  padding-right:clamp(1rem,2.8vw,2.75rem);
 }
 .sports-bg{
   position:absolute;inset:0;
@@ -487,21 +842,24 @@ ul{list-style:none;padding:0;margin:0;}
 }
 .sports-running-img{
   position:absolute;
-  right:2%;
-  top:50%;
+  right:110px;
+  top:58%;
   transform:translateY(-50%);
-  height:92%;
-  width:auto;
+  width:clamp(420px,46vw,780px);
+  max-width:48vw;
+  max-height:95%;
+  height:auto;
   object-fit:contain;
-  object-position:center center;
+  object-position:right center;
+  pointer-events:none;
   filter:drop-shadow(-20px 0 60px rgba(10,110,189,0.35));
   opacity:0.95;
   will-change:transform;
 }
 .sports-content{
   position:relative;z-index:2;
-  max-width:520px;
-  margin-left:0; /* push to very left edge of container */
+  width:min(620px,100%);
+  margin-left:0;
 }
 /* gradient fade covering only the far right — keep figure visible */
 #sports::after{
@@ -703,17 +1061,16 @@ ul{list-style:none;padding:0;margin:0;}
 ============================================================ -->
 <div id="emergency-bar" role="banner">
   <div class="emergency-bar__inner">
-    <div class="emergency-bar__left">
-      <span class="emergency-badge">
-        <svg width="6" height="6" viewBox="0 0 6 6" aria-hidden="true"><circle cx="3" cy="3" r="3" fill="#EF4444"/></svg>
-        Emergency
+    <div class="emergency-bar__center">
+      <span class="emergency-bar__alert-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3L12 3zM12 9v5M12 17h.01" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      <span class="emergency-bar__text">24/7 Orthopaedic Emergency — <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span>
-    </div>
-    <div class="emergency-bar__right">
-      <span style="font-family:'DM Mono',monospace;font-size:.6875rem;color:rgba(255,255,255,0.3);">Kottar, Nagercoil</span>
+      <span class="emergency-bar__text">24/7 Emergency Orthopaedic Care - Call: <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span>
       <a href="tel:+919597040918" class="emergency-bar__cta">Call Now</a>
     </div>
+    <button class="emergency-bar__close" id="emergency-bar-close" aria-label="Dismiss emergency banner">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke-width="1.9" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </div>
 
@@ -723,7 +1080,7 @@ ul{list-style:none;padding:0;margin:0;}
 <nav id="navbar" aria-label="Main navigation">
   <div class="navbar__inner">
     <a href="index.html" class="navbar__logo" aria-label="Gopal Ortho — Home">
-      <span class="logo-gopal">Gopal</span><span class="logo-divider" aria-hidden="true"></span><span class="logo-ortho">Ortho<span class="logo-dot">•</span></span>
+      <span class="logo-gopal">GOPAL</span><span class="logo-divider" aria-hidden="true"></span><span class="logo-ortho">ORTHO</span>
     </a>
     <ul class="navbar__links" role="list">
       <li><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
@@ -811,24 +1168,33 @@ ul{list-style:none;padding:0;margin:0;}
   <div class="hero__inner">
     <!-- LEFT: Copy -->
     <div class="hero__content" data-reveal>
-      <div class="hero__eyebrow">
-        <span class="hero__eyebrow-line"></span>
-        <span class="hero__eyebrow-badge">Est. 2009 · Nagercoil</span>
-        Orthopaedic Centre of Excellence
-      </div>
       <h1 class="hero__heading">
-        Move Again.<br>Live <em>Without</em><br>Pain.
+        Precision Care<br>for Every Bone,<br>Joint &amp; Movement.
       </h1>
-      <p class="hero__sub">Advanced orthopaedic surgery, spine care, sports medicine and physiotherapy — all under one expert team at Gopal Ortho Care Hospital, Kottar.</p>
+      <p class="hero__sub">Expert orthopaedic and physiotherapy treatment. From fracture care to full rehabilitation — we restore your movement and quality of life.</p>
       <div class="hero__ctas">
         <a href="booking/index.html" class="btn btn-primary" id="hero-book-btn">
           <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Book Appointment
         </a>
-        <a href="tel:+919597040918" class="btn btn-ghost" id="hero-call-btn">
-          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015 12.84 19.79 19.79 0 011.88 4.2 2 2 0 013.86 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.44c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          095970 40918
+        <a href="services/index.html" class="btn btn-secondary" id="hero-services-btn">
+          Our Services
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
+      </div>
+      <div class="hero__trust" aria-label="Why patients trust us">
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Expert Orthopaedic Surgeons
+        </span>
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Modern Physiotherapy Unit
+        </span>
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          24/7 Emergency Care
+        </span>
       </div>
 
     </div>
@@ -842,6 +1208,18 @@ ul{list-style:none;padding:0;margin:0;}
         loading="eager"
         width="520"
         height="700">
+      <div class="hero-target hero-target--shoulder" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Shoulder Precision
+      </div>
+      <div class="hero-target hero-target--hip" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Joint Alignment Focus
+      </div>
+      <div class="hero-target hero-target--knee" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Targeted Knee Relief
+      </div>
     </div>
   </div>
 </section>
@@ -1004,6 +1382,51 @@ ul{list-style:none;padding:0;margin:0;}
         <h3 class="svc-title">Pain Management</h3>
         <p class="svc-text">Targeted interventional procedures including joint injections, epidurals, PRP therapy, and nerve blocks.</p>
         <a href="services/index.html#pain" class="svc-link">Learn more <svg class="svc-link-arrow" viewBox="0 0 16 16" fill="none" width="13" height="13"><path d="M3 8h10M8 3l5 5-5 5" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PHYSIOTHERAPY HIGHLIGHT
+============================================================ -->
+<section id="physio-highlight" aria-labelledby="physio-highlight-heading">
+  <div class="container">
+    <div class="physio-highlight__card">
+      <div class="physio-highlight__left reveal">
+        <div class="physio-highlight__icon-wrap" aria-hidden="true">
+          <svg class="physio-highlight__icon" viewBox="0 0 64 64" fill="none">
+            <circle cx="36" cy="13" r="6" stroke="currentColor" stroke-width="3"/>
+            <path d="M36 20l-8 10M28 30l12 2 8-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M40 33l-5 17M29 33l-12-1" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="physio-highlight__left-title">Recovery in Motion</p>
+      </div>
+      <div class="physio-highlight__right">
+        <p class="physio-highlight__eyebrow reveal">Physiotherapy Unit</p>
+        <h2 class="physio-highlight__heading reveal reveal-delay-1" id="physio-highlight-heading">Heal Faster,<br>Move Better.</h2>
+        <p class="physio-highlight__text reveal reveal-delay-2">Our dedicated physiotherapy unit provides evidence-based rehabilitation for post-surgical recovery, chronic pain, neurological conditions, and sports injuries.</p>
+        <div class="physio-highlight__status reveal reveal-delay-2" aria-label="Currently available">
+          <span class="physio-highlight__status-dot" aria-hidden="true"></span>
+          Available Now
+        </div>
+        <ul class="physio-highlight__list reveal reveal-delay-2" role="list" aria-label="Physiotherapy programs">
+          <li class="physio-highlight__list-item">Post-Surgery Rehab</li>
+          <li class="physio-highlight__list-item">Sports Injury Recovery</li>
+          <li class="physio-highlight__list-item">Electrotherapy &amp; Ultrasound</li>
+          <li class="physio-highlight__list-item">Manual Therapy</li>
+          <li class="physio-highlight__list-item">Dry Needling &amp; Cupping</li>
+          <li class="physio-highlight__list-item">Gait &amp; Balance Training</li>
+          <li class="physio-highlight__list-item">Chronic Pain Management</li>
+          <li class="physio-highlight__list-item">Home Physiotherapy</li>
+        </ul>
+        <div class="physio-highlight__cta-wrap reveal reveal-delay-3">
+          <a href="booking/index.html" class="btn btn-primary physio-highlight__cta">
+            Book Physio Session
+            <svg viewBox="0 0 24 24" fill="none" width="17" height="17" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1366,9 +1789,41 @@ ul{list-style:none;padding:0;margin:0;}
 <script>
 /* ─── Navbar scroll state ─── */
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
-}, {passive: true});
+const emergencyBar = document.getElementById('emergency-bar');
+let lastScrollY = window.scrollY;
+const emergencyHideDelta = 12;
+
+function handleTopBarsOnScroll() {
+  const currentScrollY = window.scrollY;
+  navbar.classList.toggle('scrolled', currentScrollY > 40);
+
+  if (!emergencyBar || document.body.classList.contains('emergency-bar-hidden')) {
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  const scrollDiff = currentScrollY - lastScrollY;
+  if (currentScrollY <= 10) {
+    document.body.classList.remove('emergency-bar-collapsed');
+  } else if (scrollDiff > emergencyHideDelta) {
+    document.body.classList.add('emergency-bar-collapsed');
+  } else if (scrollDiff < -emergencyHideDelta) {
+    document.body.classList.remove('emergency-bar-collapsed');
+  }
+
+  lastScrollY = currentScrollY;
+}
+
+window.addEventListener('scroll', handleTopBarsOnScroll, {passive: true});
+handleTopBarsOnScroll();
+
+const emergencyBarClose = document.getElementById('emergency-bar-close');
+if (emergencyBarClose) {
+  emergencyBarClose.addEventListener('click', () => {
+    document.body.classList.remove('emergency-bar-collapsed');
+    document.body.classList.add('emergency-bar-hidden');
+  });
+}
 
 /* ─── Mobile drawer ─── */
 const drawer = document.getElementById('mobile-drawer');
@@ -1395,7 +1850,7 @@ function doParallax() {
     const rect = sportsSection.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
       const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-      runningImg.style.transform = `translateY(${(progress - 0.5) * -60}px) scale(1.02)`;
+      runningImg.style.transform = `translateY(calc(-50% + ${(progress - 0.5) * -60}px)) scale(1.02)`;
     }
   }
   ticking = false;
