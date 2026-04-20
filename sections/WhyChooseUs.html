@@ -1,0 +1,185 @@
+<!-- ============================================================
+     F012 — Why Choose Us Section
+     2×2 feature card grid with large decorative numbers
+     ============================================================ -->
+
+<section class="why-us section" id="why-us" aria-labelledby="why-us-headline">
+  <div class="container">
+
+    <div class="why-us__header reveal">
+      <p class="eyebrow" style="border:none;padding:0;">Why Gopal Ortho</p>
+      <h2 class="section-headline" id="why-us-headline">
+        Care Built<br><em>Around You</em>
+      </h2>
+    </div>
+
+    <div class="why-us__grid">
+
+      <!-- Card 01 -->
+      <div class="why-us__card reveal reveal-child" style="--delay:0ms;">
+        <span class="why-us__number" aria-hidden="true">01</span>
+        <div class="icon-wrapper-lg why-us__icon">
+          <svg viewBox="0 0 24 24" fill="none" width="26" height="26" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  stroke="#0B3D2E" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="why-us__card-title">Specialist Expertise</h3>
+        <p class="why-us__card-body">
+          Our surgeons hold advanced sub-speciality training in joint replacement,
+          spine surgery, and sports medicine — among the best in South Tamil Nadu.
+        </p>
+      </div>
+
+      <!-- Card 02 -->
+      <div class="why-us__card reveal reveal-child" style="--delay:120ms;">
+        <span class="why-us__number" aria-hidden="true">02</span>
+        <div class="icon-wrapper-lg why-us__icon">
+          <svg viewBox="0 0 24 24" fill="none" width="26" height="26" aria-hidden="true">
+            <rect x="2" y="7" width="20" height="14" rx="3" stroke="#0B3D2E" stroke-width="1.5"/>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="2.5" stroke="#0B3D2E" stroke-width="1.5"/>
+            <path d="M9 21v-1a3 3 0 016 0v1" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="why-us__card-title">Modern Infrastructure</h3>
+        <p class="why-us__card-body">
+          A state-of-the-art operation theatre, advanced arthroscopy equipment,
+          dedicated physiotherapy floor, and digital X-ray facilities all in one clinic.
+        </p>
+      </div>
+
+      <!-- Card 03 -->
+      <div class="why-us__card reveal reveal-child" style="--delay:240ms;">
+        <span class="why-us__number" aria-hidden="true">03</span>
+        <div class="icon-wrapper-lg why-us__icon">
+          <svg viewBox="0 0 24 24" fill="none" width="26" height="26" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+                  stroke="#0B3D2E" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="why-us__card-title">Patient-First Approach</h3>
+        <p class="why-us__card-body">
+          Every treatment plan is tailored to the individual. We listen, explain clearly,
+          and stay with you from diagnosis through full recovery — no shortcuts.
+        </p>
+      </div>
+
+      <!-- Card 04 -->
+      <div class="why-us__card reveal reveal-child" style="--delay:360ms;">
+        <span class="why-us__number" aria-hidden="true">04</span>
+        <div class="icon-wrapper-lg why-us__icon">
+          <svg viewBox="0 0 24 24" fill="none" width="26" height="26" aria-hidden="true">
+            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"
+                  stroke="#0B3D2E" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="why-us__card-title">Affordable &amp; Transparent</h3>
+        <p class="why-us__card-body">
+          World-class orthopaedic care at accessible costs. No hidden fees, clear
+          estimates before every procedure, and easy EMI options for surgical care.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.why-us {
+  background: #F5F0E8;
+}
+
+.why-us__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.why-us__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.why-us__card {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.why-us__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Decorative large number top-right */
+.why-us__number {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #F5F0E8;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.why-us__icon {
+  position: relative;
+  z-index: 1;
+}
+
+.why-us__card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.25;
+  position: relative;
+  z-index: 1;
+}
+
+.why-us__card-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #6B7280;
+  line-height: 1.65;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .why-us__grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.why-us .reveal').forEach(function(el) { obs.observe(el); });
+})();
+</script>

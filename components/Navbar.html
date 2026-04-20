@@ -1,0 +1,733 @@
+<!-- ============================================================
+     F003 — Main Navigation Bar
+     Transparent on load → frosted ivory on scroll
+     Mobile hamburger → right slide-in drawer
+     ============================================================ -->
+
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__inner">
+
+    <!-- Logo -->
+    <a href="/" class="navbar__logo" aria-label="Gopal Ortho — Home">
+      <span class="navbar__logo-gopal">Gopal</span>
+      <span class="navbar__logo-divider" aria-hidden="true"></span>
+      <span class="navbar__logo-ortho">Ortho</span>
+      <span class="navbar__logo-dot" aria-hidden="true"></span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="navbar__links" role="list">
+      <li><a href="/" class="navbar__link" aria-current="page">Home</a></li>
+      <li><a href="/about" class="navbar__link">About</a></li>
+
+      <!-- Services Dropdown -->
+      <li class="navbar__dropdown-wrapper" role="none">
+        <button class="navbar__link navbar__dropdown-trigger"
+                aria-expanded="false"
+                aria-haspopup="true"
+                id="services-menu-btn">
+          Services
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14"
+               aria-hidden="true" class="navbar__chevron">
+            <polyline points="6 9 12 15 18 9"
+                      stroke="currentColor" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <!-- Mega Dropdown -->
+        <div class="navbar__mega-dropdown" id="services-mega" role="menu" aria-labelledby="services-menu-btn">
+          <div class="navbar__mega-inner">
+
+            <!-- Col 1: Orthopaedic -->
+            <div class="navbar__mega-col">
+              <p class="navbar__mega-label">Orthopaedic</p>
+              <ul role="list">
+                <li><a href="/services#fracture" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <path d="M6 12h4M14 12h4M10 12l1-3 1.5 6L14 12" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="5" cy="12" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                    <circle cx="19" cy="12" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                  </svg>
+                  Fracture &amp; Trauma Care
+                </a></li>
+                <li><a href="/services#joint" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <ellipse cx="12" cy="12" rx="4" ry="6" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M8 12c0-3.3 1.8-6 4-6M16 12c0 3.3-1.8 6-4 6" stroke="#C8973A" stroke-width="1.5"/>
+                    <circle cx="12" cy="12" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                  </svg>
+                  Joint Replacement
+                </a></li>
+                <li><a href="/services#spine" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <rect x="9" y="3" width="6" height="3" rx="1" stroke="#C8973A" stroke-width="1.5"/>
+                    <rect x="9" y="8" width="6" height="3" rx="1" stroke="#C8973A" stroke-width="1.5"/>
+                    <rect x="9" y="13" width="6" height="3" rx="1" stroke="#C8973A" stroke-width="1.5"/>
+                    <rect x="9" y="18" width="6" height="3" rx="1" stroke="#C8973A" stroke-width="1.5"/>
+                  </svg>
+                  Spine Surgery
+                </a></li>
+                <li><a href="/services#sports" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <circle cx="17" cy="4" r="1.5" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M14 8l-3 4 2 2-1 4" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 13l3-1" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Sports Medicine
+                </a></li>
+                <li><a href="/services#arthritis" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M12 4v2M12 18v2M4 12h2M18 12h2" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Arthritis Treatment
+                </a></li>
+                <li><a href="/services#paediatric" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <circle cx="12" cy="5" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M9 12h6M12 9v8M9 17l-2 3M15 17l2 3" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Paediatric Orthopaedics
+                </a></li>
+              </ul>
+            </div>
+
+            <!-- Col 2: Physiotherapy -->
+            <div class="navbar__mega-col">
+              <p class="navbar__mega-label">Physiotherapy</p>
+              <ul role="list">
+                <li><a href="/services#physio" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <circle cx="12" cy="5" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M6 20l2-4h8l2 4" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Post-Surgical Rehabilitation
+                </a></li>
+                <li><a href="/services#pain" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <path d="M12 2C8.7 2 6 4.7 6 8c0 4 6 14 6 14s6-10 6-14c0-3.3-2.7-6-6-6z" stroke="#C8973A" stroke-width="1.5"/>
+                    <circle cx="12" cy="8" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                  </svg>
+                  Pain Management
+                </a></li>
+                <li><a href="/services#sports-physio" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <path d="M5 9l2 2 4-4" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="3" y="5" width="18" height="14" rx="2" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M12 13v4M9 13h6" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Sports Physiotherapy
+                </a></li>
+                <li><a href="/services#neuro" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <path d="M12 3C7 3 4 7 4 11c0 2 1 3.5 2.5 4.5L8 20h8l1.5-4.5C19 14.5 20 13 20 11c0-4-3-8-8-8z" stroke="#C8973A" stroke-width="1.5"/>
+                  </svg>
+                  Neurological Physio
+                </a></li>
+                <li><a href="/services#geriatric" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <path d="M12 3v4M8 5l1.5 3M16 5l-1.5 3" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M7 12c0-2.8 2.2-5 5-5s5 2.2 5 5v5H7v-5z" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M5 17h14" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Geriatric Physiotherapy
+                </a></li>
+                <li><a href="/services#pediatric-physio" class="navbar__mega-link" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                    <circle cx="12" cy="5" r="2" stroke="#C8973A" stroke-width="1.5"/>
+                    <path d="M9 10h6l1 8H8l1-8z" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10 13l2 2 2-2" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Paediatric Physiotherapy
+                </a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </li>
+
+      <li><a href="/doctors" class="navbar__link">Doctors</a></li>
+      <li><a href="/testimonials" class="navbar__link">Patient Stories</a></li>
+      <li><a href="/contact" class="navbar__link">Contact</a></li>
+    </ul>
+
+    <!-- Book Appointment CTA -->
+    <a href="/booking" class="navbar__cta btn btn-primary" aria-label="Book an appointment">
+      Book Appointment
+    </a>
+
+    <!-- Hamburger (mobile) -->
+    <button class="navbar__hamburger" id="nav-hamburger"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-drawer">
+      <span class="navbar__hamburger-line"></span>
+      <span class="navbar__hamburger-line"></span>
+      <span class="navbar__hamburger-line"></span>
+    </button>
+
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-label="Navigation menu" aria-modal="true" aria-hidden="true">
+  <div class="nav-drawer__header">
+    <a href="/" class="navbar__logo" aria-label="Gopal Ortho — Home">
+      <span class="navbar__logo-gopal">Gopal</span>
+      <span class="navbar__logo-divider" aria-hidden="true"></span>
+      <span class="navbar__logo-ortho">Ortho</span>
+      <span class="navbar__logo-dot" aria-hidden="true"></span>
+    </a>
+    <button class="nav-drawer__close" id="nav-drawer-close" aria-label="Close navigation menu">
+      <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="nav-drawer__nav" aria-label="Mobile navigation">
+    <ul role="list">
+      <li><a href="/"             class="nav-drawer__link">Home</a></li>
+      <li><a href="/about"        class="nav-drawer__link">About</a></li>
+      <li>
+        <button class="nav-drawer__link nav-drawer__accordion-btn"
+                aria-expanded="false" id="mobile-services-btn">
+          Services
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true" class="nav-drawer__chevron">
+            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="nav-drawer__sub" id="mobile-services-sub" role="list" aria-hidden="true">
+          <li><a href="/services#fracture"        class="nav-drawer__sub-link">Fracture &amp; Trauma Care</a></li>
+          <li><a href="/services#joint"           class="nav-drawer__sub-link">Joint Replacement</a></li>
+          <li><a href="/services#spine"           class="nav-drawer__sub-link">Spine Surgery</a></li>
+          <li><a href="/services#sports"          class="nav-drawer__sub-link">Sports Medicine</a></li>
+          <li><a href="/services#arthritis"       class="nav-drawer__sub-link">Arthritis Treatment</a></li>
+          <li><a href="/services#paediatric"      class="nav-drawer__sub-link">Paediatric Orthopaedics</a></li>
+          <li><a href="/services#physio"          class="nav-drawer__sub-link">Post-Surgical Rehabilitation</a></li>
+          <li><a href="/services#pain"            class="nav-drawer__sub-link">Pain Management</a></li>
+        </ul>
+      </li>
+      <li><a href="/doctors"       class="nav-drawer__link">Doctors</a></li>
+      <li><a href="/testimonials"  class="nav-drawer__link">Patient Stories</a></li>
+      <li><a href="/contact"       class="nav-drawer__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="nav-drawer__footer">
+    <a href="/booking" class="btn btn-primary" style="width:100%;justify-content:center;">
+      Book Appointment
+    </a>
+    <a href="tel:+919597040918" class="nav-drawer__phone">
+      <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+              stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      095970 40918
+    </a>
+  </div>
+</div>
+
+<!-- Page Overlay -->
+<div class="page-overlay" id="nav-overlay" aria-hidden="true"></div>
+
+<style>
+/* ---- Navbar Base ---- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 800;
+  background: transparent;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Adjust when emergency bar is visible */
+.has-emergency-bar .navbar {
+  top: 40px;
+}
+
+.navbar--scrolled {
+  background: rgba(249, 246, 240, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  height: 66px;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+  top: 0 !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .navbar {
+    animation: fadeIn 0.4s ease-out both;
+    animation-delay: 100ms;
+  }
+}
+
+.navbar__inner {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 5rem);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ---- Logo ---- */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar__logo-gopal {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 1.625rem;
+  color: #0B3D2E;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.navbar__logo-divider {
+  width: 1px;
+  height: 22px;
+  background: #C8973A;
+  margin: 0 0.625rem;
+}
+
+.navbar__logo-ortho {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.25rem;
+  color: #0B3D2E;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.navbar__logo-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #C8973A;
+  margin-left: 3px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+/* ---- Nav Links ---- */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.navbar__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #0B3D2E;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: calc(100% - 1.5rem);
+  height: 1.5px;
+  background: #C8973A;
+  border-radius: 9999px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.navbar__link:hover::after,
+.navbar__link[aria-current="page"]::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.navbar__chevron {
+  transition: transform 0.25s ease;
+}
+
+.navbar__dropdown-trigger[aria-expanded="true"] .navbar__chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Mega Dropdown ---- */
+.navbar__dropdown-wrapper {
+  position: relative;
+}
+
+.navbar__mega-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(11, 61, 46, 0.14);
+  border: 1px solid #E5E0D8;
+  padding: 1.5rem;
+  min-width: 560px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+  will-change: transform, opacity;
+}
+
+.navbar__dropdown-wrapper:hover .navbar__mega-dropdown,
+.navbar__mega-dropdown:hover,
+.navbar__dropdown-trigger[aria-expanded="true"] + .navbar__mega-dropdown {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+
+.navbar__mega-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.navbar__mega-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid #E5E0D8;
+  margin-bottom: 0.625rem;
+}
+
+.navbar__mega-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.navbar__mega-link:hover {
+  background: #F5F0E8;
+  color: #0B3D2E;
+}
+
+/* ---- Book Appointment CTA ---- */
+.navbar__cta {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 1.25rem;
+  font-size: 0.8125rem;
+}
+
+/* ---- Hamburger (mobile only) ---- */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.navbar__hamburger:hover {
+  background: rgba(11, 61, 46, 0.06);
+}
+
+.navbar__hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #0B3D2E;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .navbar__links,
+  .navbar__cta {
+    display: none;
+  }
+  .navbar__hamburger {
+    display: flex;
+  }
+}
+
+/* ---- Mobile Drawer ---- */
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(85vw, 380px);
+  background: white;
+  z-index: 900;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -20px 0 60px rgba(11, 61, 46, 0.12);
+  overflow-y: auto;
+  will-change: transform;
+}
+
+.nav-drawer.open {
+  transform: translateX(0);
+}
+
+.nav-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #E5E0D8;
+}
+
+.nav-drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F5F0E8;
+  border: none;
+  cursor: pointer;
+  color: #0B3D2E;
+  transition: background 0.2s ease;
+}
+
+.nav-drawer__close:hover {
+  background: #E5E0D8;
+}
+
+.nav-drawer__nav {
+  padding: 1rem 1.5rem;
+  flex: 1;
+}
+
+.nav-drawer__nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-drawer__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.875rem 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111827;
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #F5F0E8;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.nav-drawer__link:hover {
+  color: #0B3D2E;
+}
+
+.nav-drawer__chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.nav-drawer__accordion-btn[aria-expanded="true"] .nav-drawer__chevron {
+  transform: rotate(180deg);
+}
+
+.nav-drawer__sub {
+  display: none;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-left: 2px solid #C8973A;
+  margin-left: 0.5rem;
+}
+
+.nav-drawer__sub.open {
+  display: block;
+}
+
+.nav-drawer__sub-link {
+  display: block;
+  padding: 0.5rem 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-drawer__sub-link:hover {
+  color: #0B3D2E;
+}
+
+.nav-drawer__footer {
+  padding: 1.5rem;
+  border-top: 1px solid #E5E0D8;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-drawer__phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #0B3D2E;
+  text-decoration: none;
+}
+
+/* ---- Page Overlay ---- */
+.page-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 31, 23, 0.6);
+  z-index: 850;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.page-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+</style>
+
+<script>
+(function () {
+  var navbar    = document.getElementById('navbar');
+  var hamburger = document.getElementById('nav-hamburger');
+  var drawer    = document.getElementById('nav-drawer');
+  var overlay   = document.getElementById('nav-overlay');
+  var closeBtn  = document.getElementById('nav-drawer-close');
+  var megaBtn   = document.getElementById('services-menu-btn');
+  var megaMenu  = document.getElementById('services-mega');
+  var mobileServBtn = document.getElementById('mobile-services-btn');
+  var mobileServicesSub = document.getElementById('mobile-services-sub');
+
+  // ---- Navbar scroll behaviour ----
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 70) {
+      navbar.classList.add('navbar--scrolled');
+    } else {
+      navbar.classList.remove('navbar--scrolled');
+    }
+  }, { passive: true });
+
+  // ---- Emergency bar offset ----
+  var emergencyBar = document.getElementById('emergency-bar');
+  if (emergencyBar && emergencyBar.style.display !== 'none') {
+    document.documentElement.classList.add('has-emergency-bar');
+  }
+
+  // ---- Hamburger open drawer ----
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburger) hamburger.addEventListener('click', openDrawer);
+  if (closeBtn)  closeBtn.addEventListener('click', closeDrawer);
+  if (overlay)   overlay.addEventListener('click', closeDrawer);
+
+  // ---- Mobile services accordion ----
+  if (mobileServBtn && mobileServicesSub) {
+    mobileServBtn.addEventListener('click', function () {
+      var expanded = mobileServBtn.getAttribute('aria-expanded') === 'true';
+      mobileServBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileServicesSub.classList.toggle('open');
+      mobileServicesSub.setAttribute('aria-hidden', String(expanded));
+    });
+  }
+
+  // ---- Desktop mega dropdown ----
+  if (megaBtn && megaMenu) {
+    megaBtn.addEventListener('mouseenter', function () {
+      megaBtn.setAttribute('aria-expanded', 'true');
+    });
+    megaBtn.parentElement.addEventListener('mouseleave', function () {
+      megaBtn.setAttribute('aria-expanded', 'false');
+    });
+    megaBtn.addEventListener('click', function () {
+      var expanded = megaBtn.getAttribute('aria-expanded') === 'true';
+      megaBtn.setAttribute('aria-expanded', String(!expanded));
+    });
+  }
+
+  // ---- Keyboard: ESC closes drawer ----
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeDrawer();
+  });
+})();
+</script>

@@ -1,0 +1,14 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Femur (thigh bone) -->
+  <path d="M18 4 Q15 8 16 14 Q17 18 20 20" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Tibia (shin bone) -->
+  <path d="M20 20 Q23 22 24 26 Q25 32 23 36" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Patella (kneecap) -->
+  <ellipse cx="18" cy="21" rx="4" ry="5" stroke="#0B3D2E" stroke-width="1.5"/>
+  <!-- Meniscus (cartilage disc) -->
+  <path d="M15 24 Q20 26 25 24" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Fibula -->
+  <path d="M26 22 Q28 28 27 36" stroke="#0B3D2E" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+  <!-- Joint space lines -->
+  <path d="M15 20 Q20 18 25 20" stroke="#0B3D2E" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+</svg>

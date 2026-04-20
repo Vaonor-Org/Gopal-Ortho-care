@@ -1,0 +1,522 @@
+<!-- ============================================================
+     F008 — Interactive Body Map Section
+     SVG body with 5 hotspot circles, hover highlights, service cards
+     ============================================================ -->
+
+<section class="body-map section" id="body-map" aria-labelledby="body-map-headline">
+
+  <div class="container">
+    <!-- Header -->
+    <div class="body-map__header">
+      <p class="eyebrow">Find Your Treatment</p>
+      <h2 class="section-headline" id="body-map-headline">
+        Point to Where<br><em>It Hurts</em>
+      </h2>
+      <p class="body-map__sub">
+        Tap or hover on any region to discover our specialist treatments for that area.
+      </p>
+    </div>
+
+    <!-- Desktop: body map + flanking cards -->
+    <div class="body-map__layout">
+
+      <!-- Left cards -->
+      <div class="body-map__cards body-map__cards--left" aria-label="Upper body treatments">
+        <div class="body-map__service-card reveal-left" data-hotspot="shoulder" style="--delay:0ms;">
+          <div class="body-map__card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+              <circle cx="20" cy="12" r="5" stroke="#0B3D2E" stroke-width="1.5"/>
+              <path d="M8 36c0-6 3-11 12-11s12 5 12 11" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M28 18c3-1 7 1 9 5" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="body-map__card-title">Shoulder &amp; Arm</p>
+            <p class="body-map__card-desc">Rotator cuff, frozen shoulder, dislocation</p>
+          </div>
+        </div>
+        <div class="body-map__service-card reveal-left" data-hotspot="spine" style="--delay:80ms;">
+          <div class="body-map__card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+              <rect x="13" y="5" width="14" height="5" rx="2" stroke="#0B3D2E" stroke-width="1.5"/>
+              <rect x="13" y="13" width="14" height="5" rx="2" stroke="#0B3D2E" stroke-width="1.5"/>
+              <rect x="13" y="21" width="14" height="5" rx="2" stroke="#0B3D2E" stroke-width="1.5"/>
+              <rect x="13" y="29" width="14" height="5" rx="2" stroke="#0B3D2E" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div>
+            <p class="body-map__card-title">Spine &amp; Back</p>
+            <p class="body-map__card-desc">Disc herniation, scoliosis, back pain</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Body SVG Map -->
+      <div class="body-map__figure" aria-label="Interactive body diagram with treatment hotspots">
+        <svg class="body-map__svg" viewBox="0 0 320 680" fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+             role="img" aria-label="Front-view medical body diagram">
+
+          <!-- Body silhouette — stroke only, medical line art -->
+          <!-- Head -->
+          <ellipse cx="160" cy="65" rx="40" ry="48"
+                   stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"
+                   class="body-region"/>
+
+          <!-- Neck -->
+          <path d="M147 110 L147 128 Q160 135 173 128 L173 110"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+
+          <!-- Torso -->
+          <path d="M95 135 Q75 145 70 175 L65 290 Q65 320 80 335 L120 355 Q140 365 160 367 Q180 365 200 355 L240 335 Q255 320 255 290 L250 175 Q245 145 225 135 Z"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"
+                class="body-region" data-region="shoulder"/>
+
+          <!-- Left arm -->
+          <path d="M70 175 Q50 210 44 255 Q40 285 50 310 Q58 330 70 340"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+          <!-- Left forearm -->
+          <path d="M50 310 Q42 350 40 395 Q44 410 56 408 Q62 380 65 345"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+
+          <!-- Right arm -->
+          <path d="M250 175 Q270 210 276 255 Q280 285 270 310 Q262 330 250 340"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+          <!-- Right forearm -->
+          <path d="M270 310 Q278 350 280 395 Q276 410 264 408 Q258 380 255 345"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+
+          <!-- Pelvis / Hip -->
+          <path d="M120 355 Q100 370 105 395 Q120 420 160 425 Q200 420 215 395 Q220 370 200 355"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"
+                class="body-region" data-region="hip"/>
+
+          <!-- Left thigh -->
+          <path d="M120 415 Q100 455 95 500 Q92 530 98 555"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"
+                class="body-region" data-region="knee"/>
+          <!-- Left shin -->
+          <path d="M95 560 Q88 605 90 645"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"
+                class="body-region" data-region="ankle"/>
+          <!-- Left foot -->
+          <path d="M88 648 Q80 658 72 660 Q62 658 60 652 Q70 650 90 650"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+
+          <!-- Right thigh -->
+          <path d="M200 415 Q220 455 225 500 Q228 530 222 555"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+          <!-- Right shin -->
+          <path d="M225 560 Q232 605 230 645"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+          <!-- Right foot -->
+          <path d="M232 648 Q240 658 248 660 Q258 658 260 652 Q250 650 230 650"
+                stroke="#0B3D2E" stroke-width="1.5" fill="none" opacity="0.2"/>
+
+          <!-- ===================== HOTSPOTS ===================== -->
+
+          <!-- 1. Shoulder (220, 145) -->
+          <g class="hotspot" data-id="shoulder" tabindex="0" role="button"
+             aria-label="Shoulder and arm treatment" style="cursor:pointer;">
+            <circle cx="220" cy="145" r="10" fill="#C8973A" fill-opacity="0.15"
+                    class="hotspot__bg"/>
+            <circle cx="220" cy="145" r="6" fill="#C8973A"
+                    class="hotspot__dot"/>
+            <circle cx="220" cy="145" r="6" fill="none" stroke="#C8973A" stroke-width="1"
+                    class="hotspot__pulse"
+                    style="animation: dotPulse 2s ease-in-out infinite; animation-delay:0s;"/>
+            <text x="220" y="130" text-anchor="middle" class="hotspot__label"
+                  font-family="DM Sans, sans-serif" font-size="9" fill="#C8973A" opacity="0">
+              Shoulder
+            </text>
+          </g>
+
+          <!-- 2. Spine (160, 220) -->
+          <g class="hotspot" data-id="spine" tabindex="0" role="button"
+             aria-label="Spine and back treatment" style="cursor:pointer;">
+            <circle cx="160" cy="220" r="10" fill="#C8973A" fill-opacity="0.15"
+                    class="hotspot__bg"/>
+            <circle cx="160" cy="220" r="6" fill="#C8973A"
+                    class="hotspot__dot"/>
+            <circle cx="160" cy="220" r="6" fill="none" stroke="#C8973A" stroke-width="1"
+                    class="hotspot__pulse"
+                    style="animation: dotPulse 2s ease-in-out infinite; animation-delay:0.4s;"/>
+            <text x="175" y="218" class="hotspot__label"
+                  font-family="DM Sans, sans-serif" font-size="9" fill="#C8973A" opacity="0">
+              Spine
+            </text>
+          </g>
+
+          <!-- 3. Hip (160, 390) -->
+          <g class="hotspot" data-id="hip" tabindex="0" role="button"
+             aria-label="Hip treatment" style="cursor:pointer;">
+            <circle cx="160" cy="390" r="10" fill="#C8973A" fill-opacity="0.15"
+                    class="hotspot__bg"/>
+            <circle cx="160" cy="390" r="6" fill="#C8973A"
+                    class="hotspot__dot"/>
+            <circle cx="160" cy="390" r="6" fill="none" stroke="#C8973A" stroke-width="1"
+                    class="hotspot__pulse"
+                    style="animation: dotPulse 2s ease-in-out infinite; animation-delay:0.8s;"/>
+            <text x="175" y="388" class="hotspot__label"
+                  font-family="DM Sans, sans-serif" font-size="9" fill="#C8973A" opacity="0">
+              Hip
+            </text>
+          </g>
+
+          <!-- 4. Knee (108, 510) -->
+          <g class="hotspot" data-id="knee" tabindex="0" role="button"
+             aria-label="Knee treatment" style="cursor:pointer;">
+            <circle cx="108" cy="510" r="10" fill="#C8973A" fill-opacity="0.15"
+                    class="hotspot__bg"/>
+            <circle cx="108" cy="510" r="6" fill="#C8973A"
+                    class="hotspot__dot"/>
+            <circle cx="108" cy="510" r="6" fill="none" stroke="#C8973A" stroke-width="1"
+                    class="hotspot__pulse"
+                    style="animation: dotPulse 2s ease-in-out infinite; animation-delay:1.2s;"/>
+            <text x="93" y="500" text-anchor="middle" class="hotspot__label"
+                  font-family="DM Sans, sans-serif" font-size="9" fill="#C8973A" opacity="0">
+              Knee
+            </text>
+          </g>
+
+          <!-- 5. Ankle (94, 618) -->
+          <g class="hotspot" data-id="ankle" tabindex="0" role="button"
+             aria-label="Ankle treatment" style="cursor:pointer;">
+            <circle cx="94" cy="618" r="10" fill="#C8973A" fill-opacity="0.15"
+                    class="hotspot__bg"/>
+            <circle cx="94" cy="618" r="6" fill="#C8973A"
+                    class="hotspot__dot"/>
+            <circle cx="94" cy="618" r="6" fill="none" stroke="#C8973A" stroke-width="1"
+                    class="hotspot__pulse"
+                    style="animation: dotPulse 2s ease-in-out infinite; animation-delay:1.6s;"/>
+            <text x="75" y="610" text-anchor="middle" class="hotspot__label"
+                  font-family="DM Sans, sans-serif" font-size="9" fill="#C8973A" opacity="0">
+              Ankle
+            </text>
+          </g>
+
+        </svg>
+
+        <!-- Active service label -->
+        <div class="body-map__active-label" id="body-map-label" aria-live="polite">
+          <span id="body-map-label-text">Hover on a body part to explore treatments</span>
+        </div>
+      </div>
+
+      <!-- Right cards -->
+      <div class="body-map__cards body-map__cards--right" aria-label="Lower body treatments">
+        <div class="body-map__service-card reveal-right" data-hotspot="hip" style="--delay:0ms;">
+          <div class="body-map__card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+              <path d="M12 18 Q8 26 10 32 Q14 38 20 38 Q28 38 32 34 Q38 28 36 20 Q32 12 24 12"
+                    stroke="#0B3D2E" stroke-width="1.5" fill="none"/>
+              <circle cx="20" cy="18" r="6" stroke="#0B3D2E" stroke-width="1.5" fill="none"/>
+              <path d="M20 12 L20 5" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="body-map__card-title">Hip &amp; Pelvis</p>
+            <p class="body-map__card-desc">Hip replacement, avascular necrosis</p>
+          </div>
+        </div>
+        <div class="body-map__service-card reveal-right" data-hotspot="knee" style="--delay:80ms;">
+          <div class="body-map__card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+              <path d="M18 5 Q18 16 20 20 Q22 16 22 5" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <ellipse cx="20" cy="22" rx="8" ry="6" stroke="#0B3D2E" stroke-width="1.5" fill="none"/>
+              <path d="M18 28 Q18 36 20 40 Q22 36 22 28" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 20 Q9 22 9 25" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M28 20 Q31 22 31 25" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="body-map__card-title">Knee Joint</p>
+            <p class="body-map__card-desc">ACL, meniscus, knee replacement</p>
+          </div>
+        </div>
+        <div class="body-map__service-card reveal-right" data-hotspot="ankle" style="--delay:160ms;">
+          <div class="body-map__card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+              <path d="M16 5 L16 22 Q16 30 10 33 Q6 35 8 38 L32 38 Q30 32 28 30 Q24 26 24 22 L24 5"
+                    stroke="#0B3D2E" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 22 L24 22" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="body-map__card-title">Ankle &amp; Foot</p>
+            <p class="body-map__card-desc">Ankle fractures, flat foot correction</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile: Vertical list fallback -->
+    <ul class="body-map__mobile-list" aria-label="Treatment areas">
+      <li><span>Shoulder &amp; Arm</span><span class="body-map__mobile-arrow" aria-hidden="true">&#8250;</span></li>
+      <li><span>Spine &amp; Back</span><span class="body-map__mobile-arrow" aria-hidden="true">&#8250;</span></li>
+      <li><span>Hip &amp; Pelvis</span><span class="body-map__mobile-arrow" aria-hidden="true">&#8250;</span></li>
+      <li><span>Knee Joint</span><span class="body-map__mobile-arrow" aria-hidden="true">&#8250;</span></li>
+      <li><span>Ankle &amp; Foot</span><span class="body-map__mobile-arrow" aria-hidden="true">&#8250;</span></li>
+    </ul>
+
+  </div>
+</section>
+
+<style>
+.body-map {
+  background: #F5F0E8;
+}
+
+.body-map__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.body-map__header .eyebrow {
+  border-left: none;
+  padding-left: 0;
+}
+
+.body-map__sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #6B7280;
+  margin-top: 0.5rem;
+}
+
+/* Layout */
+.body-map__layout {
+  display: grid;
+  grid-template-columns: 1fr 240px 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Cards */
+.body-map__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.body-map__service-card {
+  background: white;
+  border: 1px solid #E5E0D8;
+  border-radius: 12px;
+  padding: 1rem 1.125rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.body-map__service-card:hover,
+.body-map__service-card.active {
+  border-color: #C8973A;
+  box-shadow: 0 4px 20px rgba(200, 151, 58, 0.15);
+  transform: translateX(4px);
+}
+
+.body-map__cards--right .body-map__service-card:hover,
+.body-map__cards--right .body-map__service-card.active {
+  transform: translateX(-4px);
+}
+
+.body-map__card-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(11, 61, 46, 0.05);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.body-map__card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.body-map__card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+/* Body SVG */
+.body-map__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.body-map__svg {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+/* Hotspot interactions */
+.hotspot .hotspot__bg {
+  transition: r 0.25s ease, fill-opacity 0.25s ease;
+}
+
+.hotspot:hover .hotspot__bg,
+.hotspot.active .hotspot__bg {
+  r: 14;
+  fill-opacity: 0.25;
+}
+
+.hotspot:hover .hotspot__dot,
+.hotspot.active .hotspot__dot {
+  r: 8;
+}
+
+.hotspot .hotspot__dot {
+  transition: r 0.2s ease;
+}
+
+.hotspot:hover .hotspot__label,
+.hotspot.active .hotspot__label {
+  opacity: 1 !important;
+}
+
+.hotspot__label {
+  transition: opacity 0.2s ease;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hotspot__pulse {
+    will-change: transform, opacity;
+  }
+  @keyframes dotPulse {
+    0%, 100% { transform: scale(1);   opacity: 0.8; }
+    50%       { transform: scale(2);  opacity: 0; }
+  }
+}
+
+/* Active label */
+.body-map__active-label {
+  background: white;
+  border: 1px solid #E5E0D8;
+  border-radius: 9999px;
+  padding: 0.375rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: #374151;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+/* Mobile list */
+.body-map__mobile-list {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  border: 1px solid #E5E0D8;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.body-map__mobile-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: #374151;
+  border-bottom: 1px solid #E5E0D8;
+  background: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.body-map__mobile-list li:last-child {
+  border-bottom: none;
+}
+
+.body-map__mobile-list li:hover {
+  background: #F9F6F0;
+}
+
+.body-map__mobile-arrow {
+  color: #C8973A;
+  font-size: 1.25rem;
+  font-style: normal;
+}
+
+@media (max-width: 900px) {
+  .body-map__layout { display: none; }
+  .body-map__mobile-list { display: flex; }
+}
+</style>
+
+<script>
+(function() {
+  var hotspots = document.querySelectorAll('.hotspot');
+  var labelEl  = document.getElementById('body-map-label-text');
+  var cards    = document.querySelectorAll('.body-map__service-card');
+
+  var labels = {
+    shoulder: 'Shoulder & Arm — Rotator cuff, dislocation, frozen shoulder',
+    spine:    'Spine & Back — Disc herniation, scoliosis, back pain',
+    hip:      'Hip & Pelvis — Hip replacement, avascular necrosis',
+    knee:     'Knee Joint — ACL repair, meniscus, knee replacement',
+    ankle:    'Ankle & Foot — Fractures, flat foot, ligament repair'
+  };
+
+  hotspots.forEach(function(spot) {
+    var id = spot.dataset.id;
+
+    spot.addEventListener('mouseenter', function() {
+      spot.classList.add('active');
+      if (labelEl && labels[id]) labelEl.textContent = labels[id];
+      cards.forEach(function(c) {
+        c.classList.toggle('active', c.dataset.hotspot === id);
+      });
+    });
+
+    spot.addEventListener('mouseleave', function() {
+      spot.classList.remove('active');
+      if (labelEl) labelEl.textContent = 'Hover on a body part to explore treatments';
+      cards.forEach(function(c) { c.classList.remove('active'); });
+    });
+
+    spot.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        var link = '/services#' + id;
+        window.location.href = link;
+      }
+    });
+  });
+
+  /* Scroll reveal */
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.body-map .reveal-left, .body-map .reveal-right').forEach(function(el) {
+    obs.observe(el);
+  });
+})();
+</script>

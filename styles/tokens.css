@@ -1,0 +1,85 @@
+/* ============================================================
+   GOPAL ORTHO — Design Tokens
+   CSS Custom Properties: Colors, Typography, Spacing, Shadows
+   ============================================================ */
+
+:root {
+  /* --- Color Palette --- */
+  --color-primary:            #0A6EBD;
+  --color-primary-dark:       #064A80;
+  --color-primary-darker:     #062A45;
+  --color-primary-light:      #5EB1F0;
+  --color-primary-lighter:    #A8D8FF;
+  --color-primary-ultralight: #E6F1FE;
+  --color-secondary:          #F0F7FF;
+  --color-accent-gold:        #C8973A;
+  --color-accent-gold-light:  #E8C776;
+  --color-accent:             #38BDF8;
+  --color-accent-light:       #7DD3FC;
+  --color-accent-dark:        #0284C7;
+  --color-text-dark:          #1A1A1A;
+  --color-text-medium:        #4A4A4A;
+  --color-text-light:         #8A8A8A;
+  --color-text-muted:         #9CA3AF;
+  --color-white:              #FFFFFF;
+  --color-surface-card:       #F8FBFF;
+  --color-surface-dark:       #062A45;
+  --color-surface-darker:     #041C30;
+  --color-border-light:       #D6E6F5;
+  --color-border-medium:      #B0CCE8;
+  --color-success:            #2D7A4F;
+  --color-error:              #B94040;
+  --color-warning:            #D97706;
+  --color-overlay:            rgba(4, 28, 48, 0.65);
+
+  /* --- Typography --- */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  /* --- Type Scale --- */
+  --text-hero:       clamp(3.5rem, 7.5vw, 7rem);
+  --text-section:    clamp(2rem, 4.5vw, 3.75rem);
+  --text-sub:        clamp(1.25rem, 2.5vw, 1.75rem);
+  --text-card-title: 1.125rem;
+  --text-body-lg:    1.125rem;
+  --text-body:       1rem;
+  --text-body-sm:    0.9375rem;
+  --text-label:      0.75rem;
+  --text-micro:      0.6875rem;
+
+  /* --- Spacing --- */
+  --space-section-y:    clamp(5rem, 10vw, 10rem);
+  --space-section-y-sm: clamp(3rem, 6vw, 6rem);
+  --container-max:      1320px;
+  --container-px:       clamp(1.25rem, 5vw, 5rem);
+  --card-padding:       clamp(1.5rem, 2.5vw, 2.5rem);
+  --grid-gap:           1.5rem;
+  --grid-gap-lg:        2.5rem;
+
+  /* --- Border Radius --- */
+  --radius-xs:     6px;
+  --radius-sm:     10px;
+  --radius-md:     16px;
+  --radius-lg:     24px;
+  --radius-xl:     32px;
+  --radius-pill:   9999px;
+  --radius-circle: 50%;
+
+  /* --- Shadows --- */
+  --shadow-sm:      0 1px 4px rgba(10, 110, 189, 0.06);
+  --shadow-md:      0 4px 24px rgba(10, 110, 189, 0.10);
+  --shadow-lg:      0 16px 48px rgba(10, 110, 189, 0.14);
+  --shadow-xl:      0 32px 80px rgba(10, 110, 189, 0.18);
+  --shadow-gold:    0 4px 20px rgba(200, 151, 58, 0.35);
+  --shadow-gold-lg: 0 8px 40px rgba(200, 151, 58, 0.45);
+  --shadow-blue:    0 4px 20px rgba(10, 110, 189, 0.30);
+  --shadow-blue-lg: 0 8px 40px rgba(10, 110, 189, 0.40);
+
+  /* --- Transitions --- */
+  --transition-fast:    all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-default: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:    all 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring:  all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-reveal:  all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}

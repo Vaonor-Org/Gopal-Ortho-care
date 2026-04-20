@@ -1,0 +1,497 @@
+<!-- ============================================================
+     F005 — Hero Section: Content & Layout
+     Full-viewport 55/45 CSS Grid with animated content
+     ============================================================ -->
+
+<section class="hero" id="hero" aria-label="Hero — Gopal Ortho">
+
+  <!-- Gold scan line (sweeps once on load) -->
+  <div class="hero__scan-line" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero__grid">
+
+      <!-- ===================== LEFT COLUMN — Content ===================== -->
+      <div class="hero__content">
+
+        <!-- Eyebrow label -->
+        <p class="eyebrow hero__eyebrow"
+           style="opacity:0; animation: fadeUp 500ms ease-out 300ms forwards;">
+          Orthopaedic &amp; Physiotherapy Centre, Nagercoil
+        </p>
+
+        <!-- Headline (three lines, clipReveal per word) -->
+        <h1 class="hero__headline" aria-label="Precision Care for Every Bone, Joint and Movement">
+          <span class="hero__word" style="animation: clipReveal 600ms ease-out 450ms both;">Precision</span>
+          <span class="hero__word hero__word--accent" style="animation: clipReveal 600ms ease-out 540ms both;">Care</span>
+          <span class="hero__line-break" aria-hidden="true"></span>
+          <span class="hero__word" style="animation: clipReveal 600ms ease-out 600ms both;">for</span>
+          <span class="hero__word" style="animation: clipReveal 600ms ease-out 660ms both;">Every</span>
+          <span class="hero__word" style="animation: clipReveal 600ms ease-out 720ms both;">Bone,</span>
+          <span class="hero__line-break" aria-hidden="true"></span>
+          <span class="hero__word" style="animation: clipReveal 600ms ease-out 780ms both;">Joint</span>
+          <span class="hero__word hero__word--italic" style="animation: clipReveal 600ms ease-out 840ms both;">&amp;</span>
+          <span class="hero__word" style="animation: clipReveal 600ms ease-out 900ms both;">Movement.</span>
+        </h1>
+
+        <!-- Subtext -->
+        <p class="hero__sub"
+           style="opacity:0; animation: fadeUp 500ms ease-out 750ms forwards;">
+          Expert diagnosis, advanced surgery, and compassionate rehabilitation — bringing
+          South Tamil Nadu's finest orthopaedic care directly to you.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero__ctas"
+             style="opacity:0; animation: fadeUp 500ms ease-out 900ms forwards;">
+          <a href="/booking" class="btn btn-primary hero__cta-primary" id="hero-book-btn">
+            Book an Appointment
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="/services" class="btn btn-secondary" id="hero-services-btn">
+            Explore Services
+          </a>
+        </div>
+
+        <!-- Trust Row -->
+        <div class="hero__trust"
+             style="opacity:0; animation: fadeUp 400ms ease-out 1050ms forwards;">
+          <div class="hero__trust-item">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" stroke="#0B3D2E" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>500+ Successful Surgeries</span>
+          </div>
+          <div class="hero__trust-item">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" stroke="#0B3D2E" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>15+ Years Experience</span>
+          </div>
+          <div class="hero__trust-item">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" stroke="#0B3D2E" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>24/7 Emergency Care</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== RIGHT COLUMN — SVG Figure ===================== -->
+      <div class="hero__figure-col">
+
+        <!-- Background radial glow circle -->
+        <div class="hero__figure-bg" aria-hidden="true"></div>
+
+        <!-- Anatomy Figure (from F004) -->
+        <div class="hero__figure-wrap"
+             style="opacity:0; animation: floatStart 800ms ease-out 200ms forwards;">
+          <object data="/assets/svg/anatomy-figure.svg"
+                  type="image/svg+xml"
+                  class="hero__anatomy-svg"
+                  aria-label="Medical anatomy figure with knee joint highlight"
+                  id="anatomy-svg-obj">
+            <!-- Fallback inline SVG if object fails -->
+            <svg viewBox="0 0 600 700" fill="none" class="hero__anatomy-svg" aria-hidden="true">
+              <ellipse cx="300" cy="350" rx="120" ry="280" fill="#1A4080" opacity="0.3"/>
+              <circle cx="300" cy="480" r="28" fill="#FF6B35" opacity="0.8"/>
+            </svg>
+          </object>
+        </div>
+
+        <!-- Floating stat card 1: Surgeries -->
+        <div class="hero__stat-card hero__stat-card--left"
+             style="opacity:0; animation: fadeUp 500ms ease-out 1100ms forwards;"
+             aria-label="500 plus successful surgeries">
+          <div class="hero__stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"
+                    stroke="#C8973A" stroke-width="1.5"/>
+              <path d="M12 8v4l3 3" stroke="#C8973A" stroke-width="1.5"
+                    stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="hero__stat-number">500<span>+</span></p>
+            <p class="hero__stat-label">Surgeries</p>
+          </div>
+        </div>
+
+        <!-- Floating stat card 2: Experience -->
+        <div class="hero__stat-card hero__stat-card--right"
+             style="opacity:0; animation: fadeUp 500ms ease-out 1200ms forwards;"
+             aria-label="15 plus years of experience">
+          <div class="hero__stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    stroke="#C8973A" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="hero__stat-number">15<span>+</span></p>
+            <p class="hero__stat-label">Yrs Experience</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero__scroll" aria-label="Scroll down">
+    <div class="hero__scroll-track" aria-hidden="true">
+      <div class="hero__scroll-dot"></div>
+    </div>
+    <span class="hero__scroll-label">Scroll</span>
+  </div>
+
+</section>
+
+<style>
+/* ---- Hero Section ---- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: #F5F0E8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 120px; /* space for navbar + emergency bar */
+  padding-bottom: 4rem;
+}
+
+/* Bone texture pattern at 3% opacity */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M16 20h8M20 16v8' stroke='%230B3D2E' stroke-width='1.5' stroke-linecap='round' opacity='0.03'/%3E%3Ccircle cx='16' cy='20' r='2' fill='%230B3D2E' opacity='0.02'/%3E%3Ccircle cx='24' cy='20' r='2' fill='%230B3D2E' opacity='0.02'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gold scan line */
+.hero__scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(200,151,58,0.8) 30%, rgba(200,151,58,0.8) 70%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__scan-line {
+    animation: sweepDown 1800ms ease-in-out 500ms 1 forwards;
+    will-change: transform, opacity;
+  }
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* ---- Hero Grid ---- */
+.hero__grid {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  min-height: calc(100vh - 160px);
+}
+
+/* ---- Left Content ---- */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 620px;
+}
+
+.hero__eyebrow {
+  will-change: transform, opacity;
+}
+
+/* Headline */
+.hero__headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #111827;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.22em;
+  align-items: baseline;
+}
+
+.hero__word {
+  display: inline-block;
+  will-change: transform, opacity, clip-path;
+}
+
+.hero__word--accent {
+  color: #0B3D2E;
+}
+
+.hero__word--italic {
+  font-style: italic;
+}
+
+.hero__line-break {
+  width: 100%;
+  height: 0;
+  display: block;
+  flex-basis: 100%;
+}
+
+/* Subtext */
+.hero__sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.0625rem;
+  color: #374151;
+  line-height: 1.7;
+  max-width: 500px;
+  will-change: transform, opacity;
+}
+
+/* CTAs */
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+.hero__cta-primary {
+  min-width: 220px;
+}
+
+/* Trust row */
+.hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #E5E0D8;
+  will-change: transform, opacity;
+}
+
+.hero__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* ---- Right Figure Column ---- */
+.hero__figure-col {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 500px;
+}
+
+/* Radial background circle */
+.hero__figure-bg {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(245, 240, 232, 0) 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__figure-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  will-change: transform, opacity;
+}
+
+.hero__anatomy-svg {
+  width: 100%;
+  height: auto;
+  max-height: 620px;
+  display: block;
+}
+
+/* Floating Stat Cards */
+.hero__stat-card {
+  position: absolute;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(11, 61, 46, 0.12);
+  padding: 0.875rem 1.125rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #E5E0D8;
+  z-index: 3;
+  will-change: transform, opacity;
+}
+
+.hero__stat-card--left {
+  left: -10px;
+  top: 35%;
+}
+
+.hero__stat-card--right {
+  right: -10px;
+  bottom: 30%;
+}
+
+.hero__stat-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(200, 151, 58, 0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hero__stat-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0B3D2E;
+  line-height: 1;
+}
+
+.hero__stat-number span {
+  font-size: 1rem;
+  color: #C8973A;
+}
+
+.hero__stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  color: #6B7280;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+/* ---- Scroll Indicator ---- */
+.hero__scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  z-index: 5;
+}
+
+.hero__scroll-track {
+  width: 22px;
+  height: 36px;
+  border-radius: 11px;
+  border: 1.5px solid rgba(11, 61, 46, 0.3);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.hero__scroll-dot {
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background: #0B3D2E;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__scroll-dot {
+    animation: scrollDot 1.8s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+}
+
+.hero__scroll-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(11, 61, 46, 0.4);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 3rem;
+    min-height: auto;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 3rem;
+    padding: 4rem 0 2rem;
+  }
+
+  .hero__figure-col {
+    order: -1;
+    min-height: 320px;
+  }
+
+  .hero__anatomy-svg {
+    width: 90vw;
+    max-width: 360px;
+  }
+
+  .hero__stat-card--left  { left: 0; top: 10%; }
+  .hero__stat-card--right { right: 0; bottom: 5%; }
+
+  .hero__content {
+    max-width: 100%;
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__headline {
+    font-size: clamp(2.5rem, 7vw, 3.5rem);
+  }
+
+  .hero__trust {
+    gap: 0.875rem;
+  }
+
+  .hero__trust-item {
+    font-size: 0.75rem;
+  }
+}
+</style>

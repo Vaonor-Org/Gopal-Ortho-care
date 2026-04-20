@@ -1,0 +1,609 @@
+{
+  "project": "Gopal Ortho Hospital Website",
+  "version": "1.0.0",
+  "rules": {
+    "agent_instruction": "Work on features in order. Complete one fully before moving to the next. Once a feature is marked done in progress.md, never touch it again.",
+    "do_not_edit": ["overview.md", "prompt.md", "feature.json"],
+    "only_update": "progress.md"
+  },
+  "features": [
+    {
+      "id": "F001",
+      "name": "Design System & CSS Variables",
+      "category": "foundation",
+      "priority": 1,
+      "page": "global",
+      "placement": "Root CSS / global stylesheet",
+      "description": "Establish all CSS custom properties (color tokens, typography scale, spacing tokens, border radius tokens, shadow tokens, transition tokens). Import Google Fonts (Cormorant Garamond, DM Sans, DM Mono). Define all keyframe animations. Set mobile-first base styles and box-sizing reset.",
+      "files_to_create": ["styles/global.css", "styles/tokens.css", "styles/animations.css"],
+      "acceptance_criteria": [
+        "All color tokens defined as CSS custom properties on :root",
+        "All three fonts imported with preconnect and font-display: swap",
+        "All keyframe animations defined (clipReveal, fadeUp, sweepDown, anatomyFloat, ringWave, kneePulse, waRing, liveRing, scrollDot)",
+        "All animations wrapped in @media (prefers-reduced-motion: no-preference)",
+        "Mobile-first reset applied"
+      ]
+    },
+    {
+      "id": "F002",
+      "name": "Emergency Top Bar",
+      "category": "navigation",
+      "priority": 2,
+      "page": "global",
+      "placement": "Very top of every page, above navbar, full-width, 40px height",
+      "description": "Dark green (#0B3D2E) top bar. Left: alert triangle SVG icon (red stroke) + '24/7 Emergency Orthopaedic Care — Call 095970 40918' text in DM Sans 12px white. Right: 'Call Now' pill button (gold border, gold text, hover: bg gold white text) + dismiss X button. Slides down on page load (slideDown 400ms). Dismisses and stores state in sessionStorage.",
+      "files_to_create": ["components/EmergencyBar.html"],
+      "acceptance_criteria": [
+        "40px height, full-width, bg #0B3D2E",
+        "Left text with alert SVG icon (no emoji)",
+        "Call Now pill button with gold border styling",
+        "Dismiss button closes the bar",
+        "slideDown animation on page load at 0ms delay",
+        "No emoji anywhere"
+      ]
+    },
+    {
+      "id": "F003",
+      "name": "Main Navigation Bar",
+      "category": "navigation",
+      "priority": 3,
+      "page": "global",
+      "placement": "Fixed top navigation, below emergency bar, full-width",
+      "description": "80px height, transparent on load. Logo: 'Gopal' (Cormorant Garamond 700 26px green) + vertical gold divider + 'Ortho' (DM Sans 300 20px green) + gold dot. Nav links: Home, About, Services (mega dropdown 2-col: Orthopaedic + Physiotherapy), Doctors, Patient Stories, Contact. All in DM Sans 500 14px. 'Book Appointment' pill CTA (bg #0B3D2E, white, hover: gold). Scrolled state: bg rgba(249,246,240,0.96) backdrop-blur, height 66px, shadow. Mobile: hamburger → right slide-in drawer 85vw max 380px.",
+      "files_to_create": ["components/Navbar.html"],
+      "acceptance_criteria": [
+        "Logo markup with correct font split and gold divider",
+        "Mega dropdown for Services with 2-column layout and all sub-links",
+        "Scroll transition: transparent → frosted ivory at 70px scroll",
+        "Book Appointment CTA button with hover gold state",
+        "Mobile hamburger → drawer with dark overlay",
+        "Dropdown appears on hover with 200ms fade-down",
+        "Nav underline grows from center on hover (::after scaleX animation)",
+        "No emoji anywhere"
+      ]
+    },
+    {
+      "id": "F004",
+      "name": "Hero Section — SVG Anatomy Figure",
+      "category": "svg-asset",
+      "priority": 4,
+      "page": "home",
+      "placement": "Right column of hero section (45% of hero width)",
+      "description": "The centrepiece SVG of the entire site. Running human figure in medical scan aesthetic. Layers: (1) 8 concentric rings radiating from knee at cx=300 cy=480, grey stroke, animated ringWave with 0.5s stagger; (2) Human body silhouette in translucent blue gradient (#2563EB to #0B3D6E, opacity 0.85); (3) Skeleton bone lines (femur, tibia, fibula, patella) in lighter blue; (4) Knee joint circle (cx=300 cy=480 r=28) filled with radial gradient #FF6B35 to #E53E3E with kneePulse glow; (5) Scan pulse ring at knee. Entire figure: anatomyFloat animation (7s). ViewBox: 0 0 600 700. On mobile: stacks below text, 90vw width.",
+      "files_to_create": ["assets/svg/anatomy-figure.svg"],
+      "acceptance_criteria": [
+        "8 concentric rings with ringWave animation and stagger",
+        "Body silhouette with translucent blue radial gradient",
+        "Visible skeleton/bone structure lines within body",
+        "Knee highlight with orange-red radial gradient and kneePulse",
+        "Full figure anatomyFloat (7s, ease-in-out, infinite)",
+        "Skeleton shimmer animation on bone lines",
+        "ViewBox 0 0 600 700",
+        "Responsive: 90vw on mobile",
+        "All animations in prefers-reduced-motion wrapper"
+      ]
+    },
+    {
+      "id": "F005",
+      "name": "Hero Section — Content & Layout",
+      "category": "section",
+      "priority": 5,
+      "page": "home",
+      "placement": "First full-viewport section of home page",
+      "description": "Full-viewport CSS Grid: 55% left content / 45% right SVG figure. Background: #F5F0E8 with faint bone-texture SVG pattern (opacity 0.03). Left column: eyebrow label (gold, 0.14em letter-spacing, left gold border), headline 'Precision Care / for Every Bone, / Joint & Movement.' (Cormorant Garamond 700, clipReveal per word stagger 0.09s), subtext (DM Sans 17px), primary CTA 'Book an Appointment' (green pill, hover gold, arrow SVG right), secondary CTA 'Explore Services' (outline green pill). Trust row: 3 items with SVG checkmark icons. Scan line: gold horizontal sweep once on load. Floating stat cards on the figure. Scroll indicator at bottom center.",
+      "files_to_create": ["sections/Hero.html"],
+      "acceptance_criteria": [
+        "CSS Grid 55/45 split, stacks on mobile",
+        "Background #F5F0E8 with faint bone pattern",
+        "Eyebrow text with gold left border",
+        "Headline clipReveal animation per word with stagger",
+        "Both CTA buttons with correct hover states and arrow SVG icons",
+        "Trust row with SVG checkmark icons (no emoji)",
+        "Scan line SVG sweep animation (once on load, 1800ms)",
+        "Two floating stat cards overlapping the SVG figure",
+        "Background radial gradient circle behind figure",
+        "Scroll indicator with scrollDot animation",
+        "Full page load sequence with correct delays",
+        "Mobile: figure below text, 90vw"
+      ]
+    },
+    {
+      "id": "F006",
+      "name": "Stats Bar",
+      "category": "section",
+      "priority": 6,
+      "page": "home",
+      "placement": "Immediately below hero section",
+      "description": "Full-width dark green (#0B3D2E) strip, 120px desktop, auto mobile. 4 stats in even columns with vertical dividers: 500+ Successful Surgeries, 15+ Years Experience, 2000+ Patients Treated, 10+ Specialised Services. Each stat has a gold SVG icon above. Numbers in DM Mono 700 2.5rem white. Labels in DM Sans 400 13px gold. Count-up animation triggers on scroll via IntersectionObserver (threshold 0.3). Bone-grid SVG pattern at 5% opacity on bg.",
+      "files_to_create": ["sections/StatsBar.html"],
+      "acceptance_criteria": [
+        "4 stats with correct numbers and labels",
+        "DM Mono font for numbers, DM Sans for labels",
+        "SVG icons above each stat (no emoji, stroke gold)",
+        "Vertical dividers between stats",
+        "Bone-grid SVG background pattern",
+        "Count-up animation on IntersectionObserver, easeOutExpo, 2200ms",
+        "Responsive: 2-col on mobile"
+      ]
+    },
+    {
+      "id": "F007",
+      "name": "About Preview Section",
+      "category": "section",
+      "priority": 7,
+      "page": "home",
+      "placement": "Third section on home page, after stats bar",
+      "description": "Two-column layout: 45% left image, 55% right content. Image side: placeholder with dark green overlay badge bottom-right (shield+cross SVG, 'Trusted Orthopaedic Care', Cormorant Garamond italic). Content side: eyebrow 'WHO WE ARE' gold, headline (Cormorant Garamond), body text (DM Sans), 4-item feature list with green checkmark SVGs, 'Learn More About Us' text link with arrow. Scroll reveal animation from left/right sides.",
+      "files_to_create": ["sections/AboutPreview.html"],
+      "acceptance_criteria": [
+        "Two-column 45/55 layout, stacks on mobile",
+        "Image with border-radius 20px and overlay badge",
+        "Overlay badge with shield SVG icon",
+        "Feature list with SVG checkmarks (no emoji)",
+        "Text link CTA with hover arrow",
+        "Scroll reveal animations (from_left, from_right)"
+      ]
+    },
+    {
+      "id": "F008",
+      "name": "Interactive Body Map Section",
+      "category": "section",
+      "priority": 8,
+      "page": "home",
+      "placement": "Fourth section on home page, bg #F5F0E8",
+      "description": "Center body SVG map (320px medical line-art front-view human figure, stroke #0B3D2E opacity 0.2) with 5 gold hotspot circles: shoulder (220,210), spine (300,290), hip (295,370), knee (285,490), ankle (280,600). Hotspot idle animation: pulse 2s ease-in-out. On hover: hotspot circle expands to r=12, fills gold, region path highlights gold with drop-shadow, service label fades in. Desktop layout: body map centered with service cards on sides. Mobile: simplifies to vertical list. Eyebrow 'FIND YOUR TREATMENT', headline 'Point to Where It Hurts'.",
+      "files_to_create": ["sections/BodyMapServices.html", "assets/svg/body-map.svg"],
+      "acceptance_criteria": [
+        "Medical line-art body SVG with correct stroke styling",
+        "5 hotspot circles at correct coordinates",
+        "Hotspot idle pulse animation per hotspot with stagger",
+        "Hover: hotspot expands, fills gold, region highlights, label appears",
+        "Desktop: flanking service cards layout",
+        "Mobile: vertical list fallback",
+        "No emoji, all SVG"
+      ]
+    },
+    {
+      "id": "F009",
+      "name": "Orthopaedic Services Grid",
+      "category": "section",
+      "priority": 9,
+      "page": "home",
+      "placement": "Fifth section on home page, white bg",
+      "description": "3-col desktop / 2-col tablet / 1-col mobile grid of 6 service cards. Services: Fracture & Trauma Care, Joint Replacement, Spine Surgery, Sports Medicine, Arthritis Treatment, Paediatric Orthopaedics. Each card: bg #F9F6F0, border, border-radius 16px, padding 2rem. Icon in 40×40 wrapper (bg rgba(11,61,46,0.06)). Title Cormorant Garamond. Body DM Sans. 'Learn more' gold link with arrow SVG. Hover: translateY(-8px), shadow-lg, left border becomes 3px gold, icon scales 1.12 and rotates -3deg, xray bg ::before opacity 0→0.04. Scroll reveal with 120ms child stagger.",
+      "files_to_create": ["sections/OrthoServices.html"],
+      "acceptance_criteria": [
+        "6 service cards with correct content",
+        "Each card has unique inline SVG medical icon (no emoji)",
+        "Hover: translateY, shadow, gold left border, icon transform",
+        "xray bg pseudo-element on hover",
+        "3/2/1 column responsive grid",
+        "Scroll reveal with stagger",
+        "'Learn more' gold link with arrow SVG"
+      ]
+    },
+    {
+      "id": "F010",
+      "name": "Service SVG Icons Set",
+      "category": "svg-asset",
+      "priority": 10,
+      "page": "global",
+      "placement": "Used in service cards, nav dropdown, and service page",
+      "description": "10 custom medical SVG icons, all 40×40 viewBox, stroke-only, stroke color #0B3D2E, stroke-width 1.5, no fill. Icons: fracture_bone (horizontal bone with break + fixation plate), knee_joint (side-view femur/tibia/patella/meniscus), spine_vertebrae (5 vertebrae stack, disc spaces), sports_medicine (running figure with knee highlight), arthritis (joint with inflammation lines), paediatric_ortho (small child figure with sling), physiotherapy (figure on parallel bars), pain_management (vertebra with signal waves), rehabilitation (figure with walking bars + arrows), hip_replacement (pelvis with ball-socket joint).",
+      "files_to_create": ["assets/svg/icons/fracture-bone.svg", "assets/svg/icons/knee-joint.svg", "assets/svg/icons/spine.svg", "assets/svg/icons/sports.svg", "assets/svg/icons/arthritis.svg", "assets/svg/icons/paediatric.svg", "assets/svg/icons/physiotherapy.svg", "assets/svg/icons/pain.svg", "assets/svg/icons/rehabilitation.svg", "assets/svg/icons/hip.svg"],
+      "acceptance_criteria": [
+        "All 10 icons created as stroke-only SVGs",
+        "Consistent stroke-width 1.5",
+        "All clinically meaningful and recognisable",
+        "40×40 viewBox, scalable"
+      ]
+    },
+    {
+      "id": "F011",
+      "name": "Physiotherapy Section",
+      "category": "section",
+      "priority": 11,
+      "page": "home",
+      "placement": "Sixth section on home page",
+      "description": "Asymmetric split: 45% left dark green panel / 55% right white panel. Left: eyebrow, headline 'Heal Faster. Move Better.' (Cormorant Garamond white), body text, green 'Available Now' live badge with pulsing green dot (liveRing animation), 'Book a Physio Session' gold CTA button. Bottom: abstract physio stretch SVG figure (white stroke, opacity 0.15). Right: 8-row list of physio services, each row with SVG icon + service name + chevron right in gold. Row hover: bg #F9F6F0. Bottom border on each row.",
+      "files_to_create": ["sections/PhysioSection.html"],
+      "acceptance_criteria": [
+        "45/55 asymmetric split layout",
+        "Left panel dark green with all content",
+        "Live badge with pulsing green dot (liveRing animation)",
+        "Gold CTA button with hover state",
+        "Physio figure SVG on left panel bottom",
+        "8 service rows on right with SVG icons",
+        "Row hover bg transition",
+        "Gold chevron on each row"
+      ]
+    },
+    {
+      "id": "F012",
+      "name": "Why Choose Us Section",
+      "category": "section",
+      "priority": 12,
+      "page": "home",
+      "placement": "Seventh section on home page, bg #F5F0E8",
+      "description": "2×2 feature card grid. 4 cards: 01 Specialist Expertise, 02 Modern Infrastructure, 03 Patient-First Approach, 04 Affordable & Transparent. Each white card: decorative large number DM Mono 700 4rem #F5F0E8 positioned top-right; 52×52 icon wrapper bg rgba(11,61,46,0.06) border-radius 14px; Cormorant Garamond title; DM Sans body text. Hover: shadow-lg, translateY(-6px). Eyebrow 'WHY GOPAL ORTHO', headline 'Care Built Around You'.",
+      "files_to_create": ["sections/WhyChooseUs.html"],
+      "acceptance_criteria": [
+        "2×2 grid, stacks 1-col on mobile",
+        "Decorative large number top-right of card",
+        "SVG icons in 52×52 wrapper",
+        "Hover lift and shadow transition",
+        "Correct typography hierarchy"
+      ]
+    },
+    {
+      "id": "F013",
+      "name": "CTA Banner Section",
+      "category": "section",
+      "priority": 13,
+      "page": "home",
+      "placement": "Eighth section on home page",
+      "description": "Full-width section with diagonal CSS clip-path: left 60% = #0B3D2E / right 40% = #C8973A. Bone-grid pattern on dark side. Headline 'Don't Let Pain Hold You Back' (Cormorant Garamond 700 3rem white). Two CTA buttons: 'Book Appointment Online' (white bg, green text) and 'Call: 095970 40918' (outlined white). Large faint medical cross SVG (opacity 0.04) decorative on right. Calendar and phone SVG icons on buttons.",
+      "files_to_create": ["sections/CTABanner.html"],
+      "acceptance_criteria": [
+        "Diagonal CSS clip-path split green/gold",
+        "Bone-grid SVG background pattern on green side",
+        "Headline and subtext with correct typography",
+        "Two CTA buttons with SVG icons (no emoji)",
+        "Decorative medical cross SVG",
+        "Responsive: stacks on mobile"
+      ]
+    },
+    {
+      "id": "F014",
+      "name": "Testimonials Carousel",
+      "category": "section",
+      "priority": 14,
+      "page": "home",
+      "placement": "Ninth section on home page, white bg",
+      "description": "4 testimonials. Desktop: 3 cards visible. Each card: bg #F9F6F0, custom SVG quote mark top-left (gold 15% opacity), 5 star SVGs filled gold, divider, patient text, avatar circle (initials in Cormorant Garamond white on green gradient), patient name, location, treatment pill tag. Prev/next arrow buttons (44×44 circle, hover bg #0B3D2E). Dot indicators: 8px circle → 24px gold pill on active (spring transition). Autoplay 5000ms, pauses on hover. Swipe gesture on mobile. Eyebrow 'PATIENT STORIES', headline 'Lives Transformed, Mobility Restored.'",
+      "files_to_create": ["sections/Testimonials.html"],
+      "acceptance_criteria": [
+        "4 testimonial cards with all content",
+        "Custom SVG quote mark (not Unicode quotes)",
+        "5 star SVGs (not emoji stars)",
+        "Avatar initials circles",
+        "Treatment pill tags",
+        "Prev/next controls with correct hover state",
+        "Dot indicators with active pill animation",
+        "Autoplay with pause on hover",
+        "Touch/swipe on mobile",
+        "3 visible on desktop, 1 on mobile"
+      ]
+    },
+    {
+      "id": "F015",
+      "name": "Contact + Map Section",
+      "category": "section",
+      "priority": 15,
+      "page": "home",
+      "placement": "Tenth section on home page",
+      "description": "60% Google Maps iframe (grayscale 20%, contrast 1.05) / 40% dark green contact panel. Panel bg #0B3D2E, padding 3rem. Eyebrow 'FIND US', headline 'Visit Gopal Ortho'. 4 info rows (address, phone, hours, emergency) each with gold SVG icon, uppercase micro label, white value. 3 action buttons: Call Now (outlined white), WhatsApp (#25D366), Get Directions (#C8973A). Google Maps embed: Gopal Ortho location.",
+      "files_to_create": ["sections/ContactMap.html"],
+      "acceptance_criteria": [
+        "60/40 layout, stacks on mobile",
+        "Google Maps iframe with correct location",
+        "4 info rows with SVG icons (no emoji)",
+        "3 action buttons with correct styles",
+        "WhatsApp button links to wa.me",
+        "Emergency row with red alert SVG"
+      ]
+    },
+    {
+      "id": "F016",
+      "name": "Footer",
+      "category": "global",
+      "priority": 16,
+      "page": "global",
+      "placement": "Bottom of every page",
+      "description": "4-column dark green footer (bg #071F17). Col 1: White logo + tagline italic + body text + 4 social icon circles (FB, IG, YouTube, WhatsApp — all SVG, border rgba(255,255,255,0.1), hover: gold border). Col 2: Services links list (8 items, hover translateX 4px). Col 3: Quick Links (7 items). Col 4: Contact info rows with gold SVG icons. Bottom bar: rgba(0,0,0,0.2) bg, copyright left, Privacy Policy / Terms right. All links DM Sans 400 14px rgba(255,255,255,0.5) → hover rgba(255,255,255,0.9).",
+      "files_to_create": ["components/Footer.html"],
+      "acceptance_criteria": [
+        "4-column grid, 2-col tablet, 1-col mobile",
+        "White logo with correct markup",
+        "Social icon circles with SVG icons (no emoji)",
+        "All link hover transitions",
+        "Contact column with SVG icons",
+        "Bottom bar with copyright and legal links",
+        "Gold top border"
+      ]
+    },
+    {
+      "id": "F017",
+      "name": "Floating WhatsApp Button",
+      "category": "global",
+      "priority": 17,
+      "page": "global",
+      "placement": "Fixed bottom-right, z-index 900, on all pages",
+      "description": "56×56px circle, bg #25D366. WhatsApp SVG icon (white fill). Two pulse rings via ::before and ::after pseudo-elements, bg rgba(37,211,102,0.4), animation waRing 2.5s infinite, ::after stagger 0.8s. On hover: scale(1.1), rotate(-8deg), stronger shadow. Tooltip 'Chat with us' appears to the left on hover (white bg, rounded, shadow). Link: wa.me/919597040918 with pre-filled message.",
+      "files_to_create": ["components/WhatsAppButton.html"],
+      "acceptance_criteria": [
+        "56×56 circle, correct green bg",
+        "WhatsApp SVG path icon (not emoji)",
+        "Two pulse ring animations with stagger",
+        "Hover scale and rotate",
+        "Tooltip on hover",
+        "Correct wa.me link with pre-filled text",
+        "All animations in prefers-reduced-motion wrapper"
+      ]
+    },
+    {
+      "id": "F018",
+      "name": "Scroll-to-top Button",
+      "category": "global",
+      "priority": 18,
+      "page": "global",
+      "placement": "Fixed bottom-right, offset from WhatsApp button",
+      "description": "44×44px circle, bg #0B3D2E. Chevron-up SVG icon (white stroke). Appears after 400px scroll (fadeIn 0.3s). Disappears on scroll back to top. On click: smooth scroll to top. Hover: bg #C8973A.",
+      "files_to_create": ["components/ScrollToTop.html"],
+      "acceptance_criteria": [
+        "Appears/disappears correctly at 400px",
+        "Chevron-up SVG icon",
+        "Hover gold bg",
+        "Smooth scroll on click",
+        "fadeIn/fadeOut transitions"
+      ]
+    },
+    {
+      "id": "F019",
+      "name": "Home Page Assembly",
+      "category": "page",
+      "priority": 19,
+      "page": "home",
+      "placement": "index.html — assembles all home page sections",
+      "description": "Assemble all home page components and sections in correct order: EmergencyBar, Navbar, Hero, StatsBar, AboutPreview, BodyMapServices, OrthoServices, PhysioSection, WhyChooseUs, CTABanner, Testimonials, ContactMap, Footer, WhatsAppButton, ScrollToTop. Add correct SEO meta tags, OG tags, schema.org MedicalOrganization JSON-LD, canonical URL.",
+      "files_to_create": ["index.html"],
+      "acceptance_criteria": [
+        "All sections present in correct order",
+        "Meta title, description, OG tags",
+        "Schema.org JSON-LD",
+        "Correct section IDs and aria landmarks",
+        "Skip-to-main-content link at top",
+        "All fonts and CSS linked"
+      ]
+    },
+    {
+      "id": "F020",
+      "name": "Booking Page — Step Indicator",
+      "category": "component",
+      "priority": 20,
+      "page": "booking",
+      "placement": "Top of booking form, spanning full form width",
+      "description": "3-step horizontal progress indicator. Steps: 1 Select Service, 2 Date & Doctor, 3 Your Details. Active: circle filled #0B3D2E, white number, bold label. Completed: circle filled green, SVG checkmark replaces number, line to next step fills gold. Inactive: circle border #E5E0D8, grey number/label. Progress line: 2px connecting circles, #E5E0D8 → #C8973A as steps complete. Transitions: 0.3s spring.",
+      "files_to_create": ["components/booking/StepIndicator.html"],
+      "acceptance_criteria": [
+        "3 steps with correct labels",
+        "Active/completed/inactive states correctly styled",
+        "Progress line transitions from grey to gold",
+        "SVG checkmark in completed step (not emoji)",
+        "Responsive: collapses labels to icons on mobile"
+      ]
+    },
+    {
+      "id": "F021",
+      "name": "Booking Page — Step 1: Service Selection",
+      "category": "component",
+      "priority": 21,
+      "page": "booking",
+      "placement": "Step 1 of booking form",
+      "description": "Title 'What do you need help with?' Two department cards: Orthopaedics (bone/joint SVG icon) and Physiotherapy (physio figure SVG). Selection: border 2px solid #0B3D2E, bg rgba(11,61,46,0.04). Below: custom styled dropdown 'Condition or Treatment' with 12 options. DM Sans 400 15px. Focus: border #0B3D2E, box-shadow green. 'Next Step' button (green pill, arrow SVG right). Step transition: step_exit (translateX -60px, opacity 0), step_enter (translateX 60px → 0, opacity 0 → 1).",
+      "files_to_create": ["components/booking/Step1.html"],
+      "acceptance_criteria": [
+        "Two department cards with SVG icons",
+        "Selected state styling correct",
+        "Custom dropdown with all 12 options",
+        "Focus states on input",
+        "Next button with arrow SVG",
+        "Step transition animations"
+      ]
+    },
+    {
+      "id": "F022",
+      "name": "Booking Page — Step 2: Date & Doctor",
+      "category": "component",
+      "priority": 22,
+      "page": "booking",
+      "placement": "Step 2 of booking form",
+      "description": "Doctor radio cards: 3 options (Dr. Name 1, Dr. Name 2, No Preference). Custom inline calendar: month grid, DM Sans font, today = green border, selected = filled green, past = grey disabled, Sunday = limited indicator. Prev/next month arrows. Time slot grid: 4-col pill buttons, 17 slots. Available (border #E5E0D8 → hover border green), selected (bg #0B3D2E white), booked (grey strikethrough disabled). Next/Back buttons.",
+      "files_to_create": ["components/booking/Step2.html"],
+      "acceptance_criteria": [
+        "Doctor radio cards with correct styling",
+        "Functional calendar with month navigation",
+        "Today/selected/past/Sunday states",
+        "Time slot pills in 4-col grid",
+        "Available/selected/booked states",
+        "Correct disabled cursor on booked slots",
+        "Back/Next navigation"
+      ]
+    },
+    {
+      "id": "F023",
+      "name": "Booking Page — Step 3: Patient Details",
+      "category": "component",
+      "priority": 23,
+      "page": "booking",
+      "placement": "Step 3 of booking form",
+      "description": "Fields: Full Name (text, SVG person icon), Mobile (tel, SVG phone icon, note about WhatsApp), Age (number), Gender (radio inline: Male/Female/Other), Condition description (textarea 3 rows), New/Existing Patient toggle. Input style: left SVG icon (18px, absolute), focus border #0B3D2E + green shadow. Submit button 'Confirm Appointment': full-width, green pill, 52px, arrow SVG right. Loading state: spinner SVG replaces arrow, text 'Sending...'. Back button.",
+      "files_to_create": ["components/booking/Step3.html"],
+      "acceptance_criteria": [
+        "All 6 fields with correct types",
+        "SVG icons inside inputs (no emoji)",
+        "Focus styles on all inputs",
+        "Gender radio inline buttons",
+        "Patient type toggle pill",
+        "Submit button with loading state",
+        "Back navigation"
+      ]
+    },
+    {
+      "id": "F024",
+      "name": "Booking Page — Success State",
+      "category": "component",
+      "priority": 24,
+      "page": "booking",
+      "placement": "Replaces form on submission success",
+      "description": "Animated SVG checkmark: circle draws in via stroke-dasharray/dashoffset over 0.6s, then checkmark path draws in 0.4s, color #15803D. Headline 'Appointment Requested'. Body text about 2-hour confirmation. Summary card (white, green left border, shadow-md) showing selected service, doctor, date, time, patient name. Two action buttons: 'Add to Calendar' (outline green, calendar SVG) and 'Chat on WhatsApp' (#25D366, WhatsApp SVG).",
+      "files_to_create": ["components/booking/SuccessState.html"],
+      "acceptance_criteria": [
+        "SVG checkmark draw-on animation (circle then path)",
+        "Summary card with all booking details",
+        "Add to Calendar button with SVG icon",
+        "WhatsApp button with SVG icon",
+        "No emoji anywhere"
+      ]
+    },
+    {
+      "id": "F025",
+      "name": "Booking Page — Sticky Info Panel",
+      "category": "component",
+      "priority": 25,
+      "page": "booking",
+      "placement": "Right column of booking page (35% width), sticky",
+      "description": "Sticky right panel, bg #0B3D2E, border-radius 20px, padding 2rem. 3 info rows: Call/WhatsApp (095970 40918), Clinic Hours (Mon-Sat 9-7, Sun 10-2), Location (Kottar Nagercoil). Walk-in notice (DM Sans italic, rgba white 0.6). Emergency note card: red-tinted bg, alert SVG (red stroke), emergency text. All icons gold SVG.",
+      "files_to_create": ["components/booking/InfoPanel.html"],
+      "acceptance_criteria": [
+        "Sticky positioning on scroll",
+        "3 info rows with gold SVG icons",
+        "Walk-in italic notice",
+        "Emergency card with red alert SVG",
+        "Correct dark green styling"
+      ]
+    },
+    {
+      "id": "F026",
+      "name": "Booking Page Assembly",
+      "category": "page",
+      "priority": 26,
+      "page": "booking",
+      "placement": "booking/index.html",
+      "description": "Assemble booking page: EmergencyBar, Navbar, page hero section (dark green, 'Book an Appointment'), 2-column layout (65% form / 35% sticky panel), all 3 steps with step indicator, success state, info panel, Footer, WhatsApp button. Form JavaScript: step navigation, validation, step transition animations, form submission handler (shows loading then success state). SEO meta tags.",
+      "files_to_create": ["booking/index.html"],
+      "acceptance_criteria": [
+        "All booking components assembled",
+        "JavaScript step navigation works",
+        "Progress bar updates correctly between steps",
+        "Step transition animations (exit/enter)",
+        "Form validation on each step",
+        "Loading → success state on submit",
+        "2-col layout, stacks on mobile",
+        "Sticky info panel on desktop"
+      ]
+    },
+    {
+      "id": "F027",
+      "name": "Services Page",
+      "category": "page",
+      "priority": 27,
+      "page": "services",
+      "placement": "services/index.html",
+      "description": "Inner hero: dark green full-width, left-aligned headline 'Our Services', subtext. Tab interface: 'Orthopaedic Care' / 'Physiotherapy' pill tabs. Orthopaedic tab: 3-col grid of all 6 ortho service cards (same style as home). Physiotherapy tab: 3-col grid of physio services. Each service card links to individual service page. Content crossfade 0.3s on tab switch. Full meta tags.",
+      "files_to_create": ["services/index.html"],
+      "acceptance_criteria": [
+        "Dark green inner hero",
+        "Pill tab interface with active state",
+        "Tab content crossfade",
+        "Both tabs show correct service cards",
+        "Responsive grid",
+        "Correct meta tags"
+      ]
+    },
+    {
+      "id": "F028",
+      "name": "About Page",
+      "category": "page",
+      "priority": 28,
+      "page": "about",
+      "placement": "about/index.html",
+      "description": "Inner hero dark green. Sections: Our Story (two-column text + image placeholder), Mission & Vision (split cards, dark green + ivory), Core Values (4-card grid with SVG icons), Our Team (placeholder for doctor profiles). All section eyebrows in gold, headlines in Cormorant Garamond. Scroll reveal animations throughout.",
+      "files_to_create": ["about/index.html"],
+      "acceptance_criteria": [
+        "4 sections in correct order",
+        "Inner hero with correct styling",
+        "Mission/Vision cards styled correctly",
+        "Core Values with SVG icons (no emoji)",
+        "Scroll reveal animations",
+        "Responsive throughout"
+      ]
+    },
+    {
+      "id": "F029",
+      "name": "Doctors Page",
+      "category": "page",
+      "priority": 29,
+      "page": "doctors",
+      "placement": "doctors/index.html",
+      "description": "Inner dark green hero. 3-col card grid. Each doctor card: 280px photo area (gradient bg placeholder), name (Cormorant Garamond 700), title, specialisation (DM Sans), qualifications, years experience, 2-3 speciality pill tags (bg rgba(11,61,46,0.06), text #0B3D2E, pill). On hover: dark green overlay slides up from bottom with 'Book Appointment' CTA button. Scroll reveal with stagger.",
+      "files_to_create": ["doctors/index.html"],
+      "acceptance_criteria": [
+        "3-col grid, 2-col tablet, 1-col mobile",
+        "Photo area with gradient placeholder",
+        "All doctor details with correct typography",
+        "Speciality pill tags",
+        "Hover overlay slides up from bottom",
+        "Book Appointment CTA in overlay",
+        "Scroll reveal stagger"
+      ]
+    },
+    {
+      "id": "F030",
+      "name": "Contact Page",
+      "category": "page",
+      "priority": 30,
+      "page": "contact",
+      "placement": "contact/index.html",
+      "description": "Inner dark green hero. Two-column: Left 60% contact form (same input style as booking Step 3 — Name, Phone, Email, Subject dropdown, Message textarea, Submit button). Right 40% info panel with address, phone, hours + embedded Google Maps iframe (below info). Form validation, success message. Same styling rules as booking form. Full meta tags.",
+      "files_to_create": ["contact/index.html"],
+      "acceptance_criteria": [
+        "Inner hero correct",
+        "Contact form with all fields",
+        "SVG icons in inputs",
+        "Focus states correct",
+        "Success state on submit",
+        "Info panel with map",
+        "Responsive layout"
+      ]
+    },
+    {
+      "id": "F031",
+      "name": "Cookie Notice",
+      "category": "global",
+      "priority": 31,
+      "page": "global",
+      "placement": "Fixed bottom bar, shown once per session",
+      "description": "Compact bottom bar: bg white, shadow-xl, border-top 1px solid #E5E0D8. Text 'This site uses cookies to improve your experience.' Accept button (green pill). Slides up from bottom on first visit, stores acceptance in localStorage. DM Sans 14px.",
+      "files_to_create": ["components/CookieNotice.html"],
+      "acceptance_criteria": [
+        "Appears on first visit, not after acceptance",
+        "localStorage persistence",
+        "Slide-up animation",
+        "Accept button green pill",
+        "No emoji"
+      ]
+    },
+    {
+      "id": "F032",
+      "name": "Final QA & Accessibility Audit",
+      "category": "qa",
+      "priority": 32,
+      "page": "global",
+      "placement": "All pages",
+      "description": "Final quality pass across all pages: (1) Verify zero emoji in entire codebase. (2) Check all color contrast WCAG AA. (3) Verify focus rings (2px solid #C8973A, 2px offset) on all interactive elements. (4) Check all images have alt text. (5) Check all icon-only buttons have aria-label. (6) Verify all animations wrapped in prefers-reduced-motion. (7) Check mobile layout on all pages at 375px, 768px, 1024px, 1440px. (8) Verify DM Mono used ONLY for numbers. (9) Verify no generic hospital blue used anywhere. (10) Test keyboard navigation through booking form.",
+      "files_to_create": [],
+      "acceptance_criteria": [
+        "Zero emoji in all HTML/CSS/JS",
+        "All text passes WCAG AA contrast",
+        "Focus rings present on all interactive elements",
+        "All images have alt text",
+        "All icon buttons have aria-label",
+        "All animations in prefers-reduced-motion wrapper",
+        "Responsive at all breakpoints",
+        "DM Mono only on numbers",
+        "No generic blue anywhere"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,424 @@
+<!-- ============================================================
+     F011 — Physiotherapy Section
+     45% dark green left / 55% white right with 8 service rows
+     ============================================================ -->
+
+<section class="physio-section" id="physiotherapy" aria-labelledby="physio-headline">
+  <div class="physio-section__grid">
+
+    <!-- LEFT: Dark green panel -->
+    <div class="physio-section__left">
+
+      <!-- Abstract physio SVG bg -->
+      <div class="physio-section__bg-figure" aria-hidden="true">
+        <svg viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg" width="260">
+          <!-- Stretching figure (white stroke, low opacity) -->
+          <circle cx="150" cy="30" r="20" stroke="white" stroke-width="2" opacity="0.15"/>
+          <path d="M150 50 L150 110" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+          <!-- Left arm stretched up-left -->
+          <path d="M145 70 Q100 50 70 60" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+          <!-- Right arm stretched up-right -->
+          <path d="M155 70 Q200 50 230 60" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+          <!-- Left leg stretched -->
+          <path d="M145 110 Q120 150 90 180 Q70 200 60 230" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+          <!-- Right leg -->
+          <path d="M155 110 Q175 145 200 170 Q220 190 240 210" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+        </svg>
+      </div>
+
+      <!-- Content -->
+      <div class="physio-section__left-content">
+        <p class="physio-section__eyebrow">Physiotherapy</p>
+        <h2 class="physio-section__headline" id="physio-headline">
+          Heal Faster.<br>Move Better.
+        </h2>
+        <p class="physio-section__body">
+          Our dedicated physiotherapy wing is staffed by certified therapists with
+          expertise in post-surgical rehabilitation, sports recovery, and chronic
+          pain management — all under one roof.
+        </p>
+
+        <!-- Live badge -->
+        <div class="physio-section__live-badge" aria-label="Available Now">
+          <span class="physio-section__live-dot" aria-hidden="true">
+            <span class="physio-section__live-ring physio-section__live-ring--1"></span>
+            <span class="physio-section__live-ring physio-section__live-ring--2"></span>
+          </span>
+          Available Now
+        </div>
+
+        <!-- CTA -->
+        <a href="/booking?service=physio" class="btn btn-gold physio-section__cta"
+           id="physio-book-btn" aria-label="Book a physiotherapy session">
+          Book a Physio Session
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: 8 physio service rows -->
+    <div class="physio-section__right">
+      <p class="physio-section__right-label">
+        <span class="eyebrow" style="border:none;padding:0;">Our Physiotherapy Services</span>
+      </p>
+
+      <ul class="physio-section__rows" role="list">
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <circle cx="12" cy="5" r="3" stroke="#0B3D2E" stroke-width="1.5"/>
+              <path d="M9 10h6l1 9H8l1-9z" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 13h8" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Post-Surgical Rehabilitation</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <path d="M12 2C8.7 2 6 4.7 6 8c0 4 6 14 6 14s6-10 6-14c0-3.3-2.7-6-6-6z"
+                    stroke="#0B3D2E" stroke-width="1.5"/>
+              <circle cx="12" cy="8" r="2" stroke="#0B3D2E" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Chronic Pain Management</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <circle cx="16" cy="5" r="2.5" stroke="#0B3D2E" stroke-width="1.5"/>
+              <path d="M13 9l-3 5 2 2-1 5" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 14l3-1" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="10" cy="17" r="2" stroke="#C8973A" stroke-width="1.25" fill="none"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Sports Physiotherapy</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <path d="M12 2 Q8 6 8 11c0 2 .8 3.5 2 4.5" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 2 Q16 6 16 11c0 2-.8 3.5-2 4.5" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M10 15.5 Q12 17 14 15.5 L14 21 Q12 22 10 21 Z" stroke="#0B3D2E" stroke-width="1.5" fill="none"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Neurological Rehabilitation</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <rect x="4" y="8" width="16" height="10" rx="3" stroke="#0B3D2E" stroke-width="1.5"/>
+              <path d="M8 8 V5 Q8 3 10 3 h4 Q16 3 16 5 V8" stroke="#0B3D2E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M9 13 l2 2 4-4" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Geriatric Physiotherapy</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <circle cx="12" cy="6" r="3" stroke="#0B3D2E" stroke-width="1.5"/>
+              <path d="M10 10 Q8 13 9 17 L10 21" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 10 Q16 13 15 17 L14 21" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M7 12 l2 1" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M17 12 l-2 1" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Paediatric Physiotherapy</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <path d="M3 12 Q6 8 9 12 Q12 16 15 12 Q18 8 21 12" stroke="#0B3D2E" stroke-width="1.5"
+                    stroke-linecap="round" fill="none"/>
+              <path d="M3 17 Q6 13 9 17 Q12 21 15 17 Q18 13 21 17" stroke="#0B3D2E" stroke-width="1.25"
+                    stroke-linecap="round" fill="none" opacity="0.5"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Electrotherapy &amp; Ultrasound</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+        <li class="physio-section__row">
+          <span class="physio-section__row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+              <rect x="5" y="3" width="14" height="18" rx="3" stroke="#0B3D2E" stroke-width="1.5"/>
+              <path d="M9 8 h6M9 12 h6M9 16 h4" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="physio-section__row-name">Custom Exercise Programme</span>
+          <svg class="physio-section__row-chevron" viewBox="0 0 24 24" fill="none"
+               width="16" height="16" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" stroke="#C8973A" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.physio-section {
+  background: white;
+}
+
+.physio-section__grid {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  min-height: 560px;
+}
+
+/* ---- Left Panel ---- */
+.physio-section__left {
+  background: #0B3D2E;
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Abstract physio SVG at bottom of panel */
+.physio-section__bg-figure {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.physio-section__left-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.physio-section__eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C8973A;
+  border-left: 2px solid #C8973A;
+  padding-left: 0.625rem;
+}
+
+.physio-section__headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.physio-section__body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+/* Live badge */
+.physio-section__live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 0.4rem 0.875rem 0.4rem 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  width: fit-content;
+}
+
+.physio-section__live-dot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.physio-section__live-dot::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ADE80;
+  z-index: 1;
+}
+
+.physio-section__live-ring {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.4);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .physio-section__live-ring--1 {
+    animation: liveRing 2s ease-out infinite;
+    will-change: transform, opacity;
+  }
+  .physio-section__live-ring--2 {
+    animation: liveRing 2s ease-out infinite;
+    animation-delay: 0.8s;
+    will-change: transform, opacity;
+  }
+}
+
+.physio-section__cta {
+  width: fit-content;
+}
+
+/* ---- Right Panel ---- */
+.physio-section__right {
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.physio-section__right-label {
+  margin-bottom: 1rem;
+}
+
+.physio-section__rows {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.physio-section__row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid #E5E0D8;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-radius: 8px;
+  margin: 0 -0.5rem;
+}
+
+.physio-section__row:first-child {
+  border-top: 1px solid #E5E0D8;
+}
+
+.physio-section__row:hover {
+  background: #F9F6F0;
+}
+
+.physio-section__row-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(11, 61, 46, 0.05);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.physio-section__row-name {
+  flex: 1;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #374151;
+  transition: color 0.2s ease;
+}
+
+.physio-section__row:hover .physio-section__row-name {
+  color: #0B3D2E;
+}
+
+.physio-section__row-chevron {
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.physio-section__row:hover .physio-section__row-chevron {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .physio-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .physio-section__left {
+    min-height: 360px;
+  }
+
+  .physio-section__bg-figure {
+    opacity: 0.2;
+  }
+}
+</style>

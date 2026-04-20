@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us – Gopal Ortho | Orthopaedic Hospital Nagercoil</title>
+  <meta name="description" content="Learn about Gopal Ortho — 15+ years of expert orthopaedic and physiotherapy care in Kottar, Nagercoil, Tamil Nadu.">
+  <link rel="canonical" href="https://www.gopalortho.com/about/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;color:#1A1A1A;background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased;}
+    h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15;letter-spacing:-0.02em;}
+    a{color:inherit;text-decoration:none;}
+    img,svg{display:block;max-width:100%;}
+    button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;background:none;}
+    ul{list-style:none;padding:0;margin:0;}
+    :focus-visible{outline:2px solid #0A6EBD;outline-offset:2px;}
+    .container{max-width:1320px;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:52px;padding:0 1.75rem;border-radius:9999px;font-family:'DM Sans',sans-serif;font-size:.9375rem;font-weight:500;cursor:pointer;transition:all .35s ease;border:none;white-space:nowrap;text-decoration:none;}
+    .btn-primary{background:#0A6EBD;color:white;}
+    .btn-primary:hover{background:#C8973A;transform:translateY(-1px);}
+    /* Emergency bar */
+    .emergency-bar{width:100%;height:40px;background:#062A45;display:flex;align-items:center;position:sticky;top:0;z-index:1000;}
+    .emergency-bar__inner{max-width:1320px;width:100%;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+    .emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.9);}
+    .emergency-bar__phone{color:#7DD3FC;font-weight:500;}
+    .emergency-bar__cta{display:inline-flex;align-items:center;height:26px;padding:0 .875rem;border-radius:9999px;border:1px solid #C8973A;color:#C8973A;font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;text-decoration:none;}
+    /* Navbar */
+    .navbar{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid #D6E6F5;padding:0 clamp(1.25rem,5vw,5rem);}
+    .navbar__inner{max-width:1320px;margin:0 auto;height:66px;display:flex;align-items:center;gap:2rem;}
+    .navbar__logo{display:flex;align-items:center;text-decoration:none;}
+    .navbar__logo-gopal{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;color:#0A6EBD;line-height:1;}
+    .navbar__logo-div{width:1px;height:20px;background:#C8973A;margin:0 .5rem;display:block;}
+    .navbar__logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.125rem;color:#1A1A1A;}
+    .navbar__links{display:flex;gap:.25rem;margin:0 auto;}
+    .navbar__link{padding:.5rem .75rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:#1A1A1A;text-decoration:none;border-radius:6px;transition:color .2s;}
+    .navbar__link:hover,.navbar__link.active{color:#0A6EBD;}
+    .navbar__cta{flex-shrink:0;height:44px;font-size:.8125rem;padding:0 1.25rem;}
+    @media(max-width:1024px){.navbar__links,.navbar__cta{display:none;}}
+    /* Page hero */
+    .page-hero{background:linear-gradient(135deg,#062A45,#0A6EBD);padding:clamp(4rem,8vw,7rem) 0 clamp(3rem,6vw,5rem);}
+    .page-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.75rem;}
+    .page-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;color:white;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1rem;}
+    .page-hero__sub{font-family:'DM Sans',sans-serif;font-size:1.0625rem;color:rgba(255,255,255,.7);max-width:560px;}
+    /* Sections */
+    .section{padding:clamp(4rem,8vw,7rem) 0;}
+    .section-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#1A1A1A;letter-spacing:-0.02em;margin-bottom:1.25rem;}
+    .section-headline em{color:#0A6EBD;font-style:italic;}
+    .eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C8973A;border-left:2px solid #C8973A;padding-left:.625rem;display:inline-block;margin-bottom:1rem;}
+    /* About grid */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+    .about-img{height:480px;background:linear-gradient(135deg,#0A6EBD,#062A45);border-radius:20px;display:flex;align-items:center;justify-content:center;}
+    .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;}
+    .stat-box{background:#F8FBFF;border:1px solid #D6E6F5;border-radius:14px;padding:1.5rem;text-align:center;}
+    .stat-box__num{font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;color:#0A6EBD;line-height:1;}
+    .stat-box__label{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:#8A8A8A;margin-top:.25rem;}
+    /* Values */
+    .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .value-card{background:#F8FBFF;border:1px solid #D6E6F5;border-radius:16px;padding:1.75rem;}
+    .value-card__icon{width:44px;height:44px;background:#E6F1FE;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;}
+    .value-card__title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#1A1A1A;margin-bottom:.5rem;}
+    .value-card__text{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#8A8A8A;line-height:1.65;}
+    /* Footer */
+    .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
+    .footer-simple__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);}
+    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:1.5rem;}
+    .footer-simple__link:hover{color:white;}
+    /* WA */
+    .wa-btn{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;}
+    .wa-btn:hover{transform:scale(1.1);}
+    @media(max-width:900px){.about-grid,.values-grid{grid-template-columns:1fr;}.stat-row{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+
+<!-- Emergency Bar -->
+<div class="emergency-bar"><div class="emergency-bar__inner"><span class="emergency-bar__text">24/7 Emergency — <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span><a href="tel:+919597040918" class="emergency-bar__cta">Call Now</a></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" aria-label="Main navigation">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo"><span class="navbar__logo-gopal">Gopal</span><span class="navbar__logo-div"></span><span class="navbar__logo-ortho">Ortho</span></a>
+    <ul class="navbar__links">
+      <li><a href="../index.html" class="navbar__link">Home</a></li>
+      <li><a href="index.html" class="navbar__link active">About</a></li>
+      <li><a href="../services/index.html" class="navbar__link">Services</a></li>
+      <li><a href="../doctors/index.html" class="navbar__link">Doctors</a></li>
+      <li><a href="../contact/index.html" class="navbar__link">Contact</a></li>
+    </ul>
+    <a href="../booking/index.html" class="btn btn-primary navbar__cta">Book Appointment</a>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <p class="page-hero__eyebrow">About Gopal Ortho</p>
+    <h1 class="page-hero__title">15 Years of Healing.<br>Thousands of Lives Changed.</h1>
+    <p class="page-hero__sub">A story of precision care, compassionate healing, and unwavering commitment to orthopaedic excellence in South Tamil Nadu.</p>
+  </div>
+</div>
+
+<!-- Main -->
+<main id="main">
+
+  <!-- About Content -->
+  <section class="section" id="our-story" aria-labelledby="about-story-headline">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-headline" id="about-story-headline">Founded on a Mission to <em>Restore Movement</em></h2>
+          <p style="font-family:'DM Sans',sans-serif;font-size:1rem;color:#4A4A4A;line-height:1.75;margin-bottom:1rem;">Gopal Ortho was established in Nagercoil with a single purpose: to provide world-class orthopaedic care to the people of South Tamil Nadu without requiring them to travel to Chennai or abroad.</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:1rem;color:#4A4A4A;line-height:1.75;margin-bottom:1rem;">Our team of board-certified specialists brings sub-speciality training in joint replacement, spine surgery, sports medicine, and physiotherapy under one roof in Kottar.</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:1rem;color:#4A4A4A;line-height:1.75;">We invest continuously in the latest surgical technology and clinical research to ensure our patients receive outcomes on par with leading international centres.</p>
+          <div class="stat-row">
+            <div class="stat-box"><p class="stat-box__num">500+</p><p class="stat-box__label">Surgeries</p></div>
+            <div class="stat-box"><p class="stat-box__num">15+</p><p class="stat-box__label">Years</p></div>
+            <div class="stat-box"><p class="stat-box__num">2000+</p><p class="stat-box__label">Patients</p></div>
+          </div>
+        </div>
+        <div class="about-img" role="img" aria-label="Gopal Ortho clinic">
+          <svg viewBox="0 0 200 260" fill="none" width="140" aria-hidden="true">
+            <ellipse cx="100" cy="55" rx="32" ry="38" stroke="rgba(125,211,252,0.5)" stroke-width="1.5"/>
+            <path d="M100 93 L100 165 M72 110 L55 155 M128 110 L145 155 M82 165 L78 225 M118 165 L122 225" stroke="rgba(125,211,252,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="82" cy="168" r="12" stroke="#38BDF8" stroke-width="2" fill="rgba(56,189,248,0.12)"><animate attributeName="r" values="12;16;12" dur="2s" repeatCount="indefinite"/></circle>
+            <path d="M90 210 h20 M100 200 v20" stroke="#C8973A" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section" style="background:#F8FBFF;" id="values" aria-labelledby="values-headline">
+    <div class="container">
+      <div style="text-align:center;max-width:520px;margin:0 auto 3rem;">
+        <p class="eyebrow" style="justify-content:center;border-left:none;padding-left:0;">Our Values</p>
+        <h2 class="section-headline" id="values-headline">What We <em>Stand For</em></h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-card__icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 2L4 6v6c0 5 3.6 9.3 8 10 4.4-.7 8-5 8-10V6L12 2z" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/><path d="M9 12l2 2 4-4" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <h3 class="value-card__title">Clinical Excellence</h3>
+          <p class="value-card__text">Uncompromising standards in diagnosis, surgery, and post-operative care guided by evidence-based protocols.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><circle cx="12" cy="8" r="4" stroke="#0A6EBD" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <h3 class="value-card__title">Patient Dignity</h3>
+          <p class="value-card__text">Every patient is treated with compassion, respect, and full transparency about their condition and treatment options.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="value-card__title">Continuous Innovation</h3>
+          <p class="value-card__text">We invest in advanced surgical equipment and ongoing training to stay at the forefront of orthopaedic medicine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" aria-label="Book consultation">
+    <div class="container" style="text-align:center;">
+      <h2 class="section-headline">Ready to Book a <em>Consultation?</em></h2>
+      <p style="font-family:'DM Sans',sans-serif;color:#8A8A8A;max-width:460px;margin:.75rem auto 2rem;">Our specialists are available Monday to Saturday, 9AM–7PM. Emergency care is available 24/7.</p>
+      <a href="../booking/index.html" class="btn btn-primary">Book an Appointment <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer-simple" role="contentinfo">
+  <div class="container">
+    <div class="footer-simple__inner">
+      <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
+      <div><a href="../index.html" class="footer-simple__link">Home</a><a href="../services/index.html" class="footer-simple__link">Services</a><a href="../contact/index.html" class="footer-simple__link">Contact</a></div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919597040918" class="wa-btn" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="white" width="24" height="24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>

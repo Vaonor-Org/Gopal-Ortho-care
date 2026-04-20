@@ -1,0 +1,452 @@
+<!-- ============================================================
+     F014 — Testimonials Carousel
+     4 testimonials, 3 visible desktop, autoplay 5000ms
+     SVG quote marks, star ratings, prev/next, dot indicators
+     ============================================================ -->
+
+<section class="testimonials section" id="testimonials" aria-labelledby="testimonials-headline">
+  <div class="container">
+
+    <div class="testimonials__header reveal">
+      <p class="eyebrow" style="border:none;padding:0;">Patient Stories</p>
+      <h2 class="section-headline" id="testimonials-headline">
+        Lives Transformed,<br><em>Mobility Restored.</em>
+      </h2>
+    </div>
+
+    <!-- Carousel wrapper -->
+    <div class="testimonials__track-wrap" id="testimonials-track-wrap">
+      <div class="testimonials__track" id="testimonials-track" aria-live="polite">
+
+        <!-- Card 1 -->
+        <div class="testimonials__card" role="article" aria-label="Testimonial from Rajkumar Sundaram">
+          <!-- Quote SVG mark -->
+          <svg class="testimonials__quote" viewBox="0 0 40 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="36" height="28">
+            <path d="M0 32V20C0 8.9 5.8 2.5 17.3 0L19 4.2C14.9 5.3 12.1 7.4 10.5 10.5
+                     C9 13.6 8.5 16.6 9 19.5h7V32H0zm21 0V20C21 8.9 26.8 2.5 38.3 0L40 4.2
+                     C35.9 5.3 33.1 7.4 31.5 10.5C30 13.6 29.5 16.6 30 19.5h7V32H21z"
+                  fill="#C8973A" opacity="0.15"/>
+          </svg>
+
+          <!-- Stars -->
+          <div class="testimonials__stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+          </div>
+          <div class="testimonials__divider" aria-hidden="true"></div>
+          <p class="testimonials__text">
+            "After my knee replacement surgery at Gopal Ortho, I am walking without
+            any pain for the first time in five years. Dr. Gopal's precision and the
+            team's attentive care made all the difference. Truly world-class."
+          </p>
+          <div class="testimonials__author">
+            <div class="testimonials__avatar" aria-hidden="true">RS</div>
+            <div>
+              <p class="testimonials__name">Rajkumar Sundaram</p>
+              <p class="testimonials__meta">Nagercoil</p>
+              <span class="pill-tag testimonials__treatment">Knee Replacement</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="testimonials__card" role="article" aria-label="Testimonial from Meenakshi Pillai">
+          <svg class="testimonials__quote" viewBox="0 0 40 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="36" height="28">
+            <path d="M0 32V20C0 8.9 5.8 2.5 17.3 0L19 4.2C14.9 5.3 12.1 7.4 10.5 10.5
+                     C9 13.6 8.5 16.6 9 19.5h7V32H0zm21 0V20C21 8.9 26.8 2.5 38.3 0L40 4.2
+                     C35.9 5.3 33.1 7.4 31.5 10.5C30 13.6 29.5 16.6 30 19.5h7V32H21z"
+                  fill="#C8973A" opacity="0.15"/>
+          </svg>
+          <div class="testimonials__stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+          </div>
+          <div class="testimonials__divider" aria-hidden="true"></div>
+          <p class="testimonials__text">
+            "My daughter had a complex fracture from a fall. The emergency team at
+            Gopal Ortho admitted her within 20 minutes and she had surgery the same night.
+            Full recovery in 6 weeks. We are forever grateful."
+          </p>
+          <div class="testimonials__author">
+            <div class="testimonials__avatar" aria-hidden="true">MP</div>
+            <div>
+              <p class="testimonials__name">Meenakshi Pillai</p>
+              <p class="testimonials__meta">Marthandam</p>
+              <span class="pill-tag testimonials__treatment">Fracture Care</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="testimonials__card" role="article" aria-label="Testimonial from Suresh Annamalai">
+          <svg class="testimonials__quote" viewBox="0 0 40 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="36" height="28">
+            <path d="M0 32V20C0 8.9 5.8 2.5 17.3 0L19 4.2C14.9 5.3 12.1 7.4 10.5 10.5
+                     C9 13.6 8.5 16.6 9 19.5h7V32H0zm21 0V20C21 8.9 26.8 2.5 38.3 0L40 4.2
+                     C35.9 5.3 33.1 7.4 31.5 10.5C30 13.6 29.5 16.6 30 19.5h7V32H21z"
+                  fill="#C8973A" opacity="0.15"/>
+          </svg>
+          <div class="testimonials__stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+          </div>
+          <div class="testimonials__divider" aria-hidden="true"></div>
+          <p class="testimonials__text">
+            "As a cricket player, an ACL tear felt like the end. The sports medicine
+            team designed a 12-week return-to-play plan and I was back on the field
+            stronger than ever. Outstanding physiotherapy team."
+          </p>
+          <div class="testimonials__author">
+            <div class="testimonials__avatar" aria-hidden="true">SA</div>
+            <div>
+              <p class="testimonials__name">Suresh Annamalai</p>
+              <p class="testimonials__meta">Kanyakumari</p>
+              <span class="pill-tag testimonials__treatment">Sports Medicine</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="testimonials__card" role="article" aria-label="Testimonial from Lakshmi Ramachandran">
+          <svg class="testimonials__quote" viewBox="0 0 40 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="36" height="28">
+            <path d="M0 32V20C0 8.9 5.8 2.5 17.3 0L19 4.2C14.9 5.3 12.1 7.4 10.5 10.5
+                     C9 13.6 8.5 16.6 9 19.5h7V32H0zm21 0V20C21 8.9 26.8 2.5 38.3 0L40 4.2
+                     C35.9 5.3 33.1 7.4 31.5 10.5C30 13.6 29.5 16.6 30 19.5h7V32H21z"
+                  fill="#C8973A" opacity="0.15"/>
+          </svg>
+          <div class="testimonials__stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+            <svg viewBox="0 0 16 16" fill="#C8973A" width="14" height="14" aria-hidden="true"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9L4.4 12l.7-4L2.2 5.2l4-.6L8 1z"/></svg>
+          </div>
+          <div class="testimonials__divider" aria-hidden="true"></div>
+          <p class="testimonials__text">
+            "After 10 years of crippling arthritis, I finally had my hip replacement
+            done here. The transparent pricing and compassionate post-op care exceeded
+            all expectations. I could dance at my granddaughter's wedding."
+          </p>
+          <div class="testimonials__author">
+            <div class="testimonials__avatar" aria-hidden="true">LR</div>
+            <div>
+              <p class="testimonials__name">Lakshmi Ramachandran</p>
+              <p class="testimonials__meta">Padmanabapuram</p>
+              <span class="pill-tag testimonials__treatment">Hip Replacement</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="testimonials__controls">
+      <!-- Prev -->
+      <button class="testimonials__arrow" id="testimonials-prev"
+              aria-label="Previous testimonial">
+        <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"
+                    stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Dots -->
+      <div class="testimonials__dots" id="testimonials-dots" role="tablist" aria-label="Testimonial navigation">
+        <button class="testimonials__dot active" data-index="0" role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
+        <button class="testimonials__dot" data-index="1" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+        <button class="testimonials__dot" data-index="2" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+        <button class="testimonials__dot" data-index="3" role="tab" aria-selected="false" aria-label="Testimonial 4"></button>
+      </div>
+
+      <!-- Next -->
+      <button class="testimonials__arrow" id="testimonials-next"
+              aria-label="Next testimonial">
+        <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"
+                    stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.testimonials {
+  background: white;
+}
+
+.testimonials__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Track wrap (overflows hidden) */
+.testimonials__track-wrap {
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+.testimonials__track-wrap:active { cursor: grabbing; }
+
+.testimonials__track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Cards */
+.testimonials__card {
+  flex: 0 0 calc((100% - 3rem) / 3);
+  min-width: 0;
+  background: #F9F6F0;
+  border: 1px solid #E5E0D8;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  position: relative;
+}
+
+.testimonials__quote {
+  flex-shrink: 0;
+}
+
+.testimonials__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.testimonials__divider {
+  width: 100%;
+  height: 1px;
+  background: #E5E0D8;
+}
+
+.testimonials__text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: #374151;
+  line-height: 1.7;
+  flex: 1;
+  font-style: italic;
+}
+
+.testimonials__author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.testimonials__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0B3D2E 0%, #1A5C44 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.testimonials__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.testimonials__meta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  margin-bottom: 4px;
+}
+
+.testimonials__treatment {
+  font-size: 0.6875rem;
+}
+
+/* Controls */
+.testimonials__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.testimonials__arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #E5E0D8;
+  background: white;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.testimonials__arrow:hover {
+  background: #0B3D2E;
+  border-color: #0B3D2E;
+  color: white;
+}
+
+.testimonials__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.testimonials__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #E5E0D8;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 0;
+}
+
+.testimonials__dot.active {
+  width: 24px;
+  background: #C8973A;
+}
+
+@media (max-width: 1024px) {
+  .testimonials__card {
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonials__card {
+    flex: 0 0 100%;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var track      = document.getElementById('testimonials-track');
+  var prevBtn    = document.getElementById('testimonials-prev');
+  var nextBtn    = document.getElementById('testimonials-next');
+  var dots       = document.querySelectorAll('.testimonials__dot');
+  var cards      = document.querySelectorAll('.testimonials__card');
+  var wrap       = document.getElementById('testimonials-track-wrap');
+
+  var current    = 0;
+  var total      = cards.length;
+  var autoplay   = null;
+  var isHovered  = false;
+
+  function getVisible() {
+    if (window.innerWidth <= 640)  return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function getMax() {
+    return Math.max(0, total - getVisible());
+  }
+
+  function goTo(idx) {
+    current = Math.min(Math.max(idx, 0), getMax());
+    var cardWidth = cards[0].offsetWidth + 24; /* gap */
+    track.style.transform = 'translateX(-' + (current * cardWidth) + 'px)';
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-selected', String(i === current));
+    });
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); resetAutoplay(); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); resetAutoplay(); });
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      goTo(parseInt(dot.dataset.index, 10));
+      resetAutoplay();
+    });
+  });
+
+  /* Autoplay */
+  function startAutoplay() {
+    autoplay = setInterval(function() {
+      if (!isHovered) {
+        var next = current + 1 > getMax() ? 0 : current + 1;
+        goTo(next);
+      }
+    }, 5000);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplay);
+    startAutoplay();
+  }
+
+  if (wrap) {
+    wrap.addEventListener('mouseenter', function() { isHovered = true; });
+    wrap.addEventListener('mouseleave', function() { isHovered = false; });
+  }
+
+  /* Touch / swipe */
+  var touchStartX = 0;
+  if (wrap) {
+    wrap.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    wrap.addEventListener('touchend', function(e) {
+      var diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        goTo(diff > 0 ? current + 1 : current - 1);
+        resetAutoplay();
+      }
+    }, { passive: true });
+  }
+
+  startAutoplay();
+  window.addEventListener('resize', function() { goTo(current); });
+
+  /* Scroll reveal header */
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.testimonials .reveal').forEach(function(el) { obs.observe(el); });
+})();
+</script>

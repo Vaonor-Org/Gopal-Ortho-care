@@ -1,0 +1,14 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Vertebra shape -->
+  <rect x="12" y="14" width="16" height="10" rx="3" stroke="#0B3D2E" stroke-width="1.5"/>
+  <!-- Spinous process -->
+  <path d="M20 14 L20 8" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Transverse processes -->
+  <path d="M12 19 L6 16" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M28 19 L34 16" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Pain/signal waves -->
+  <path d="M26 12 Q29 14 26 16 Q29 18 26 20" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M30 10 Q34 13 30 16 Q34 19 30 22" stroke="#C8973A" stroke-width="1.25" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <!-- Bottom disc -->
+  <path d="M16 24 Q20 27 24 24" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

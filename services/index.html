@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services – Gopal Ortho | Orthopaedic &amp; Physiotherapy Nagercoil</title>
+  <meta name="description" content="Explore our full range of orthopaedic services: joint replacement, spine surgery, fracture care, sports medicine, physiotherapy, and pain management at Gopal Ortho, Nagercoil.">
+  <link rel="canonical" href="https://www.gopalortho.com/services/">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;color:#1A1A1A;background:#fff;-webkit-font-smoothing:antialiased;}
+    h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15;letter-spacing:-0.02em;}
+    a{color:inherit;text-decoration:none;}
+    svg,img{display:block;max-width:100%;}
+    button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;background:none;}
+    .container{max-width:1320px;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:52px;padding:0 1.75rem;border-radius:9999px;font-family:'DM Sans',sans-serif;font-size:.9375rem;font-weight:500;cursor:pointer;transition:all .35s ease;border:none;white-space:nowrap;text-decoration:none;}
+    .btn-primary{background:#0A6EBD;color:white;}.btn-primary:hover{background:#C8973A;transform:translateY(-1px);}
+    .emergency-bar{width:100%;height:40px;background:#062A45;display:flex;align-items:center;position:sticky;top:0;z-index:1000;}
+    .emergency-bar__inner{max-width:1320px;width:100%;margin:0 auto;padding:0 clamp(1.25rem,5vw,5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+    .emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.9);}
+    .emergency-bar__phone{color:#7DD3FC;font-weight:500;}
+    .emergency-bar__cta{display:inline-flex;align-items:center;height:26px;padding:0 .875rem;border-radius:9999px;border:1px solid #C8973A;color:#C8973A;font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;text-decoration:none;}
+    .navbar{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid #D6E6F5;padding:0 clamp(1.25rem,5vw,5rem);}
+    .navbar__inner{max-width:1320px;margin:0 auto;height:66px;display:flex;align-items:center;gap:2rem;}
+    .navbar__logo{display:flex;align-items:center;text-decoration:none;}
+    .navbar__logo-gopal{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;color:#0A6EBD;line-height:1;}
+    .navbar__logo-div{width:1px;height:20px;background:#C8973A;margin:0 .5rem;display:block;}
+    .navbar__logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.125rem;color:#1A1A1A;}
+    .navbar__links{display:flex;gap:.25rem;margin:0 auto;}
+    .navbar__link{padding:.5rem .75rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:#1A1A1A;text-decoration:none;border-radius:6px;}
+    .navbar__link:hover,.navbar__link.active{color:#0A6EBD;}
+    .navbar__cta{flex-shrink:0;height:44px;font-size:.8125rem;padding:0 1.25rem;}
+    @media(max-width:1024px){.navbar__links,.navbar__cta{display:none;}}
+    .page-hero{background:linear-gradient(135deg,#062A45,#0A6EBD);padding:clamp(4rem,8vw,7rem) 0 clamp(3rem,6vw,5rem);}
+    .page-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.75rem;}
+    .page-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;color:white;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1rem;}
+    .page-hero__sub{font-family:'DM Sans',sans-serif;font-size:1.0625rem;color:rgba(255,255,255,.7);max-width:560px;}
+    .section{padding:clamp(4rem,8vw,7rem) 0;}
+    .eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C8973A;border-left:2px solid #C8973A;padding-left:.625rem;display:inline-block;margin-bottom:1rem;}
+    .section-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#1A1A1A;letter-spacing:-0.02em;margin-bottom:1.25rem;}
+    .section-headline em{color:#0A6EBD;font-style:italic;}
+    /* Service detail card */
+    .service-detail{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid #D6E6F5;}
+    .service-detail:last-child{border:none;}
+    .service-detail:nth-child(even){direction:rtl;}
+    .service-detail:nth-child(even)>*{direction:ltr;}
+    .service-detail__img{height:360px;background:linear-gradient(135deg,#0A6EBD 0%,#062A45 100%);border-radius:20px;display:flex;align-items:center;justify-content:center;}
+    .service-detail__tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.6875rem;letter-spacing:.1em;color:#0A6EBD;background:#E6F1FE;padding:.25rem .75rem;border-radius:9999px;margin-bottom:1rem;}
+    .service-detail__title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;color:#1A1A1A;margin-bottom:1rem;}
+    .service-detail__text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;line-height:1.75;margin-bottom:1.25rem;}
+    .service-detail__list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;}
+    .service-detail__list li{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;display:flex;align-items:flex-start;gap:.625rem;}
+    .service-detail__list li::before{content:'';width:16px;height:16px;background:#E6F1FE;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:1.5px solid #0A6EBD;}
+    .btn-sm{height:42px;padding:0 1.25rem;font-size:.875rem;}
+    .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
+    .footer-simple__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);}
+    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:1.5rem;}
+    .wa-btn{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;}
+    @media(max-width:900px){.service-detail{grid-template-columns:1fr;direction:ltr!important;}.service-detail:nth-child(even){direction:ltr;}}
+  </style>
+</head>
+<body>
+
+<div class="emergency-bar"><div class="emergency-bar__inner"><span class="emergency-bar__text">24/7 Emergency — <a href="tel:+919597040918" class="emergency-bar__phone">095970 40918</a></span><a href="tel:+919597040918" class="emergency-bar__cta">Call Now</a></div></div>
+
+<nav class="navbar" aria-label="Main navigation">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo"><span class="navbar__logo-gopal">Gopal</span><span class="navbar__logo-div"></span><span class="navbar__logo-ortho">Ortho</span></a>
+    <ul class="navbar__links"><li><a href="../index.html" class="navbar__link">Home</a></li><li><a href="../about/index.html" class="navbar__link">About</a></li><li><a href="index.html" class="navbar__link active">Services</a></li><li><a href="../doctors/index.html" class="navbar__link">Doctors</a></li><li><a href="../contact/index.html" class="navbar__link">Contact</a></li></ul>
+    <a href="../booking/index.html" class="btn btn-primary navbar__cta">Book Appointment</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <p class="page-hero__eyebrow">What We Offer</p>
+    <h1 class="page-hero__title">Comprehensive Orthopaedic<br>Services</h1>
+    <p class="page-hero__sub">From fracture care to joint replacement, spine surgery to physiotherapy — all under one expert team in Nagercoil.</p>
+  </div>
+</div>
+
+<main id="main">
+  <div class="container">
+
+    <div class="service-detail" id="fracture">
+      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><path d="M30 20 L70 80M30 20 L45 35 L55 20M55 60 L65 75 L70 80" stroke="rgba(125,211,252,0.7)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <span class="service-detail__tag">01 — Orthopaedic</span>
+        <h2 class="service-detail__title">Fracture &amp; Trauma Care</h2>
+        <p class="service-detail__text">We provide immediate and planned surgical management of all types of fractures, dislocations, and orthopaedic trauma injuries with the latest fixation implants.</p>
+        <ul class="service-detail__list"><li>Emergency fracture stabilisation</li><li>Open reduction &amp; internal fixation</li><li>Complex periarticular fractures</li><li>Post-traumatic rehabilitation</li></ul>
+        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+      </div>
+    </div>
+
+    <div class="service-detail" id="joint">
+      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="40" r="20" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M50 60 L50 90M30 90 L70 90" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+      <div>
+        <span class="service-detail__tag">02 — Orthopaedic</span>
+        <h2 class="service-detail__title">Joint Replacement</h2>
+        <p class="service-detail__text">Advanced total and partial joint replacement for knee and hip arthritis using premium cemented and cementless implant systems with rapid recovery protocols.</p>
+        <ul class="service-detail__list"><li>Total knee replacement</li><li>Hip replacement (primary &amp; revision)</li><li>Unicompartmental knee replacement</li><li>Enhanced recovery after surgery (ERAS)</li></ul>
+        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+      </div>
+    </div>
+
+    <div class="service-detail" id="spine">
+      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><rect x="35" y="10" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><rect x="35" y="34" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><rect x="35" y="58" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><line x1="50" y1="28" x2="50" y2="34" stroke="rgba(125,211,252,0.7)" stroke-width="2"/><line x1="50" y1="52" x2="50" y2="58" stroke="rgba(125,211,252,0.7)" stroke-width="2"/></svg></div>
+      <div>
+        <span class="service-detail__tag">03 — Orthopaedic</span>
+        <h2 class="service-detail__title">Spine Surgery</h2>
+        <p class="service-detail__text">Minimally invasive and open surgical procedures for disc herniation, spinal stenosis, spondylolisthesis, and deformity correction with excellent outcomes.</p>
+        <ul class="service-detail__list"><li>Microdiscectomy &amp; laminectomy</li><li>Spinal fusion (PLIF, TLIF)</li><li>Cervical disc replacement</li><li>Scoliosis correction</li></ul>
+        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+      </div>
+    </div>
+
+    <div class="service-detail" id="sports">
+      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="50" r="35" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M20 50 Q50 25 80 50 Q50 75 20 50" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/></svg></div>
+      <div>
+        <span class="service-detail__tag">04 — Sports Medicine</span>
+        <h2 class="service-detail__title">Sports Medicine</h2>
+        <p class="service-detail__text">Arthroscopic and open surgical management of sports injuries with athlete-specific rehabilitation programs designed for complete return to sport.</p>
+        <ul class="service-detail__list"><li>ACL &amp; PCL reconstruction</li><li>Meniscus repair &amp; partial meniscectomy</li><li>Rotator cuff repair</li><li>Cartilage restoration procedures</li></ul>
+        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+      </div>
+    </div>
+
+    <div class="service-detail" id="physio">
+      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="20" r="12" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M30 40 L30 75 M70 40 L70 75 M30 45 L70 45 M40 40 L40 80 M60 40 L60 80" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+      <div>
+        <span class="service-detail__tag">05 — Physiotherapy</span>
+        <h2 class="service-detail__title">Physiotherapy &amp; Rehabilitation</h2>
+        <p class="service-detail__text">Personalised, evidence-based rehabilitation programs for post-surgical recovery, chronic pain management, neurological conditions, and geriatric care.</p>
+        <ul class="service-detail__list"><li>Post-surgical rehabilitation</li><li>Sports physiotherapy</li><li>Neurological rehabilitation</li><li>Geriatric physiotherapy</li></ul>
+        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+      </div>
+    </div>
+
+    <div class="service-detail" id="pain">
+      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><path d="M50 10 L50 90M20 40 L50 10 L80 40M25 62 Q50 50 75 62" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <span class="service-detail__tag">06 — Pain Management</span>
+        <h2 class="service-detail__title">Pain Management</h2>
+        <p class="service-detail__text">Comprehensive, multimodal approaches to chronic musculoskeletal pain using injections, physical therapy, and pharmacological management.</p>
+        <ul class="service-detail__list"><li>Intra-articular injections</li><li>Epidural steroid injections</li><li>Platelet-rich plasma (PRP) therapy</li><li>Trigger point injections</li></ul>
+        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer-simple" role="contentinfo">
+  <div class="container"><div class="footer-simple__inner"><p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p><div><a href="../index.html" class="footer-simple__link">Home</a><a href="../about/index.html" class="footer-simple__link">About</a><a href="../contact/index.html" class="footer-simple__link">Contact</a></div></div></div>
+</footer>
+
+<a href="https://wa.me/919597040918" class="wa-btn" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="white" width="24" height="24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+</body>
+</html>

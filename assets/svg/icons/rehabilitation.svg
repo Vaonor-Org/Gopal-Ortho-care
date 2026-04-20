@@ -1,0 +1,18 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Walking frame / walker bars -->
+  <path d="M8 36 L8 16 Q8 14 10 14 L30 14 Q32 14 32 16 L32 36" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="8" y1="14" x2="32" y2="14" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Figure using walker -->
+  <!-- Head -->
+  <circle cx="20" cy="6" r="3.5" stroke="#0B3D2E" stroke-width="1.5"/>
+  <!-- Torso -->
+  <path d="M20 10 L20 20" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Arms on walker -->
+  <path d="M20 15 L13 14" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M20 15 L27 14" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Legs stepping forward -->
+  <path d="M20 20 L17 27 L15 32" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 20 L23 27 L25 32" stroke="#0B3D2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Progress arrows -->
+  <path d="M35 22 L38 25 L35 28" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

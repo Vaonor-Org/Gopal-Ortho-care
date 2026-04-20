@@ -1,0 +1,239 @@
+<!-- ============================================================
+     F006 — Stats Bar
+     Full-width dark green strip with 4 animated count-up stats
+     ============================================================ -->
+
+<section class="stats-bar" id="stats" aria-label="Hospital statistics">
+
+  <!-- Bone grid SVG pattern (inline, as bg) -->
+  <div class="stats-bar__pattern" aria-hidden="true">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="boneGridStats" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M16 20h8M20 16v8" stroke="white" stroke-width="1.5"
+                stroke-linecap="round" opacity="0.05"/>
+          <circle cx="16" cy="20" r="2" fill="white" opacity="0.04"/>
+          <circle cx="24" cy="20" r="2" fill="white" opacity="0.04"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#boneGridStats)"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="stats-bar__grid">
+
+      <!-- Stat 1: Surgeries -->
+      <div class="stats-bar__item reveal" style="--delay: 0ms;">
+        <div class="stats-bar__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <path d="M8 20h8M24 20h8" stroke="#C8973A" stroke-width="1.75" stroke-linecap="round"/>
+            <circle cx="7" cy="20" r="3.5" stroke="#C8973A" stroke-width="1.5" fill="none"/>
+            <circle cx="33" cy="20" r="3.5" stroke="#C8973A" stroke-width="1.5" fill="none"/>
+            <path d="M16 20l1.5-3.5L19.5 23 21.5 18 23 20" stroke="#C8973A" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="13" y="24" width="14" height="3" rx="1.5" stroke="#C8973A" stroke-width="1.25" fill="none"/>
+            <line x1="17" y1="24" x2="17" y2="27" stroke="#C8973A" stroke-width="1"/>
+            <line x1="20" y1="24" x2="20" y2="27" stroke="#C8973A" stroke-width="1"/>
+            <line x1="23" y1="24" x2="23" y2="27" stroke="#C8973A" stroke-width="1"/>
+          </svg>
+        </div>
+        <p class="stats-bar__number"
+           data-countup data-target="500" id="stat-surgeries"
+           aria-label="500 plus successful surgeries">0+</p>
+        <p class="stats-bar__label">Successful Surgeries</p>
+      </div>
+
+      <div class="stats-bar__divider" aria-hidden="true"></div>
+
+      <!-- Stat 2: Experience -->
+      <div class="stats-bar__item reveal" style="--delay: 120ms;">
+        <div class="stats-bar__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <circle cx="20" cy="20" r="14" stroke="#C8973A" stroke-width="1.75"/>
+            <polyline points="20,10 20,20 27,20" stroke="#C8973A" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="stats-bar__number"
+           data-countup data-target="15" id="stat-years"
+           aria-label="15 plus years experience">0+</p>
+        <p class="stats-bar__label">Years Experience</p>
+      </div>
+
+      <div class="stats-bar__divider" aria-hidden="true"></div>
+
+      <!-- Stat 3: Patients -->
+      <div class="stats-bar__item reveal" style="--delay: 240ms;">
+        <div class="stats-bar__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <circle cx="14" cy="14" r="5" stroke="#C8973A" stroke-width="1.75"/>
+            <circle cx="26" cy="14" r="5" stroke="#C8973A" stroke-width="1.75"/>
+            <path d="M6 32c0-5.5 3.6-9 8-9h12c4.4 0 8 3.5 8 9"
+                  stroke="#C8973A" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="stats-bar__number"
+           data-countup data-target="2000" id="stat-patients"
+           aria-label="2000 plus patients treated">0+</p>
+        <p class="stats-bar__label">Patients Treated</p>
+      </div>
+
+      <div class="stats-bar__divider" aria-hidden="true"></div>
+
+      <!-- Stat 4: Services -->
+      <div class="stats-bar__item reveal" style="--delay: 360ms;">
+        <div class="stats-bar__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <rect x="6" y="6" width="12" height="12" rx="3" stroke="#C8973A" stroke-width="1.75"/>
+            <rect x="22" y="6" width="12" height="12" rx="3" stroke="#C8973A" stroke-width="1.75"/>
+            <rect x="6" y="22" width="12" height="12" rx="3" stroke="#C8973A" stroke-width="1.75"/>
+            <rect x="22" y="22" width="12" height="12" rx="3" stroke="#C8973A" stroke-width="1.75"/>
+          </svg>
+        </div>
+        <p class="stats-bar__number"
+           data-countup data-target="10" id="stat-services"
+           aria-label="10 plus specialised services">0+</p>
+        <p class="stats-bar__label">Specialised Services</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.stats-bar {
+  position: relative;
+  background: #0B3D2E;
+  padding: 0;
+  overflow: hidden;
+}
+
+.stats-bar__pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stats-bar .container {
+  position: relative;
+  z-index: 1;
+}
+
+.stats-bar__grid {
+  display: flex;
+  align-items: stretch;
+  min-height: 120px;
+}
+
+.stats-bar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.stats-bar__divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 1.5rem 0;
+  flex-shrink: 0;
+}
+
+.stats-bar__icon {
+  margin-bottom: 0.25rem;
+}
+
+.stats-bar__number {
+  font-family: 'DM Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stats-bar__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #C8973A;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .stats-bar__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
+  }
+  .stats-bar__divider {
+    display: none;
+  }
+  .stats-bar__item {
+    padding: 1.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .stats-bar__number { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .stats-bar__number { font-size: 1.75rem; }
+  .stats-bar__label  { font-size: 0.75rem; }
+}
+</style>
+
+<script>
+(function () {
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function countUp(el, target, duration) {
+    duration = duration || 2200;
+    var start = performance.now();
+    function update(now) {
+      var elapsed  = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var value    = Math.floor(easeOutExpo(progress) * target);
+      el.textContent = value.toLocaleString() + '+';
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  var statsObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var el     = entry.target;
+        var target = parseInt(el.dataset.target, 10);
+        countUp(el, target);
+        statsObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('[data-countup]').forEach(function (el) {
+    statsObserver.observe(el);
+  });
+
+  /* Scroll reveal */
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.stats-bar .reveal').forEach(function (el) {
+    revealObserver.observe(el);
+  });
+})();
+</script>

@@ -1,0 +1,295 @@
+<!-- ============================================================
+     F007 — About Preview Section
+     45% image left / 55% content right, scroll reveal
+     ============================================================ -->
+
+<section class="about-preview section" id="about" aria-labelledby="about-headline">
+  <div class="container">
+    <div class="about-preview__grid">
+
+      <!-- LEFT: Image -->
+      <div class="about-preview__img-col reveal-left">
+        <div class="about-preview__img-wrap">
+          <!-- Placeholder image with green gradient bg -->
+          <div class="about-preview__img-placeholder" role="img"
+               aria-label="Gopal Ortho clinic — trusted orthopaedic care">
+            <!-- Doctor illustration / green gradient placeholder -->
+            <svg viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg"
+                 class="about-preview__placeholder-svg" aria-hidden="true">
+              <!-- White coat body -->
+              <rect x="100" y="200" width="200" height="240" rx="20" fill="white" opacity="0.15"/>
+              <!-- Head -->
+              <ellipse cx="200" cy="160" rx="55" ry="65" fill="white" opacity="0.2"/>
+              <!-- Stethoscope -->
+              <path d="M160 230 Q150 260 160 275 Q175 295 200 295 Q225 295 240 275 Q250 260 240 230"
+                    stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.4"/>
+              <circle cx="200" cy="300" r="8" stroke="white" stroke-width="2.5" fill="none" opacity="0.4"/>
+              <!-- Cross symbol -->
+              <path d="M185 380 h30 M200 365 v30" stroke="#C8973A" stroke-width="4"
+                    stroke-linecap="round" opacity="0.8"/>
+            </svg>
+            <!-- Green overlay -->
+            <div class="about-preview__img-overlay" aria-hidden="true"></div>
+          </div>
+
+          <!-- Trust badge (shield + cross) -->
+          <div class="about-preview__badge" aria-label="Trusted Orthopaedic Care">
+            <div class="about-preview__badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
+                <path d="M12 2L4 6v6c0 5 3.6 9.3 8 10 4.4-.7 8-5 8-10V6L12 2z"
+                      stroke="#C8973A" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 12l2 2 4-4" stroke="#C8973A" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <p class="about-preview__badge-title">Trusted</p>
+              <p class="about-preview__badge-sub">Orthopaedic Care</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: Content -->
+      <div class="about-preview__content reveal-right">
+
+        <p class="eyebrow">Who We Are</p>
+
+        <h2 class="section-headline" id="about-headline">
+          South Tamil Nadu's Most<br>
+          <em>Trusted Bone &amp; Joint Specialists</em>
+        </h2>
+
+        <p class="about-preview__body">
+          At Gopal Ortho, we combine advanced surgical precision with genuine patient
+          compassion. Located in the heart of Kottar, Nagercoil, our clinic has been
+          restoring movement and rebuilding lives for over 15 years — one patient at a time.
+        </p>
+
+        <!-- Feature list -->
+        <ul class="about-preview__features" role="list">
+          <li class="about-preview__feature">
+            <span class="about-preview__check" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+                <path d="M16 5L8 13.5 4 9.5" stroke="#0B3D2E" stroke-width="2.5"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Board-certified orthopaedic surgeons with sub-speciality training
+          </li>
+          <li class="about-preview__feature">
+            <span class="about-preview__check" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+                <path d="M16 5L8 13.5 4 9.5" stroke="#0B3D2E" stroke-width="2.5"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            State-of-the-art OT with advanced arthroscopy &amp; implant systems
+          </li>
+          <li class="about-preview__feature">
+            <span class="about-preview__check" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+                <path d="M16 5L8 13.5 4 9.5" stroke="#0B3D2E" stroke-width="2.5"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Dedicated physiotherapy wing with certified therapists
+          </li>
+          <li class="about-preview__feature">
+            <span class="about-preview__check" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+                <path d="M16 5L8 13.5 4 9.5" stroke="#0B3D2E" stroke-width="2.5"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            24/7 emergency orthopaedic care, every day of the year
+          </li>
+        </ul>
+
+        <!-- Text CTA -->
+        <a href="/about" class="link-gold about-preview__cta" id="about-learn-more">
+          Learn More About Us
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.about-preview {
+  background: var(--color-white);
+}
+
+.about-preview__grid {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+}
+
+/* ---- Image Column ---- */
+.about-preview__img-col {
+  position: relative;
+}
+
+.about-preview__img-wrap {
+  position: relative;
+}
+
+.about-preview__img-placeholder {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #0B3D2E 0%, #1A5C44 60%, #0B3D2E 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.about-preview__placeholder-svg {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  opacity: 0.85;
+}
+
+.about-preview__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11, 61, 46, 0.6) 0%, transparent 60%);
+}
+
+/* Badge (bottom-right) */
+.about-preview__badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: white;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 8px 32px rgba(11, 61, 46, 0.14);
+  border: 1px solid #E5E0D8;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.about-preview__badge-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(200, 151, 58, 0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-preview__badge-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0B3D2E;
+  line-height: 1.2;
+}
+
+.about-preview__badge-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #6B7280;
+}
+
+/* ---- Content Column ---- */
+.about-preview__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-preview__body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.0625rem;
+  color: #374151;
+  line-height: 1.75;
+}
+
+.about-preview__features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.about-preview__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: #374151;
+  line-height: 1.55;
+}
+
+.about-preview__check {
+  width: 24px;
+  height: 24px;
+  background: rgba(11, 61, 46, 0.07);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.about-preview__cta {
+  margin-top: 0.5rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .about-preview__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-preview__img-placeholder {
+    aspect-ratio: 16/9;
+  }
+
+  .about-preview__badge {
+    bottom: -16px;
+    right: 1rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.about-preview .reveal-left, .about-preview .reveal-right').forEach(function(el) {
+    obs.observe(el);
+  });
+})();
+</script>
