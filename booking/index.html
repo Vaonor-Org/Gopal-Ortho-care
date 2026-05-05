@@ -1,0 +1,914 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment – Gopal Ortho | Nagercoil</title>
+  <meta name="description" content="Book an orthopaedic or physiotherapy appointment online at Gopal Ortho, Kottar, Nagercoil. Select service, doctor, date, and time in 3 easy steps.">
+  <link rel="canonical" href="https://www.gopalortho.com/booking/">
+  <meta property="og:title"       content="Book an Appointment – Gopal Ortho">
+  <meta property="og:description" content="Easy 3-step online appointment booking for orthopaedic and physiotherapy consultations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/styles/global.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalOrganization","name":"Gopal Ortho","url":"https://www.gopalortho.com","telephone":"+919597040918"}</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div id="site-header"></div>
+<script src="../components/navbar-loader.js"></script>
+<script>
+  loadSharedNavbar({ basePath: '../', activePage: 'booking' });
+</script>
+
+<!-- Page Hero -->
+<div class="booking-hero">
+  <div class="container">
+    <p class="booking-hero__eyebrow">Easy Online Booking</p>
+    <h1 class="booking-hero__title">Book an Appointment</h1>
+    <p class="booking-hero__sub">Complete in 3 simple steps. Confirmation within 2 hours.</p>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main id="main">
+  <div class="booking-layout">
+    <div class="container">
+      <div class="booking-layout__grid">
+
+        <!-- LEFT: 3-step form (65%) -->
+        <div class="booking-form-col">
+
+          <!-- Step Indicator (F020) -->
+          <div class="step-indicator" id="step-indicator" role="navigation" aria-label="Booking progress">
+            <div class="step-indicator__track">
+
+              <div class="step-indicator__step active" id="step-ind-1" aria-current="step" data-step="1">
+                <div class="step-indicator__circle">
+                  <span class="step-indicator__num">1</span>
+                  <svg class="step-indicator__check" viewBox="0 0 20 20" fill="none" width="14" height="14" aria-hidden="true" style="display:none;">
+                    <path d="M16 5L8 13.5 4 9.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="step-indicator__label">
+                  <span class="step-indicator__label-title">Select Service</span>
+                  <span class="step-indicator__label-sub">Department &amp; condition</span>
+                </div>
+              </div>
+
+              <div class="step-indicator__line" id="step-line-1" aria-hidden="true"></div>
+
+              <div class="step-indicator__step" id="step-ind-2" data-step="2">
+                <div class="step-indicator__circle">
+                  <span class="step-indicator__num">2</span>
+                  <svg class="step-indicator__check" viewBox="0 0 20 20" fill="none" width="14" height="14" aria-hidden="true" style="display:none;">
+                    <path d="M16 5L8 13.5 4 9.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="step-indicator__label">
+                  <span class="step-indicator__label-title">Date &amp; Doctor</span>
+                  <span class="step-indicator__label-sub">Choose time slot</span>
+                </div>
+              </div>
+
+              <div class="step-indicator__line" id="step-line-2" aria-hidden="true"></div>
+
+              <div class="step-indicator__step" id="step-ind-3" data-step="3">
+                <div class="step-indicator__circle">
+                  <span class="step-indicator__num">3</span>
+                  <svg class="step-indicator__check" viewBox="0 0 20 20" fill="none" width="14" height="14" aria-hidden="true" style="display:none;">
+                    <path d="M16 5L8 13.5 4 9.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="step-indicator__label">
+                  <span class="step-indicator__label-title">Your Details</span>
+                  <span class="step-indicator__label-sub">Patient information</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ====== STEP 1: Service Selection (F021) ====== -->
+          <div class="booking-step" id="step-1">
+            <h2 class="booking-step__title">What do you need help with?</h2>
+
+            <!-- Department cards -->
+            <div class="dept-cards" id="dept-cards">
+              <button class="dept-card" id="dept-ortho" data-dept="ortho" aria-pressed="false" type="button">
+                <div class="dept-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+                    <path d="M6 20h10M24 20h10" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="6" cy="20" r="3.5" stroke="#0A6EBD" stroke-width="1.5" fill="none"/>
+                    <circle cx="34" cy="20" r="3.5" stroke="#0A6EBD" stroke-width="1.5" fill="none"/>
+                    <path d="M16 20l2-4 2 8 2-4" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <p class="dept-card__title">Orthopaedics</p>
+                <p class="dept-card__sub">Bones, joints &amp; spine</p>
+              </button>
+              <button class="dept-card" id="dept-physio" data-dept="physio" aria-pressed="false" type="button">
+                <div class="dept-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+                    <circle cx="20" cy="8" r="4" stroke="#0A6EBD" stroke-width="1.5"/>
+                    <path d="M12 16 L12 28" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M28 16 L28 28" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M12 16 L28 16" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M18 13 L18 28" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M22 13 L22 28" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <p class="dept-card__title">Physiotherapy</p>
+                <p class="dept-card__sub">Rehab &amp; pain management</p>
+              </button>
+            </div>
+
+            <!-- Condition dropdown -->
+            <div class="booking-field" style="margin-top:1.5rem;">
+              <label class="form-label" for="condition-select">Condition or Treatment</label>
+              <div class="custom-select-wrap">
+                <select class="form-input custom-select" id="condition-select" aria-label="Select your condition or treatment">
+                  <option value="" disabled selected>Select your condition...</option>
+                  <optgroup label="Orthopaedic">
+                    <option value="fracture">Fracture / Trauma</option>
+                    <option value="knee-pain">Knee Pain / Arthritis</option>
+                    <option value="knee-replacement">Knee Replacement</option>
+                    <option value="hip-pain">Hip Pain</option>
+                    <option value="hip-replacement">Hip Replacement</option>
+                    <option value="back-pain">Back / Spine Pain</option>
+                    <option value="disc">Disc Herniation</option>
+                    <option value="sports">Sports Injury</option>
+                    <option value="acl">ACL / Ligament Tear</option>
+                    <option value="shoulder">Shoulder Problem</option>
+                    <option value="paediatric">Child Bone Issue</option>
+                    <option value="other">Other / Not Sure</option>
+                  </optgroup>
+                  <optgroup label="Physiotherapy">
+                    <option value="post-surgery">Post-Surgery Rehab</option>
+                    <option value="back-physio">Back / Neck Pain</option>
+                    <option value="sports-physio">Sports Physiotherapy</option>
+                    <option value="neuro-physio">Neurological Physio</option>
+                    <option value="geriatric-physio">Geriatric Physio</option>
+                  </optgroup>
+                </select>
+                <svg class="custom-select__chevron" viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="booking-step__actions">
+              <button class="btn btn-primary booking-step__next" id="step1-next" type="button"
+                      aria-label="Proceed to step 2: Date and Doctor">
+                Next Step
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ====== STEP 2: Date & Doctor (F022) ====== -->
+          <div class="booking-step" id="step-2" style="display:none;">
+            <h2 class="booking-step__title">Choose Your Doctor &amp; Time</h2>
+
+            <!-- Doctor radio cards -->
+            <div class="booking-field">
+              <label class="form-label">Preferred Doctor</label>
+              <div class="doctor-cards">
+                <label class="doctor-card" for="doc-1">
+                  <input type="radio" name="doctor" id="doc-1" value="dr-rajesh" class="sr-only" checked>
+                  <div class="doctor-card__avatar" aria-hidden="true">DR</div>
+                  <div>
+                    <p class="doctor-card__name">Dr. Rajesh Kumar</p>
+                    <p class="doctor-card__spec">Senior Orthopaedic Surgeon</p>
+                  </div>
+                </label>
+                <label class="doctor-card" for="doc-2">
+                  <input type="radio" name="doctor" id="doc-2" value="dr-priya" class="sr-only">
+                  <div class="doctor-card__avatar" aria-hidden="true">DP</div>
+                  <div>
+                    <p class="doctor-card__name">Dr. Priya Gopal</p>
+                    <p class="doctor-card__spec">Sports Medicine &amp; Physio</p>
+                  </div>
+                </label>
+                <label class="doctor-card" for="doc-3">
+                  <input type="radio" name="doctor" id="doc-3" value="no-pref" class="sr-only">
+                  <div class="doctor-card__avatar doctor-card__avatar--neutral" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+                      <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="doctor-card__name">No Preference</p>
+                    <p class="doctor-card__spec">Next available doctor</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Calendar -->
+            <div class="booking-field">
+              <label class="form-label">Select Date</label>
+              <div class="calendar" id="calendar" role="grid" aria-label="Date picker">
+                <div class="calendar__header">
+                  <button class="calendar__nav" id="cal-prev" aria-label="Previous month" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <p class="calendar__month" id="cal-month-label">April 2026</p>
+                  <button class="calendar__nav" id="cal-next" aria-label="Next month" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true"><polyline points="9 18 15 12 9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+                <div class="calendar__weekdays" aria-hidden="true">
+                  <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                <div class="calendar__grid" id="cal-grid" role="rowgroup"></div>
+              </div>
+            </div>
+
+            <!-- Time slots -->
+            <div class="booking-field">
+              <label class="form-label">Select Time Slot</label>
+              <div class="time-slots" id="time-slots" role="group" aria-label="Available time slots">
+                <!-- Generated by JS -->
+              </div>
+            </div>
+
+            <div class="booking-step__actions">
+              <button class="btn btn-secondary booking-step__back" id="step2-back" type="button" aria-label="Back to step 1">Back</button>
+              <button class="btn btn-primary booking-step__next" id="step2-next" type="button" aria-label="Proceed to step 3">
+                Next Step
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ====== STEP 3: Patient Details (F023) ====== -->
+          <div class="booking-step" id="step-3" style="display:none;">
+            <h2 class="booking-step__title">Your Details</h2>
+            <form id="booking-form" novalidate>
+
+              <!-- Full Name -->
+              <div class="booking-field form-group">
+                <label class="form-label" for="patient-name">Full Name <span aria-hidden="true">*</span></label>
+                <input type="text" id="patient-name" name="name" class="form-input"
+                       placeholder="Your full name" required autocomplete="name">
+                <svg class="form-icon" viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <!-- Mobile -->
+              <div class="booking-field form-group">
+                <label class="form-label" for="patient-mobile">Mobile Number <span aria-hidden="true">*</span><small class="booking-note">(WhatsApp confirmation will be sent)</small></label>
+                <input type="tel" id="patient-mobile" name="mobile" class="form-input"
+                       placeholder="10-digit mobile number" required autocomplete="tel" pattern="[6-9][0-9]{9}">
+                <svg class="form-icon" viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              <!-- Age + Gender row -->
+              <div class="booking-row-2">
+                <div class="booking-field form-group">
+                  <label class="form-label" for="patient-age">Age</label>
+                  <input type="number" id="patient-age" name="age" class="form-input"
+                         placeholder="Your age" min="1" max="120" autocomplete="off"
+                         style="padding-left:0.875rem;">
+                </div>
+
+                <div class="booking-field">
+                  <label class="form-label">Gender</label>
+                  <div class="gender-toggle" role="group" aria-label="Select gender">
+                    <label class="gender-option"><input type="radio" name="gender" value="male" class="sr-only"><span>Male</span></label>
+                    <label class="gender-option"><input type="radio" name="gender" value="female" class="sr-only"><span>Female</span></label>
+                    <label class="gender-option"><input type="radio" name="gender" value="other" class="sr-only"><span>Other</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Condition description -->
+              <div class="booking-field form-group">
+                <label class="form-label" for="patient-condition">Describe Your Condition</label>
+                <textarea id="patient-condition" name="condition" class="form-input"
+                          placeholder="Briefly describe your symptoms or reason for visit..." rows="3"></textarea>
+                <svg class="form-icon" viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true" style="top:0.875rem;transform:none;">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <!-- Patient type toggle -->
+              <div class="booking-field">
+                <label class="form-label">Are you a:</label>
+                <div class="patient-type-toggle" role="group" aria-label="Patient type">
+                  <button type="button" class="patient-type-btn active" id="pt-new" aria-pressed="true" data-type="new">New Patient</button>
+                  <button type="button" class="patient-type-btn" id="pt-existing" aria-pressed="false" data-type="existing">Existing Patient</button>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="booking-step__actions">
+                <button type="button" class="btn btn-secondary" id="step3-back" aria-label="Back to step 2">Back</button>
+                <button type="submit" class="btn btn-primary booking-submit" id="booking-submit"
+                        style="min-width:240px;" aria-label="Confirm appointment booking">
+                  <span class="booking-submit__text">Confirm Appointment</span>
+                  <svg class="booking-submit__arrow" viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <svg class="booking-submit__spinner" viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true" style="display:none;">
+                    <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                    <path d="M12 2a10 10 0 0110 10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- ====== SUCCESS STATE (F024) ====== -->
+          <div class="booking-success" id="booking-success" style="display:none;" aria-live="polite">
+            <div class="booking-success__check">
+              <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="80" height="80" aria-label="Appointment confirmed">
+                <circle cx="30" cy="30" r="28" stroke="#0A6EBD" stroke-width="2.5"
+                        stroke-dasharray="176" stroke-dashoffset="176"
+                        style="animation:drawCircle .6s ease-out forwards;"/>
+                <polyline points="16,31 26,41 44,21" stroke="#0A6EBD" stroke-width="2.5"
+                          stroke-linecap="round" stroke-linejoin="round"
+                          stroke-dasharray="40" stroke-dashoffset="40"
+                          style="animation:drawCheck .4s ease-out .65s forwards;"/>
+              </svg>
+            </div>
+            <h2 class="booking-success__title">Appointment Requested!</h2>
+            <p class="booking-success__body">We will confirm your appointment via WhatsApp or phone within 2 hours. Please keep your mobile available.</p>
+
+            <!-- Summary card -->
+            <div class="booking-summary-card">
+              <div class="booking-summary-row"><span>Service</span><strong id="summary-service">—</strong></div>
+              <div class="booking-summary-row"><span>Doctor</span><strong id="summary-doctor">—</strong></div>
+              <div class="booking-summary-row"><span>Date</span><strong id="summary-date">—</strong></div>
+              <div class="booking-summary-row"><span>Time</span><strong id="summary-time">—</strong></div>
+              <div class="booking-summary-row"><span>Patient</span><strong id="summary-name">—</strong></div>
+            </div>
+
+            <div class="booking-success__actions">
+              <button class="btn btn-secondary" id="success-calendar" type="button" aria-label="Add appointment to calendar">
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Add to Calendar
+              </button>
+              <a href="https://wa.me/919597040918" class="btn" style="background:#25D366;color:white;" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+                <svg viewBox="0 0 24 24" fill="white" width="18" height="18" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: Sticky Info Panel (F025) — 35% -->
+        <aside class="booking-info-panel" aria-label="Booking information">
+          <div class="booking-info-panel__inner">
+
+            <h3 class="booking-info-panel__title">Need Help?</h3>
+
+            <!-- Info rows -->
+            <div class="booking-info-panel__rows">
+              <div class="booking-info-panel__row">
+                <div class="booking-info-panel__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="booking-info-panel__row-label">Call / WhatsApp</p>
+                  <a href="tel:+919597040918" class="booking-info-panel__row-value">095970 40918</a>
+                </div>
+              </div>
+
+              <div class="booking-info-panel__row">
+                <div class="booking-info-panel__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                    <circle cx="12" cy="12" r="10" stroke="#C8973A" stroke-width="1.5"/>
+                    <polyline points="12 6 12 12 16 14" stroke="#C8973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="booking-info-panel__row-label">Clinic Hours</p>
+                  <p class="booking-info-panel__row-value">Mon–Sat: 9 AM – 7 PM<br>Sun: 10 AM – 2 PM</p>
+                </div>
+              </div>
+
+              <div class="booking-info-panel__row">
+                <div class="booking-info-panel__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" stroke="#C8973A" stroke-width="1.5"/>
+                    <circle cx="12" cy="10" r="3" stroke="#C8973A" stroke-width="1.5"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="booking-info-panel__row-label">Location</p>
+                  <p class="booking-info-panel__row-value">Kottar, Nagercoil, TN 629002</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Walk-in note -->
+            <p class="booking-info-panel__walkin">
+              Walk-ins are welcome subject to availability. For faster service, please book online.
+            </p>
+
+            <!-- Emergency card -->
+            <div class="booking-info-panel__emergency" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#E53E3E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="9" x2="12" y2="13" stroke="#E53E3E" stroke-width="1.75" stroke-linecap="round"/>
+                <circle cx="12" cy="17" r="0.75" fill="#E53E3E"/>
+              </svg>
+              <div>
+                <p class="booking-info-panel__emergency-title">Emergency?</p>
+                <p class="booking-info-panel__emergency-text">Call <a href="tel:+919597040918">095970 40918</a> immediately. We are available 24/7.</p>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- WhatsApp button -->
+<a href="https://wa.me/919597040918?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment" class="wa-btn" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="white" width="28" height="28" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="wa-btn__tooltip">Chat with us</span>
+</a>
+
+<style>
+/* Booking hero */
+.booking-hero{background:linear-gradient(135deg,#041C30,#062A45);padding:clamp(5rem,10vw,8rem) 0 clamp(2.5rem,5vw,4rem);}
+.booking-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C8973A;margin-bottom:.75rem;}
+.booking-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:white;letter-spacing:-0.02em;line-height:1.1;}
+.booking-hero__sub{font-family:'DM Sans',sans-serif;font-size:1rem;color:rgba(255,255,255,.65);margin-top:.5rem;}
+
+/* Booking layout */
+.booking-layout{padding:clamp(3rem,6vw,5rem) 0;}
+.booking-layout__grid{display:grid;grid-template-columns:65fr 35fr;gap:3rem;align-items:start;}
+
+/* Form col */
+.booking-form-col{background:white;border-radius:20px;padding:2rem;box-shadow:0 4px 24px rgba(11,61,46,.06);border:1px solid #E5E0D8;}
+
+/* Step indicator */
+.step-indicator{margin-bottom:2rem;}
+.step-indicator__track{display:flex;align-items:center;gap:0;}
+.step-indicator__step{display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
+.step-indicator__circle{width:36px;height:36px;border-radius:50%;border:2px solid #E5E0D8;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s ease;}
+.step-indicator__num{font-family:'DM Mono',monospace;font-size:.8125rem;font-weight:500;color:#9CA3AF;}
+.step-indicator__label{display:flex;flex-direction:column;}
+.step-indicator__label-title{font-family:'DM Sans',sans-serif;font-size:.8125rem;font-weight:500;color:#9CA3AF;transition:color .3s ease;}
+.step-indicator__label-sub{font-family:'DM Sans',sans-serif;font-size:.6875rem;color:#D1CBC0;}
+.step-indicator__step.active .step-indicator__circle{border-color:#0A6EBD;background:#0A6EBD;}
+.step-indicator__step.active .step-indicator__num{color:white;}
+.step-indicator__step.active .step-indicator__label-title{color:#0A6EBD;}
+.step-indicator__step.completed .step-indicator__circle{border-color:#0A6EBD;background:#0A6EBD;}
+.step-indicator__step.completed .step-indicator__label-title{color:#0A6EBD;}
+.step-indicator__line{flex:1;height:2px;background:#E5E0D8;transition:background .4s ease;min-width:2rem;}
+.step-indicator__line.filled{background:#C8973A;}
+
+/* Booking step */
+.booking-step__title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#111827;margin-bottom:1.5rem;}
+.booking-field{margin-bottom:1.25rem;}
+.booking-step__actions{display:flex;gap:.875rem;align-items:center;margin-top:1.75rem;flex-wrap:wrap;}
+.booking-step__next,.booking-step__back{min-height:48px;}
+.booking-note{font-size:.6875rem;color:#9CA3AF;font-weight:400;margin-left:.375rem;text-transform:none;letter-spacing:0;}
+.booking-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+/* Dept cards */
+.dept-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.dept-card{background:white;border:1.5px solid #E5E0D8;border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;align-items:flex-start;gap:.625rem;cursor:pointer;transition:all .25s ease;text-align:left;}
+.dept-card:hover{border-color:#0A6EBD;background:#EEF5FF;}
+.dept-card.selected,[aria-pressed="true"].dept-card{border:2px solid #0A6EBD;background:rgba(10,110,189,.04);}
+.dept-card__icon{width:44px;height:44px;background:rgba(10,110,189,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.dept-card__title{font-family:'Cormorant Garamond',serif;font-size:1.0625rem;font-weight:700;color:#111827;}
+.dept-card__sub{font-family:'DM Sans',sans-serif;font-size:.75rem;color:#6B7280;}
+
+/* Custom select */
+.custom-select-wrap{position:relative;}
+.custom-select{appearance:none;-webkit-appearance:none;padding-right:2.25rem;padding-left:.875rem;cursor:pointer;}
+.custom-select__chevron{position:absolute;right:.875rem;top:50%;transform:translateY(-50%);pointer-events:none;}
+
+/* Doctor cards */
+.doctor-cards{display:flex;flex-direction:column;gap:.625rem;}
+.doctor-card{display:flex;align-items:center;gap:1rem;padding:.875rem 1rem;border:1.5px solid #E5E0D8;border-radius:12px;cursor:pointer;transition:all .25s ease;background:white;}
+.doctor-card:has(input:checked){border-color:#0A6EBD;background:rgba(10,110,189,.03);}
+.doctor-card__avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0A6EBD,#064A80);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.875rem;font-weight:600;color:white;flex-shrink:0;}
+.doctor-card__avatar--neutral{background:#F5F0E8;color:#6B7280;}
+.doctor-card__name{font-family:'DM Sans',sans-serif;font-size:.9375rem;font-weight:500;color:#111827;}
+.doctor-card__spec{font-family:'DM Sans',sans-serif;font-size:.75rem;color:#6B7280;}
+
+/* Calendar */
+.calendar{border:1px solid #E5E0D8;border-radius:14px;overflow:hidden;}
+.calendar__header{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1rem;background:#F9F6F0;border-bottom:1px solid #E5E0D8;}
+.calendar__nav{width:32px;height:32px;border-radius:50%;border:1px solid #E5E0D8;background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease;color:#374151;}
+.calendar__nav:hover{background:#0B3D2E;color:white;border-color:#0B3D2E;}
+.calendar__month{font-family:'DM Sans',sans-serif;font-size:.9375rem;font-weight:500;color:#111827;}
+.calendar__weekdays{display:grid;grid-template-columns:repeat(7,1fr);background:#F9F6F0;border-bottom:1px solid #E5E0D8;}
+.calendar__weekdays span{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;color:#9CA3AF;text-align:center;padding:.5rem 0;}
+.calendar__grid{display:grid;grid-template-columns:repeat(7,1fr);padding:.5rem;}
+.cal-day{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#374151;padding:.5rem;text-align:center;border-radius:8px;cursor:pointer;transition:all .2s ease;border:1.5px solid transparent;}
+.cal-day:hover:not(.disabled):not(.empty){background:#EEF5FF;border-color:#0A6EBD;}
+.cal-day.today{border-color:#0A6EBD;color:#0A6EBD;font-weight:600;}
+.cal-day.selected{background:#0A6EBD;color:white;border-color:#0A6EBD;}
+.cal-day.disabled{color:#D1CBC0;cursor:not-allowed;}
+.cal-day.sunday:not(.disabled){color:#C8973A;}
+.cal-day.empty{cursor:default;}
+
+/* Time slots */
+.time-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;}
+.time-slot{font-family:'DM Sans',sans-serif;font-size:.8125rem;font-weight:500;padding:.5rem;border-radius:8px;border:1.5px solid #E5E0D8;background:white;cursor:pointer;text-align:center;transition:all .2s ease;color:#374151;}
+.time-slot:hover:not(.booked){border-color:#0A6EBD;color:#0A6EBD;}
+.time-slot.selected{background:#0A6EBD;color:white;border-color:#0A6EBD;}
+.time-slot.booked{color:#D1CBC0;text-decoration:line-through;cursor:not-allowed;background:#F9F6F0;}
+
+/* Gender toggle */
+.gender-toggle{display:flex;gap:.5rem;}
+.gender-option{cursor:pointer;}
+.gender-option span{display:inline-flex;align-items:center;height:38px;padding:0 1rem;border-radius:9999px;border:1.5px solid #E5E0D8;font-family:'DM Sans',sans-serif;font-size:.875rem;color:#374151;transition:all .2s ease;}
+.gender-option input:checked+span{border-color:#0A6EBD;background:#0A6EBD;color:white;}
+.gender-option span:hover{border-color:#0A6EBD;}
+
+/* Patient type toggle */
+.patient-type-toggle{display:flex;border:1px solid #E5E0D8;border-radius:9999px;padding:3px;background:#F9F6F0;width:fit-content;}
+.patient-type-btn{border:none;padding:.375rem 1rem;border-radius:9999px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:#6B7280;background:transparent;cursor:pointer;transition:all .25s ease;}
+.patient-type-btn.active{background:white;color:#0A6EBD;box-shadow:0 1px 4px rgba(10,110,189,.08);}
+
+/* Booking Submit */
+.booking-submit{position:relative;overflow:hidden;}
+@media(prefers-reduced-motion:no-preference){
+  .booking-submit__spinner{animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes drawCircle{to{stroke-dashoffset:0;}}
+  @keyframes drawCheck{to{stroke-dashoffset:0;}}
+}
+
+/* Success state */
+.booking-success{display:flex;flex-direction:column;align-items:center;gap:1.25rem;padding:2rem 0;text-align:center;}
+.booking-success__check{margin-bottom:.5rem;}
+.booking-success__title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#0A6EBD;}
+.booking-success__body{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#374151;max-width:420px;line-height:1.65;}
+.booking-summary-card{width:100%;background:white;border:1px solid #D6E6F5;border-left:3px solid #0A6EBD;border-radius:12px;padding:1.25rem;box-shadow:0 4px 16px rgba(10,110,189,.06);}
+.booking-summary-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid #F5F0E8;font-family:'DM Sans',sans-serif;font-size:.875rem;color:#6B7280;}
+.booking-summary-row:last-child{border:none;}
+.booking-summary-row strong{color:#111827;}
+.booking-success__actions{display:flex;gap:.875rem;flex-wrap:wrap;justify-content:center;}
+
+/* Info panel */
+.booking-info-panel__inner{background:linear-gradient(135deg,#062A45,#083B5E);border-radius:20px;padding:2rem;position:sticky;top:90px;}
+.booking-info-panel__title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:white;margin-bottom:1.25rem;}
+.booking-info-panel__rows{display:flex;flex-direction:column;gap:1.125rem;margin-bottom:1.25rem;}
+.booking-info-panel__row{display:flex;align-items:flex-start;gap:.75rem;}
+.booking-info-panel__icon{width:36px;height:36px;background:rgba(200,151,58,.12);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.booking-info-panel__row-label{font-family:'DM Sans',sans-serif;font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:#C8973A;margin-bottom:2px;}
+.booking-info-panel__row-value{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.55;text-decoration:none;display:block;}
+.booking-info-panel__walkin{font-family:'DM Sans',sans-serif;font-size:.8125rem;font-style:italic;color:rgba(255,255,255,.5);line-height:1.55;border-top:1px solid rgba(255,255,255,.08);padding-top:1rem;margin-bottom:1rem;}
+.booking-info-panel__emergency{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.2);border-radius:10px;padding:.875rem;display:flex;align-items:flex-start;gap:.75rem;}
+.booking-info-panel__emergency-title{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;color:#F87171;margin-bottom:2px;}
+.booking-info-panel__emergency-text{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.6);line-height:1.5;}
+.booking-info-panel__emergency-text a{color:#F87171;text-decoration:none;font-weight:500;}
+
+/* WA Button */
+.wa-btn{position:fixed;bottom:24px;right:24px;z-index:900;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.wa-btn::before,.wa-btn::after{content:'';position:absolute;width:56px;height:56px;border-radius:50%;background:rgba(37,211,102,.4);pointer-events:none;}
+@media(prefers-reduced-motion:no-preference){.wa-btn::before{animation:waRing 2.5s ease-out infinite;}.wa-btn::after{animation:waRing 2.5s ease-out infinite;animation-delay:.8s;}}
+.wa-btn:hover{transform:scale(1.1) rotate(-8deg);}
+.wa-btn__tooltip{position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);background:white;color:#111827;font-family:'DM Sans',sans-serif;font-size:.75rem;padding:5px 10px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.1);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease;}
+.wa-btn:hover .wa-btn__tooltip{opacity:1;}
+
+@media(max-width:900px){
+  .booking-layout__grid{grid-template-columns:1fr;}.booking-info-panel__inner{position:static;}
+  .dept-cards,.doctor-cards-grid,.booking-row-2{grid-template-columns:1fr;}
+  .time-slots{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:640px){.time-slots{grid-template-columns:repeat(2,1fr);}.booking-step__actions{flex-direction:column;}.booking-step__next,.booking-step__back{width:100%;justify-content:center;}}
+</style>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCJu7TeRp-umZinY5o1jhN6-LS8EnyM8W4",
+  authDomain: "gopal-8f354.firebaseapp.com",
+  databaseURL: "https://gopal-8f354-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "gopal-8f354",
+  storageBucket: "gopal-8f354.firebasestorage.app",
+  messagingSenderId: "385964781466",
+  appId: "1:385964781466:web:4ef5af2e69982d56f6d423"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+</script>
+<script>
+// ---- Booking Form Logic (Firebase-powered) ----
+(function(){
+  var currentStep = 1;
+  var formData = { dept:'', condition:'', doctor:'', date:'', dateISO:'', time:'', name:'', mobile:'' };
+  var selectedDate = null;   // display string e.g. "April 20, 2026"
+  var selectedDateISO = null; // YYYY-MM-DD
+  var selectedTime = null;
+  var calYear, calMonth;
+  var availConfig = { isOpen:true, opStart:'09:00', opEnd:'19:00', slotDuration:30, allowOnline:true };
+  var bookedSlots = new Set();
+
+  // ---- Helpers ----
+  function dateToISO(year, month, day) {
+    return year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+  }
+  function generateSlots(start, end, duration) {
+    var slots = [];
+    var parts = (start||'09:00').split(':'), sh=parseInt(parts[0]), sm=parseInt(parts[1]||0);
+    var eparts = (end||'19:00').split(':'), eh=parseInt(eparts[0]), em=parseInt(eparts[1]||0);
+    var cur = sh*60+sm, endMin = eh*60+em;
+    while (cur+duration<=endMin) {
+      var h=Math.floor(cur/60), m=cur%60;
+      var ampm=h>=12?'PM':'AM', hh=h>12?h-12:h===0?12:h;
+      slots.push(String(hh).padStart(2,'0')+':'+String(m).padStart(2,'0')+' '+ampm);
+      cur+=duration;
+    }
+    return slots;
+  }
+
+  // ---- Dept cards ----
+  document.querySelectorAll('.dept-card').forEach(function(card){
+    card.addEventListener('click',function(){
+      document.querySelectorAll('.dept-card').forEach(function(c){c.classList.remove('selected');c.setAttribute('aria-pressed','false');});
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed','true');
+      formData.dept = card.dataset.dept;
+    });
+  });
+
+  // ---- Step transitions ----
+  function goToStep(from, to){
+    var fromEl = document.getElementById('step-'+from);
+    var toEl   = document.getElementById('step-'+to);
+    fromEl.style.transition='transform .35s ease-in,opacity .35s ease-in';
+    fromEl.style.transform='translateX(-60px)';
+    fromEl.style.opacity='0';
+    setTimeout(function(){
+      fromEl.style.display='none';
+      toEl.style.display='block';
+      toEl.style.transform='translateX(60px)'; toEl.style.opacity='0';
+      toEl.offsetHeight;
+      toEl.style.transition='transform .4s ease-out,opacity .4s ease-out';
+      toEl.style.transform='translateX(0)'; toEl.style.opacity='1';
+      updateStepIndicator(to);
+    },350);
+    currentStep = to;
+  }
+
+  function updateStepIndicator(step){
+    for(var i=1;i<=3;i++){
+      var ind = document.getElementById('step-ind-'+i);
+      var line = document.getElementById('step-line-'+i);
+      ind.classList.remove('active','completed');
+      if(i < step){ ind.classList.add('completed'); ind.querySelector('.step-indicator__num').style.display='none'; ind.querySelector('.step-indicator__check').style.display='flex'; }
+      else if(i===step){ ind.classList.add('active'); }
+      if(line){ line.classList.toggle('filled', i < step); }
+    }
+  }
+
+  document.getElementById('step1-next').addEventListener('click', function(){
+    formData.condition = document.getElementById('condition-select').value;
+    goToStep(1,2);
+  });
+  document.getElementById('step2-next').addEventListener('click', function(){
+    var selDoctor = document.querySelector('input[name="doctor"]:checked');
+    if(selDoctor){ formData.doctor = selDoctor.nextElementSibling.nextElementSibling.querySelector('.doctor-card__name').textContent; }
+    if(!selectedDate||!selectedTime){ alert('Please select a date and time slot.'); return; }
+    // Check slot is still available
+    if(bookedSlots.has(selectedTime)){
+      alert('Sorry, this slot was just booked. Please select another time.');
+      return;
+    }
+    formData.date = selectedDate;
+    formData.dateISO = selectedDateISO;
+    formData.time = selectedTime;
+    goToStep(2,3);
+  });
+  document.getElementById('step2-back').addEventListener('click',function(){ goToStep(2,1); });
+  document.getElementById('step3-back').addEventListener('click',function(){ goToStep(3,2); });
+
+  // ---- Patient type toggle ----
+  document.querySelectorAll('.patient-type-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.patient-type-btn').forEach(function(b){b.classList.remove('active');b.setAttribute('aria-pressed','false');});
+      btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+    });
+  });
+
+  // ---- Form submit → Firebase ----
+  document.getElementById('booking-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    formData.name  = document.getElementById('patient-name').value.trim();
+    formData.mobile = document.getElementById('patient-mobile').value.trim();
+    var patientType = (document.querySelector('.patient-type-btn.active')||{}).dataset && document.querySelector('.patient-type-btn.active').dataset.type || 'new';
+    var age = document.getElementById('patient-age').value;
+    var gender = document.querySelector('input[name="gender"]:checked');
+    var condition = document.getElementById('patient-condition').value.trim();
+    if(!formData.name||!formData.mobile){ alert('Please fill in your name and mobile number.'); return; }
+
+    var submitBtn = document.getElementById('booking-submit');
+    submitBtn.querySelector('.booking-submit__text').textContent = 'Confirming…';
+    submitBtn.querySelector('.booking-submit__arrow').style.display='none';
+    submitBtn.querySelector('.booking-submit__spinner').style.display='block';
+    submitBtn.disabled=true;
+
+    // Double-check slot availability live
+    db.ref('/bookings').orderByChild('date').equalTo(formData.dateISO).once('value').then(function(snap){
+      var taken = new Set();
+      snap.forEach(function(child){
+        var b = child.val();
+        if(b.status!=='cancelled' && b.time) taken.add(b.time);
+      });
+      if(taken.has(formData.time)){
+        alert('Sorry, slot '+formData.time+' was just booked. Please go back and choose another time.');
+        submitBtn.querySelector('.booking-submit__text').textContent='Confirm Appointment';
+        submitBtn.querySelector('.booking-submit__arrow').style.display='inline';
+        submitBtn.querySelector('.booking-submit__spinner').style.display='none';
+        submitBtn.disabled=false;
+        return;
+      }
+      // Get next token number for that date
+      var tokens=[];
+      snap.forEach(function(child){ var b=child.val(); if(b.tokenNumber) tokens.push(b.tokenNumber); });
+      var token = tokens.length ? Math.max.apply(null,tokens)+1 : 1;
+
+      var booking = {
+        name: formData.name,
+        mobile: formData.mobile,
+        age: parseInt(age)||null,
+        gender: gender ? gender.value : null,
+        service: formData.condition || formData.dept || 'General',
+        condition: condition || formData.condition || '',
+        doctor: formData.doctor || 'Next Available',
+        date: formData.dateISO,
+        time: formData.time,
+        status: 'pending',
+        type: 'online',
+        tokenNumber: token,
+        patientType: patientType,
+        createdAt: Date.now()
+      };
+
+      db.ref('/bookings').push(booking).then(function(){
+        document.getElementById('summary-service').textContent = booking.service;
+        document.getElementById('summary-doctor').textContent  = booking.doctor;
+        document.getElementById('summary-date').textContent    = formData.date;
+        document.getElementById('summary-time').textContent    = formData.time;
+        document.getElementById('summary-name').textContent    = formData.name;
+        document.getElementById('step-indicator').style.display='none';
+        document.getElementById('step-3').style.display='none';
+        document.getElementById('booking-success').style.display='flex';
+      }).catch(function(err){
+        alert('Booking failed: '+err.message);
+        submitBtn.querySelector('.booking-submit__text').textContent='Confirm Appointment';
+        submitBtn.querySelector('.booking-submit__arrow').style.display='inline';
+        submitBtn.querySelector('.booking-submit__spinner').style.display='none';
+        submitBtn.disabled=false;
+      });
+    });
+  });
+
+  // ---- Calendar ----
+  var today = new Date();
+  calYear  = today.getFullYear();
+  calMonth = today.getMonth();
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function renderCalendar(){
+    var grid = document.getElementById('cal-grid');
+    var label = document.getElementById('cal-month-label');
+    label.textContent = MONTHS[calMonth] + ' ' + calYear;
+    grid.innerHTML = '';
+    var first = new Date(calYear, calMonth, 1).getDay();
+    var days  = new Date(calYear, calMonth+1, 0).getDate();
+    for(var i=0;i<first;i++){
+      var blank=document.createElement('div'); blank.className='cal-day empty'; grid.appendChild(blank);
+    }
+    var todayStr = today.toDateString();
+    for(var d=1;d<=days;d++){
+      var cell=document.createElement('button'); cell.type='button';
+      var date=new Date(calYear,calMonth,d);
+      var isPast = date < today && date.toDateString()!==todayStr;
+      var isSun  = date.getDay()===0;
+      cell.textContent=d;
+      cell.className='cal-day'+(isPast?' disabled':'')+(isSun?' sunday':'');
+      if(date.toDateString()===todayStr) cell.classList.add('today');
+      if(!isPast){
+        var dateStr=MONTHS[calMonth]+' '+d+', '+calYear;
+        var isoStr=dateToISO(calYear,calMonth,d);
+        if(selectedDate===dateStr) cell.classList.add('selected');
+        cell.setAttribute('aria-label', dateStr);
+        cell.addEventListener('click',(function(ds,iso,el){
+          return function(){
+            selectedDate=ds; selectedDateISO=iso;
+            document.querySelectorAll('.cal-day').forEach(function(c){c.classList.remove('selected');});
+            el.classList.add('selected');
+            loadSlotsForDate(iso);
+          };
+        })(dateStr,isoStr,cell));
+      } else { cell.disabled=true; cell.setAttribute('aria-disabled','true'); }
+      grid.appendChild(cell);
+    }
+  }
+
+  // ---- Load slots from Firebase ----
+  function loadSlotsForDate(isoDate){
+    var container=document.getElementById('time-slots');
+    container.innerHTML='<p style="color:#8A8A8A;font-size:.8125rem;padding:.5rem;">Loading slots…</p>';
+    selectedTime=null;
+
+    Promise.all([
+      db.ref('/availability/'+isoDate).once('value'),
+      db.ref('/bookings').orderByChild('date').equalTo(isoDate).once('value')
+    ]).then(function(results){
+      var availSnap = results[0], bookSnap = results[1];
+      var config = availSnap.val() || { isOpen:true, allowOnline:true, opStart:'09:00', opEnd:'19:00', slotDuration:30 };
+      availConfig = config;
+
+      if(!config.isOpen || config.allowOnline===false){
+        container.innerHTML='<p style="color:#B94040;font-size:.8125rem;padding:.5rem;">OP is not available on this date. Please choose another date.</p>';
+        return;
+      }
+
+      bookedSlots = new Set();
+      bookSnap.forEach(function(child){
+        var b=child.val();
+        if(b.status!=='cancelled' && b.time) bookedSlots.add(b.time);
+      });
+
+      var slots = generateSlots(config.opStart, config.opEnd, config.slotDuration||30);
+      container.innerHTML='';
+      slots.forEach(function(t){
+        var btn=document.createElement('button'); btn.type='button';
+        var isBooked=bookedSlots.has(t);
+        btn.className='time-slot'+(isBooked?' booked':'');
+        btn.textContent=t;
+        if(isBooked){btn.disabled=true;btn.setAttribute('aria-label',t+' — booked');btn.title='Already booked';}
+        else{
+          btn.setAttribute('aria-label',t+' — available');
+          btn.addEventListener('click',function(){
+            selectedTime=t;
+            document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});
+            btn.classList.add('selected');
+          });
+        }
+        container.appendChild(btn);
+      });
+
+      // Real-time listener for slot changes
+      db.ref('/bookings').orderByChild('date').equalTo(isoDate).on('value',function(snap2){
+        var live=new Set();
+        snap2.forEach(function(c){ var b=c.val(); if(b.status!=='cancelled'&&b.time) live.add(b.time); });
+        bookedSlots=live;
+        document.querySelectorAll('#time-slots .time-slot').forEach(function(btn2){
+          var t2=btn2.textContent.trim();
+          var nowBooked=live.has(t2);
+          if(nowBooked && !btn2.classList.contains('booked')){
+            btn2.classList.add('booked');
+            btn2.classList.remove('selected');
+            btn2.disabled=true;
+            if(selectedTime===t2) selectedTime=null;
+          }
+        });
+      });
+    });
+  }
+
+  document.getElementById('cal-prev').addEventListener('click',function(){
+    calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar();
+  });
+  document.getElementById('cal-next').addEventListener('click',function(){
+    calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar();
+  });
+  renderCalendar();
+
+  // Auto-load today's slots
+  var todayISO = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  selectedDate = MONTHS[today.getMonth()]+' '+today.getDate()+', '+today.getFullYear();
+  selectedDateISO = todayISO;
+  loadSlotsForDate(todayISO);
+
+})();
+</script>
+</body>
+</html>
+
