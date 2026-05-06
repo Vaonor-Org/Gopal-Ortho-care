@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Resources – Gopal Ortho | Nagercoil</title>
+  <meta name="description" content="Patient resources at Gopal Ortho, Nagercoil. Admission process, visiting hours, discharge steps, and surgery preparation guidance.">
+  <link rel="canonical" href="https://www.gopalortho.com/patients/">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;color:#1A1A1A;background:#fff;-webkit-font-smoothing:antialiased;}
+    h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15;letter-spacing:-0.02em;}
+    a{color:inherit;text-decoration:none;}
+    .container{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,5vw,4.5rem);}
+
+    .page-hero{background:linear-gradient(135deg,#062A45,#0A6EBD);padding:clamp(3.75rem,7vw,6rem) 0;}
+    .page-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.75rem;}
+    .page-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.6rem);color:white;margin-bottom:.75rem;}
+    .page-hero__sub{font-family:'DM Sans',sans-serif;font-size:1rem;color:rgba(255,255,255,.78);max-width:640px;}
+    .page-hero__actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;}
+
+    .section{padding:clamp(3rem,6vw,5rem) 0;}
+    .section-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(1.75rem,3.5vw,2.5rem);margin-bottom:.75rem;}
+    .section-sub{font-family:'DM Sans',sans-serif;font-size:.98rem;color:#4A4A4A;line-height:1.7;margin-bottom:2rem;}
+
+    .grid-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;}
+    .card{background:#F8FBFF;border:1px solid #D6E6F5;border-radius:18px;padding:1.5rem;}
+    .card h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;margin-bottom:.6rem;}
+    .card p{font-family:'DM Sans',sans-serif;font-size:.92rem;color:#4A4A4A;line-height:1.7;}
+    .card ul{margin:.75rem 0 0 1rem;display:grid;gap:.5rem;color:#4A4A4A;font-size:.9rem;line-height:1.6;}
+
+    .steps{display:grid;gap:.75rem;}
+    .step{display:flex;gap:.9rem;background:white;border:1px solid #D6E6F5;border-radius:14px;padding:1rem;}
+    .step-num{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;color:white;background:#0A6EBD;border-radius:9999px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .step p{font-family:'DM Sans',sans-serif;font-size:.9rem;color:#4A4A4A;line-height:1.6;}
+
+    .faq-list{display:grid;gap:.75rem;max-width:900px;}
+    .faq-item{border:1px solid #D6E6F5;border-radius:14px;background:white;}
+    .faq-item summary{cursor:pointer;padding:1rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:600;}
+    .faq-item p{padding:0 1.25rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;line-height:1.7;}
+
+    .cta-card{background:linear-gradient(135deg,#062A45,#0A6EBD);border-radius:20px;padding:2rem;color:white;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+    .cta-card__title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;margin-bottom:.5rem;}
+    .cta-card__text{font-family:'DM Sans',sans-serif;font-size:.95rem;color:rgba(255,255,255,.8);max-width:520px;}
+    .cta-card__actions{display:flex;flex-wrap:wrap;gap:.75rem;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:48px;padding:0 1.5rem;border-radius:9999px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:all .35s ease;border:none;white-space:nowrap;text-decoration:none;}
+    .btn-primary{background:#0A6EBD;color:white;}
+    .btn-primary:hover{background:#C8973A;transform:translateY(-1px);}
+    .btn-outline{background:transparent;color:white;border:1px solid rgba(255,255,255,.6);}
+    .btn-outline:hover{background:white;color:#062A45;transform:translateY(-1px);}
+
+    .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
+    .footer-simple__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);margin-bottom:.5rem;}
+    .footer-simple__meta{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.6);}
+    .footer-simple__label{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+    .footer-simple__links{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;}
+    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.55);text-decoration:none;}
+
+    .wa-btn{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;}
+
+    @media(max-width:800px){.grid-two{grid-template-columns:1fr;}.cta-card{align-items:flex-start;}}
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+<script src="../components/navbar-loader.js"></script>
+<script>
+  loadSharedNavbar({ basePath: '../', activePage: 'patients' });
+</script>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="page-hero__eyebrow">Patient Resources</p>
+    <h1 class="page-hero__title">Helpful guidance for every stage of care</h1>
+    <p class="page-hero__sub">From admission to discharge, we provide clear instructions so your treatment journey is smooth, safe, and stress-free.</p>
+    <div class="page-hero__actions">
+      <a href="../contact/index.html" class="btn btn-primary">Book Appointment</a>
+      <a href="tel:+919597040918" class="btn btn-outline">Emergency Care</a>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+  <section class="section">
+    <div class="container">
+      <h2 class="section-headline">Admission process</h2>
+      <p class="section-sub">Our team will guide you through every step, including insurance support and required documentation.</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span><p>Consult the specialist and receive a treatment plan.</p></div>
+        <div class="step"><span class="step-num">2</span><p>Complete admission formalities with ID and insurance details.</p></div>
+        <div class="step"><span class="step-num">3</span><p>Pre-op checks and counseling are completed before admission.</p></div>
+        <div class="step"><span class="step-num">4</span><p>Room allotment and bedside orientation by nursing staff.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#F8FBFF;">
+    <div class="container">
+      <div class="grid-two">
+        <div class="card">
+          <h3>Discharge process</h3>
+          <p>We aim for a smooth discharge with clear next steps and recovery guidance.</p>
+          <ul>
+            <li>Doctor review and discharge summary</li>
+            <li>Billing and insurance settlement</li>
+            <li>Medication schedule and rehab plan</li>
+            <li>Follow-up appointment confirmation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Visiting hours</h3>
+          <p>To ensure patient comfort, visiting hours are structured for rest and recovery.</p>
+          <ul>
+            <li>Morning: 11:00 AM – 12:30 PM</li>
+            <li>Evening: 5:00 PM – 7:00 PM</li>
+            <li>ICU visiting as per doctor instruction</li>
+            <li>Emergency exceptions allowed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-two">
+        <div class="card">
+          <h3>What to bring</h3>
+          <ul>
+            <li>Government ID and insurance card</li>
+            <li>Previous medical records and reports</li>
+            <li>Current medications list</li>
+            <li>Comfortable clothing and footwear</li>
+            <li>Personal toiletries and essentials</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Pre & post-surgery guidance</h3>
+          <ul>
+            <li>Follow fasting instructions before surgery</li>
+            <li>Stop medications only as advised by your doctor</li>
+            <li>Arrange a caregiver for discharge day</li>
+            <li>Continue physiotherapy as scheduled</li>
+            <li>Keep the wound clean and dry</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#F8FBFF;">
+    <div class="container">
+      <h2 class="section-headline">Patient FAQs</h2>
+      <p class="section-sub">Quick answers to the questions we hear most often.</p>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Do you offer cashless hospitalization?</summary>
+          <p>Yes. We support cashless claims with major TPAs. Please bring your policy card and ID.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How early should I arrive for an appointment?</summary>
+          <p>Arrive 15 minutes early for registration and vitals.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Will physiotherapy start immediately after surgery?</summary>
+          <p>Most patients begin gentle physiotherapy within 24 to 48 hours, based on clinical assessment.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can family members stay overnight?</summary>
+          <p>One attendant is allowed for select wards. Please ask the nursing desk for details.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you provide home physiotherapy?</summary>
+          <p>Yes, home physiotherapy is available for select cases after clinical review.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-card">
+        <div>
+          <h2 class="cta-card__title">Need help planning your visit?</h2>
+          <p class="cta-card__text">Our care coordinators are available on WhatsApp and phone to guide you through appointments, insurance, and pre-op preparation.</p>
+        </div>
+        <div class="cta-card__actions">
+          <a href="../contact/index.html" class="btn btn-primary">Book Appointment</a>
+          <a href="https://wa.me/919597040918" class="btn btn-outline" target="_blank" rel="noopener">WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer-simple" role="contentinfo">
+  <div class="container">
+    <div class="footer-simple__inner">
+      <div>
+        <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
+        <div class="footer-simple__meta">Emergency: <a href="tel:+919597040918" class="footer-simple__link">095970 40918</a></div>
+      </div>
+      <div>
+        <div class="footer-simple__label">Quick Links</div>
+        <div class="footer-simple__links">
+          <a href="../index.html" class="footer-simple__link">Home</a>
+          <a href="../services/index.html" class="footer-simple__link">Services</a>
+          <a href="../doctors/index.html" class="footer-simple__link">Doctors</a>
+          <a href="../gallery/index.html" class="footer-simple__link">Facilities</a>
+          <a href="../insurance/index.html" class="footer-simple__link">Insurance</a>
+          <a href="../patients/index.html" class="footer-simple__link">Patients</a>
+          <a href="../contact/index.html" class="footer-simple__link">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-simple__label">Legal & Social</div>
+        <div class="footer-simple__links">
+          <a href="../privacy/index.html" class="footer-simple__link">Privacy Policy</a>
+          <a href="../terms/index.html" class="footer-simple__link">Terms &amp; Conditions</a>
+        </div>
+        <div class="footer-simple__links" style="margin-top:.5rem;">
+          <a href="https://facebook.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://instagram.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://youtube.com/@gopalortho" class="footer-simple__link" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919597040918" class="wa-btn" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="white" width="24" height="24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.200 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>

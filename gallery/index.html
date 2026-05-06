@@ -56,9 +56,13 @@
     }
 
     .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
-    .footer-simple__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);}
-    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:1.5rem;}
+    .footer-simple__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);margin-bottom:.5rem;}
+    .footer-simple__meta{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.6);}
+    .footer-simple__extra{display:flex;flex-wrap:wrap;gap:2rem;}
+    .footer-simple__label{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+    .footer-simple__links{display:flex;flex-wrap:wrap;gap:.5rem 1rem;}
+    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:0;}
 
     @media(max-width:900px){
       .lightbox{padding:1rem;}
@@ -146,11 +150,38 @@
 <footer class="footer-simple" role="contentinfo">
   <div class="container">
     <div class="footer-simple__inner">
-      <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
       <div>
-        <a href="../index.html" class="footer-simple__link">Home</a>
-        <a href="../services/index.html" class="footer-simple__link">Services</a>
-        <a href="../contact/index.html" class="footer-simple__link">Contact</a>
+        <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
+        <div class="footer-simple__meta">Emergency: <a href="tel:+919597040918" class="footer-simple__link">095970 40918</a></div>
+      </div>
+      <div class="footer-simple__extra">
+        <div>
+          <div class="footer-simple__label">Quick Links</div>
+          <div class="footer-simple__links">
+            <a href="../index.html" class="footer-simple__link">Home</a>
+            <a href="../services/index.html" class="footer-simple__link">Services</a>
+            <a href="../doctors/index.html" class="footer-simple__link">Doctors</a>
+            <a href="../gallery/index.html" class="footer-simple__link">Facilities</a>
+            <a href="../insurance/index.html" class="footer-simple__link">Insurance</a>
+            <a href="../patients/index.html" class="footer-simple__link">Patients</a>
+            <a href="../contact/index.html" class="footer-simple__link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-simple__label">Legal</div>
+          <div class="footer-simple__links">
+            <a href="../privacy/index.html" class="footer-simple__link">Privacy Policy</a>
+            <a href="../terms/index.html" class="footer-simple__link">Terms &amp; Conditions</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-simple__label">Social</div>
+          <div class="footer-simple__links">
+            <a href="https://facebook.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://instagram.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://youtube.com/@gopalortho" class="footer-simple__link" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
