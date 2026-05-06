@@ -3,6 +3,7 @@
     var path = (pathname || '').toLowerCase();
     if (path.indexOf('/about') !== -1) return 'about';
     if (path.indexOf('/services') !== -1) return 'services';
+    if (path.indexOf('/gallery') !== -1) return 'gallery';
     if (path.indexOf('/doctors') !== -1) return 'doctors';
     if (path.indexOf('/contact') !== -1) return 'contact';
     if (path.indexOf('/booking') !== -1) return 'booking';

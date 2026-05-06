@@ -24,7 +24,7 @@
     .section-headline em{color:#0A6EBD;font-style:italic;}
     .eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C8973A;border-left:2px solid #C8973A;padding-left:.625rem;display:inline-block;margin-bottom:1rem;}
     /* Doctors grid */
-    .doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .doctors-grid{display:grid;grid-template-columns:repeat(2,minmax(0,380px));gap:1.5rem;justify-content:center;max-width:860px;margin:0 auto;}
     .doctor-card{background:#F8FBFF;border:1px solid #D6E6F5;border-radius:20px;overflow:hidden;transition:all .35s ease;}
     .doctor-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(10,110,189,.14);}
     .doctor-card__img{height:280px;background:linear-gradient(160deg,#0A6EBD 0%,#062A45 100%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2rem;position:relative;}
@@ -75,97 +75,40 @@
         <!-- Doctor 1 -->
         <div class="doctor-card">
           <div class="doctor-card__img">
-            <span class="doctor-card__specialty-badge">Orthopaedic Surgeon</span>
+            <span class="doctor-card__specialty-badge">Orthopaedics</span>
             <div class="doctor-card__avatar">G</div>
           </div>
           <div class="doctor-card__body">
-            <h2 class="doctor-card__name">Dr. Gopalakrishnan</h2>
-            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> Senior Consultant &amp; HOD</p>
-            <div class="doctor-card__qualifications"><span class="qual-tag">MBBS</span><span class="qual-tag">MS (Ortho)</span><span class="qual-tag">DNB</span><span class="qual-tag">Fellowship</span></div>
-            <p class="doctor-card__text">15+ years of experience in joint replacement and trauma surgery. Trained at leading institutions across India and abroad.</p>
-            <a href="../booking/index.html" class="doctor-card__cta">Book Appointment <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <h2 class="doctor-card__name">Dr. N. Gopala Krishnan</h2>
+            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> (Fellowship in Joint Replacement Surgery &amp; Arthroscopy)</p>
+            <div class="doctor-card__qualifications">
+              <span class="qual-tag">M.B.B.S.</span>
+              <span class="qual-tag">D.Ortho.</span>
+              <span class="qual-tag">M.S. Ortho.</span>
+              <span class="qual-tag">Mch. Ortho.</span>
+              <span class="qual-tag">FIJR (MGRU)</span>
+            </div>
+            <p class="doctor-card__text">Reg.No. 78340</p>
           </div>
         </div>
         <!-- Doctor 2 -->
         <div class="doctor-card">
-          <div class="doctor-card__img">
-            <span class="doctor-card__specialty-badge">Spine Surgeon</span>
-            <div class="doctor-card__avatar">R</div>
-          </div>
-          <div class="doctor-card__body">
-            <h2 class="doctor-card__name">Dr. Ramachandran</h2>
-            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> Consultant Spine Surgeon</p>
-            <div class="doctor-card__qualifications"><span class="qual-tag">MBBS</span><span class="qual-tag">MS (Ortho)</span><span class="qual-tag">Spine Fellowship</span></div>
-            <p class="doctor-card__text">Specialist in minimally invasive spine surgery, disc replacement, and scoliosis correction with excellent patient outcomes.</p>
-            <a href="../booking/index.html" class="doctor-card__cta">Book Appointment <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </div>
-        <!-- Doctor 3 -->
-        <div class="doctor-card">
-          <div class="doctor-card__img">
-            <span class="doctor-card__specialty-badge">Sports Medicine</span>
-            <div class="doctor-card__avatar">K</div>
-          </div>
-          <div class="doctor-card__body">
-            <h2 class="doctor-card__name">Dr. Karthikeyan</h2>
-            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> Sports Medicine &amp; Arthroscopy</p>
-            <div class="doctor-card__qualifications"><span class="qual-tag">MBBS</span><span class="qual-tag">MS (Ortho)</span><span class="qual-tag">Sports Fellowship</span></div>
-            <p class="doctor-card__text">Dedicated to helping athletes return to peak performance after ACL, meniscus, and shoulder injuries through precision arthroscopic surgery.</p>
-            <a href="../booking/index.html" class="doctor-card__cta">Book Appointment <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </div>
-        <!-- Doctor 4 - Physio -->
-        <div class="doctor-card">
           <div class="doctor-card__img" style="background:linear-gradient(160deg,#2D7A4F 0%,#062A45 100%);">
-            <span class="doctor-card__specialty-badge">Physiotherapy</span>
-            <div class="doctor-card__avatar">P</div>
-          </div>
-          <div class="doctor-card__body">
-            <h2 class="doctor-card__name">Dr. Priya Sundaram</h2>
-            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> Head of Physiotherapy</p>
-            <div class="doctor-card__qualifications"><span class="qual-tag">BPT</span><span class="qual-tag">MPT (Neuro)</span><span class="qual-tag">MIAP</span></div>
-            <p class="doctor-card__text">Certified physiotherapist with specialisation in neurorehabilitation, sports physio, and post-surgical recovery programs.</p>
-            <a href="../booking/index.html" class="doctor-card__cta">Book Appointment <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </div>
-        <!-- Doctor 5 -->
-        <div class="doctor-card">
-          <div class="doctor-card__img">
-            <span class="doctor-card__specialty-badge">Paediatric Ortho</span>
+            <span class="doctor-card__specialty-badge">Diabetology</span>
             <div class="doctor-card__avatar">S</div>
           </div>
           <div class="doctor-card__body">
-            <h2 class="doctor-card__name">Dr. Subramaniam</h2>
-            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> Paediatric Orthopaedics</p>
-            <div class="doctor-card__qualifications"><span class="qual-tag">MBBS</span><span class="qual-tag">MS (Ortho)</span><span class="qual-tag">Paed Fellowship</span></div>
-            <p class="doctor-card__text">Expert in paediatric fractures, clubfoot, developmental dysplasia, and limb deformity correction in children.</p>
-            <a href="../booking/index.html" class="doctor-card__cta">Book Appointment <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </div>
-        <!-- Doctor 6 -->
-        <div class="doctor-card">
-          <div class="doctor-card__img" style="background:linear-gradient(160deg,#C8973A 0%,#062A45 100%);">
-            <span class="doctor-card__specialty-badge">Anaesthesiology</span>
-            <div class="doctor-card__avatar">M</div>
-          </div>
-          <div class="doctor-card__body">
-            <h2 class="doctor-card__name">Dr. Meenakshi</h2>
-            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> Consultant Anaesthesiologist</p>
-            <div class="doctor-card__qualifications"><span class="qual-tag">MBBS</span><span class="qual-tag">MD (Anaes)</span><span class="qual-tag">Pain Fellow</span></div>
-            <p class="doctor-card__text">Specialised in regional anaesthesia for orthopaedic procedures, ensuring minimal pain and rapid post-operative recovery.</p>
-            <a href="../booking/index.html" class="doctor-card__cta">Book Appointment <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <h2 class="doctor-card__name">Dr. R. Shiny</h2>
+            <p class="doctor-card__title"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="#0A6EBD" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="#0A6EBD" stroke-width="1.25" stroke-linecap="round"/></svg> M.B.B.S., M.D., CCDM (Diabetology)</p>
+            <div class="doctor-card__qualifications">
+              <span class="qual-tag">M.B.B.S.</span>
+              <span class="qual-tag">M.D.</span>
+              <span class="qual-tag">CCDM (Diabetology)</span>
+            </div>
+            <p class="doctor-card__text">Reg.No. 98823</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section" style="background:#F8FBFF;" aria-label="Book with a doctor">
-    <div class="container" style="text-align:center;">
-      <h2 class="section-headline">Book a <em>Specialist Consultation</em></h2>
-      <p style="font-family:'DM Sans',sans-serif;color:#8A8A8A;max-width:460px;margin:.75rem auto 2rem;">Choose your specialist and schedule directly. Same-day appointments available for urgent cases.</p>
-      <a href="../booking/index.html" class="btn btn-primary">Book an Appointment <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </section>
 

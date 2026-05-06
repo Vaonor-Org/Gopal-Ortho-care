@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Services – Gopal Ortho | Orthopaedic &amp; Physiotherapy Nagercoil</title>
-  <meta name="description" content="Explore our full range of orthopaedic services: joint replacement, spine surgery, fracture care, sports medicine, physiotherapy, and pain management at Gopal Ortho, Nagercoil.">
+  <meta name="description" content="Best Orthopaedic Hospital in Nagercoil offering knee replacement, spine surgery, sports medicine, physiotherapy, and pain management. Book an appointment today.">
   <link rel="canonical" href="https://www.gopalortho.com/services/">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -22,10 +22,35 @@
     .page-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.75rem;}
     .page-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;color:white;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1rem;}
     .page-hero__sub{font-family:'DM Sans',sans-serif;font-size:1.0625rem;color:rgba(255,255,255,.7);max-width:560px;}
+    .page-hero__actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;}
+    .page-hero__trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:2rem;}
+    .trust-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:1rem;}
+    .trust-card__value{font-family:'DM Mono',monospace;font-size:1.25rem;color:white;margin-bottom:.35rem;}
+    .trust-card__label{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.4;}
     .section{padding:clamp(4rem,8vw,7rem) 0;}
+    .section--soft{background:#F8FBFF;}
     .eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#C8973A;border-left:2px solid #C8973A;padding-left:.625rem;display:inline-block;margin-bottom:1rem;}
+    .eyebrow-light{color:rgba(255,255,255,.8);border-left-color:rgba(255,255,255,.5);}
     .section-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#1A1A1A;letter-spacing:-0.02em;margin-bottom:1.25rem;}
     .section-headline em{color:#0A6EBD;font-style:italic;}
+    .section-intro{max-width:720px;margin-bottom:2.5rem;}
+    .section-sub{font-family:'DM Sans',sans-serif;font-size:1rem;color:#4A4A4A;line-height:1.7;}
+    .btn-outline{background:transparent;color:white;border:1px solid rgba(255,255,255,.6);}
+    .btn-outline:hover{background:white;color:#062A45;transform:translateY(-1px);}
+    .btn-outline-dark{background:transparent;color:#0A6EBD;border:1px solid #0A6EBD;}
+    .btn-outline-dark:hover{background:#0A6EBD;color:white;transform:translateY(-1px);}
+    .btn-light{background:white;color:#8B1E1E;}
+    .btn-light:hover{background:#F3F3F3;transform:translateY(-1px);}
+    .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2.5rem;}
+    .about-card{background:white;border:1px solid #D6E6F5;border-radius:18px;padding:1.5rem;box-shadow:0 8px 24px rgba(10,110,189,.08);}
+    .about-card__title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;margin-bottom:.75rem;}
+    .about-card__text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;line-height:1.7;}
+    .cta-banner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;background:linear-gradient(135deg,#062A45,#0A6EBD);border-radius:20px;padding:1.75rem 2rem;color:white;}
+    .cta-banner__title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;margin-bottom:.35rem;}
+    .cta-banner__text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:rgba(255,255,255,.82);}
+    .cta-banner__actions{display:flex;flex-wrap:wrap;gap:.75rem;}
+    .cta-inline{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-top:2.5rem;padding:1.25rem 1.5rem;border:1px solid #D6E6F5;border-radius:16px;background:#F8FBFF;}
+    .cta-inline__text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;}
     /* Service detail card */
     .service-detail{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid #D6E6F5;}
     .service-detail:last-child{border:none;}
@@ -35,16 +60,55 @@
     .service-detail__tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.6875rem;letter-spacing:.1em;color:#0A6EBD;background:#E6F1FE;padding:.25rem .75rem;border-radius:9999px;margin-bottom:1rem;}
     .service-detail__title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;color:#1A1A1A;margin-bottom:1rem;}
     .service-detail__text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;line-height:1.75;margin-bottom:1.25rem;}
-    .service-detail__list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;}
-    .service-detail__list li{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;display:flex;align-items:flex-start;gap:.625rem;}
-    .service-detail__list li::before{content:'';width:16px;height:16px;background:#E6F1FE;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:1.5px solid #0A6EBD;}
+    .service-detail__info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.5rem;margin-bottom:1.5rem;}
+    .info-block{display:flex;flex-direction:column;}
+    .info-label{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#0A6EBD;margin-bottom:.35rem;}
+    .info-text{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;line-height:1.6;}
     .btn-sm{height:42px;padding:0 1.25rem;font-size:.875rem;}
+    .conditions-list{list-style:none;display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;padding:0;}
+    .conditions-list li{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#0A6EBD;background:#E6F1FE;padding:.45rem .9rem;border-radius:9999px;}
+    .why-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;}
+    .why-item{display:flex;gap:.75rem;align-items:flex-start;}
+    .why-dot{width:10px;height:10px;border-radius:50%;background:#C8973A;margin-top:.4rem;flex-shrink:0;}
+    .why-item p{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;line-height:1.6;}
+    .team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;}
+    .team-card{background:white;border:1px solid #D6E6F5;border-radius:18px;padding:1.5rem;}
+    .team-card__role{font-family:'DM Sans',sans-serif;font-size:.75rem;color:#0A6EBD;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+    .team-card__name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;margin-bottom:.5rem;}
+    .team-card__meta{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;line-height:1.6;margin-bottom:.75rem;}
+    .team-card__list{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:0;}
+    .team-card__list li{font-family:'DM Sans',sans-serif;font-size:.6875rem;color:#0A6EBD;background:#E6F1FE;padding:.2rem .6rem;border-radius:9999px;}
+    .journey-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;}
+    .journey-step{background:white;border:1px solid #D6E6F5;border-radius:16px;padding:1rem;}
+    .journey-step__num{font-family:'DM Mono',monospace;font-size:.9rem;color:#0A6EBD;margin-bottom:.4rem;}
+    .journey-step__title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;margin-bottom:.35rem;}
+    .journey-step__text{font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;line-height:1.6;}
+    .testimonial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;}
+    .testimonial-card{background:white;border:1px solid #D6E6F5;border-radius:18px;padding:1.5rem;}
+    .testimonial-text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;line-height:1.7;margin-bottom:1rem;}
+    .testimonial-name{font-family:'DM Sans',sans-serif;font-weight:600;color:#1A1A1A;margin-bottom:.2rem;}
+    .testimonial-meta{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:#8A8A8A;}
+    .facility-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 2rem;}
+    .facility-item{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#4A4A4A;display:flex;align-items:flex-start;gap:.6rem;}
+    .facility-item::before{content:'';width:10px;height:10px;border-radius:50%;background:#0A6EBD;margin-top:.45rem;flex-shrink:0;}
+    .faq-list{display:grid;gap:.75rem;max-width:900px;}
+    .faq-item{border:1px solid #D6E6F5;border-radius:14px;background:white;}
+    .faq-item summary{cursor:pointer;padding:1rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:600;}
+    .faq-item p{padding:0 1.25rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4A4A4A;line-height:1.7;}
+    .emergency-section{background:linear-gradient(135deg,#8B1E1E,#C24A3A);color:white;}
+    .emergency-grid{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+    .emergency-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;margin-bottom:.75rem;}
+    .emergency-text{font-family:'DM Sans',sans-serif;font-size:1rem;color:rgba(255,255,255,.85);max-width:620px;}
+    .cta-final{background:#F8FBFF;border:1px solid #D6E6F5;border-radius:20px;padding:2.5rem;text-align:center;}
+    .cta-final__actions{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;}
     .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
     .footer-simple__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
     .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);}
     .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:1.5rem;}
     .wa-btn{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;}
-    @media(max-width:900px){.service-detail{grid-template-columns:1fr;direction:ltr!important;}.service-detail:nth-child(even){direction:ltr;}}
+    @media(max-width:1100px){.about-grid{grid-template-columns:1fr 1fr;}.team-grid{grid-template-columns:1fr 1fr;}.testimonial-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:900px){.service-detail{grid-template-columns:1fr;direction:ltr!important;}.service-detail:nth-child(even){direction:ltr;}.service-detail__info{grid-template-columns:1fr;}.cta-banner{flex-direction:column;align-items:flex-start;}.cta-inline{flex-direction:column;align-items:flex-start;}.facility-grid{grid-template-columns:1fr;}}
+    @media(max-width:700px){.about-grid{grid-template-columns:1fr;}.team-grid{grid-template-columns:1fr;}.testimonial-grid{grid-template-columns:1fr;}.why-grid{grid-template-columns:1fr;}.journey-grid{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -57,82 +121,521 @@
 
 <div class="page-hero">
   <div class="container">
-    <p class="page-hero__eyebrow">What We Offer</p>
-    <h1 class="page-hero__title">Comprehensive Orthopaedic<br>Services</h1>
-    <p class="page-hero__sub">From fracture care to joint replacement, spine surgery to physiotherapy — all under one expert team in Nagercoil.</p>
+    <p class="page-hero__eyebrow">Orthopaedic and Physiotherapy Center</p>
+    <h1 class="page-hero__title">Best Orthopaedic Hospital in Nagercoil for Surgery, Recovery, and Rehab</h1>
+    <p class="page-hero__sub">Trusted care for fractures, Knee Replacement in Nagercoil, spine surgery, sports injuries, and physiotherapy with a patient-first approach.</p>
+    <div class="page-hero__actions">
+      <a href="tel:+919597040918" class="btn btn-outline">Emergency Care</a>
+    </div>
+    <div class="page-hero__trust">
+      <div class="trust-card">
+        <p class="trust-card__value">15+</p>
+        <p class="trust-card__label">Years of orthopaedic care in Nagercoil</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card__value">8000+</p>
+        <p class="trust-card__label">Surgeries and rehab cases handled</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card__value">95%</p>
+        <p class="trust-card__label">Patient satisfaction score</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card__value">24/7</p>
+        <p class="trust-card__label">Emergency trauma response</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <main id="main">
-  <div class="container">
-
-    <div class="service-detail" id="fracture">
-      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><path d="M30 20 L70 80M30 20 L45 35 L55 20M55 60 L65 75 L70 80" stroke="rgba(125,211,252,0.7)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <span class="service-detail__tag">01 — Orthopaedic</span>
-        <h2 class="service-detail__title">Fracture &amp; Trauma Care</h2>
-        <p class="service-detail__text">We provide immediate and planned surgical management of all types of fractures, dislocations, and orthopaedic trauma injuries with the latest fixation implants.</p>
-        <ul class="service-detail__list"><li>Emergency fracture stabilisation</li><li>Open reduction &amp; internal fixation</li><li>Complex periarticular fractures</li><li>Post-traumatic rehabilitation</li></ul>
-        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+  <section class="section" id="about-department">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">About the Department</p>
+        <h2 class="section-headline">Orthopaedic and Physiotherapy Excellence in Nagercoil</h2>
+        <p class="section-sub">As the Best Orthopaedic Hospital in Nagercoil, we combine advanced surgical care, trusted rehabilitation, and transparent communication so patients and families feel confident from the first visit to full recovery.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3 class="about-card__title">Orthopaedic precision with compassionate care</h3>
+          <p class="about-card__text">Every treatment plan starts with a clear diagnosis, honest options, and realistic timelines. Our focus is safe surgery and long-term joint health.</p>
+        </div>
+        <div class="about-card">
+          <h3 class="about-card__title">Modern diagnostics and safe surgery</h3>
+          <p class="about-card__text">We use evidence-based protocols, imaging guidance, and quality implants to improve accuracy and outcomes for complex cases.</p>
+        </div>
+        <div class="about-card">
+          <h3 class="about-card__title">Integrated rehabilitation for lasting results</h3>
+          <p class="about-card__text">Our Physiotherapy Center Nagercoil supports recovery with structured rehab, strength building, and home programs that protect results.</p>
+        </div>
+      </div>
+      <div class="cta-banner">
+        <div>
+          <p class="cta-banner__title">Speak to a specialist today</p>
+          <p class="cta-banner__text">Share your symptoms and we will guide you to the right service and timeline.</p>
+        </div>
+        <div class="cta-banner__actions">
+          <a href="tel:+919597040918" class="btn btn-outline btn-sm">Emergency Care</a>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="service-detail" id="joint">
-      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="40" r="20" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M50 60 L50 90M30 90 L70 90" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round"/></svg></div>
-      <div>
-        <span class="service-detail__tag">02 — Orthopaedic</span>
-        <h2 class="service-detail__title">Joint Replacement</h2>
-        <p class="service-detail__text">Advanced total and partial joint replacement for knee and hip arthritis using premium cemented and cementless implant systems with rapid recovery protocols.</p>
-        <ul class="service-detail__list"><li>Total knee replacement</li><li>Hip replacement (primary &amp; revision)</li><li>Unicompartmental knee replacement</li><li>Enhanced recovery after surgery (ERAS)</li></ul>
-        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Specialized Services</p>
+        <h2 class="section-headline">Complete orthopaedic and rehabilitation care</h2>
+        <p class="section-sub">From urgent trauma to planned surgery, we follow a step-by-step care pathway that supports safe treatment, faster recovery, and lasting results.</p>
+      </div>
+
+      <div class="service-detail" id="fracture">
+        <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><path d="M30 20 L70 80M30 20 L45 35 L55 20M55 60 L65 75 L70 80" stroke="rgba(125,211,252,0.7)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <span class="service-detail__tag">01 - Orthopaedic</span>
+          <h2 class="service-detail__title">Fracture and Trauma Care</h2>
+          <p class="service-detail__text">Urgent assessment and definitive care for fractures and orthopaedic trauma, with safe surgery and coordinated rehabilitation.</p>
+          <div class="service-detail__info">
+            <div class="info-block">
+              <p class="info-label">Who needs this</p>
+              <p class="info-text">Patients with fractures, dislocations, accident injuries, or pain and swelling after a fall.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Symptoms and conditions</p>
+              <p class="info-text">Closed or open fractures, joint dislocations, periarticular fractures, and delayed union.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Benefits</p>
+              <p class="info-text">Stable fixation, reduced pain, proper alignment, and faster return to daily activity.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Technology and techniques</p>
+              <p class="info-text">Image-guided reduction, locking plates, intramedullary nails, and minimally invasive fixation when suitable.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Recovery</p>
+              <p class="info-text">Early mobilization with physiotherapy. Healing timelines vary by bone and overall health.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-detail" id="joint">
+        <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="40" r="20" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M50 60 L50 90M30 90 L70 90" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+        <div>
+          <span class="service-detail__tag">02 - Orthopaedic</span>
+          <h2 class="service-detail__title">Joint Replacement</h2>
+          <p class="service-detail__text">Advanced knee and hip replacement using proven implants and structured recovery. For Knee Replacement in Nagercoil, our team provides end-to-end surgical and rehab care.</p>
+          <div class="service-detail__info">
+            <div class="info-block">
+              <p class="info-label">Who needs this</p>
+              <p class="info-text">Severe arthritis pain, deformity, or limited walking despite medicines and therapy.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Symptoms and conditions</p>
+              <p class="info-text">Osteoarthritis, rheumatoid arthritis, avascular necrosis, and post-traumatic arthritis.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Benefits</p>
+              <p class="info-text">Long-term pain relief, improved walking distance, and better alignment.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Technology and techniques</p>
+              <p class="info-text">Pre-op planning, cemented or cementless implants, and precise alignment tools.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Recovery</p>
+              <p class="info-text">Most patients start walking with support within 24 to 48 hours. Full recovery varies over weeks to months.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-detail" id="spine">
+        <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><rect x="35" y="10" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><rect x="35" y="34" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><rect x="35" y="58" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><line x1="50" y1="28" x2="50" y2="34" stroke="rgba(125,211,252,0.7)" stroke-width="2"/><line x1="50" y1="52" x2="50" y2="58" stroke="rgba(125,211,252,0.7)" stroke-width="2"/></svg></div>
+        <div>
+          <span class="service-detail__tag">03 - Orthopaedic</span>
+          <h2 class="service-detail__title">Spine Surgery</h2>
+          <p class="service-detail__text">Comprehensive spine care led by a Spine Surgery Specialist Nagercoil patients trust, from diagnosis to minimally invasive surgery and rehab.</p>
+          <div class="service-detail__info">
+            <div class="info-block">
+              <p class="info-label">Who needs this</p>
+              <p class="info-text">Persistent back or neck pain with nerve symptoms, weakness, or limited function.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Symptoms and conditions</p>
+              <p class="info-text">Disc prolapse, spinal stenosis, spondylolisthesis, cervical myelopathy, and deformity.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Benefits</p>
+              <p class="info-text">Relief from nerve pain, improved stability, and safer daily movement.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Technology and techniques</p>
+              <p class="info-text">Microsurgery, minimally invasive decompression, fusion when needed, and image guidance.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Recovery</p>
+              <p class="info-text">Short hospital stay, brace if required, and guided physiotherapy for safe return to activity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-detail" id="sports">
+        <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="50" r="35" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M20 50 Q50 25 80 50 Q50 75 20 50" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/></svg></div>
+        <div>
+          <span class="service-detail__tag">04 - Sports Medicine</span>
+          <h2 class="service-detail__title">Sports Medicine</h2>
+          <p class="service-detail__text">Injury-specific care for athletes and active adults, from diagnosis to return-to-sport testing.</p>
+          <div class="service-detail__info">
+            <div class="info-block">
+              <p class="info-label">Who needs this</p>
+              <p class="info-text">ACL or PCL injuries, meniscus tears, shoulder instability, and tendon pain.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Symptoms and conditions</p>
+              <p class="info-text">Ligament tears, meniscus injuries, rotator cuff tears, and cartilage defects.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Benefits</p>
+              <p class="info-text">Restores joint stability, reduces swelling, and protects long-term joint health.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Technology and techniques</p>
+              <p class="info-text">Arthroscopic repair, ligament reconstruction, and sports rehab protocols.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Recovery</p>
+              <p class="info-text">Phased rehabilitation. Return to sport is based on strength and control testing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-detail" id="physio">
+        <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="20" r="12" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M30 40 L30 75 M70 40 L70 75 M30 45 L70 45 M40 40 L40 80 M60 40 L60 80" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+        <div>
+          <span class="service-detail__tag">05 - Physiotherapy</span>
+          <h2 class="service-detail__title">Physiotherapy and Rehabilitation</h2>
+          <p class="service-detail__text">Personalized rehabilitation at our Physiotherapy Center Nagercoil patients rely on for pain relief, mobility, and recovery.</p>
+          <div class="service-detail__info">
+            <div class="info-block">
+              <p class="info-label">Who needs this</p>
+              <p class="info-text">Post-surgical patients, chronic pain, stiffness, or neurological recovery needs.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Symptoms and conditions</p>
+              <p class="info-text">Back and neck pain, frozen shoulder, knee arthritis, and post-op weakness.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Benefits</p>
+              <p class="info-text">Improves strength, reduces pain, restores balance, and prevents re-injury.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Technology and techniques</p>
+              <p class="info-text">Manual therapy, electrotherapy, gait training, and home exercise plans.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Recovery</p>
+              <p class="info-text">Progress is tracked weekly with measurable goals and tailored programs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-detail" id="pain">
+        <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><path d="M50 10 L50 90M20 40 L50 10 L80 40M25 62 Q50 50 75 62" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <span class="service-detail__tag">06 - Pain Management</span>
+          <h2 class="service-detail__title">Pain Management</h2>
+          <p class="service-detail__text">Non-surgical options to control chronic musculoskeletal pain and improve daily function.</p>
+          <div class="service-detail__info">
+            <div class="info-block">
+              <p class="info-label">Who needs this</p>
+              <p class="info-text">Chronic back or joint pain, persistent tendon pain, and nerve irritation.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Symptoms and conditions</p>
+              <p class="info-text">Facet joint pain, sciatica, arthritis, tendonitis, and bursitis.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Benefits</p>
+              <p class="info-text">Reduces pain, improves sleep and activity, and may delay or avoid surgery.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Technology and techniques</p>
+              <p class="info-text">Targeted injections, PRP therapy, medication optimization, and physiotherapy.</p>
+            </div>
+            <div class="info-block">
+              <p class="info-label">Recovery</p>
+              <p class="info-text">Plans are individualized. Many patients see gradual improvement over weeks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-inline">
+        <p class="cta-inline__text">Not sure which service fits your condition? We will guide you with a clear care plan.</p>
       </div>
     </div>
+  </section>
 
-    <div class="service-detail" id="spine">
-      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><rect x="35" y="10" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><rect x="35" y="34" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><rect x="35" y="58" width="30" height="18" rx="5" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><line x1="50" y1="28" x2="50" y2="34" stroke="rgba(125,211,252,0.7)" stroke-width="2"/><line x1="50" y1="52" x2="50" y2="58" stroke="rgba(125,211,252,0.7)" stroke-width="2"/></svg></div>
-      <div>
-        <span class="service-detail__tag">03 — Orthopaedic</span>
-        <h2 class="service-detail__title">Spine Surgery</h2>
-        <p class="service-detail__text">Minimally invasive and open surgical procedures for disc herniation, spinal stenosis, spondylolisthesis, and deformity correction with excellent outcomes.</p>
-        <ul class="service-detail__list"><li>Microdiscectomy &amp; laminectomy</li><li>Spinal fusion (PLIF, TLIF)</li><li>Cervical disc replacement</li><li>Scoliosis correction</li></ul>
-        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+  <section class="section section--soft" id="conditions">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Conditions We Treat</p>
+        <h2 class="section-headline">Common orthopaedic and rehabilitation concerns</h2>
+        <p class="section-sub">We treat both urgent injuries and long-term joint conditions with personalized care and clear recovery timelines.</p>
+      </div>
+      <ul class="conditions-list">
+        <li>Knee and hip arthritis</li>
+        <li>Fractures and dislocations</li>
+        <li>Ligament injuries (ACL, PCL, MCL)</li>
+        <li>Meniscus tears</li>
+        <li>Back and neck pain</li>
+        <li>Disc prolapse and sciatica</li>
+        <li>Spinal stenosis</li>
+        <li>Spondylolisthesis</li>
+        <li>Shoulder impingement</li>
+        <li>Rotator cuff tears</li>
+        <li>Frozen shoulder</li>
+        <li>Sports injuries</li>
+        <li>Osteoporosis-related fractures</li>
+        <li>Tendonitis and bursitis</li>
+        <li>Post-surgical stiffness</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="why-choose">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Why Choose Us</p>
+        <h2 class="section-headline">Care that is accurate, compassionate, and outcomes focused</h2>
+        <p class="section-sub">Patients choose us for our experience, clear communication, and integrated rehabilitation that protects their results.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item"><span class="why-dot"></span><p>Experienced surgeons with outcomes-driven care pathways.</p></div>
+        <div class="why-item"><span class="why-dot"></span><p>Advanced imaging and safe OT protocols for precise surgery.</p></div>
+        <div class="why-item"><span class="why-dot"></span><p>Personalized rehabilitation under one roof with measurable goals.</p></div>
+        <div class="why-item"><span class="why-dot"></span><p>Transparent advice, clear costs, and guidance at every step.</p></div>
+        <div class="why-item"><span class="why-dot"></span><p>Affordable care options without compromising quality.</p></div>
+        <div class="why-item"><span class="why-dot"></span><p>Patient-first communication with follow-ups that reduce re-injury.</p></div>
       </div>
     </div>
+  </section>
 
-    <div class="service-detail" id="sports">
-      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="50" r="35" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M20 50 Q50 25 80 50 Q50 75 20 50" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/></svg></div>
-      <div>
-        <span class="service-detail__tag">04 — Sports Medicine</span>
-        <h2 class="service-detail__title">Sports Medicine</h2>
-        <p class="service-detail__text">Arthroscopic and open surgical management of sports injuries with athlete-specific rehabilitation programs designed for complete return to sport.</p>
-        <ul class="service-detail__list"><li>ACL &amp; PCL reconstruction</li><li>Meniscus repair &amp; partial meniscectomy</li><li>Rotator cuff repair</li><li>Cartilage restoration procedures</li></ul>
-        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+  <section class="section section--soft" id="team">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Our Specialists</p>
+        <h2 class="section-headline">Expert doctors and rehabilitation team</h2>
+        <p class="section-sub">Meet a dedicated team focused on safe surgery, pain relief, and long-term mobility. Placeholder bios can be updated with actual profiles.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <p class="team-card__role">Orthopaedic Surgery</p>
+          <h3 class="team-card__name">Lead Orthopaedic Consultant</h3>
+          <p class="team-card__meta">15+ years of experience in joint replacement, trauma care, and arthroscopy.</p>
+          <ul class="team-card__list">
+            <li>MBBS</li>
+            <li>MS (Ortho)</li>
+            <li>Joint Replacement Fellowship</li>
+            <li>Trauma and Arthroscopy</li>
+          </ul>
+        </div>
+        <div class="team-card">
+          <p class="team-card__role">Spine and Sports Medicine</p>
+          <h3 class="team-card__name">Spine and Sports Specialist</h3>
+          <p class="team-card__meta">Focused on minimally invasive spine surgery and sports injury reconstruction.</p>
+          <ul class="team-card__list">
+            <li>MBBS</li>
+            <li>MS (Ortho)</li>
+            <li>Spine Fellowship</li>
+            <li>Sports Medicine</li>
+          </ul>
+        </div>
+        <div class="team-card">
+          <p class="team-card__role">Physiotherapy</p>
+          <h3 class="team-card__name">Senior Physiotherapist</h3>
+          <p class="team-card__meta">Evidence-based rehab for post-operative recovery, chronic pain, and neuro rehab.</p>
+          <ul class="team-card__list">
+            <li>BPT</li>
+            <li>MPT</li>
+            <li>Sports Rehab</li>
+            <li>Neuro Rehab</li>
+          </ul>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="service-detail" id="physio">
-      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><circle cx="50" cy="20" r="12" stroke="rgba(125,211,252,0.7)" stroke-width="2.5"/><path d="M30 40 L30 75 M70 40 L70 75 M30 45 L70 45 M40 40 L40 80 M60 40 L60 80" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round"/></svg></div>
-      <div>
-        <span class="service-detail__tag">05 — Physiotherapy</span>
-        <h2 class="service-detail__title">Physiotherapy &amp; Rehabilitation</h2>
-        <p class="service-detail__text">Personalised, evidence-based rehabilitation programs for post-surgical recovery, chronic pain management, neurological conditions, and geriatric care.</p>
-        <ul class="service-detail__list"><li>Post-surgical rehabilitation</li><li>Sports physiotherapy</li><li>Neurological rehabilitation</li><li>Geriatric physiotherapy</li></ul>
-        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+  <section class="section" id="journey">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Patient Journey</p>
+        <h2 class="section-headline">A clear path from pain to recovery</h2>
+        <p class="section-sub">We guide patients step by step, so they always know what to expect.</p>
+      </div>
+      <div class="journey-grid">
+        <div class="journey-step">
+          <p class="journey-step__num">01</p>
+          <h3 class="journey-step__title">Consultation</h3>
+          <p class="journey-step__text">Detailed history, clinical exam, and understanding your goals.</p>
+        </div>
+        <div class="journey-step">
+          <p class="journey-step__num">02</p>
+          <h3 class="journey-step__title">Diagnosis</h3>
+          <p class="journey-step__text">Imaging and tests to confirm the exact cause of pain.</p>
+        </div>
+        <div class="journey-step">
+          <p class="journey-step__num">03</p>
+          <h3 class="journey-step__title">Treatment Plan</h3>
+          <p class="journey-step__text">Clear options with timelines, risks, and expected outcomes.</p>
+        </div>
+        <div class="journey-step">
+          <p class="journey-step__num">04</p>
+          <h3 class="journey-step__title">Surgery (If Needed)</h3>
+          <p class="journey-step__text">Safe surgery with a focus on precision and recovery.</p>
+        </div>
+        <div class="journey-step">
+          <p class="journey-step__num">05</p>
+          <h3 class="journey-step__title">Rehabilitation</h3>
+          <p class="journey-step__text">Structured physiotherapy for strength, balance, and motion.</p>
+        </div>
+        <div class="journey-step">
+          <p class="journey-step__num">06</p>
+          <h3 class="journey-step__title">Recovery</h3>
+          <p class="journey-step__text">Follow-ups to keep progress on track and prevent relapse.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="service-detail" id="pain">
-      <div class="service-detail__img" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" width="80"><path d="M50 10 L50 90M20 40 L50 10 L80 40M25 62 Q50 50 75 62" stroke="rgba(125,211,252,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <span class="service-detail__tag">06 — Pain Management</span>
-        <h2 class="service-detail__title">Pain Management</h2>
-        <p class="service-detail__text">Comprehensive, multimodal approaches to chronic musculoskeletal pain using injections, physical therapy, and pharmacological management.</p>
-        <ul class="service-detail__list"><li>Intra-articular injections</li><li>Epidural steroid injections</li><li>Platelet-rich plasma (PRP) therapy</li><li>Trigger point injections</li></ul>
-        <a href="../booking/index.html" class="btn btn-primary btn-sm">Book Consultation</a>
+  <section class="section section--soft" id="testimonials">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Patient Stories</p>
+        <h2 class="section-headline">Trusted by families across Nagercoil</h2>
+        <p class="section-sub">Real experiences from patients who recovered with our team.</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"After my knee replacement, the team kept me informed at every step. Physiotherapy started early, and I walked confidently within weeks."</p>
+          <p class="testimonial-name">Meena P.</p>
+          <p class="testimonial-meta">58, Nagercoil</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-text">"I came with severe back pain. The spine care plan was clear, and the surgery relieved my nerve pain. The follow-up care was excellent."</p>
+          <p class="testimonial-name">Arun S.</p>
+          <p class="testimonial-meta">42, Kanyakumari</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-text">"My son had a fracture from a bike accident. The trauma team acted fast, and the recovery plan was well organized."</p>
+          <p class="testimonial-name">Lakshmi R.</p>
+          <p class="testimonial-meta">36, Nagercoil</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Physiotherapy helped me regain shoulder movement without surgery. The exercises were simple and effective."</p>
+          <p class="testimonial-name">Joseph T.</p>
+          <p class="testimonial-meta">51, Colachel</p>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
+  <section class="section" id="facilities">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">Facilities and Technology</p>
+        <h2 class="section-headline">Modern infrastructure for safe and effective care</h2>
+        <p class="section-sub">We invest in technology that improves accuracy, safety, and recovery.</p>
+      </div>
+      <div class="facility-grid">
+        <div class="facility-item">Modular operation theatre with infection control protocols</div>
+        <div class="facility-item">Digital X-ray and pre-op surgical planning tools</div>
+        <div class="facility-item">C-arm imaging for precise fracture fixation</div>
+        <div class="facility-item">Arthroscopy and joint replacement equipment</div>
+        <div class="facility-item">Physiotherapy gym with electrotherapy devices</div>
+        <div class="facility-item">Gait training and balance rehabilitation tools</div>
+        <div class="facility-item">Quality implant systems with traceable standards</div>
+        <div class="facility-item">Structured rehab tracking and follow-up plans</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="faq">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="section-headline">Answers to common patient questions</h2>
+        <p class="section-sub">If you have more questions, our team is ready to help.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>When should I see an orthopaedic specialist?</summary>
+          <p>See a specialist if pain lasts more than two weeks, limits movement, or follows an injury or fall.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need surgery for knee arthritis?</summary>
+          <p>Not always. We start with medicines, injections, and physiotherapy. Surgery is suggested only when pain severely affects daily life.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How long does knee replacement recovery take?</summary>
+          <p>Most patients walk with support in 24 to 48 hours. Full recovery depends on health and rehab, usually over weeks to months.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is spine surgery always required for back pain?</summary>
+          <p>No. Many cases improve with therapy and lifestyle changes. Surgery is recommended only for nerve compression or severe instability.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens during the first consultation?</summary>
+          <p>We review symptoms, examine you, and recommend tests if needed. You leave with a clear plan and expected timeline.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you provide physiotherapy after surgery?</summary>
+          <p>Yes. Rehabilitation starts early and continues with supervised sessions and home exercises.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I get a second opinion?</summary>
+          <p>Absolutely. We encourage patients to feel confident and informed about their treatment plan.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you handle emergency fractures at night?</summary>
+          <p>Yes. Our 24/7 trauma care team is available for urgent fracture management and stabilization.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section emergency-section" id="emergency">
+    <div class="container">
+      <div class="emergency-grid">
+        <div>
+          <p class="eyebrow eyebrow-light">Emergency Care</p>
+          <h2 class="emergency-title">24/7 trauma and urgent orthopaedic care</h2>
+          <p class="emergency-text">Accidents and fractures need immediate attention. Call now for rapid assessment, stabilization, and surgical readiness.</p>
+        </div>
+        <div>
+          <a href="tel:+919597040918" class="btn btn-light">Call Emergency Line</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cta-final">
+    <div class="container">
+      <div class="cta-final">
+        <h2 class="section-headline">Ready to start your recovery?</h2>
+        <p class="section-sub">Book an appointment with our orthopaedic team or visit our Physiotherapy Center Nagercoil for guided rehab.</p>
+        <div class="cta-final__actions">
+          <a href="tel:+919597040918" class="btn btn-outline-dark">Call for Advice</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="footer-simple" role="contentinfo">
