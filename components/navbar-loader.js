@@ -47,13 +47,9 @@
 
   function initHeaderInteractions() {
     var navbar = document.getElementById('navbar');
-    var emergencyBar = document.getElementById('emergency-bar');
-    var emergencyBarClose = document.getElementById('emergency-bar-close');
     var drawer = document.getElementById('mobile-drawer');
     var toggle = document.getElementById('mobile-toggle');
     var closeBtn = document.getElementById('drawer-close');
-    var lastScrollY = window.scrollY;
-    var emergencyHideDelta = 12;
 
     function updateHeaderOnScroll() {
       var currentScrollY = window.scrollY;
@@ -61,39 +57,10 @@
       if (navbar) {
         navbar.classList.toggle('scrolled', currentScrollY > 40);
       }
-
-      if (!emergencyBar || document.body.classList.contains('emergency-bar-hidden')) {
-        lastScrollY = currentScrollY;
-        return;
-      }
-
-      var scrollDiff = currentScrollY - lastScrollY;
-      if (currentScrollY <= 10) {
-        document.body.classList.remove('emergency-bar-collapsed');
-      } else if (scrollDiff > emergencyHideDelta) {
-        document.body.classList.add('emergency-bar-collapsed');
-      } else if (scrollDiff < -emergencyHideDelta) {
-        document.body.classList.remove('emergency-bar-collapsed');
-      }
-
-      lastScrollY = currentScrollY;
-    }
-
-    if (sessionStorage.getItem('gopalEmergencyHidden') === '1') {
-      document.body.classList.add('emergency-bar-hidden');
-      document.body.classList.remove('emergency-bar-collapsed');
     }
 
     updateHeaderOnScroll();
     window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
-
-    if (emergencyBarClose) {
-      emergencyBarClose.addEventListener('click', function () {
-        document.body.classList.remove('emergency-bar-collapsed');
-        document.body.classList.add('emergency-bar-hidden');
-        sessionStorage.setItem('gopalEmergencyHidden', '1');
-      });
-    }
 
     function openDrawer() {
       if (!drawer || !toggle) return;

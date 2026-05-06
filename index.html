@@ -124,7 +124,7 @@ ul{list-style:none;padding:0;margin:0;}
    EMERGENCY BAR
 ================================================================ */
 #emergency-bar{
-  position:sticky;top:0;z-index:1001;
+  position:relative;z-index:1001;
   width:100%;height:var(--top-banner-height);min-height:var(--top-banner-height);
   background:linear-gradient(90deg,#0A5A94 0%,#0E6CAB 50%,#0A5A94 100%);
   border-bottom:1px solid rgba(125,211,252,0.32);
@@ -137,33 +137,20 @@ ul{list-style:none;padding:0;margin:0;}
   width:100%;
   min-height:var(--top-banner-height);
   margin:0 auto;
-  padding:0 48px 0 clamp(1rem,2vw,1.5rem);
+  padding:0 clamp(1rem,2vw,1.5rem);
   display:flex;align-items:center;justify-content:center;
 }
-.emergency-bar__center{display:flex;align-items:center;justify-content:center;gap:.75rem;max-width:calc(100% - 8px);}
+.emergency-bar__center{display:flex;align-items:center;justify-content:center;gap:.75rem;max-width:100%;}
 .emergency-bar__alert-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:rgba(255,255,255,0.95);}
 .emergency-bar__alert-icon svg{width:16px;height:16px;stroke:currentColor;}
 .emergency-bar__text{font-family:'DM Sans',sans-serif;font-size:clamp(.875rem,.95vw,1.12rem);font-weight:500;color:#fff;letter-spacing:.01em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(64vw,980px);}
 .emergency-bar__phone{color:#fff;font-weight:700;text-decoration:none;}
 .emergency-bar__cta{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 1rem;border-radius:9999px;background:#2EBEFF;color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;text-decoration:none;transition:background .2s ease,transform .2s ease;white-space:nowrap;flex-shrink:0;}
 .emergency-bar__cta:hover{background:#57CAFF;transform:translateY(-1px);}
-.emergency-bar__close{position:absolute;top:0;right:0;bottom:0;width:44px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.85);border-left:1px solid rgba(255,255,255,0.24);background:transparent;cursor:pointer;}
-.emergency-bar__close svg{width:16px;height:16px;stroke:currentColor;}
-.emergency-bar__close:hover{background:rgba(255,255,255,0.08);color:#fff;}
-body.emergency-bar-collapsed #emergency-bar{
-  height:0;
-  min-height:0;
-  opacity:0;
-  border-bottom-color:transparent;
-  pointer-events:none;
-}
-body.emergency-bar-collapsed #navbar{top:0;}
-body.emergency-bar-hidden #emergency-bar{display:none;}
-body.emergency-bar-hidden #navbar{top:0;}
 @media(max-width:900px){
   :root{--top-banner-height:50px;}
   #emergency-bar{height:var(--top-banner-height);min-height:var(--top-banner-height);}
-  .emergency-bar__inner{min-height:var(--top-banner-height);padding:0 44px 0 .875rem;}
+  .emergency-bar__inner{min-height:var(--top-banner-height);padding:0 .875rem;}
   .emergency-bar__center{gap:.55rem;}
   .emergency-bar__text{font-size:.8125rem;max-width:57vw;}
   .emergency-bar__cta{height:30px;padding:0 .8rem;font-size:.75rem;}
@@ -176,8 +163,11 @@ body.emergency-bar-hidden #navbar{top:0;}
 /* ================================================================
    NAVBAR
 ================================================================ */
+#site-header{
+  position:sticky;top:calc(-1 * var(--top-banner-height));z-index:1001;
+}
 #navbar{
-  position:sticky;top:var(--top-banner-height);z-index:1000;
+  position:relative;z-index:1000;
   width:100%;
   background:rgba(255,255,255,0.95);
   backdrop-filter:blur(20px) saturate(180%);
@@ -981,10 +971,10 @@ body.emergency-bar-hidden #navbar{top:0;}
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:560px;}
-.contact-grid{grid-template-columns:minmax(0,.95fr) minmax(360px,1.05fr);min-height:380px;}
-.contact-map-col{position:relative;min-height:260px;padding:1.5rem;background:linear-gradient(180deg,#071f31 0%,#08253b 100%);}
-.contact-map-frame{height:100%;min-height:260px;border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.16);border:1px solid rgba(255,255,255,0.08);}
-.contact-map-col iframe{width:100%;height:100%;min-height:260px;display:block;border:0;filter:grayscale(10%) contrast(1.03);}
+.contact-grid{grid-template-columns:minmax(0,1.02fr) minmax(360px,.98fr);min-height:500px;}
+.contact-map-col{position:relative;min-height:400px;padding:2rem;background:linear-gradient(180deg,#071f31 0%,#08253b 100%);}
+.contact-map-frame{height:100%;min-height:400px;border-radius:24px;overflow:hidden;box-shadow:0 20px 48px rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.08);}
+.contact-map-col iframe{width:100%;height:100%;min-height:400px;display:block;border:0;filter:grayscale(10%) contrast(1.03);}
 .contact-info-col{padding:clamp(2.5rem,5vw,4.5rem);display:flex;flex-direction:column;justify-content:center;gap:0;}
 .contact-info-items{display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem;}
 .contact-info-item{display:flex;align-items:flex-start;gap:1rem;}
@@ -993,7 +983,7 @@ body.emergency-bar-hidden #navbar{top:0;}
 .contact-info-value{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#fff;font-weight:500;}
 .contact-info-sub{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,0.4);margin-top:.125rem;}
 .contact-actions{display:flex;flex-wrap:wrap;gap:.875rem;margin-top:2rem;}
-@media(max-width:900px){.hospital-showcase__grid{grid-template-columns:1fr;}.hospital-showcase__image{min-height:420px;}.hospital-showcase__stats{grid-template-columns:1fr 1fr;}.contact-grid{grid-template-columns:1fr;}.contact-map-col{min-height:240px;padding:1.1rem;}.contact-map-frame,.contact-map-col iframe{min-height:240px;}}
+@media(max-width:900px){.hospital-showcase__grid{grid-template-columns:1fr;}.hospital-showcase__image{min-height:420px;}.hospital-showcase__stats{grid-template-columns:1fr 1fr;}.contact-grid{grid-template-columns:1fr;}.contact-map-col{min-height:320px;padding:1.25rem;}.contact-map-frame,.contact-map-col iframe{min-height:320px;}}
 @media(max-width:620px){.hospital-showcase__stats{grid-template-columns:1fr;}}
 
 /* ================================================================
