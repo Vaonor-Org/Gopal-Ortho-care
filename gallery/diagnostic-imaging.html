@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Imaging – Gopal Ortho</title>
+  <meta name="description" content="Explore diagnostic imaging and intra-operative visualization at Gopal Ortho Care Hospital.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;color:#1A1A1A;background:#F7FAFD;-webkit-font-smoothing:antialiased;}
+    h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.1;letter-spacing:-0.02em;}
+    a{color:inherit;text-decoration:none;}
+    img{display:block;max-width:100%;}
+    .container{max-width:1240px;margin:0 auto;padding:0 clamp(1.25rem,5vw,4.5rem);}
+    .page-hero{background:linear-gradient(135deg,#062A45,#0A6EBD);padding:clamp(4rem,8vw,6rem) 0;position:relative;overflow:hidden;}
+    .page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 82% 22%,rgba(255,255,255,.16),transparent 42%);}
+    .page-hero__eyebrow,.section-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;}
+    .page-hero__eyebrow{color:#8FD8FF;position:relative;z-index:1;margin-bottom:.8rem;}
+    .page-hero__title{font-size:clamp(2.6rem,5vw,4.4rem);color:#fff;position:relative;z-index:1;}
+    .page-hero__sub{position:relative;z-index:1;max-width:720px;margin-top:1rem;font-size:1.04rem;line-height:1.75;color:rgba(255,255,255,.82);}
+    .section{padding:clamp(3.5rem,7vw,5.5rem) 0;}
+    .gallery-shell{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:2rem;align-items:start;}
+    .viewer-card{background:#fff;border:1px solid #E3ECF5;border-radius:28px;overflow:hidden;box-shadow:0 24px 54px rgba(6,42,69,.1);}
+    .viewer-stage{position:relative;aspect-ratio:16/10;background:#DDE9F4;}
+    .viewer-stage img{width:100%;height:100%;object-fit:cover;}
+    .viewer-badge{position:absolute;left:1.25rem;bottom:1.25rem;padding:.55rem .8rem;border-radius:999px;background:rgba(6,42,69,.76);color:#fff;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(12px);}
+    .viewer-copy{padding:1.4rem 1.5rem 1.6rem;}
+    .viewer-title{font-size:1.8rem;color:#062A45;margin-bottom:.5rem;}
+    .viewer-desc{font-size:.96rem;line-height:1.7;color:#526273;}
+    .thumb-panel{background:#fff;border:1px solid #E3ECF5;border-radius:24px;padding:1.25rem;box-shadow:0 20px 46px rgba(6,42,69,.08);}
+    .section-eyebrow{color:#0A6EBD;margin-bottom:.8rem;}
+    .thumb-title{font-size:2rem;color:#062A45;margin-bottom:.65rem;}
+    .thumb-sub{font-size:.94rem;color:#5C6C7E;line-height:1.7;margin-bottom:1.35rem;}
+    .thumb-list{display:grid;gap:1rem;}
+    .thumb-btn{display:grid;grid-template-columns:120px 1fr;gap:.9rem;align-items:center;padding:.7rem;border-radius:18px;border:1px solid #E3ECF5;background:#fff;cursor:pointer;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;}
+    .thumb-btn img{width:100%;height:88px;object-fit:cover;border-radius:12px;}
+    .thumb-btn strong{display:block;font-size:1rem;color:#082C47;margin-bottom:.25rem;}
+    .thumb-btn span{display:block;font-size:.84rem;line-height:1.6;color:#5A6C80;}
+    .thumb-btn.is-active,.thumb-btn:hover{border-color:#0A6EBD;transform:translateY(-2px);box-shadow:0 18px 36px rgba(10,110,189,.12);}
+    .back-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font-size:.92rem;font-weight:600;color:#0A6EBD;}
+    .back-link svg{width:16px;height:16px;}
+    .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
+    .footer-simple__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .footer-simple__copy{font-size:.8125rem;color:rgba(255,255,255,.3);}
+    .footer-simple__link{font-size:.875rem;color:rgba(255,255,255,.5);margin-left:1.5rem;}
+    @media(max-width:900px){.gallery-shell{grid-template-columns:1fr;}.thumb-btn{grid-template-columns:96px 1fr;}}
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+<script src="../components/navbar-loader.js"></script>
+<script>
+  loadSharedNavbar({ basePath: '../', activePage: 'gallery' });
+</script>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="page-hero__eyebrow">Diagnostic Imaging</p>
+    <h1 class="page-hero__title">Precision imaging for every surgical decision</h1>
+    <p class="page-hero__sub">These imaging spaces support fracture fixation, joint replacement planning, and intra-operative visualization with clear, real-time feedback for the surgical team.</p>
+  </div>
+</section>
+
+<main class="section">
+  <div class="container">
+    <div class="gallery-shell">
+      <article class="viewer-card">
+        <div class="viewer-stage">
+          <img id="diagnostic-viewer" src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" alt="Diagnostic imaging suite during surgery">
+          <div class="viewer-badge" id="diagnostic-badge">Image 1 of 2</div>
+        </div>
+        <div class="viewer-copy">
+          <h2 class="viewer-title" id="diagnostic-title">Intra-operative C-arm imaging</h2>
+          <p class="viewer-desc" id="diagnostic-desc">Real-time fluoroscopic guidance helps the surgical team confirm implant positioning, fracture alignment, and procedural accuracy while operating.</p>
+        </div>
+      </article>
+
+      <aside class="thumb-panel">
+        <p class="section-eyebrow">Image Set</p>
+        <h2 class="thumb-title">Diagnostic imaging gallery</h2>
+        <p class="thumb-sub">The preview changes automatically, and you can click any image card to focus it instantly.</p>
+        <div class="thumb-list">
+          <button class="thumb-btn is-active" type="button" data-image="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" data-title="Intra-operative C-arm imaging" data-desc="Real-time fluoroscopic guidance helps the surgical team confirm implant positioning, fracture alignment, and procedural accuracy while operating.">
+            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" alt="">
+            <div>
+              <strong>Image 1</strong>
+              <span>Live surgical imaging for fixation and alignment.</span>
+            </div>
+          </button>
+          <button class="thumb-btn" type="button" data-image="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%209.49.42%20PM.jpeg" data-title="Endoscopic and diagnostic visualization" data-desc="High-definition endoscopic and diagnostic screens support minimally invasive procedures, post-op evaluation, and clearer communication across the care team.">
+            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%209.49.42%20PM.jpeg" alt="">
+            <div>
+              <strong>Image 2</strong>
+              <span>Visualization support for minimally invasive procedures.</span>
+            </div>
+          </button>
+        </div>
+        <a class="back-link" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to facilities gallery
+        </a>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="footer-simple" role="contentinfo">
+  <div class="container">
+    <div class="footer-simple__inner">
+      <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
+      <div>
+        <a href="../index.html" class="footer-simple__link">Home</a>
+        <a href="../gallery/index.html" class="footer-simple__link">Gallery</a>
+        <a href="../contact/index.html" class="footer-simple__link">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var viewer = document.getElementById('diagnostic-viewer');
+    var title = document.getElementById('diagnostic-title');
+    var desc = document.getElementById('diagnostic-desc');
+    var badge = document.getElementById('diagnostic-badge');
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('.thumb-btn'));
+    if (!viewer || !buttons.length) return;
+
+    var activeIndex = 0;
+
+    function render(index) {
+      activeIndex = index;
+      var btn = buttons[index];
+      viewer.src = btn.getAttribute('data-image');
+      title.textContent = btn.getAttribute('data-title');
+      desc.textContent = btn.getAttribute('data-desc');
+      badge.textContent = 'Image ' + (index + 1) + ' of ' + buttons.length;
+      buttons.forEach(function (item, itemIndex) {
+        item.classList.toggle('is-active', itemIndex === index);
+      });
+    }
+
+    buttons.forEach(function (btn, index) {
+      btn.addEventListener('click', function () {
+        render(index);
+      });
+    });
+
+    setInterval(function () {
+      render((activeIndex + 1) % buttons.length);
+    }, 2800);
+  })();
+</script>
+
+</body>
+</html>

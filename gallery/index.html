@@ -33,6 +33,7 @@
     .gallery-card__overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1.25rem;background:linear-gradient(180deg,rgba(6,42,69,0) 35%,rgba(6,42,69,0.72) 100%);opacity:.95;transition:opacity .35s ease;}
     .gallery-card__title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:white;margin-bottom:.15rem;}
     .gallery-card__caption{font-family:'DM Sans',sans-serif;font-size:.85rem;color:rgba(255,255,255,.85);}
+    .gallery-card__hint{display:inline-flex;align-items:center;gap:.35rem;margin-top:.75rem;padding:.35rem .65rem;border-radius:999px;background:rgba(255,255,255,.14);font-family:'DM Sans',sans-serif;font-size:.72rem;color:#fff;backdrop-filter:blur(14px);}
     .gallery-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(10,110,189,.18);}
     .gallery-card:hover img{transform:scale(1.06);}
     .gallery-card:hover .gallery-card__overlay{opacity:1;}
@@ -112,13 +113,14 @@
           </div>
         </a>
 
-        <a class="gallery-card" href="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%207.57.58%20PM%20%281%29.jpeg" data-lightbox data-full="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%207.57.58%20PM%20%281%29.jpeg" data-title="Diagnostic Imaging" data-desc="Clinical imaging supporting joint replacement planning and outcomes tracking.">
+        <a class="gallery-card" href="diagnostic-imaging.html">
           <div class="gallery-card__media">
-            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%207.57.58%20PM%20%281%29.jpeg" alt="Diagnostic imaging" loading="lazy">
+            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" alt="Diagnostic imaging" loading="lazy" data-rotate-image data-rotate-images="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg|../assets/facilities/WhatsApp%20Image%202026-04-29%20at%209.49.42%20PM.jpeg">
             <div class="gallery-card__overlay">
               <div>
                 <h3 class="gallery-card__title">Diagnostic Imaging</h3>
                 <p class="gallery-card__caption">Planning and post-op evaluation</p>
+                <span class="gallery-card__hint">View imaging gallery</span>
               </div>
             </div>
           </div>
@@ -207,6 +209,17 @@
       if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
         closeLightbox();
       }
+    });
+
+    var rotatingImages = document.querySelectorAll('[data-rotate-image]');
+    rotatingImages.forEach(function (img) {
+      var sources = (img.getAttribute('data-rotate-images') || '').split('|').filter(Boolean);
+      if (sources.length < 2) return;
+      var index = 0;
+      setInterval(function () {
+        index = (index + 1) % sources.length;
+        img.src = sources[index];
+      }, 2400);
     });
   })();
 </script>

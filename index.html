@@ -192,10 +192,12 @@ body.emergency-bar-hidden #navbar{top:0;}
   height:68px;display:flex;align-items:center;gap:2rem;
 }
 .navbar__logo{display:flex;align-items:center;gap:0;text-decoration:none;flex-shrink:0;}
+.navbar__logo-mark{width:52px;height:52px;border-radius:16px;object-fit:cover;object-position:center;box-shadow:0 12px 28px rgba(10,79,134,0.18);}
+.navbar__logo-text{display:flex;align-items:center;gap:0;}
 .logo-gopal{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0A4F86;letter-spacing:.01em;line-height:1;text-transform:uppercase;}
 .logo-divider{width:1px;height:32px;background:#D2DCE7;margin:0 .7rem;opacity:1;}
 .logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1.8rem;color:#5FA9E8;letter-spacing:.02em;line-height:1;text-transform:uppercase;}
-@media(max-width:500px){.logo-gopal{font-size:1.5rem;}.logo-ortho{font-size:1.75rem;}.logo-divider{height:28px;margin:0 .5rem;}}
+@media(max-width:500px){.logo-gopal{font-size:1.5rem;}.logo-ortho{font-size:1.75rem;}.logo-divider{height:28px;margin:0 .5rem;}.navbar__logo-mark{width:44px;height:44px;border-radius:14px;}}
 .navbar__links{display:flex;gap:0;margin:0 auto;}
 .nav-link{position:relative;padding:.5rem .875rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;color:var(--text-medium);text-decoration:none;border-radius:8px;transition:color .25s;}
 .nav-link::after{content:'';position:absolute;bottom:4px;left:.875rem;right:.875rem;height:1.5px;background:var(--primary);transform:scaleX(0);transform-origin:center;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
@@ -302,6 +304,9 @@ body.emergency-bar-hidden #navbar{top:0;}
 }
 /* Left text block */
 .hero__content{max-width:610px;}
+.hero__brand-seal{display:inline-flex;align-items:center;gap:.85rem;margin-bottom:1.4rem;padding:.55rem .85rem .55rem .6rem;border-radius:999px;background:rgba(255,255,255,0.78);border:1px solid rgba(10,110,189,0.12);box-shadow:0 12px 28px rgba(10,110,189,0.08);}
+.hero__brand-seal img{width:42px;height:42px;border-radius:12px;object-fit:cover;object-position:center;}
+.hero__brand-seal span{font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#0A4F86;}
 .hero__eyebrow{
   display:inline-flex;align-items:center;gap:.6rem;
   font-family:'DM Sans',sans-serif;font-size:.8125rem;font-weight:700;
@@ -660,6 +665,7 @@ body.emergency-bar-hidden #navbar{top:0;}
   display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;
   transition:background .45s;
 }
+.svc-icon-wrap img{width:26px;height:26px;object-fit:contain;}
 .svc-num{
   position:absolute;top:1.5rem;right:1.5rem;
   font-family:'DM Mono',monospace;font-size:.625rem;color:var(--text-light);
@@ -696,28 +702,39 @@ body.emergency-bar-hidden #navbar{top:0;}
   background:linear-gradient(155deg,#0B548B 0%,#0A4E83 45%,#0A4A7C 100%);
   display:flex;
   align-items:flex-end;
-  justify-content:center;
+  justify-content:flex-start;
   padding:2.75rem;
+  isolation:isolate;
 }
-.physio-highlight__icon-wrap{
+.physio-highlight__left::before{
+  content:'';
   position:absolute;
   inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  background:
+    linear-gradient(90deg, rgba(6,42,69,0.8) 0%, rgba(6,42,69,0.42) 42%, rgba(6,42,69,0.08) 72%),
+    radial-gradient(circle at 20% 80%, rgba(108,195,244,0.18), transparent 42%);
+  z-index:1;
 }
-.physio-highlight__icon{
-  width:88px;
-  height:88px;
-  color:rgba(116,191,235,0.35);
+.physio-highlight__photo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:62% 18%;
+  z-index:0;
 }
 .physio-highlight__left-title{
   font-family:'Cormorant Garamond',serif;
   font-size:2.25rem;
   font-weight:600;
-  color:#6CC3F4;
+  color:#F5F9FF;
   letter-spacing:-0.01em;
   line-height:1.2;
+  position:relative;
+  z-index:2;
+  max-width:240px;
+  text-shadow:0 14px 34px rgba(6,42,69,0.35);
 }
 .physio-highlight__right{
   padding:clamp(2.25rem,5vw,3.5rem) clamp(2rem,4vw,3rem);
@@ -808,8 +825,26 @@ body.emergency-bar-hidden #navbar{top:0;}
   .physio-highlight__list{grid-template-columns:1fr;gap:.95rem;}
   .physio-highlight__list-item{font-size:1rem;}
   .physio-highlight__left-title{font-size:1.95rem;}
-  .physio-highlight__icon{width:72px;height:72px;}
+  .physio-highlight__photo{object-position:58% 12%;}
 }
+
+/* ================================================================
+   HOSPITAL SHOWCASE
+================================================================ */
+#hospital-showcase{background:linear-gradient(180deg,#fff 0%,#f7fafc 100%);}
+.hospital-showcase__grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:clamp(2rem,5vw,4rem);align-items:center;}
+.hospital-showcase__media{position:relative;}
+.hospital-showcase__image-wrap{border-radius:26px;overflow:hidden;box-shadow:0 24px 56px rgba(6,42,69,0.14);background:#dfeaf4;}
+.hospital-showcase__image{width:100%;height:100%;min-height:560px;object-fit:cover;object-position:center;}
+.hospital-showcase__badge{position:absolute;left:1.5rem;bottom:1.5rem;display:inline-flex;align-items:center;gap:.75rem;padding:.85rem 1rem;border-radius:18px;background:rgba(6,42,69,0.82);backdrop-filter:blur(18px);color:#fff;box-shadow:0 14px 34px rgba(6,42,69,0.22);}
+.hospital-showcase__badge img{width:44px;height:44px;border-radius:12px;object-fit:cover;}
+.hospital-showcase__badge-title{font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+.hospital-showcase__badge-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;line-height:1.05;}
+.hospital-showcase__text{max-width:560px;}
+.hospital-showcase__stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem;}
+.hospital-stat{padding:1rem 1.1rem;border-radius:18px;background:#fff;border:1px solid #E6EEF6;box-shadow:0 12px 30px rgba(10,110,189,0.06);}
+.hospital-stat__value{font-family:'DM Mono',monospace;font-size:1.15rem;color:#0A6EBD;margin-bottom:.3rem;}
+.hospital-stat__label{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#5C6C7E;line-height:1.45;}
 
 /* ================================================================
    SPORTS / WHY SECTION — PARALLAX PANEL
@@ -946,8 +981,10 @@ body.emergency-bar-hidden #navbar{top:0;}
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:560px;}
-.contact-map-col{position:relative;min-height:400px;}
-.contact-map-col iframe{width:100%;height:100%;min-height:400px;display:block;border:0;filter:grayscale(15%) contrast(1.05);}
+.contact-grid{grid-template-columns:minmax(0,.95fr) minmax(360px,1.05fr);min-height:380px;}
+.contact-map-col{position:relative;min-height:260px;padding:1.5rem;background:linear-gradient(180deg,#071f31 0%,#08253b 100%);}
+.contact-map-frame{height:100%;min-height:260px;border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.16);border:1px solid rgba(255,255,255,0.08);}
+.contact-map-col iframe{width:100%;height:100%;min-height:260px;display:block;border:0;filter:grayscale(10%) contrast(1.03);}
 .contact-info-col{padding:clamp(2.5rem,5vw,4.5rem);display:flex;flex-direction:column;justify-content:center;gap:0;}
 .contact-info-items{display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem;}
 .contact-info-item{display:flex;align-items:flex-start;gap:1rem;}
@@ -956,7 +993,8 @@ body.emergency-bar-hidden #navbar{top:0;}
 .contact-info-value{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:#fff;font-weight:500;}
 .contact-info-sub{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,0.4);margin-top:.125rem;}
 .contact-actions{display:flex;flex-wrap:wrap;gap:.875rem;margin-top:2rem;}
-@media(max-width:900px){.contact-grid{grid-template-columns:1fr;}.contact-map-col{min-height:320px;}.contact-map-col iframe{min-height:320px;}}
+@media(max-width:900px){.hospital-showcase__grid{grid-template-columns:1fr;}.hospital-showcase__image{min-height:420px;}.hospital-showcase__stats{grid-template-columns:1fr 1fr;}.contact-grid{grid-template-columns:1fr;}.contact-map-col{min-height:240px;padding:1.1rem;}.contact-map-frame,.contact-map-col iframe{min-height:240px;}}
+@media(max-width:620px){.hospital-showcase__stats{grid-template-columns:1fr;}}
 
 /* ================================================================
    FOOTER
@@ -967,7 +1005,8 @@ body.emergency-bar-hidden #navbar{top:0;}
   padding:5rem 0 2.5rem;
 }
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:4rem;border-bottom:1px solid rgba(255,255,255,0.05);}
-.footer-logo{display:flex;align-items:center;margin-bottom:1.25rem;}
+.footer-logo{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;}
+.footer-logo img{width:62px;height:62px;border-radius:18px;object-fit:cover;object-position:center;box-shadow:0 18px 36px rgba(10,110,189,0.18);}
 .footer-logo-gopal{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;}
 .footer-logo-div{width:1.5px;height:18px;background:var(--gold);margin:0 .5rem;opacity:0.6;}
 .footer-logo-ortho{font-family:'DM Sans',sans-serif;font-weight:300;font-size:1rem;color:rgba(255,255,255,0.6);}
@@ -1238,7 +1277,7 @@ body.emergency-bar-hidden #navbar{top:0;}
       <div class="service-card reveal">
         <div class="svc-num" aria-hidden="true">01</div>
         <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true"><path d="M12 2L6 22M18 7l-6 15M8 7h8" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <img src="assets/svg/icons/Fracture.png" alt="" aria-hidden="true">
         </div>
         <h3 class="svc-title">Fracture &amp; Trauma Care</h3>
         <p class="svc-text">Emergency stabilisation and surgical fixation of all bone fractures, dislocations, and musculoskeletal injuries.</p>
@@ -1247,7 +1286,7 @@ body.emergency-bar-hidden #navbar{top:0;}
       <div class="service-card reveal reveal-delay-1">
         <div class="svc-num" aria-hidden="true">02</div>
         <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true"><circle cx="12" cy="10" r="5" stroke="#0A6EBD" stroke-width="1.5"/><path d="M12 15v7M8 22h8" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <img src="assets/svg/icons/Joint.png" alt="" aria-hidden="true">
         </div>
         <h3 class="svc-title">Joint Replacement</h3>
         <p class="svc-text">Total and partial knee, hip, and shoulder replacement using premium implants with enhanced recovery protocols.</p>
@@ -1256,7 +1295,7 @@ body.emergency-bar-hidden #navbar{top:0;}
       <div class="service-card reveal reveal-delay-2">
         <div class="svc-num" aria-hidden="true">03</div>
         <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true"><rect x="8" y="2" width="8" height="5" rx="2" stroke="#0A6EBD" stroke-width="1.5"/><rect x="8" y="9.5" width="8" height="5" rx="2" stroke="#0A6EBD" stroke-width="1.5"/><rect x="8" y="17" width="8" height="5" rx="2" stroke="#0A6EBD" stroke-width="1.5"/><line x1="12" y1="7" x2="12" y2="9.5" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="14.5" x2="12" y2="17" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <img src="assets/svg/icons/Spine.png" alt="" aria-hidden="true">
         </div>
         <h3 class="svc-title">Spine Surgery</h3>
         <p class="svc-text">Minimally invasive and open procedures for disc herniation, spinal stenosis, spondylolisthesis, and deformity.</p>
@@ -1265,7 +1304,7 @@ body.emergency-bar-hidden #navbar{top:0;}
       <div class="service-card reveal reveal-delay-1">
         <div class="svc-num" aria-hidden="true">04</div>
         <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="#0A6EBD" stroke-width="1.5"/><path d="M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <img src="assets/svg/icons/sport managemet.png" alt="" aria-hidden="true">
         </div>
         <h3 class="svc-title">Sports Medicine</h3>
         <p class="svc-text">Arthroscopic surgery and sports rehabilitation for ACL, PCL, meniscus, rotator cuff, and cartilage injuries.</p>
@@ -1274,7 +1313,7 @@ body.emergency-bar-hidden #navbar{top:0;}
       <div class="service-card reveal reveal-delay-2">
         <div class="svc-num" aria-hidden="true">05</div>
         <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true"><circle cx="12" cy="5" r="3" stroke="#0A6EBD" stroke-width="1.5"/><path d="M5 10h14M7 10v12M17 10v12M9 16h6" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <img src="assets/svg/icons/Physiotherapy.png" alt="" aria-hidden="true">
         </div>
         <h3 class="svc-title">Physiotherapy</h3>
         <p class="svc-text">Evidence-based rehabilitation programs for post-surgical recovery, chronic pain, neurological, and geriatric conditions.</p>
@@ -1283,11 +1322,53 @@ body.emergency-bar-hidden #navbar{top:0;}
       <div class="service-card reveal reveal-delay-3">
         <div class="svc-num" aria-hidden="true">06</div>
         <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <img src="assets/svg/icons/pain management.png" alt="" aria-hidden="true">
         </div>
         <h3 class="svc-title">Pain Management</h3>
         <p class="svc-text">Targeted interventional procedures including joint injections, epidurals, PRP therapy, and nerve blocks.</p>
         <a href="services/index.html#pain" class="svc-link">Learn more <svg class="svc-link-arrow" viewBox="0 0 16 16" fill="none" width="13" height="13"><path d="M3 8h10M8 3l5 5-5 5" stroke="#0A6EBD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOSPITAL SHOWCASE
+============================================================ -->
+<section id="hospital-showcase" class="section-pad" aria-labelledby="hospital-showcase-heading">
+  <div class="container">
+    <div class="hospital-showcase__grid">
+      <div class="hospital-showcase__media reveal">
+        <div class="hospital-showcase__image-wrap">
+          <img class="hospital-showcase__image" src="assets/Hospital front .jpeg" alt="Front exterior view of Gopal Ortho Care Hospital" loading="lazy">
+        </div>
+        <div class="hospital-showcase__badge">
+          <img src="assets/Logo.png" alt="">
+          <div>
+            <div class="hospital-showcase__badge-title">Hospital Campus</div>
+            <div class="hospital-showcase__badge-text">Trusted orthopaedic destination in Kottar</div>
+          </div>
+        </div>
+      </div>
+      <div class="hospital-showcase__text">
+        <p class="eyebrow reveal">Our Hospital</p>
+        <h2 class="headline reveal reveal-delay-1" id="hospital-showcase-heading">A purpose-built hospital for safer surgery and smoother recovery</h2>
+        <p class="body-text reveal reveal-delay-2" style="margin-top:1.2rem;">Gopal Ortho Care Hospital is designed around patient flow, surgical precision, and recovery comfort. From the moment families arrive, the campus supports fast diagnostics, organized consultation zones, sterile operating spaces, and guided rehabilitation in one connected environment.</p>
+        <p class="body-text reveal reveal-delay-3" style="margin-top:1rem;">That means less confusion, quicker coordination between specialists, and a calmer experience for patients recovering from fractures, joint replacement, spine surgery, and physiotherapy programs.</p>
+        <div class="hospital-showcase__stats reveal reveal-delay-3" aria-label="Hospital highlights">
+          <div class="hospital-stat">
+            <div class="hospital-stat__value">24/7</div>
+            <div class="hospital-stat__label">Emergency orthopaedic response</div>
+          </div>
+          <div class="hospital-stat">
+            <div class="hospital-stat__value">1 Roof</div>
+            <div class="hospital-stat__label">Consultation, surgery, and rehab together</div>
+          </div>
+          <div class="hospital-stat">
+            <div class="hospital-stat__value">Patient First</div>
+            <div class="hospital-stat__label">Clean, organized, family-friendly spaces</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1300,13 +1381,7 @@ body.emergency-bar-hidden #navbar{top:0;}
   <div class="container">
     <div class="physio-highlight__card">
       <div class="physio-highlight__left reveal">
-        <div class="physio-highlight__icon-wrap" aria-hidden="true">
-          <svg class="physio-highlight__icon" viewBox="0 0 64 64" fill="none">
-            <circle cx="36" cy="13" r="6" stroke="currentColor" stroke-width="3"/>
-            <path d="M36 20l-8 10M28 30l12 2 8-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M40 33l-5 17M29 33l-12-1" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-          </svg>
-        </div>
+        <img class="physio-highlight__photo" src="assets/Streching.png" alt="Anatomical illustration showing a stretching movement during physiotherapy recovery" loading="lazy">
         <p class="physio-highlight__left-title">Recovery in Motion</p>
       </div>
       <div class="physio-highlight__right">
@@ -1514,14 +1589,16 @@ body.emergency-bar-hidden #navbar{top:0;}
   <div class="contact-grid">
     <!-- Map -->
     <div class="contact-map-col">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5221.22239584968!2d77.43496544659801!3d8.168937086060513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f1cd1fe317ad%3A0x5eca7b52edbd4d7a!2sGOPAL%20ORTHO%20CARE%20HOSPITAL!5e0!3m2!1sen!2sin!4v1776678144879!5m2!1sen!2sin"
-        title="Gopal Ortho Care Hospital on Google Maps"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        aria-label="Map location of Gopal Ortho Care Hospital, Kottar, Nagercoil">
-      </iframe>
+      <div class="contact-map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5221.22239584968!2d77.43496544659801!3d8.168937086060513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f1cd1fe317ad%3A0x5eca7b52edbd4d7a!2sGOPAL%20ORTHO%20CARE%20HOSPITAL!5e0!3m2!1sen!2sin!4v1776678144879!5m2!1sen!2sin"
+          title="Gopal Ortho Care Hospital on Google Maps"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          aria-label="Map location of Gopal Ortho Care Hospital, Kottar, Nagercoil">
+        </iframe>
+      </div>
     </div>
     <!-- Info -->
     <div class="contact-info-col">
@@ -1595,9 +1672,12 @@ body.emergency-bar-hidden #navbar{top:0;}
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
-          <span class="footer-logo-gopal">Gopal</span>
-          <span class="footer-logo-div" aria-hidden="true"></span>
-          <span class="footer-logo-ortho">Ortho Care Hospital</span>
+          <img src="assets/Logo.png" alt="Gopal Ortho Care Hospital logo">
+          <div>
+            <span class="footer-logo-gopal">Gopal</span>
+            <span class="footer-logo-div" aria-hidden="true"></span>
+            <span class="footer-logo-ortho">Ortho Care Hospital</span>
+          </div>
         </div>
         <p class="footer-tagline">Delivering precision orthopaedic care to South Tamil Nadu since 2009. Restoring movement. Rebuilding lives.</p>
         <div class="footer-accreditation" aria-label="Accreditations">
