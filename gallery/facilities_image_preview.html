@@ -22,14 +22,16 @@
     .page-hero__title{font-size:clamp(2.6rem,5vw,4.4rem);color:#fff;position:relative;z-index:1;}
     .page-hero__sub{position:relative;z-index:1;max-width:720px;margin-top:1rem;font-size:1.04rem;line-height:1.75;color:rgba(255,255,255,.82);}
     .section{padding:clamp(3.5rem,7vw,5.5rem) 0;}
-    .gallery-shell{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:2rem;align-items:start;}
+    .gallery-shell{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start;}
     .viewer-card{background:#fff;border:1px solid #E3ECF5;border-radius:28px;overflow:hidden;box-shadow:0 24px 54px rgba(6,42,69,.1);}
-    .viewer-stage{position:relative;aspect-ratio:16/10;background:#DDE9F4;}
+    .viewer-stage{position:relative;aspect-ratio:16/7;min-height:520px;background:#DDE9F4;}
     .viewer-stage img{width:100%;height:100%;object-fit:cover;}
     .viewer-badge{position:absolute;left:1.25rem;bottom:1.25rem;padding:.55rem .8rem;border-radius:999px;background:rgba(6,42,69,.76);color:#fff;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(12px);}
-    .viewer-copy{padding:1.4rem 1.5rem 1.6rem;}
-    .viewer-title{font-size:1.8rem;color:#062A45;margin-bottom:.5rem;}
-    .viewer-desc{font-size:.96rem;line-height:1.7;color:#526273;}
+    .viewer-copy{padding:2rem 2rem 2.5rem;}
+    .viewer-title{font-size:2rem;color:#062A45;margin-bottom:.75rem;}
+    .viewer-desc{font-size:1rem;line-height:1.8;color:#526273;margin-bottom:1.4rem;}
+    .viewer-text{font-size:1rem;line-height:1.8;color:#5C6C7E;max-width:900px;margin-bottom:1.8rem;}
+    .back-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.92rem;font-weight:600;color:#0A6EBD;margin-top:1rem;}
     .thumb-panel{background:#fff;border:1px solid #E3ECF5;border-radius:24px;padding:1.25rem;box-shadow:0 20px 46px rgba(6,42,69,.08);}
     .section-eyebrow{color:#0A6EBD;margin-bottom:.8rem;}
     .thumb-title{font-size:2rem;color:#062A45;margin-bottom:.65rem;}
@@ -76,43 +78,13 @@
         <div class="viewer-copy">
           <h2 class="viewer-title" id="diagnostic-title">Intra-operative C-arm imaging</h2>
           <p class="viewer-desc" id="diagnostic-desc">Real-time fluoroscopic guidance helps the surgical team confirm implant positioning, fracture alignment, and procedural accuracy while operating.</p>
+          <p class="viewer-text" id="diagnostic-text">This image highlights the facility’s advanced imaging setup for orthopaedic surgery, showing the equipment and room layout that support safer, faster procedures and more confident surgical decisions.</p>
+          <a class="back-link" href="index.html">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back to facilities gallery
+          </a>
         </div>
       </article>
-
-      <aside class="thumb-panel">
-        <p class="section-eyebrow">Image Set</p>
-        <h2 class="thumb-title">Diagnostic imaging gallery</h2>
-        <p class="thumb-sub">The preview changes automatically, and you can click any image card to focus it instantly.</p>
-        <div class="thumb-list">
-          <button class="thumb-btn is-active" type="button" data-image="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" data-title="Intra-operative C-arm imaging" data-desc="Real-time fluoroscopic guidance helps the surgical team confirm implant positioning, fracture alignment, and procedural accuracy while operating.">
-            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" alt="">
-            <div>
-              <strong>Image 1</strong>
-              <span>Live surgical imaging for fixation and alignment.</span>
-            </div>
-          </button>
-          <button class="thumb-btn" type="button" data-image="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%209.49.42%20PM.jpeg" data-title="Endoscopic and diagnostic visualization" data-desc="High-definition endoscopic and diagnostic screens support minimally invasive procedures, post-op evaluation, and clearer communication across the care team.">
-            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%209.49.42%20PM.jpeg" alt="">
-            <div>
-              <strong>Image 2</strong>
-              <span>Visualization support for minimally invasive procedures.</span>
-            </div>
-          </button>
-        </div>
-        <a class="back-link" href="index.html">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Back to facilities gallery
-        </a>
-      </aside>
-    </div>
-  </div>
-</main>
-
-<footer class="footer-simple" role="contentinfo">
-  <div class="container">
-    <div class="footer-simple__inner">
-      <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
-      <div>
         <a href="../index.html" class="footer-simple__link">Home</a>
         <a href="../gallery/index.html" class="footer-simple__link">Gallery</a>
         <a href="../contact/index.html" class="footer-simple__link">Contact</a>
@@ -126,19 +98,46 @@
     var viewer = document.getElementById('diagnostic-viewer');
     var title = document.getElementById('diagnostic-title');
     var desc = document.getElementById('diagnostic-desc');
+    var extra = document.getElementById('diagnostic-text');
     var badge = document.getElementById('diagnostic-badge');
+    var heroEyebrow = document.querySelector('.page-hero__eyebrow');
+    var heroTitle = document.querySelector('.page-hero__title');
+    var heroSub = document.querySelector('.page-hero__sub');
     var buttons = Array.prototype.slice.call(document.querySelectorAll('.thumb-btn'));
-    if (!viewer || !buttons.length) return;
+
+    function setViewer(imageUrl, imageTitle, imageDesc, imageExtra) {
+      if (!viewer || !imageUrl) return;
+      viewer.src = imageUrl;
+      viewer.alt = imageTitle || 'Facility preview image';
+      title.textContent = imageTitle || 'Facility preview';
+      desc.textContent = imageDesc || 'Explore the facility image selected from the gallery.';
+      extra.textContent = imageExtra || 'This image highlights the facility’s advanced equipment and space, showing how our design supports patient comfort, staff efficiency, and safe surgical workflows.';
+      badge.textContent = imageTitle ? 'Preview' : '';
+      if (heroEyebrow && heroTitle && heroSub) {
+        heroEyebrow.textContent = imageTitle || 'Facility Preview';
+        heroTitle.textContent = imageTitle || 'Facility Preview';
+        heroSub.textContent = imageDesc || 'Use the preview page to view details for the selected facility image.';
+      }
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var paramImage = params.get('img');
+    var paramTitle = params.get('title');
+    var paramDesc = params.get('desc');
+    var paramExtra = params.get('extra');
+
+    if (paramImage) {
+      setViewer(paramImage, decodeURIComponent(paramTitle || ''), decodeURIComponent(paramDesc || ''), decodeURIComponent(paramExtra || ''));
+    }
+
+    if (!buttons.length) return;
 
     var activeIndex = 0;
 
     function render(index) {
       activeIndex = index;
       var btn = buttons[index];
-      viewer.src = btn.getAttribute('data-image');
-      title.textContent = btn.getAttribute('data-title');
-      desc.textContent = btn.getAttribute('data-desc');
-      badge.textContent = 'Image ' + (index + 1) + ' of ' + buttons.length;
+      setViewer(btn.getAttribute('data-image'), btn.getAttribute('data-title'), btn.getAttribute('data-desc'), btn.getAttribute('data-extra'));
       buttons.forEach(function (item, itemIndex) {
         item.classList.toggle('is-active', itemIndex === index);
       });
@@ -150,9 +149,11 @@
       });
     });
 
-    setInterval(function () {
-      render((activeIndex + 1) % buttons.length);
-    }, 2800);
+    if (!paramImage) {
+      setInterval(function () {
+        render((activeIndex + 1) % buttons.length);
+      }, 2800);
+    }
   })();
 </script>
 
