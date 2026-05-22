@@ -1,4 +1,4 @@
-﻿<style>
+<style>
 :root{
   --top-banner-height:42px;
 }
@@ -429,9 +429,26 @@
     display:none;
   }
 
+  .navbar__inner{
+    gap:0;
+  }
+
+  .navbar__logo{
+    flex-shrink:0;
+  }
+
+  .navbar__actions{
+    margin-left:auto;
+    gap:0;
+  }
+
+  .navbar__cta{
+    display:none;
+  }
+
   #mobile-toggle{
     display:flex;
-    margin-left:auto;
+    margin-left:0.75rem;
   }
 }
 
@@ -474,16 +491,27 @@
   }
 
   .logo-gopal{
-    font-size:1.85rem;
+    font-size:1.6rem;
   }
 
   .logo-ortho{
-    font-size:1.75rem;
+    font-size:1.5rem;
   }
 
   .logo-divider{
-    height:28px;
-    margin:0 .5rem;
+    height:24px;
+    margin:0 0.45rem;
+  }
+
+  .navbar__inner{
+    height:60px;
+    padding:0 1rem;
+  }
+
+  #mobile-toggle{
+    width:40px;
+    height:40px;
+    margin-left:0.5rem;
   }
 }
 </style>

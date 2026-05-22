@@ -10,6 +10,7 @@
 /* --- Token & Animation imports --- */
 @import url('./tokens.css');
 @import url('./animations.css');
+@import url('./mobile.css');
 
 /* --- Reset & Box Sizing --- */
 *,
