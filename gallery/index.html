@@ -38,6 +38,20 @@
     .gallery-card:hover img{transform:scale(1.06);}
     .gallery-card:hover .gallery-card__overlay{opacity:1;}
 
+    @media (max-width:900px) {
+      .gallery-card__overlay {
+        padding:1rem;
+      }
+    }
+
+    @media (max-width:640px) {
+      .gallery-card { border-radius:16px; }
+      .gallery-card__overlay { padding:1rem; }
+      .gallery-card__title { font-size:1.05rem; }
+      .gallery-card__caption { font-size:.85rem; }
+      .gallery-card__hint { font-size:.7rem; }
+    }
+
     .lightbox{position:fixed;inset:0;background:rgba(6,13,25,.78);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:2000;}
     .lightbox.is-open{opacity:1;pointer-events:auto;}
     .lightbox__content{background:white;border-radius:20px;max-width:1100px;width:100%;overflow:hidden;box-shadow:0 24px 60px rgba(6,13,25,.35);}
@@ -105,107 +119,114 @@
       <h2 class="section-headline" id="facilities-heading">Premium spaces built for precision care</h2>
       <p class="section-sub">Every zone is designed to improve safety, efficiency, and patient comfort with modern equipment and clean, calming interiors.</p>
 
-      <div class="gallery-grid">
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-7f9iy6r9yx.avif&title=Operating%20Theatre&desc=Fully%20equipped%20operating%20theatre%20with%20modern%20laminar%20flow%20and%20surgical%20lighting.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-7f9iy6r9yx.avif" alt="Operating theatre with surgical lights" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Operating Theatre</h3>
-                <p class="gallery-card__caption">Modern laminar flow and surgical lighting for safe procedures</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-a60up0u9bp.avif&title=Inpatient%20Rooms&desc=Comfortable%2C%20private%20inpatient%20rooms%20for%20post-operative%20recovery.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-a60up0u9bp.avif" alt="Private inpatient room" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Inpatient Rooms</h3>
-                <p class="gallery-card__caption">Comfort-focused recovery rooms with attentive nursing support</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-eb1l7oatub.avif&title=Physiotherapy%20%26%20Rehab&desc=Dedicated%20physiotherapy%20wing%20with%20exercise%20equipment%20and%20therapy%20bays.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-eb1l7oatub.avif" alt="Physiotherapy and rehabilitation area" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Physiotherapy &amp; Rehab</h3>
-                <p class="gallery-card__caption">Rehabilitation spaces for guided recovery and strength training</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-mmppcjn7zg.avif&title=Recovery%20Area&desc=Post-operative%20recovery%20area%20with%20comfortable%20monitoring%20and%20care.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-mmppcjn7zg.avif" alt="Post-operative recovery area" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Recovery Area</h3>
-                <p class="gallery-card__caption">Calm recovery spaces with continuous monitoring</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-nxmufv44qc.avif&title=Consultation%20Rooms&desc=Private%20consultation%20rooms%20for%20patients%20and%20specialist%20discussions.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-nxmufv44qc.avif" alt="Consultation room" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Consultation Rooms</h3>
-                <p class="gallery-card__caption">Quiet, private consultation spaces for patient discussions</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-wopc4crd7v.avif&title=Surgical%20Equipment&desc=Sterile%20instrumentation%20and%20advanced%20surgical%20equipment%20storage.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-wopc4crd7v.avif" alt="Surgical equipment and instruments" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Surgical Equipment</h3>
-                <p class="gallery-card__caption">Sterile instrument storage and advanced surgical tools</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/WhatsApp%20Image%202026-04-29%20at%207.57.58%20PM.jpeg&title=Endoscopy%20and%20Imaging%20Systems&desc=High-definition%20visualization%20equipment%20for%20precision%20orthopaedic%20procedures.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%207.57.58%20PM.jpeg" alt="Endoscopy and imaging systems" loading="lazy">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Endoscopy and Imaging Systems</h3>
-                <p class="gallery-card__caption">High-definition visualization equipment</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a class="gallery-card" href="facilities_image_preview.html?img=../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg&title=Diagnostic%20Imaging&desc=Planning%20and%20post-op%20evaluation.">
-          <div class="gallery-card__media">
-            <img src="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg" alt="Diagnostic imaging" loading="lazy" data-rotate-image data-rotate-images="../assets/facilities/WhatsApp%20Image%202026-04-29%20at%208.06.37%20PM.jpeg|../assets/facilities/WhatsApp%20Image%202026-04-29%20at%209.49.42%20PM.jpeg">
-            <div class="gallery-card__overlay">
-              <div>
-                <h3 class="gallery-card__title">Diagnostic Imaging</h3>
-                <p class="gallery-card__caption">Planning and post-op evaluation</p>
-                <span class="gallery-card__hint">View imaging gallery</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
+      <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
     </div>
   </section>
 </main>
+
+<script>
+  const galleryGrid = document.getElementById('galleryGrid');
+  const facilityCards = [
+    {
+      title: 'Hospital Corridor',
+      description: 'Clean and spacious hospital corridors designed for smooth patient movement and accessibility.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-7f9iy6r9yx.avif',
+      alt: 'Clean hospital corridor'
+    },
+    {
+      title: 'Examination Room',
+      description: 'Well-equipped examination and treatment rooms for patient assessment and care.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-a60up0u9bp.avif',
+      alt: 'Examination room interior'
+    },
+    {
+      title: 'Patient Waiting Area',
+      description: 'Comfortable waiting spaces designed to provide a calm experience for patients and visitors.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-eb1l7oatub.avif',
+      alt: 'Patient waiting area'
+    },
+    {
+      title: 'Recovery Room',
+      description: 'Dedicated recovery spaces for post-treatment monitoring and patient comfort.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-mmppcjn7zg.avif',
+      alt: 'Recovery room setting'
+    },
+    {
+      title: 'Pharmacy & Medical Storage',
+      description: 'Organized storage of medicines and essential medical supplies for efficient healthcare delivery.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-nxmufv44qc.avif',
+      alt: 'Pharmacy and medical storage shelves'
+    },
+    {
+      title: 'Sterilization & Equipment Room',
+      description: 'Specialized area for equipment preparation, sterilization, and infection control.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-wopc4crd7v.avif',
+      alt: 'Sterilization and equipment room'
+    },
+    {
+      title: 'Endoscopy System',
+      description: 'Advanced endoscopy equipment providing precise visualization for diagnosis and treatment.',
+      img: '../assets/facilities/WhatsApp Image 2026-04-29 at 7.57.58 PM.jpeg',
+      alt: 'Endoscopy system equipment'
+    },
+    {
+      title: 'Operating Theatre (OT)',
+      description: 'Modern surgical theatre equipped for safe and efficient orthopedic procedures.',
+      img: '../assets/facilities/WhatsApp Image 2026-04-29 at 8.06.37 PM.jpeg',
+      alt: 'Operating theatre equipment'
+    }
+  ];
+
+  function createFacilityCard(facility) {
+    const anchor = document.createElement('a');
+    anchor.className = 'gallery-card';
+    const params = new URLSearchParams({
+      img: facility.img,
+      title: facility.title,
+      desc: facility.description
+    });
+    anchor.href = `facilities_image_preview.html?${params.toString()}`;
+
+    const media = document.createElement('div');
+    media.className = 'gallery-card__media';
+
+    const img = document.createElement('img');
+    img.src = facility.img;
+    img.alt = facility.alt || facility.title;
+    img.loading = 'lazy';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'gallery-card__overlay';
+
+    const content = document.createElement('div');
+    const title = document.createElement('h3');
+    title.className = 'gallery-card__title';
+    title.textContent = facility.title;
+
+    const caption = document.createElement('p');
+    caption.className = 'gallery-card__caption';
+    caption.textContent = facility.description;
+
+    content.appendChild(title);
+    content.appendChild(caption);
+    overlay.appendChild(content);
+    media.appendChild(img);
+    media.appendChild(overlay);
+    anchor.appendChild(media);
+
+    return anchor;
+  }
+
+  function renderFacilityGallery() {
+    if (!galleryGrid) return;
+    galleryGrid.innerHTML = '';
+    facilityCards.forEach(facility => {
+      galleryGrid.appendChild(createFacilityCard(facility));
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderFacilityGallery);
+</script>
 
 <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Facility image preview">
   <button class="lightbox__close" type="button" aria-label="Close preview">

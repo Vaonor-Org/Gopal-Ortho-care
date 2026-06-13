@@ -67,6 +67,7 @@
     function openDrawer() {
       if (!drawer || !toggle) return;
       drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
@@ -74,6 +75,7 @@
     function closeDrawer() {
       if (!drawer || !toggle) return;
       drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
       toggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
@@ -85,6 +87,21 @@
         if (e.target === drawer) closeDrawer();
       });
     }
+
+    document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('#mobile-toggle')) {
+        openDrawer();
+      }
+      if (e.target.closest && e.target.closest('#drawer-close')) {
+        closeDrawer();
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1100) {
+        closeDrawer();
+      }
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeDrawer();
