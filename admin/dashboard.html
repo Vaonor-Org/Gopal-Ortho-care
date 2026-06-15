@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Records – Gopal Ortho Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:        #0A6EBD;
+      --primary-dark:   #064A80;
+      --primary-darker: #062A45;
+      --primary-ul:     #E6F1FE;
+      --gold:           #C8973A;
+      --gold-light:     #E8C776;
+      --bg:             #F0F7FF;
+      --bg-dark:        #062A45;
+      --bg-darker:      #041C30;
+      --surface:        #ffffff;
+      --surface-card:   #F8FBFF;
+      --border:         #D6E6F5;
+      --border-med:     #B0CCE8;
+      --text-dark:      #1A1A1A;
+      --text-med:       #4A4A4A;
+      --text-light:     #8A8A8A;
+      --success:        #2D7A4F;
+      --success-bg:     #EDF7F2;
+      --error:          #B94040;
+      --error-bg:       #FEF2F2;
+      --warning:        #D97706;
+      --sidebar-w:      260px;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       SIDEBAR
+    ========================================================= */
+    #sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--bg-darker);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 200;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .sidebar__brand {
+      padding: 1.5rem 1.25rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sidebar__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+    }
+
+    .sidebar__logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(10,110,189,0.35);
+    }
+
+    .sidebar__logo-text .gopal {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .sidebar__logo-text .ortho {
+      display: block;
+      font-size: 0.625rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .sidebar__badge {
+      margin: 0.625rem 1.25rem;
+      padding: 0.25rem 0.625rem;
+      background: rgba(200,151,58,0.15);
+      border: 1px solid rgba(200,151,58,0.3);
+      border-radius: 6px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      display: inline-block;
+    }
+
+    .sidebar__nav {
+      flex: 1;
+      padding: 1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0.875rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.85);
+    }
+
+    .nav-item.active {
+      background: rgba(10,110,189,0.2);
+      color: #fff;
+      border: 1px solid rgba(10,110,189,0.35);
+    }
+
+    .nav-item.active svg { stroke: #5EB1F0; }
+
+    .nav-item svg {
+      width: 18px; height: 18px;
+      stroke: rgba(255,255,255,0.45);
+      fill: none;
+      flex-shrink: 0;
+      transition: stroke 0.2s;
+    }
+
+    .nav-item:hover svg { stroke: rgba(255,255,255,0.8); }
+
+    .nav-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 0.5rem 0;
+    }
+
+    .sidebar__footer {
+      padding: 1rem 0.75rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+    }
+
+    .user-pill__avatar {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .user-pill__name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-logout {
+      width: 100%;
+      height: 40px;
+      background: rgba(185,64,64,0.12);
+      border: 1px solid rgba(185,64,64,0.25);
+      border-radius: 8px;
+      color: rgba(255,100,100,0.85);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: rgba(185,64,64,0.2);
+      color: #ff8080;
+    }
+
+    /* =========================================================
+       MAIN CONTENT
+    ========================================================= */
+    #main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Topbar */
+    .topbar {
+      height: 64px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 1rem;
+    }
+
+    .topbar__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .topbar__right {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 0.75rem;
+      width: 15px; height: 15px;
+      stroke: var(--text-light);
+      fill: none;
+      pointer-events: none;
+    }
+
+    #search-input {
+      height: 38px;
+      padding: 0 1rem 0 2.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: 9999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-dark);
+      background: var(--bg);
+      outline: none;
+      width: 220px;
+      transition: all 0.2s;
+    }
+
+    #search-input:focus {
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(10,110,189,0.1);
+      width: 260px;
+    }
+
+    /* Page content */
+    .page-content {
+      flex: 1;
+      padding: 1.75rem;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .stat-card__icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-card__icon svg { width: 22px; height: 22px; fill: none; }
+
+    .stat-card__num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text-dark);
+    }
+
+    .stat-card__label {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+      margin-top: 0.25rem;
+    }
+
+    /* =========================================================
+       TOOLBAR
+    ========================================================= */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar__left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .filter-btn {
+      height: 36px;
+      padding: 0 0.875rem;
+      border: 1.5px solid var(--border);
+      border-radius: 9999px;
+      background: var(--surface);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-med);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-ul);
+    }
+
+    .btn-add {
+      height: 40px;
+      padding: 0 1.25rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s;
+      box-shadow: 0 4px 16px rgba(10,110,189,0.3);
+    }
+
+    .btn-add:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(10,110,189,0.4);
+    }
+
+    /* =========================================================
+       PATIENT TABLE
+    ========================================================= */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      background: var(--surface-card);
+      border-bottom: 1px solid var(--border);
+      padding: 0.875rem 1rem;
+      text-align: left;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(214,230,245,0.6);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface-card); }
+
+    tbody td {
+      padding: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-dark);
+      vertical-align: middle;
+    }
+
+    .patient-name {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .patient-id {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 0.125rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-male   { background: rgba(10,110,189,0.1); color: var(--primary); }
+    .badge-female { background: rgba(200,151,58,0.1); color: var(--gold); }
+    .badge-other  { background: rgba(74,74,74,0.08); color: var(--text-med); }
+
+    .injury-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2rem 0.625rem;
+      border-radius: 6px;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      background: var(--primary-ul);
+      color: var(--primary-dark);
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      color: var(--text-light);
+    }
+
+    .icon-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-ul);
+    }
+
+    .icon-btn.delete:hover {
+      border-color: var(--error);
+      color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .icon-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .empty-state__icon {
+      width: 64px; height: 64px;
+      background: var(--primary-ul);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .empty-state__icon svg { width: 28px; height: 28px; stroke: var(--primary); fill: none; }
+
+    .empty-state h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--text-dark);
+      margin-bottom: 0.375rem;
+    }
+
+    .empty-state p {
+      font-size: 0.875rem;
+      color: var(--text-light);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      gap: 1rem;
+    }
+
+    .pagination__info { font-size: 0.8125rem; color: var(--text-light); }
+
+    .pagination__btns { display: flex; gap: 0.375rem; }
+
+    .page-btn {
+      height: 32px;
+      min-width: 32px;
+      padding: 0 0.625rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8125rem;
+      color: var(--text-med);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover, .page-btn.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-ul);
+    }
+
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* =========================================================
+       MODAL / DRAWER
+    ========================================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4,28,48,0.6);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      display: none;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal-drawer {
+      width: min(620px, 95vw);
+      height: 100vh;
+      background: var(--surface);
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-overlay.show .modal-drawer { transform: translateX(0); }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .modal-close {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover { border-color: var(--error); color: var(--error); }
+    .modal-close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+
+    .modal-body {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    /* Form sections */
+    .form-section {
+      margin-bottom: 1.75rem;
+    }
+
+    .form-section__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-ul);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-section__title svg {
+      width: 16px; height: 16px;
+      stroke: var(--primary);
+      fill: none;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-row.col-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-row.col-1 { grid-template-columns: 1fr; }
+
+    .f-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .f-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-med);
+    }
+
+    .f-label span { color: var(--error); }
+
+    .f-input, .f-select, .f-textarea {
+      height: 42px;
+      padding: 0 0.875rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      background: var(--surface-card);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .f-input:focus, .f-select:focus, .f-textarea:focus {
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(10,110,189,0.1);
+    }
+
+    .f-textarea {
+      height: 80px;
+      padding: 0.625rem 0.875rem;
+      resize: vertical;
+    }
+
+    .f-select { cursor: pointer; }
+
+    .modal-footer {
+      position: sticky;
+      bottom: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .btn-cancel {
+      height: 42px;
+      padding: 0 1.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      background: var(--surface);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-med);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover { border-color: var(--text-med); color: var(--text-dark); }
+
+    .btn-save {
+      height: 42px;
+      padding: 0 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s;
+      box-shadow: 0 4px 14px rgba(10,110,189,0.3);
+    }
+
+    .btn-save:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(10,110,189,0.4);
+    }
+
+    .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* =========================================================
+       VIEW MODAL
+    ========================================================= */
+    .view-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4,28,48,0.6);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .view-modal-overlay.show { display: flex; }
+
+    .view-modal {
+      background: var(--surface);
+      border-radius: 20px;
+      width: min(680px, 95vw);
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 40px 80px rgba(4,28,48,0.25);
+    }
+
+    .view-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      background: linear-gradient(135deg, var(--bg-darker), var(--bg-dark));
+      border-radius: 20px 20px 0 0;
+    }
+
+    .view-header__avatar {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .view-header__info .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .view-header__info .meta {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.55);
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      flex-wrap: wrap;
+    }
+
+    .view-body { padding: 1.5rem; }
+
+    .detail-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-section__title {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .detail-section__title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .detail-item { }
+
+    .detail-item__label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-item__value {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .detail-item__value.mono {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.875rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 9999;
+      background: var(--bg-darker);
+      color: #fff;
+      padding: 0.875rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      box-shadow: 0 8px 32px rgba(4,28,48,0.35);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+      max-width: 340px;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 4px solid #2D7A4F; }
+    .toast.error   { border-left: 4px solid var(--error); }
+
+    .toast svg { width: 18px; height: 18px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+    /* Delete confirm modal */
+    .confirm-overlay {
+      position: fixed; inset: 0;
+      background: rgba(4,28,48,0.65);
+      backdrop-filter: blur(6px);
+      z-index: 1100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .confirm-overlay.show { display: flex; }
+
+    .confirm-box {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 2rem;
+      width: min(400px, 90vw);
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(4,28,48,0.3);
+    }
+
+    .confirm-box__icon {
+      width: 56px; height: 56px;
+      background: var(--error-bg);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .confirm-box__icon svg { width: 24px; height: 24px; stroke: var(--error); fill: none; }
+    .confirm-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; margin-bottom: 0.5rem; }
+    .confirm-box p { font-size: 0.875rem; color: var(--text-light); margin-bottom: 1.5rem; }
+
+    .confirm-box__btns { display: flex; gap: 0.75rem; justify-content: center; }
+
+    .btn-confirm-cancel {
+      height: 40px; padding: 0 1.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px; background: var(--surface);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      font-weight: 500; color: var(--text-med); cursor: pointer;
+    }
+
+    .btn-confirm-delete {
+      height: 40px; padding: 0 1.25rem;
+      border: none; border-radius: 8px;
+      background: var(--error); color: #fff;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      font-weight: 500; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-confirm-delete:hover { opacity: 0.88; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 0px; }
+      #sidebar { transform: translateX(-260px); }
+      #sidebar.open { transform: translateX(0); width: 260px; }
+      #main { margin-left: 0; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .form-row.col-3 { grid-template-columns: 1fr 1fr; }
+      .detail-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .topbar__title { font-size: 1.1rem; }
+      #search-input { width: 150px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+<aside id="sidebar">
+  <div class="sidebar__brand">
+    <a href="#" class="sidebar__logo">
+      <div class="sidebar__logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
+          <path d="M9 12h6M12 9v6" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="sidebar__logo-text">
+        <span class="gopal">GOPAL</span>
+        <span class="ortho">Ortho Care</span>
+      </div>
+    </a>
+  </div>
+
+  <div style="padding:0.5rem 1.25rem 0;">
+    <span class="sidebar__badge">Admin Portal</span>
+  </div>
+
+  <nav class="sidebar__nav">
+    <button class="nav-item active" onclick="showView('patients')">
+      <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+      Patient Records
+    </button>
+
+    <div class="nav-divider"></div>
+
+    <button class="nav-item" onclick="window.open('../index.html','_blank')">
+      <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      View Website
+    </button>
+  </nav>
+
+  <div class="sidebar__footer">
+    <div class="user-pill">
+      <div class="user-pill__avatar" id="user-avatar">DR</div>
+      <span class="user-pill__name" id="user-email-display">Loading...</span>
+    </div>
+    <button class="btn-logout" id="logout-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+      </svg>
+      Sign Out
+    </button>
+  </div>
+</aside>
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+<div id="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <button class="icon-btn" id="sidebar-toggle" style="display:none;border:none;background:transparent;cursor:pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-dark)" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <h1 class="topbar__title">Patient Records</h1>
+    </div>
+    <div class="topbar__right">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-input" placeholder="Search patients…">
+      </div>
+      <button class="btn-add" id="btn-add-patient">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Add Patient
+      </button>
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Stats -->
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(10,110,189,0.1);">
+          <svg viewBox="0 0 24 24" stroke="var(--primary)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-total">0</div>
+          <div class="stat-card__label">Total Patients</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(10,110,189,0.1);">
+          <svg viewBox="0 0 24 24" stroke="var(--primary)" stroke-width="1.7" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-today">0</div>
+          <div class="stat-card__label">Today's Visits</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(200,151,58,0.1);">
+          <svg viewBox="0 0 24 24" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-male">0</div>
+          <div class="stat-card__label">Male Patients</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(45,122,79,0.1);">
+          <svg viewBox="0 0 24 24" stroke="var(--success)" stroke-width="1.7" stroke-linecap="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-female">0</div>
+          <div class="stat-card__label">Female Patients</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar__left">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Male">Male</button>
+        <button class="filter-btn" data-filter="Female">Female</button>
+      </div>
+      <span id="count-label" style="font-size:0.8125rem;color:var(--text-light);"></span>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table id="patient-table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Age / Gender</th>
+              <th>Phone</th>
+              <th>Injury / Body Part</th>
+              <th>Doctor</th>
+              <th>Visit Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr>
+              <td colspan="7">
+                <div class="empty-state">
+                  <div class="empty-state__icon">
+                    <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                  </div>
+                  <h3>Loading patients…</h3>
+                  <p>Fetching records from database</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination" style="display:none;">
+        <span class="pagination__info" id="page-info"></span>
+        <div class="pagination__btns" id="page-btns"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================================================
+     ADD / EDIT MODAL DRAWER
+========================================================= -->
+<div class="modal-overlay" id="form-modal">
+  <div class="modal-drawer" id="modal-drawer">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Add New Patient</h2>
+      <button class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form id="patient-form" novalidate>
+
+        <!-- PATIENT INFO -->
+        <div class="form-section">
+          <div class="form-section__title">
+            <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Patient Information
+          </div>
+          <div class="form-row" style="margin-bottom:1rem;">
+            <div class="f-group">
+              <label class="f-label">Full Name <span>*</span></label>
+              <input class="f-input" id="f-name" type="text" placeholder="e.g. Ramesh Kumar" required>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Phone Number <span>*</span></label>
+              <input class="f-input" id="f-phone" type="tel" placeholder="e.g. 9876543210" required>
+            </div>
+          </div>
+          <div class="form-row col-3" style="margin-bottom:1rem;">
+            <div class="f-group">
+              <label class="f-label">Age <span>*</span></label>
+              <input class="f-input" id="f-age" type="number" min="0" max="120" placeholder="e.g. 45" required>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Gender <span>*</span></label>
+              <select class="f-select" id="f-gender" required>
+                <option value="">Select…</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Blood Group</label>
+              <select class="f-select" id="f-blood">
+                <option value="">Unknown</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>O+</option><option>O-</option>
+                <option>AB+</option><option>AB-</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row col-1">
+            <div class="f-group">
+              <label class="f-label">Reason for Visit <span>*</span></label>
+              <textarea class="f-textarea" id="f-reason" placeholder="Briefly describe the chief complaint or reason for visit…" required></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORTHOPEDIC DETAILS -->
+        <div class="form-section">
+          <div class="form-section__title">
+            <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+            Orthopedic Details
+          </div>
+          <div class="form-row" style="margin-bottom:1rem;">
+            <div class="f-group">
+              <label class="f-label">Injury Type</label>
+              <select class="f-select" id="f-injury-type">
+                <option value="">Select type…</option>
+                <option>Fracture</option>
+                <option>Dislocation</option>
+                <option>Arthritis</option>
+                <option>Ligament Tear</option>
+                <option>Tendon Injury</option>
+                <option>Cartilage Damage</option>
+                <option>Sprain / Strain</option>
+                <option>Bone Infection</option>
+                <option>Deformity</option>
+                <option>Post-Surgical</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Affected Body Part</label>
+              <select class="f-select" id="f-body-part">
+                <option value="">Select part…</option>
+                <option>Knee</option>
+                <option>Hip</option>
+                <option>Spine / Back</option>
+                <option>Shoulder</option>
+                <option>Wrist</option>
+                <option>Ankle</option>
+                <option>Elbow</option>
+                <option>Foot</option>
+                <option>Hand / Finger</option>
+                <option>Neck / Cervical</option>
+                <option>Pelvis</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row col-3" style="margin-bottom:1rem;">
+            <div class="f-group">
+              <label class="f-label">Side</label>
+              <select class="f-select" id="f-side">
+                <option value="">N/A</option>
+                <option>Left</option>
+                <option>Right</option>
+                <option>Bilateral</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Injury Date</label>
+              <input class="f-input" id="f-injury-date" type="date">
+            </div>
+            <div class="f-group">
+              <label class="f-label">Cause of Injury</label>
+              <select class="f-select" id="f-cause">
+                <option value="">Select…</option>
+                <option>Fall</option>
+                <option>Road Accident</option>
+                <option>Sports Injury</option>
+                <option>Work Accident</option>
+                <option>Gradual / Wear &amp; Tear</option>
+                <option>Post-Surgical</option>
+                <option>Unknown</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row col-1">
+            <div class="f-group">
+              <label class="f-label">Clinical Notes</label>
+              <textarea class="f-textarea" id="f-notes" placeholder="Additional clinical observations, prior treatments, X-ray findings…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONSULTATION -->
+        <div class="form-section">
+          <div class="form-section__title">
+            <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Consultation
+          </div>
+          <div class="form-row">
+            <div class="f-group">
+              <label class="f-label">Doctor Name <span>*</span></label>
+              <select class="f-select" id="f-doctor" required>
+                <option value="">Select doctor…</option>
+                <option>Dr. N. Gopala Krishnan</option>
+                <option>Dr. R. Shiny</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Visit Date <span>*</span></label>
+              <input class="f-input" id="f-visit-date" type="date" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden id for edit -->
+        <input type="hidden" id="f-doc-id">
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" id="btn-cancel">Cancel</button>
+      <button class="btn-save" id="btn-save">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save Patient
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     VIEW MODAL
+========================================================= -->
+<div class="view-modal-overlay" id="view-modal">
+  <div class="view-modal">
+    <div class="view-header">
+      <div style="display:flex;align-items:center;gap:1rem;flex:1;">
+        <div class="view-header__avatar" id="view-avatar">?</div>
+        <div class="view-header__info">
+          <div class="name" id="view-name">—</div>
+          <div class="meta" id="view-meta"></div>
+        </div>
+      </div>
+      <button class="modal-close" id="view-close" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="view-body" id="view-body"></div>
+  </div>
+</div>
+
+<!-- Delete confirm -->
+<div class="confirm-overlay" id="confirm-modal">
+  <div class="confirm-box">
+    <div class="confirm-box__icon">
+      <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+    </div>
+    <h3>Delete Patient?</h3>
+    <p>This will permanently remove the patient record. This action cannot be undone.</p>
+    <div class="confirm-box__btns">
+      <button class="btn-confirm-cancel" id="confirm-cancel">Cancel</button>
+      <button class="btn-confirm-delete" id="confirm-delete">Delete Record</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg id="toast-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"></svg>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- =========================================================
+     FIREBASE + APP LOGIC
+========================================================= -->
+<script type="module">
+  import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import {
+    getFirestore, collection, addDoc, updateDoc, deleteDoc,
+    doc, onSnapshot, query, orderBy, serverTimestamp, Timestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ── Firebase init ──────────────────────────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6u7Bm1qosC7IDx5Qk7mD-QlRTDV3o1RA",
+    authDomain: "gopal-fd3d8.firebaseapp.com",
+    projectId: "gopal-fd3d8",
+    storageBucket: "gopal-fd3d8.firebasestorage.app",
+    messagingSenderId: "114488164961",
+    appId: "1:114488164961:web:ad3a60422ff71545032020"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getFirestore(app);
+  const db   = getFirestore(app);
+  const authInst = getAuth(app);
+
+  // ── Auth guard ─────────────────────────────────────────────
+  onAuthStateChanged(authInst, user => {
+    if (!user) { window.location.href = 'login.html'; return; }
+    const initials = (user.email || 'DR').slice(0,2).toUpperCase();
+    document.getElementById('user-avatar').textContent = initials;
+    document.getElementById('user-email-display').textContent = user.email;
+  });
+
+  // ── Logout ─────────────────────────────────────────────────
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await signOut(authInst);
+    window.location.href = 'login.html';
+  });
+
+  // ── State ──────────────────────────────────────────────────
+  let allPatients = [];
+  let filteredPatients = [];
+  let currentFilter = 'all';
+  let searchQuery   = '';
+  let editingId     = null;
+  let deleteId      = null;
+  let currentPage   = 1;
+  const perPage     = 12;
+
+  // ── Toast ──────────────────────────────────────────────────
+  function showToast(msg, type = 'success') {
+    const toast = document.getElementById('toast');
+    const icon  = document.getElementById('toast-icon');
+    document.getElementById('toast-msg').textContent = msg;
+    toast.className = `toast ${type} show`;
+    icon.innerHTML  = type === 'success'
+      ? '<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>'
+      : '<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>';
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  // ── Firestore real-time listener ───────────────────────────
+  const q = query(collection(db, 'patients'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, snap => {
+    allPatients = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    updateStats();
+    applyFilterAndSearch();
+  }, err => {
+    console.error(err);
+    showToast('Failed to load patients. Check Firestore rules.', 'error');
+  });
+
+  // ── Stats ──────────────────────────────────────────────────
+  function updateStats() {
+    const today = new Date().toISOString().slice(0,10);
+    document.getElementById('stat-total').textContent  = allPatients.length;
+    document.getElementById('stat-today').textContent  = allPatients.filter(p => (p.visitDate||'').slice(0,10) === today).length;
+    document.getElementById('stat-male').textContent   = allPatients.filter(p => p.gender === 'Male').length;
+    document.getElementById('stat-female').textContent = allPatients.filter(p => p.gender === 'Female').length;
+  }
+
+  // ── Filter + search ────────────────────────────────────────
+  function applyFilterAndSearch() {
+    let list = allPatients;
+    if (currentFilter !== 'all') list = list.filter(p => p.gender === currentFilter);
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(p =>
+        (p.name||'').toLowerCase().includes(q) ||
+        (p.phone||'').includes(q) ||
+        (p.injuryType||'').toLowerCase().includes(q) ||
+        (p.bodyPart||'').toLowerCase().includes(q) ||
+        (p.doctor||'').toLowerCase().includes(q)
+      );
+    }
+    filteredPatients = list;
+    currentPage = 1;
+    renderTable();
+  }
+
+  // ── Render table ───────────────────────────────────────────
+  function renderTable() {
+    const tbody  = document.getElementById('table-body');
+    const total  = filteredPatients.length;
+    const start  = (currentPage - 1) * perPage;
+    const slice  = filteredPatients.slice(start, start + perPage);
+
+    document.getElementById('count-label').textContent =
+      total > 0 ? `${total} record${total !== 1 ? 's' : ''}` : '';
+
+    if (total === 0) {
+      tbody.innerHTML = `
+        <tr><td colspan="7">
+          <div class="empty-state">
+            <div class="empty-state__icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+              </svg>
+            </div>
+            <h3>${searchQuery ? 'No results found' : 'No patients yet'}</h3>
+            <p>${searchQuery ? 'Try a different search term' : 'Click "Add Patient" to record the first patient'}</p>
+          </div>
+        </td></tr>`;
+      document.getElementById('pagination').style.display = 'none';
+      return;
+    }
+
+    tbody.innerHTML = slice.map(p => {
+      const gClass  = p.gender === 'Male' ? 'badge-male' : p.gender === 'Female' ? 'badge-female' : 'badge-other';
+      const initials = (p.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+      return `
+        <tr>
+          <td>
+            <div style="display:flex;align-items:center;gap:0.625rem;">
+              <div style="width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0A6EBD,#064A80);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0;">${initials}</div>
+              <div>
+                <div class="patient-name">${esc(p.name||'—')}</div>
+                <div class="patient-id">${p.id.slice(0,8).toUpperCase()}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div style="font-weight:600;">${p.age||'—'} yrs</div>
+            <span class="badge ${gClass}">${p.gender||'—'}</span>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.8125rem;">${esc(p.phone||'—')}</td>
+          <td>
+            ${p.injuryType ? `<span class="injury-tag">${esc(p.injuryType)}</span>` : '<span style="color:var(--text-light);">—</span>'}
+            ${p.bodyPart ? `<div style="font-size:0.75rem;color:var(--text-light);margin-top:0.25rem;">${esc(p.bodyPart)}${p.side ? ' · '+esc(p.side) : ''}</div>` : ''}
+          </td>
+          <td style="font-size:0.875rem;">${esc(p.doctor||'—')}</td>
+          <td style="font-size:0.8125rem;font-family:'DM Mono',monospace;color:var(--text-med);">${p.visitDate ? fmtDate(p.visitDate) : '—'}</td>
+          <td>
+            <div class="table-actions">
+              <button class="icon-btn" title="View" onclick="viewPatient('${p.id}')">
+                <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+              <button class="icon-btn" title="Edit" onclick="openEdit('${p.id}')">
+                <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="icon-btn delete" title="Delete" onclick="confirmDelete('${p.id}')">
+                <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6M10 11v6M14 11v6"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+
+    // Pagination
+    const pages = Math.ceil(total / perPage);
+    const pg    = document.getElementById('pagination');
+    const info  = document.getElementById('page-info');
+    const btns  = document.getElementById('page-btns');
+
+    if (pages > 1) {
+      pg.style.display = 'flex';
+      info.textContent = `${start+1}–${Math.min(start+perPage, total)} of ${total}`;
+      btns.innerHTML = `
+        <button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>
+        ${Array.from({length:pages},(_,i)=>`<button class="page-btn${currentPage===i+1?' active':''}" onclick="goPage(${i+1})">${i+1}</button>`).join('')}
+        <button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>→</button>`;
+    } else {
+      pg.style.display = 'none';
+    }
+  }
+
+  // ── Helpers ────────────────────────────────────────────────
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function fmtDate(d) { if(!d) return '—'; const dt=new Date(d); return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+  window.goPage = n => { currentPage = n; renderTable(); };
+
+  // ── View patient ───────────────────────────────────────────
+  window.viewPatient = id => {
+    const p = allPatients.find(x => x.id === id);
+    if (!p) return;
+    const initials = (p.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    document.getElementById('view-avatar').textContent = initials;
+    document.getElementById('view-name').textContent   = p.name || '—';
+    document.getElementById('view-meta').innerHTML     = `
+      <span>${p.age||'—'} yrs</span> · <span>${p.gender||'—'}</span>
+      ${p.bloodGroup ? `· <strong>${esc(p.bloodGroup)}</strong>` : ''}
+      · <span style="font-family:'DM Mono',monospace;font-size:0.75rem;">${p.phone||'—'}</span>`;
+    document.getElementById('view-body').innerHTML = `
+      <div class="detail-section">
+        <div class="detail-section__title">Chief Complaint</div>
+        <p style="font-size:0.9375rem;color:var(--text-med);line-height:1.7;">${esc(p.reason||'Not recorded')}</p>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section__title">Orthopedic Details</div>
+        <div class="detail-grid">
+          <div class="detail-item"><div class="detail-item__label">Injury Type</div><div class="detail-item__value">${esc(p.injuryType||'—')}</div></div>
+          <div class="detail-item"><div class="detail-item__label">Body Part</div><div class="detail-item__value">${esc(p.bodyPart||'—')}</div></div>
+          <div class="detail-item"><div class="detail-item__label">Side</div><div class="detail-item__value">${esc(p.side||'—')}</div></div>
+          <div class="detail-item"><div class="detail-item__label">Injury Date</div><div class="detail-item__value mono">${fmtDate(p.injuryDate)}</div></div>
+          <div class="detail-item"><div class="detail-item__label">Cause</div><div class="detail-item__value">${esc(p.cause||'—')}</div></div>
+        </div>
+      </div>
+      ${p.notes ? `<div class="detail-section">
+        <div class="detail-section__title">Clinical Notes</div>
+        <p style="font-size:0.9rem;color:var(--text-med);line-height:1.7;white-space:pre-line;">${esc(p.notes)}</p>
+      </div>` : ''}
+      <div class="detail-section">
+        <div class="detail-section__title">Consultation</div>
+        <div class="detail-grid">
+          <div class="detail-item"><div class="detail-item__label">Doctor</div><div class="detail-item__value">${esc(p.doctor||'—')}</div></div>
+          <div class="detail-item"><div class="detail-item__label">Visit Date</div><div class="detail-item__value mono">${fmtDate(p.visitDate)}</div></div>
+          <div class="detail-item"><div class="detail-item__label">Record ID</div><div class="detail-item__value mono" style="font-size:0.75rem;">${p.id.slice(0,12).toUpperCase()}</div></div>
+        </div>
+      </div>`;
+    document.getElementById('view-modal').classList.add('show');
+  };
+
+  document.getElementById('view-close').onclick = () => document.getElementById('view-modal').classList.remove('show');
+  document.getElementById('view-modal').addEventListener('click', e => { if(e.target === e.currentTarget) e.currentTarget.classList.remove('show'); });
+
+  // ── Modal helpers ──────────────────────────────────────────
+  function openModal() { document.getElementById('form-modal').classList.add('show'); }
+  function closeModal() {
+    document.getElementById('form-modal').classList.remove('show');
+    document.getElementById('patient-form').reset();
+    document.getElementById('f-doc-id').value = '';
+    editingId = null;
+    document.getElementById('modal-title').textContent = 'Add New Patient';
+    document.getElementById('btn-save').querySelector('.btn-text') && (document.getElementById('btn-save').querySelector('.btn-text').textContent = 'Save Patient');
+  }
+
+  document.getElementById('btn-add-patient').onclick = () => { editingId = null; openModal(); };
+  document.getElementById('modal-close').onclick = closeModal;
+  document.getElementById('btn-cancel').onclick   = closeModal;
+  document.getElementById('form-modal').addEventListener('click', e => { if(e.target === e.currentTarget) closeModal(); });
+
+  // ── Edit ───────────────────────────────────────────────────
+  window.openEdit = id => {
+    const p = allPatients.find(x => x.id === id);
+    if (!p) return;
+    editingId = id;
+    document.getElementById('modal-title').textContent = 'Edit Patient Record';
+    document.getElementById('f-doc-id').value   = id;
+    document.getElementById('f-name').value     = p.name||'';
+    document.getElementById('f-phone').value    = p.phone||'';
+    document.getElementById('f-age').value      = p.age||'';
+    document.getElementById('f-gender').value   = p.gender||'';
+    document.getElementById('f-blood').value    = p.bloodGroup||'';
+    document.getElementById('f-reason').value   = p.reason||'';
+    document.getElementById('f-injury-type').value = p.injuryType||'';
+    document.getElementById('f-body-part').value   = p.bodyPart||'';
+    document.getElementById('f-side').value        = p.side||'';
+    document.getElementById('f-injury-date').value = p.injuryDate||'';
+    document.getElementById('f-cause').value        = p.cause||'';
+    document.getElementById('f-notes').value        = p.notes||'';
+    document.getElementById('f-doctor').value       = p.doctor||'';
+    document.getElementById('f-visit-date').value   = p.visitDate||'';
+    openModal();
+  };
+
+  // ── Save (add / update) ────────────────────────────────────
+  document.getElementById('btn-save').addEventListener('click', async () => {
+    const name      = document.getElementById('f-name').value.trim();
+    const phone     = document.getElementById('f-phone').value.trim();
+    const age       = document.getElementById('f-age').value.trim();
+    const gender    = document.getElementById('f-gender').value;
+    const reason    = document.getElementById('f-reason').value.trim();
+    const doctor    = document.getElementById('f-doctor').value;
+    const visitDate = document.getElementById('f-visit-date').value;
+
+    if (!name || !phone || !age || !gender || !reason || !doctor || !visitDate) {
+      showToast('Please fill in all required fields.', 'error');
+      return;
+    }
+
+    const data = {
+      name, phone, age: Number(age), gender,
+      bloodGroup:  document.getElementById('f-blood').value,
+      reason,
+      injuryType:  document.getElementById('f-injury-type').value,
+      bodyPart:    document.getElementById('f-body-part').value,
+      side:        document.getElementById('f-side').value,
+      injuryDate:  document.getElementById('f-injury-date').value,
+      cause:       document.getElementById('f-cause').value,
+      notes:       document.getElementById('f-notes').value.trim(),
+      doctor,
+      visitDate,
+      updatedAt:   serverTimestamp(),
+    };
+
+    const btn = document.getElementById('btn-save');
+    btn.disabled = true;
+
+    try {
+      if (editingId) {
+        await updateDoc(doc(db, 'patients', editingId), data);
+        showToast('Patient record updated successfully.');
+      } else {
+        data.createdAt = serverTimestamp();
+        await addDoc(collection(db, 'patients'), data);
+        showToast('Patient added successfully.');
+      }
+      closeModal();
+    } catch (err) {
+      console.error(err);
+      showToast('Error saving record: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // ── Delete ─────────────────────────────────────────────────
+  window.confirmDelete = id => {
+    deleteId = id;
+    document.getElementById('confirm-modal').classList.add('show');
+  };
+
+  document.getElementById('confirm-cancel').onclick = () => {
+    document.getElementById('confirm-modal').classList.remove('show');
+    deleteId = null;
+  };
+
+  document.getElementById('confirm-delete').onclick = async () => {
+    if (!deleteId) return;
+    try {
+      await deleteDoc(doc(db, 'patients', deleteId));
+      showToast('Patient record deleted.');
+    } catch (err) {
+      showToast('Error deleting: ' + err.message, 'error');
+    }
+    document.getElementById('confirm-modal').classList.remove('show');
+    deleteId = null;
+  };
+
+  // ── Filters ────────────────────────────────────────────────
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      applyFilterAndSearch();
+    });
+  });
+
+  // ── Search ─────────────────────────────────────────────────
+  let searchTimer;
+  document.getElementById('search-input').addEventListener('input', e => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchQuery = e.target.value.trim();
+      applyFilterAndSearch();
+    }, 250);
+  });
+
+  // ── Mobile sidebar ─────────────────────────────────────────
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebar       = document.getElementById('sidebar');
+
+  if (window.innerWidth <= 900) sidebarToggle.style.display = 'flex';
+  window.addEventListener('resize', () => {
+    sidebarToggle.style.display = window.innerWidth <= 900 ? 'flex' : 'none';
+    if (window.innerWidth > 900) sidebar.classList.remove('open');
+  });
+
+  sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+</script>
+
+</body>
+</html>
