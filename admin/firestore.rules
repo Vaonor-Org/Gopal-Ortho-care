@@ -23,6 +23,11 @@ service cloud.firestore {
       allow read, write: if request.auth != null;
     }
 
+    // Notice Board Tasks
+    match /noticeTasks/{id} {
+      allow read, write: if request.auth != null;
+    }
+
     // Block all else
     match /{document=**} {
       allow read, write: if false;

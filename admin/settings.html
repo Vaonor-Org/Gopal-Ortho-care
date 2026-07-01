@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings – Gopal Ortho Care</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --primary:#0A6EBD;--primary-dark:#064A80;--primary-darker:#062A45;
+      --primary-ul:#E6F1FE;--gold:#C8973A;--gold-light:#E8C776;
+      --bg:#F0F7FF;--bg-dark:#062A45;--bg-darker:#041C30;
+      --surface:#ffffff;--surface-card:#F8FBFF;
+      --border:#D6E6F5;--border-med:#B0CCE8;
+      --text-dark:#1A1A1A;--text-med:#4A4A4A;--text-light:#8A8A8A;
+      --success:#2D7A4F;--success-bg:#EDF7F2;
+      --error:#B94040;--error-bg:#FEF2F2;--warning:#D97706;
+      --sidebar-w:260px;
+    }
+    html{font-size:16px;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-dark);min-height:100vh;display:flex;overflow-x:hidden;}
+    [data-lang="ta"] body,[data-lang="ta"] input,[data-lang="ta"] select,[data-lang="ta"] textarea,[data-lang="ta"] button{font-family:'Noto Sans Tamil','DM Sans',sans-serif;}
+
+    /* ── SIDEBAR ── */
+    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+    body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+    body.sidebar-collapsed #main { margin-left: 0; }
+    @media (max-width: 960px) {
+      #sidebar { transform: translateX(-100%); }
+      #sidebar.open { transform: translateX(0); }
+      #main { margin-left: 0 !important; }
+      body.sidebar-collapsed #sidebar { transform: translateX(0); }
+    }
+
+    #sidebar-toggle-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dark);
+      transition: all 0.2s;
+    }
+    #sidebar-toggle-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-ul);
+      color: var(--primary);
+    }
+    .sidebar__brand{padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid rgba(255,255,255,.06);}
+    .sidebar__logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;}
+    .sidebar__logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(10,110,189,.35);}
+    .sidebar__logo-text .gopal{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
+    .sidebar__logo-text .ortho{display:block;font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;}
+    .sidebar__badge{margin:.5rem 1.25rem;padding:.2rem .625rem;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:5px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-block;}
+    .sidebar__nav{flex:1;padding:.875rem .75rem;display:flex;flex-direction:column;gap:.2rem;}
+    .nav-item{display:flex;align-items:center;gap:.625rem;padding:.65rem .875rem;border-radius:9px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;text-decoration:none;border:1px solid transparent;background:none;width:100%;text-align:left;}
+    .nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);}
+    .nav-item.active{background:rgba(10,110,189,.2);color:#fff;border-color:rgba(10,110,189,.35);}
+    .nav-item svg{width:16px;height:16px;stroke:rgba(255,255,255,.4);fill:none;flex-shrink:0;transition:stroke .2s;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;}
+    .nav-item.active svg{stroke:#5EB1F0;}
+    .nav-item:hover svg{stroke:rgba(255,255,255,.8);}
+    .nav-divider{height:1px;background:rgba(255,255,255,.06);margin:.375rem 0;}
+    .sidebar__footer{padding:.875rem .75rem 1rem;border-top:1px solid rgba(255,255,255,.06);}
+    .user-pill{display:flex;align-items:center;gap:.5rem;padding:.625rem;background:rgba(255,255,255,.05);border-radius:9999px;margin-bottom:.625rem;}
+    .user-pill__avatar{width:30px;height:30px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0;}
+    .user-pill__name{font-size:.75rem;font-weight:500;color:rgba(255,255,255,.75);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .btn-logout{width:100%;height:36px;background:rgba(185,64,64,.12);border:1px solid rgba(185,64,64,.25);border-radius:7px;color:rgba(255,100,100,.85);font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:all .2s;}
+    .btn-logout:hover{background:rgba(185,64,64,.22);color:#ff8080;}
+
+    /* ── MAIN ── */
+    #main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column;transition:margin-left .3s cubic-bezier(.4,0,.2,1);}
+
+    /* ── TOPBAR ── */
+    .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
+    .topbar__left{display:flex;align-items:center;gap:.75rem;}
+    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);}
+    .topbar__right{display:flex;align-items:center;gap:.75rem;}
+
+    /* Language toggle */
+    .lang-toggle{display:flex;align-items:center;background:var(--surface-card);border:1.5px solid var(--border);border-radius:9999px;padding:3px;gap:2px;}
+    .lang-btn{height:28px;padding:0 .75rem;border-radius:9999px;border:none;font-family:inherit;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--text-light);letter-spacing:.02em;}
+    .lang-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(10,110,189,.3);}
+
+    /* ── SECTION PAGES ── */
+    .section-page{flex:1;padding:1.5rem;}
+
+    /* ── FORM ELEMENTS ── */
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:.875rem;}
+    .f-group{display:flex;flex-direction:column;gap:.3rem;}
+    .f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-med);}
+    .f-input{height:40px;padding:0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
+    .f-input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);}
+
+    .btn-save{height:38px;padding:0 1.375rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.875rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .25s;box-shadow:0 4px 14px rgba(10,110,189,.3);width:fit-content;}
+    .btn-save:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(10,110,189,.4);}
+
+    /* Settings card styling */
+    .settings-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+    .settings-card__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .settings-card__title svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    /* ── TOAST ── */
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--bg-darker);color:#fff;padding:.75rem 1.1rem;border-radius:11px;font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 32px rgba(4,28,48,.35);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:320px;}
+    .toast.show{transform:translateY(0);opacity:1;}
+    .toast.success{border-left:4px solid #2D7A4F;}
+    .toast.error{border-left:4px solid var(--error);}
+    .toast svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;flex-shrink:0;}
+
+    /* ── DARK MODE OVERRIDES ── */
+    html[data-theme="dark"] {
+      --bg: #07121e;
+      --bg-dark: #091a2b;
+      --bg-darker: #040d16;
+      --surface: #0e1e30;
+      --surface-card: #13273c;
+      --border: #1e3753;
+      --border-med: #2b4e75;
+      --text-dark: #f0f6fc;
+      --text-med: #c9d1d9;
+      --text-light: #8b949e;
+      --success: #3fb950;
+      --success-bg: rgba(63,185,80,0.1);
+      --error: #f85149;
+      --error-bg: rgba(248,81,73,0.1);
+      --warning: #f0883e;
+      --primary-ul: rgba(10,110,189,0.25);
+    }
+    html[data-theme="dark"] body {
+      color: var(--text-dark);
+      background: var(--bg);
+    }
+    html[data-theme="dark"] .lang-btn:not(.active) {
+      color: var(--text-light);
+    }
+    html[data-theme="dark"] .lang-toggle {
+      background: var(--surface-card);
+      border-color: var(--border);
+    }
+    html[data-theme="dark"] .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    html[data-theme="dark"] input {
+      background: var(--surface);
+      color: var(--text-dark);
+      border-color: var(--border);
+    }
+    html[data-theme="dark"] input:focus {
+      background: var(--surface-card);
+    }
+    html[data-theme="dark"] .settings-card {
+      background: var(--surface);
+      border-color: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  // Init theme immediately to prevent flashing
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+</script>
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<aside id="sidebar">
+  <div class="sidebar__brand">
+    <a href="#" class="sidebar__logo">
+      <div class="sidebar__logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="rgba(255,255,255,.15)" stroke="white" stroke-width="1.5"/><path d="M9 12h6M12 9v6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="sidebar__logo-text"><span class="gopal">GOPAL</span><span class="ortho">Ortho Care</span></div>
+    </a>
+  </div>
+  <div style="padding:.375rem 1.25rem 0;"><span class="sidebar__badge">Admin Portal</span></div>
+  <nav class="sidebar__nav">
+    <a href="dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      <span data-i18n="patients">Patient Records</span>
+    </a>
+    <a href="room.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span data-i18n="rooms">Room Management</span>
+    </a>
+    <a href="bill.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+      <span data-i18n="bills">Billing</span>
+    </a>
+    <a href="noticeboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span data-i18n="noticeboard">Notice Board</span>
+    </a>
+    <div class="nav-divider"></div>
+    <a href="settings.html" class="nav-item active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <span data-i18n="settings">Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar__footer">
+    <div class="user-pill">
+      <div class="user-pill__avatar" id="user-avatar">DR</div>
+      <span class="user-pill__name" id="user-name-display">Admin</span>
+    </div>
+    <button class="btn-logout" id="logout-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      <span data-i18n="signOut">Sign Out</span>
+    </button>
+  </div>
+</aside>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div id="main">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <button id="sidebar-toggle-btn" onclick="window.toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-dark)" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <h1 class="topbar__title" id="topbar-title" data-i18n="settings">Settings</h1>
+    </div>
+    <div class="topbar__right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="lang-ta" onclick="setLang('ta')">தமிழ்</button>
+      </div>
+
+      <button id="theme-toggle-btn" onclick="window.toggleTheme()" style="width:34px;height:34px;border-radius:9999px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-med);transition:all .2s;flex-shrink:0;" title="Toggle Dark/Light Mode">
+        <svg id="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="theme-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── SETTINGS SECTION ─── -->
+  <div id="section-settings" class="section-page">
+    <div style="margin-bottom:1.5rem;">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;" data-i18n="settings">Settings</h2>
+      <p style="font-size:.8rem;color:var(--text-light);margin-top:.2rem;">Configure clinic settings and billing rates</p>
+    </div>
+
+    <!-- Profile settings -->
+    <div class="settings-card">
+      <div class="settings-card__title">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span data-i18n="profile">Profile</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem;">
+        <div id="settings-avatar" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;font-weight:700;">DR</div>
+        <div>
+          <h3 id="settings-user-name" style="font-weight:600;font-size:1rem;margin-bottom:.2rem;">Admin</h3>
+          <p id="settings-user-email" style="font-size:.8rem;color:var(--text-light);display:none;"></p>
+        </div>
+      </div>
+      <div class="f-group" style="margin-bottom:1.25rem;">
+        <label class="f-label" data-i18n="displayName">Display Name</label>
+        <input class="f-input" id="setting-username" type="text" placeholder="Enter your display name">
+      </div>
+      <button class="btn-save" onclick="saveProfile()" data-i18n="saveProfile">Save Profile</button>
+    </div>
+
+    <!-- Billing Defaults settings -->
+    <div class="settings-card" style="max-width:680px;">
+      <div class="settings-card__title">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span data-i18n="billingDefaults">Billing Defaults</span>
+      </div>
+
+      <!-- Core fees -->
+      <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Core Charges</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
+        <div class="f-group">
+          <label class="f-label" data-i18n="consultFee">Consulting Fee</label>
+          <input class="f-input" id="setting-consult-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="dressingFee">Dressing Fee</label>
+          <input class="f-input" id="setting-dressing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="xrayFee">X-Ray Fee</label>
+          <input class="f-input" id="setting-xray-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="nursingFee">Nursing Fee</label>
+          <input class="f-input" id="setting-nursing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="drVisitCharge">Dr. Visiting Charge</label>
+          <input class="f-input" id="setting-dr-visit-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="surgeonFee">Surgeon Fee</label>
+          <input class="f-input" id="setting-surgeon-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="implantFee">Implant Fee</label>
+          <input class="f-input" id="setting-implant-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="anaesthetistFee">Anaesthetist Fee</label>
+          <input class="f-input" id="setting-anaesthetist-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group" style="grid-column:1/-1;">
+          <label class="f-label" data-i18n="procedureCharge">Procedure Charge</label>
+          <input class="f-input" id="setting-procedure-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+      </div>
+
+      <!-- Room rates -->
+      <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Room Rates (per night)</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
+        <div class="f-group">
+          <label class="f-label" data-i18n="roomRateIns">With Insurance</label>
+          <input class="f-input" id="setting-room-rate-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+        <div class="f-group">
+          <label class="f-label" data-i18n="roomRateNoIns">Without Insurance</label>
+          <input class="f-input" id="setting-room-rate-no-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+        </div>
+      </div>
+
+      <button class="btn-save" onclick="saveBillingSettings()" data-i18n="saveBillingDefaults">Save Billing Defaults</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">
+  <svg id="toast-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"></svg>
+  <span id="toast-msg"></span>
+</div>
+
+<script type="module">
+import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyC6u7Bm1qosC7IDx5Qk7mD-QlRTDV3o1RA",
+  authDomain:"gopal-fd3d8.firebaseapp.com",
+  projectId:"gopal-fd3d8",
+  storageBucket:"gopal-fd3d8.firebasestorage.app",
+  messagingSenderId:"114488164961",
+  appId:"1:114488164961:web:ad3a60422ff71545032020"
+};
+const app    = initializeApp(firebaseConfig);
+const authFB = getAuth(app);
+
+// Auth check
+onAuthStateChanged(authFB, user => {
+  if (!user) { window.location.href='login.html'; return; }
+  const initials = (user.email||'DR').slice(0,2).toUpperCase();
+  const savedName = localStorage.getItem('displayName') || initials;
+  document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
+  document.getElementById('user-name-display').textContent = savedName;
+  document.getElementById('settings-user-email').textContent = user.email;
+  document.getElementById('settings-user-name').textContent = savedName;
+  document.getElementById('settings-avatar').textContent = savedName.slice(0,2).toUpperCase();
+  document.getElementById('setting-username').value = savedName;
+});
+document.getElementById('logout-btn').addEventListener('click', async()=>{ await signOut(authFB); window.location.href='login.html'; });
+
+// Billing defaults config loading
+let billingDefaults = {
+  consultFee: 250,
+  dressingFee: 100,
+  xrayFee: 200,
+  nursingFee: 150,
+  drVisitCharge: 200,
+  surgeonFee: 500,
+  implantFee: 0,
+  anaesthetistFee: 300,
+  procedureCharge: 0,
+  roomRateIns: 2000,
+  roomRateNoIns: 1500
+};
+const loadBillingDefaults = () => {
+  try {
+    const saved = JSON.parse(localStorage.getItem('billingDefaults') || '{}');
+    billingDefaults = { ...billingDefaults, ...saved };
+    document.getElementById('setting-consult-fee').value = billingDefaults.consultFee;
+    document.getElementById('setting-dressing-fee').value = billingDefaults.dressingFee;
+    document.getElementById('setting-xray-fee').value = billingDefaults.xrayFee;
+    document.getElementById('setting-nursing-fee').value = billingDefaults.nursingFee;
+    document.getElementById('setting-dr-visit-charge').value = billingDefaults.drVisitCharge;
+    document.getElementById('setting-surgeon-fee').value = billingDefaults.surgeonFee;
+    document.getElementById('setting-implant-fee').value = billingDefaults.implantFee;
+    document.getElementById('setting-anaesthetist-fee').value = billingDefaults.anaesthetistFee;
+    document.getElementById('setting-procedure-charge').value = billingDefaults.procedureCharge;
+    document.getElementById('setting-room-rate-ins').value = billingDefaults.roomRateIns;
+    document.getElementById('setting-room-rate-no-ins').value = billingDefaults.roomRateNoIns;
+  } catch(e) {}
+};
+loadBillingDefaults();
+
+// i18n
+const i18n = {
+  en: {
+    patients: 'Patient Records', rooms: 'Room Management', bills: 'Billing',
+    signOut: 'Sign Out', noticeboard: 'Notice Board', settings: 'Settings',
+    profile: 'Profile', displayName: 'Display Name', saveProfile: 'Save Profile',
+    billingDefaults: 'Billing Defaults', consultFee: 'Consulting Fee',
+    dressingFee: 'Dressing Fee', xrayFee: 'X-Ray Fee',
+    nursingFee: 'Nursing Fee', drVisitCharge: 'Dr. Visiting Charge',
+    surgeonFee: 'Surgeon Fee', implantFee: 'Implant Fee',
+    anaesthetistFee: 'Anaesthetist Fee', procedureCharge: 'Procedure Charge',
+    roomRateIns: 'With Insurance', roomRateNoIns: 'Without Insurance',
+    saveBillingDefaults: 'Save Billing Defaults'
+  },
+  ta: {
+    patients: 'நோயாளர் பதிவுகள்', rooms: 'அறை மேலாண்மை', bills: 'கட்டண மசோதா',
+    signOut: 'வெளியேறு', noticeboard: 'அறிவிப்பு பலகை', settings: 'அமைப்புகள்',
+    profile: 'சுயவிவரம்', displayName: 'காட்சிப் பெயர்', saveProfile: 'சுயவிவரத்தைச் சேமி',
+    billingDefaults: 'இயல்புநிலை கட்டணங்கள்', consultFee: 'ஆலோசனை கட்டணம்',
+    dressingFee: 'கட்டுப்போடும் கட்டணம்', xrayFee: 'எக்ஸ்-ரே கட்டணம்',
+    nursingFee: 'நர்சிங் கட்டணம்', drVisitCharge: 'மருத்துவர் வருகை கட்டணம்',
+    surgeonFee: 'அறுவை சிகிச்சை கட்டணம்', implantFee: 'இம்பிளன்ட் கட்டணம்',
+    anaesthetistFee: 'மயக்கமருந்து கட்டணம்', procedureCharge: 'சிகிச்சை கட்டணம்',
+    roomRateIns: 'காப்பீட்டுடன்', roomRateNoIns: 'காப்பீடு இல்லாமல்',
+    saveBillingDefaults: 'இயல்புநிலை கட்டணங்களைச் சேமி'
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'en';
+window.setLang = lang => {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.setAttribute('data-lang', lang);
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-ta').classList.toggle('active', lang === 'ta');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key]) el.textContent = i18n[lang][key];
+  });
+  const su = document.getElementById('setting-username');
+  if (su) su.placeholder = lang === 'ta' ? 'உங்கள் காட்சிப் பெயரை உள்ளிடவும்' : 'Enter your display name';
+};
+
+// Theme manager
+window.toggleTheme = () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcons();
+};
+
+const updateThemeIcons = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const sun = document.getElementById('theme-sun');
+  const moon = document.getElementById('theme-moon');
+  if(sun && moon) {
+    sun.style.display = theme === 'dark' ? 'block' : 'none';
+    moon.style.display = theme === 'dark' ? 'none' : 'block';
+  }
+};
+
+// Sidebar Toggle
+window.toggleSidebar = () => {
+  if (window.innerWidth > 960) {
+    document.body.classList.toggle('sidebar-collapsed');
+  } else {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+};
+
+// Toast utility
+window.showToast = (msg, type = 'success') => {
+  const toast = document.getElementById('toast');
+  const icon = document.getElementById('toast-icon');
+  const msgEl = document.getElementById('toast-msg');
+  if (!toast) return;
+  toast.className = `toast show ${type}`;
+  msgEl.textContent = msg;
+  if (type === 'success') {
+    icon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+  } else {
+    icon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+  }
+  setTimeout(() => { toast.classList.remove('show'); }, 3500);
+};
+
+// Validations and Sanitization of Billing Inputs
+window.validateBillingInput = (e) => {
+  const charCode = e.which ? e.which : e.keyCode;
+  if (charCode < 48 || charCode > 57) {
+    e.preventDefault();
+  }
+};
+
+window.sanitizeBillingInput = (el) => {
+  let val = el.value.replace(/[^0-9]/g, '');
+  if (val.length > 0) {
+    val = Math.max(0, parseInt(val));
+    el.value = val;
+  } else {
+    el.value = '';
+  }
+};
+
+// Save settings functions
+window.saveProfile = async () => {
+  const name = document.getElementById('setting-username').value.trim();
+  if(!name){showToast('Display name cannot be empty.','error');return;}
+  localStorage.setItem('displayName', name);
+  const user = authFB.currentUser;
+  if (user) {
+    try {
+      await updateProfile(user, { displayName: name });
+    } catch(err) {
+      console.warn("Update firebase user profile failed:", err);
+    }
+  }
+  document.getElementById('user-avatar').textContent = name.slice(0,2).toUpperCase();
+  document.getElementById('user-name-display').textContent = name;
+  document.getElementById('settings-user-name').textContent = name;
+  document.getElementById('settings-avatar').textContent = name.slice(0,2).toUpperCase();
+  showToast('Profile updated.');
+};
+
+window.saveBillingSettings = () => {
+  const g = id => Math.max(0, parseInt(document.getElementById(id)?.value) || 0);
+  billingDefaults = {
+    consultFee:      g('setting-consult-fee'),
+    dressingFee:     g('setting-dressing-fee'),
+    xrayFee:         g('setting-xray-fee'),
+    nursingFee:      g('setting-nursing-fee'),
+    drVisitCharge:   g('setting-dr-visit-charge'),
+    surgeonFee:      g('setting-surgeon-fee'),
+    implantFee:      g('setting-implant-fee'),
+    anaesthetistFee: g('setting-anaesthetist-fee'),
+    procedureCharge: g('setting-procedure-charge'),
+    roomRateIns:     g('setting-room-rate-ins'),
+    roomRateNoIns:   g('setting-room-rate-no-ins')
+  };
+  localStorage.setItem('billingDefaults', JSON.stringify(billingDefaults));
+  showToast('Billing defaults saved.');
+};
+
+// Init Language load
+window.setLang(currentLang);
+updateThemeIcons();
+
+</script>
+</body>
+</html>
