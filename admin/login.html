@@ -21,6 +21,7 @@
       --bg-darker:     #041C30;
       --border:        #D6E6F5;
       --error:         #B94040;
+      --success:       #2D7A4F;
       --text-dark:     #1A1A1A;
       --text-med:      #4A4A4A;
       --text-light:    #8A8A8A;
@@ -39,7 +40,6 @@
       overflow: hidden;
     }
 
-    /* Background pattern */
     body::before {
       content: '';
       position: fixed;
@@ -50,7 +50,6 @@
       pointer-events: none;
     }
 
-    /* Grid overlay */
     body::after {
       content: '';
       position: fixed;
@@ -70,7 +69,6 @@
       padding: 1rem;
     }
 
-    /* Hospital branding */
     .brand {
       text-align: center;
       margin-bottom: 2rem;
@@ -94,9 +92,7 @@
       box-shadow: 0 8px 24px rgba(10,110,189,0.35);
     }
 
-    .brand__name {
-      text-align: left;
-    }
+    .brand__name { text-align: left; }
 
     .brand__gopal {
       display: block;
@@ -110,7 +106,6 @@
 
     .brand__ortho {
       display: block;
-      font-family: 'DM Sans', sans-serif;
       font-size: 0.75rem;
       font-weight: 400;
       color: rgba(255,255,255,0.5);
@@ -124,7 +119,6 @@
       letter-spacing: 0.06em;
     }
 
-    /* Card */
     .login-card {
       background: rgba(255,255,255,0.97);
       border-radius: 24px;
@@ -159,147 +153,114 @@
       color: var(--text-dark);
       letter-spacing: -0.02em;
       line-height: 1.15;
-      margin-bottom: 1.75rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-med);
       margin-bottom: 0.5rem;
     }
 
-    .input-wrap {
-      position: relative;
-    }
-
-    .input-icon {
-      position: absolute;
-      left: 0.875rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      stroke: var(--text-light);
-      fill: none;
-      transition: stroke 0.2s;
-      pointer-events: none;
-    }
-
-    .form-input {
-      width: 100%;
-      height: 48px;
-      padding: 0 1rem 0 2.5rem;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9375rem;
-      color: var(--text-dark);
-      background: #F8FBFF;
-      transition: all 0.2s;
-      outline: none;
-    }
-
-    .form-input:focus {
-      border-color: var(--primary);
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(10,110,189,0.12);
-    }
-
-    .form-input:focus + .input-icon,
-    .input-wrap:focus-within .input-icon {
-      stroke: var(--primary);
-    }
-
-    /* Password toggle */
-    .pw-toggle {
-      position: absolute;
-      right: 0.875rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
+    .card__subtitle {
+      font-size: 0.85rem;
       color: var(--text-light);
-      display: flex;
-      align-items: center;
+      margin-bottom: 2rem;
+      line-height: 1.5;
     }
 
-    .pw-toggle:hover { color: var(--primary); }
-
-    /* Error message */
-    .error-msg {
+    /* Alert banners */
+    .alert-banner {
       display: none;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(185,64,64,0.08);
-      border: 1px solid rgba(185,64,64,0.25);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
       font-size: 0.875rem;
-      color: var(--error);
       margin-bottom: 1.25rem;
     }
+    .alert-banner.show { display: flex; }
+    .alert-banner.error { background: rgba(185,64,64,.08); border: 1px solid rgba(185,64,64,.25); color: var(--error); }
+    .alert-banner.warning { background: rgba(200,151,58,.1); border: 1px solid rgba(200,151,58,.3); color: #865a10; }
 
-    .error-msg.show { display: flex; }
-
-    /* Submit button */
-    .btn-login {
+    /* Google Sign-In button */
+    .btn-google {
       width: 100%;
-      height: 52px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      border: none;
-      border-radius: 10px;
+      height: 54px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      background: #fff;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.9375rem;
       font-weight: 500;
+      color: #1a1a1a;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-      box-shadow: 0 4px 20px rgba(10,110,189,0.35);
-      margin-top: 1.5rem;
+      gap: 0.75rem;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       letter-spacing: 0.01em;
     }
 
-    .btn-login:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(10,110,189,0.45);
+    .btn-google:hover:not(:disabled) {
+      border-color: #c7d2fe;
+      box-shadow: 0 4px 16px rgba(10,110,189,0.15);
+      transform: translateY(-1px);
     }
 
-    .btn-login:disabled {
-      opacity: 0.7;
+    .btn-google:disabled {
+      opacity: 0.6;
       cursor: not-allowed;
+    }
+
+    .google-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
     }
 
     /* Spinner */
     .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid rgba(10,110,189,0.25);
+      border-top-color: var(--primary);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       display: none;
+      flex-shrink: 0;
     }
 
-    .btn-login.loading .spinner { display: block; }
-    .btn-login.loading .btn-text { display: none; }
+    .btn-google.loading .spinner { display: block; }
+    .btn-google.loading .btn-google-content { display: none; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Footer */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      color: var(--text-light);
+      font-size: 0.75rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .access-note {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
+      font-size: 0.8rem;
+      color: #0369a1;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.4;
+    }
+    .access-note svg { flex-shrink: 0; margin-top: 1px; }
+
     .login-footer {
       text-align: center;
       margin-top: 1.5rem;
@@ -368,64 +329,43 @@
     <div class="login-card">
       <p class="card__eyebrow">Secure Access</p>
       <h1 class="card__title">Welcome back,<br><em style="font-style:italic;color:#0A6EBD;">Doctor.</em></h1>
+      <p class="card__subtitle">Sign in with your authorized Google account to continue.</p>
 
-      <!-- Error -->
-      <div class="error-msg" id="error-msg">
+      <!-- Alerts -->
+      <div class="alert-banner error" id="alert-denied">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-        <span id="error-text">Invalid email or password.</span>
+        <span>Access denied. Your Google account is not authorised for this portal.</span>
+      </div>
+      <div class="alert-banner warning" id="alert-timeout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>You were signed out due to 24 hours of inactivity.</span>
+      </div>
+      <div class="alert-banner error" id="alert-error" style="display:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span id="alert-error-text">Something went wrong. Please try again.</span>
       </div>
 
-      <!-- Form -->
-      <form id="login-form" autocomplete="on" novalidate>
-        <div class="form-group">
-          <label class="form-label" for="email">Email Address</label>
-          <div class="input-wrap">
-            <input
-              class="form-input"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="doctor@gopalortho.com"
-              autocomplete="email"
-              required
-            >
-            <svg class="input-icon" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="3"/>
-              <path d="M2 7l10 7 10-7"/>
-            </svg>
-          </div>
-        </div>
+      <!-- Google Sign-In -->
+      <button class="btn-google" id="google-btn" onclick="signInWithGoogle()">
+        <div class="spinner"></div>
+        <span class="btn-google-content" style="display:flex;align-items:center;gap:.75rem;">
+          <!-- Google G logo -->
+          <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </span>
+      </button>
 
-        <div class="form-group">
-          <label class="form-label" for="password">Password</label>
-          <div class="input-wrap">
-            <input
-              class="form-input"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="••••••••"
-              autocomplete="current-password"
-              required
-            >
-            <svg class="input-icon" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2"/>
-              <path d="M7 11V7a5 5 0 0110 0v4"/>
-            </svg>
-            <button type="button" class="pw-toggle" id="pw-toggle" aria-label="Toggle password visibility">
-              <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </button>
-          </div>
-        </div>
+      <div class="divider">Authorised accounts only</div>
 
-        <button type="submit" class="btn-login" id="login-btn">
-          <div class="spinner"></div>
-          <span class="btn-text">Sign In to Dashboard</span>
-        </button>
-      </form>
+      <div class="access-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Only registered admin accounts can access this portal. Unauthorised attempts are blocked automatically.
+      </div>
     </div>
 
     <p class="login-footer">Gopal Ortho Care Hospital &bull; Admin Portal &bull; Authorized access only</p>
@@ -434,7 +374,20 @@
   <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyC6u7Bm1qosC7IDx5Qk7mD-QlRTDV3o1RA",
@@ -445,71 +398,88 @@
       appId: "1:114488164961:web:ad3a60422ff71545032020"
     };
 
-    const app  = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    const app      = initializeApp(firebaseConfig);
+    const auth     = getAuth(app);
+    const db       = getFirestore(app);
+    const provider = new GoogleAuthProvider();
 
-    // Redirect if already logged in
+    // Allowed admins (client-side guard + Firestore double-check)
+    const ADMIN_EMAILS = ['gopalorthocare@gmail.com', 'whitedevil874@gmail.com'];
+
+    // Show reason banners from URL params
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reason') === 'denied') document.getElementById('alert-denied').classList.add('show');
+    if (params.get('reason') === 'timeout') document.getElementById('alert-timeout').classList.add('show');
+
+    // If already signed-in admin → go to dashboard
     onAuthStateChanged(auth, user => {
-      if (user) window.location.href = 'dashboard.html';
-    });
-
-    // Password toggle
-    const pwToggle = document.getElementById('pw-toggle');
-    const pwInput  = document.getElementById('password');
-    const eyeIcon  = document.getElementById('eye-icon');
-
-    pwToggle.addEventListener('click', () => {
-      const isHidden = pwInput.type === 'password';
-      pwInput.type   = isHidden ? 'text' : 'password';
-      eyeIcon.innerHTML = isHidden
-        ? `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
-           <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
-           <line x1="1" y1="1" x2="23" y2="23"/>`
-        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-    });
-
-    // Login form
-    const form    = document.getElementById('login-form');
-    const btn     = document.getElementById('login-btn');
-    const errMsg  = document.getElementById('error-msg');
-    const errText = document.getElementById('error-text');
-
-    function showError(msg) {
-      errText.textContent = msg;
-      errMsg.classList.add('show');
-    }
-
-    function hideError() { errMsg.classList.remove('show'); }
-
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      hideError();
-
-      const email    = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-
-      if (!email || !password) { showError('Please enter your email and password.'); return; }
-
-      btn.classList.add('loading');
-      btn.disabled = true;
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
+      if (user && ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
         window.location.href = 'dashboard.html';
-      } catch (err) {
-        let msg = 'Login failed. Please try again.';
-        if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-          msg = 'Invalid email or password.';
-        } else if (err.code === 'auth/too-many-requests') {
-          msg = 'Too many attempts. Please try again later.';
-        } else if (err.code === 'auth/network-request-failed') {
-          msg = 'Network error. Check your connection.';
-        }
-        showError(msg);
-        btn.classList.remove('loading');
-        btn.disabled = false;
       }
     });
+
+    const btn = document.getElementById('google-btn');
+
+    function showError(msg) {
+      const el = document.getElementById('alert-error');
+      document.getElementById('alert-error-text').textContent = msg;
+      el.style.display = 'flex';
+    }
+
+    window.signInWithGoogle = async () => {
+      btn.classList.add('loading');
+      btn.disabled = true;
+      document.getElementById('alert-error').style.display = 'none';
+
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user   = result.user;
+        const email  = (user.email||'').toLowerCase();
+
+        // Admin check
+        if (!ADMIN_EMAILS.includes(email)) {
+          await signOut(auth);
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          document.getElementById('alert-denied').classList.add('show');
+          return;
+        }
+
+        // Write / update admin record in Firestore
+        try {
+          await setDoc(doc(db, 'admins', email), {
+            email,
+            displayName: user.displayName || '',
+            photoURL: user.photoURL || '',
+            role: 'admin',
+            lastLogin: serverTimestamp()
+          }, { merge: true });
+        } catch(fsErr) {
+          console.warn('Firestore admin write failed (non-critical):', fsErr);
+        }
+
+        // Save display name
+        if (user.displayName) {
+          localStorage.setItem('displayName', user.displayName);
+        }
+
+        // Stamp activity time
+        localStorage.setItem('lastActivity', Date.now());
+
+        window.location.href = 'dashboard.html';
+
+      } catch (err) {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
+          // User dismissed — no error shown
+        } else if (err.code === 'auth/popup-blocked') {
+          showError('Popup was blocked by your browser. Please allow popups for this site.');
+        } else {
+          showError('Sign-in failed: ' + (err.message || 'Please try again.'));
+        }
+      }
+    };
   </script>
 </body>
 </html>

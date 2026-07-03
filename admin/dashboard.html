@@ -91,9 +91,12 @@
 
     /* Search */
     .search-box{position:relative;}
-    .search-box svg{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
-    #search-input{height:36px;padding:0 1rem 0 2.1rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:.85rem;color:var(--text-dark);background:var(--bg);outline:none;width:200px;transition:all .2s;}
-    #search-input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);width:240px;}
+    .search-box svg{position:absolute;left:.875rem;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
+    #search-input{height:42px;padding:0 1.1rem 0 2.4rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface);outline:none;width:260px;transition:all .25s;}
+    #search-input:focus{border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px rgba(10,110,189,.1);width:320px;}
+    html[data-theme="dark"] #search-input{background:var(--surface);color:var(--text-dark);border-color:var(--border);}
+    html[data-theme="dark"] #search-input:focus{background:var(--surface-card);border-color:var(--primary);}
+    html[data-theme="dark"] #search-input::placeholder{color:var(--text-light);}
 
     /* Add button */
     .btn-add{height:38px;padding:0 1.1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:9px;font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .25s;box-shadow:0 4px 14px rgba(10,110,189,.3);white-space:nowrap;}
@@ -126,11 +129,18 @@
     tbody td{padding:.875rem 1rem;font-size:.85rem;color:var(--text-dark);vertical-align:middle;}
     .patient-name{font-weight:600;}
     .patient-id{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-light);margin-top:.1rem;}
-    .badge{display:inline-flex;align-items:center;padding:.18rem .55rem;border-radius:9999px;font-size:.625rem;font-weight:600;letter-spacing:.04em;}
-    .badge-male{background:rgba(10,110,189,.1);color:var(--primary);}
-    .badge-female{background:rgba(200,151,58,.1);color:var(--gold);}
-    .badge-other{background:rgba(74,74,74,.08);color:var(--text-med);}
-    .injury-tag{display:inline-flex;padding:.18rem .55rem;border-radius:5px;font-size:.625rem;font-weight:500;background:var(--primary-ul);color:var(--primary-dark);}
+    .badge{display:inline-flex;align-items:center;padding:.25rem .625rem;border-radius:6px;font-size:.7rem;font-weight:600;letter-spacing:.03em;border:1px solid transparent;}
+    .badge-male{background:#dbeafe;color:#1d4ed8;border-color:#bfdbfe;}
+    .badge-female{background:#fce7f3;color:#be185d;border-color:#fbcfe8;}
+    .badge-other{background:#f3f4f6;color:#374151;border-color:#e5e7eb;}
+    html[data-theme="dark"] .badge-male{background:rgba(30,64,175,.25);color:#93c5fd;border-color:rgba(59,130,246,.35);}
+    html[data-theme="dark"] .badge-female{background:rgba(157,23,77,.25);color:#f9a8d4;border-color:rgba(236,72,153,.35);}
+    html[data-theme="dark"] .badge-other{background:rgba(255,255,255,.08);color:var(--text-med);border-color:var(--border);}
+    .consult-tag{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .625rem;border-radius:6px;font-size:.7rem;font-weight:600;border:1px solid transparent;}
+    .consult-tag-ortho{background:#ecfdf5;color:#065f46;border-color:#a7f3d0;}
+    .consult-tag-general{background:#fef9c3;color:#713f12;border-color:#fde68a;}
+    html[data-theme="dark"] .consult-tag-ortho{background:rgba(6,95,70,.3);color:#6ee7b7;border-color:rgba(52,211,153,.3);}
+    html[data-theme="dark"] .consult-tag-general{background:rgba(113,63,18,.3);color:#fcd34d;border-color:rgba(251,191,36,.3);}
     .table-actions{display:flex;gap:.4rem;}
     .icon-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--text-light);}
     .icon-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-ul);}
@@ -395,12 +405,14 @@
   <div class="sidebar__footer">
     <div class="user-pill">
       <div class="user-pill__avatar" id="user-avatar">DR</div>
-      <span class="user-pill__name" id="user-name-display">Admin</span>
+      <div style="flex:1;min-width:0;">
+        <div class="user-pill__name" id="user-name-display">Admin</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.04em;">Admin Portal</div>
+      </div>
+      <a href="settings.html" style="color:rgba(255,255,255,.4);display:flex;align-items:center;" title="Settings">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      </a>
     </div>
-    <button class="btn-logout" id="logout-btn">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-      <span data-i18n="signOut">Sign Out</span>
-    </button>
   </div>
 </aside>
 
@@ -863,15 +875,50 @@ const app    = initializeApp(firebaseConfig);
 const authFB = getAuth(app);
 const db     = getFirestore(app);
 
-// Auth Check
-onAuthStateChanged(authFB, user => {
-  if (!user) { window.location.href='login.html'; return; }
-  const initials = (user.email||'DR').slice(0,2).toUpperCase();
-  const savedName = localStorage.getItem('displayName') || initials;
+// Auth Check + Session Timeout
+const ADMIN_EMAILS = ['gopalorthocare@gmail.com','whitedevil874@gmail.com'];
+const SESSION_MS = 24 * 60 * 60 * 1000; // 24 hours
+let _activityTimer = null;
+
+const resetActivityTimer = () => {
+  if (_activityTimer) clearTimeout(_activityTimer);
+  localStorage.setItem('lastActivity', Date.now());
+  _activityTimer = setTimeout(async () => {
+    await signOut(authFB);
+    window.location.href = 'login.html?reason=timeout';
+  }, SESSION_MS);
+};
+
+document.addEventListener('mousemove', resetActivityTimer, { passive: true });
+document.addEventListener('keydown', resetActivityTimer, { passive: true });
+document.addEventListener('click', resetActivityTimer, { passive: true });
+document.addEventListener('touchstart', resetActivityTimer, { passive: true });
+
+onAuthStateChanged(authFB, async user => {
+  if (!user) { window.location.href = 'login.html'; return; }
+
+  // Check admin allowlist
+  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
+    await signOut(authFB);
+    window.location.href = 'login.html?reason=denied';
+    return;
+  }
+
+  // Check session age
+  const last = parseInt(localStorage.getItem('lastActivity') || '0');
+  if (last && Date.now() - last > SESSION_MS) {
+    await signOut(authFB);
+    window.location.href = 'login.html?reason=timeout';
+    return;
+  }
+
+  resetActivityTimer();
+
+  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const savedName = localStorage.getItem('displayName') || displayName;
   document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
   document.getElementById('user-name-display').textContent = savedName;
 });
-document.getElementById('logout-btn').addEventListener('click', async()=>{ await signOut(authFB); window.location.href='login.html'; });
 
 // State
 let allPatients = [];
@@ -1171,7 +1218,9 @@ const renderPatientsTable = () => {
   
   tbody.innerHTML = slice.map(p => {
     const isOrtho = p.consultationType === 'Orthopedic';
-    const tag = isOrtho ? `<span class="injury-tag">${esc(p.bodyPart || 'General')}</span>` : `<span class="injury-tag" style="background:#FFF9E6;color:#C8973A;">General</span>`;
+    const tag = isOrtho
+      ? `<span class="consult-tag consult-tag-ortho">${esc(p.bodyPart || 'Ortho')}</span>`
+      : `<span class="consult-tag consult-tag-general">General</span>`;
     const genBadge = p.gender === 'Male' ? 'badge-male' : (p.gender === 'Female' ? 'badge-female' : 'badge-other');
     return `
       <tr>

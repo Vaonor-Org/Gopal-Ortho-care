@@ -423,18 +423,43 @@ const app    = initializeApp(firebaseConfig);
 const authFB = getAuth(app);
 const db     = getFirestore(app);
 
-// Auth check
-onAuthStateChanged(authFB, user => {
+// Auth Check + Session Timeout
+const ADMIN_EMAILS = ['gopalorthocare@gmail.com','whitedevil874@gmail.com'];
+const SESSION_MS = 24 * 60 * 60 * 1000;
+let _activityTimer = null;
+const resetActivityTimer = () => {
+  if (_activityTimer) clearTimeout(_activityTimer);
+  localStorage.setItem('lastActivity', Date.now());
+  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href='login.html?reason=timeout'; }, SESSION_MS);
+};
+document.addEventListener('mousemove', resetActivityTimer, { passive: true });
+document.addEventListener('keydown', resetActivityTimer, { passive: true });
+document.addEventListener('click', resetActivityTimer, { passive: true });
+
+onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href='login.html'; return; }
-  const initials = (user.email||'DR').slice(0,2).toUpperCase();
-  const savedName = localStorage.getItem('displayName') || initials;
-  document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
-  document.getElementById('user-name-display').textContent = savedName;
+  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) { await signOut(authFB); window.location.href='login.html?reason=denied'; return; }
+  const last = parseInt(localStorage.getItem('lastActivity')||'0');
+  if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href='login.html?reason=timeout'; return; }
+  resetActivityTimer();
+  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const savedName = localStorage.getItem('displayName') || displayName;
+  const av = document.getElementById('user-avatar');
+  const nd = document.getElementById('user-name-display');
+  if (av) av.textContent = savedName.slice(0,2).toUpperCase();
+  if (nd) nd.textContent = savedName;
 });
-document.getElementById('logout-btn').addEventListener('click', async()=>{ await signOut(authFB); window.location.href='login.html'; });
 
 // State & Configs
-const NOTICE_COLORS = ['#FFF176','#FFCC80','#EF9A9A','#A5D6A7','#90CAF9','#CE93D8','#80DEEA'];
+const NOTICE_COLORS = [
+  '#FFF176', // yellow
+  '#FFCC80', // orange
+  '#FFAB91', // deep orange / coral
+  '#EF9A9A', // red-pink
+  '#F48FB1', // pink
+  '#A5D6A7', // green
+  '#C5E1A5', // light green / lime
+];
 let draggedTaskId = null;
 let undoTaskId = null;
 let undoTimerId = null;

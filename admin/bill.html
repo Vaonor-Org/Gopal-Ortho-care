@@ -141,6 +141,22 @@
     .page-btn:hover,.page-btn.active{border-color:var(--primary);color:var(--primary);background:var(--primary-ul);}
     .page-btn:disabled{opacity:.4;cursor:not-allowed;}
 
+    /* Search */
+    .search-box{position:relative;}
+    .search-box svg{position:absolute;left:.875rem;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
+    #search-input{height:42px;padding:0 1.1rem 0 2.4rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface);outline:none;width:260px;transition:all .25s;}
+    #search-input:focus{border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px rgba(10,110,189,.1);width:320px;}
+    html[data-theme="dark"] #search-input{background:var(--surface);color:var(--text-dark);border-color:var(--border);}
+    html[data-theme="dark"] #search-input:focus{background:var(--surface-card);border-color:var(--primary);}
+    html[data-theme="dark"] #search-input::placeholder{color:var(--text-light);}
+
+    /* Filter Popover */
+    .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;gap:1rem;flex-wrap:wrap;}
+    .popover-wrap{position:relative;display:inline-block;}
+    .popover-content{display:none;position:absolute;top:calc(100% + .5rem);left:0;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 12px 30px rgba(4,28,48,.18);padding:1rem;z-index:999;width:280px;}
+    .popover-content.show{display:block;}
+    html[data-theme="dark"] .popover-content { background: var(--surface); border-color: var(--border); }
+
     /* ── MODALS ── */
     .center-modal-overlay{position:fixed;inset:0;background:rgba(4,28,48,.65);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:1.5rem;}
     .center-modal-overlay.show{display:flex;}
@@ -355,6 +371,48 @@
         <span data-i18n="generateBill">Generate Bill</span>
       </button>
     </div>
+    
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <div class="popover-wrap">
+          <button class="filter-btn" id="filter-popover-trigger" onclick="toggleFilterPopover(event)" data-i18n="filter">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filter
+          </button>
+          <div class="popover-content" id="filter-popover" style="width: 280px; max-height: 400px; overflow-y: auto;">
+            
+            <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Payment Status</h4>
+            <select id="pop-payment" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="applyFilters()">
+              <option value="all">All</option>
+              <option value="paid">Paid</option>
+              <option value="unpaid">Unpaid</option>
+            </select>
+            
+            <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Bill Date Range</h4>
+            <select id="pop-date-range" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="applyFilters()">
+              <option value="all">All Time</option>
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="week">Last 7 Days</option>
+              <option value="month">This Month</option>
+            </select>
+            
+            <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Doctor</h4>
+            <div style="display:flex;flex-direction:column;gap:.375rem;margin-bottom:.5rem;">
+              <label style="font-size:.85rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;"><input type="checkbox" id="pop-doc-gopal" checked onchange="applyFilters()"> Dr. Gopala Krishnan</label>
+              <label style="font-size:.85rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;"><input type="checkbox" id="pop-doc-shiny" checked onchange="applyFilters()"> Dr. Shiny</label>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-input" placeholder="Search bills by name or ID…" oninput="handleSearch(this.value)">
+      </div>
+    </div>
     <div class="bills-grid" id="bills-grid">
       <div style="text-align:center;padding:3rem;color:var(--text-light);">Loading bills…</div>
     </div>
@@ -501,22 +559,41 @@ const app    = initializeApp(firebaseConfig);
 const authFB = getAuth(app);
 const db     = getFirestore(app);
 
-// Auth check
-onAuthStateChanged(authFB, user => {
+// Auth Check + Session Timeout
+const ADMIN_EMAILS = ['gopalorthocare@gmail.com','whitedevil874@gmail.com'];
+const SESSION_MS = 24 * 60 * 60 * 1000;
+let _activityTimer = null;
+const resetActivityTimer = () => {
+  if (_activityTimer) clearTimeout(_activityTimer);
+  localStorage.setItem('lastActivity', Date.now());
+  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href='login.html?reason=timeout'; }, SESSION_MS);
+};
+document.addEventListener('mousemove', resetActivityTimer, { passive: true });
+document.addEventListener('keydown', resetActivityTimer, { passive: true });
+document.addEventListener('click', resetActivityTimer, { passive: true });
+
+onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href='login.html'; return; }
-  const initials = (user.email||'DR').slice(0,2).toUpperCase();
-  const savedName = localStorage.getItem('displayName') || initials;
-  document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
-  document.getElementById('user-name-display').textContent = savedName;
+  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) { await signOut(authFB); window.location.href='login.html?reason=denied'; return; }
+  const last = parseInt(localStorage.getItem('lastActivity')||'0');
+  if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href='login.html?reason=timeout'; return; }
+  resetActivityTimer();
+  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const savedName = localStorage.getItem('displayName') || displayName;
+  const av = document.getElementById('user-avatar');
+  const nd = document.getElementById('user-name-display');
+  if (av) av.textContent = savedName.slice(0,2).toUpperCase();
+  if (nd) nd.textContent = savedName;
 });
-document.getElementById('logout-btn').addEventListener('click', async()=>{ await signOut(authFB); window.location.href='login.html'; });
 
 // State
 let allPatients = [];
 let allRooms = [];
 let allBills = [];
+let filteredBills = [];
 let billsCurrentPage = 1;
 const billsPerPage = 12;
+let searchQ = '';
 
 // Billing defaults
 let billingDefaults = {
@@ -636,21 +713,92 @@ onSnapshot(query(collection(db,'rooms'),orderBy('createdAt','asc')),snap=>{
 });
 onSnapshot(query(collection(db,'bills'),orderBy('createdAt','desc'),limit(500)),snap=>{
   allBills=snap.docs.map(d=>({id:d.id,...d.data()}));
-  renderBills();
+  applyFilters();
 });
+
+// Search and Filter Logic
+window.toggleFilterPopover = (e) => {
+  if (e) e.stopPropagation();
+  const pop = document.getElementById('filter-popover');
+  pop.classList.toggle('show');
+};
+
+document.addEventListener('click', (e) => {
+  const pop = document.getElementById('filter-popover');
+  const trig = document.getElementById('filter-popover-trigger');
+  if (pop && trig && !pop.contains(e.target) && !trig.contains(e.target)) {
+    pop.classList.remove('show');
+  }
+});
+
+window.handleSearch = (val) => {
+  searchQ = val;
+  billsCurrentPage = 1;
+  applyFilters();
+};
+
+window.applyFilters = () => {
+  let list = [...allBills];
+  
+  // Search
+  if (searchQ.trim()) {
+    const q = searchQ.toLowerCase().trim();
+    list = list.filter(b => 
+      (b.patientName||'').toLowerCase().includes(q) ||
+      (b.id||'').toLowerCase().includes(q)
+    );
+  }
+  
+  // Payment Filter
+  const popPay = document.getElementById('pop-payment')?.value || 'all';
+  if (popPay === 'paid') list = list.filter(b => b.paid === true);
+  if (popPay === 'unpaid') list = list.filter(b => b.paid !== true);
+  
+  // Date Range Filter
+  const popDateRange = document.getElementById('pop-date-range')?.value || 'all';
+  if (popDateRange !== 'all') {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const yesterdayStr = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const sevenDaysAgo = new Date(Date.now() - 7 * 86400000);
+    const startOfMonthStr = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10);
+    
+    list = list.filter(b => {
+      const d = b.date || '';
+      if (!d) return false;
+      if (popDateRange === 'today') return d === todayStr;
+      if (popDateRange === 'yesterday') return d === yesterdayStr;
+      if (popDateRange === 'week') return new Date(d) >= sevenDaysAgo;
+      if (popDateRange === 'month') return d >= startOfMonthStr;
+      return true;
+    });
+  }
+  
+  // Doctor Filter
+  const gopalCh = document.getElementById('pop-doc-gopal')?.checked;
+  const shinyCh = document.getElementById('pop-doc-shiny')?.checked;
+  list = list.filter(b => {
+    if (b.doctor === 'Dr. N. Gopala Krishnan') return gopalCh;
+    if (b.doctor === 'Dr. R. Shiny') return shinyCh;
+    return true;
+  });
+  
+  filteredBills = list;
+  billsCurrentPage = 1;
+  renderBills();
+};
 
 // Bill listing pagination
 const renderBills = () => {
   const grid = document.getElementById('bills-grid');
   const pag = document.getElementById('bills-pagination');
-  if(!allBills.length){
-    grid.innerHTML='<div style="text-align:center;padding:3rem;color:var(--text-light);">No bills yet. Click "Generate Bill" to create one.</div>';
+  if(!filteredBills.length){
+    grid.innerHTML='<div style="text-align:center;padding:3rem;color:var(--text-light);">No bills found.</div>';
     if(pag) pag.style.display='none';
     return;
   }
-  const total=allBills.length;
+  const total=filteredBills.length;
   const start=(billsCurrentPage-1)*billsPerPage;
-  const slice=allBills.slice(start,start+billsPerPage);
+  const slice=filteredBills.slice(start,start+billsPerPage);
   
   grid.innerHTML=slice.map(b=>`
     <div class="bill-card">

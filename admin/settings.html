@@ -227,12 +227,11 @@
   <div class="sidebar__footer">
     <div class="user-pill">
       <div class="user-pill__avatar" id="user-avatar">DR</div>
-      <span class="user-pill__name" id="user-name-display">Admin</span>
+      <div style="flex:1;min-width:0;">
+        <div class="user-pill__name" id="user-name-display">Admin</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.04em;">Admin Portal</div>
+      </div>
     </div>
-    <button class="btn-logout" id="logout-btn">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-      <span data-i18n="signOut">Sign Out</span>
-    </button>
   </div>
 </aside>
 
@@ -349,6 +348,19 @@
 
       <button class="btn-save" onclick="saveBillingSettings()" data-i18n="saveBillingDefaults">Save Billing Defaults</button>
     </div>
+
+    <!-- Sign Out card -->
+    <div class="settings-card" style="max-width:680px;border-color:rgba(185,64,64,.2);background:rgba(185,64,64,.04);">
+      <div class="settings-card__title" style="color:var(--error);">
+        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        <span>Sign Out</span>
+      </div>
+      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:1.25rem;">You will be logged out of the admin portal. Your session data will be cleared.</p>
+      <button id="logout-btn" class="btn-save" style="background:linear-gradient(135deg,#b94040,#8b2222);box-shadow:0 4px 14px rgba(185,64,64,.35);" onclick="handleLogout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Sign Out from Dashboard
+      </button>
+    </div>
   </div>
 </div>
 
@@ -373,11 +385,29 @@ const firebaseConfig = {
 const app    = initializeApp(firebaseConfig);
 const authFB = getAuth(app);
 
-// Auth check
-onAuthStateChanged(authFB, user => {
+// Auth Check + Session Timeout
+const ADMIN_EMAILS = ['gopalorthocare@gmail.com','whitedevil874@gmail.com'];
+const SESSION_MS = 24 * 60 * 60 * 1000;
+let _activityTimer = null;
+const resetActivityTimer = () => {
+  if (_activityTimer) clearTimeout(_activityTimer);
+  localStorage.setItem('lastActivity', Date.now());
+  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href='login.html?reason=timeout'; }, SESSION_MS);
+};
+document.addEventListener('mousemove', resetActivityTimer, { passive: true });
+document.addEventListener('keydown', resetActivityTimer, { passive: true });
+document.addEventListener('click', resetActivityTimer, { passive: true });
+
+onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href='login.html'; return; }
-  const initials = (user.email||'DR').slice(0,2).toUpperCase();
-  const savedName = localStorage.getItem('displayName') || initials;
+  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
+    await signOut(authFB); window.location.href='login.html?reason=denied'; return;
+  }
+  const last = parseInt(localStorage.getItem('lastActivity')||'0');
+  if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href='login.html?reason=timeout'; return; }
+  resetActivityTimer();
+  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const savedName = localStorage.getItem('displayName') || displayName;
   document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
   document.getElementById('user-name-display').textContent = savedName;
   document.getElementById('settings-user-email').textContent = user.email;
@@ -385,7 +415,12 @@ onAuthStateChanged(authFB, user => {
   document.getElementById('settings-avatar').textContent = savedName.slice(0,2).toUpperCase();
   document.getElementById('setting-username').value = savedName;
 });
-document.getElementById('logout-btn').addEventListener('click', async()=>{ await signOut(authFB); window.location.href='login.html'; });
+
+window.handleLogout = async () => {
+  localStorage.removeItem('lastActivity');
+  await signOut(authFB);
+  window.location.href = 'login.html';
+};
 
 // Billing defaults config loading
 let billingDefaults = {
