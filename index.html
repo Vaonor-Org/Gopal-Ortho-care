@@ -534,19 +534,7 @@ ul{list-style:none;padding:0;margin:0;}
 /* ================================================================
    STATS BAR
 ================================================================ */
-#stats-bar{
-  position:relative;
-  background:linear-gradient(90deg,#041C30,#062A45,#041C30);
-  border-top:1px solid rgba(56,189,248,0.1);
-  border-bottom:1px solid rgba(56,189,248,0.1);
-  padding:3rem 0;
-  overflow:hidden;
-}
-#stats-bar::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(90deg,rgba(56,189,248,0.04) 0,rgba(56,189,248,0.04) 1px,transparent 1px,transparent 120px);
-  pointer-events:none;
-}
+
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:1;}
 .stat-item{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -1022,21 +1010,10 @@ ul{list-style:none;padding:0;margin:0;}
 /* ================================================================
    FLOATING ELEMENTS
 ================================================================ */
-/* WhatsApp FAB */
-#wa-fab{
-  position:fixed;bottom:28px;right:28px;z-index:900;
-  width:56px;height:56px;border-radius:50%;
-  background:linear-gradient(135deg,#25D366,#128C7E);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 28px rgba(37,211,102,0.45);
-  text-decoration:none;
-  transition:all .3s cubic-bezier(.34,1.56,.64,1);
-}
-#wa-fab:hover{transform:scale(1.12);box-shadow:0 8px 40px rgba(37,211,102,0.55);}
 
-/* Back to top */
+
 #back-top{
-  position:fixed;bottom:96px;right:28px;z-index:900;
+  position:fixed;bottom:30px;right:28px;z-index:900;
   width:42px;height:42px;border-radius:50%;
   background:rgba(6,42,69,0.85);backdrop-filter:blur(8px);
   border:1px solid rgba(56,189,248,0.2);
