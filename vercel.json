@@ -1,0 +1,21 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/patients",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/patients/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/login",
+      "permanent": true
+    }
+  ]
+}
