@@ -113,7 +113,7 @@
     /* ── TOPBAR ── */
     .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
     .topbar__left{display:flex;align-items:center;gap:.75rem;}
-    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);}
+    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
     .topbar__right{display:flex;align-items:center;gap:.75rem;}
 
     /* Language toggle */
@@ -299,12 +299,11 @@
   <div class="sidebar__footer">
     <div class="user-pill">
       <div class="user-pill__avatar" id="user-avatar">DR</div>
-      <span class="user-pill__name" id="user-name-display">Admin</span>
+      <div style="flex:1;min-width:0;">
+        <div class="user-pill__name" id="user-name-display">Admin</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.04em;">Admin Portal</div>
+      </div>
     </div>
-    <button class="btn-logout" id="logout-btn">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-      <span data-i18n="signOut">Sign Out</span>
-    </button>
   </div>
 </aside>
 

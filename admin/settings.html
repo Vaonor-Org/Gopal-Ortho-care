@@ -91,7 +91,7 @@
     /* ── TOPBAR ── */
     .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
     .topbar__left{display:flex;align-items:center;gap:.75rem;}
-    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);}
+    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
     .topbar__right{display:flex;align-items:center;gap:.75rem;}
 
     /* Language toggle */
@@ -118,8 +118,19 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      max-width: 600px;
+      width: 100%;
+    }
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+      max-width: 1200px;
+    }
+    .settings-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
     .settings-card__title {
       font-family: 'Cormorant Garamond', serif;
@@ -275,103 +286,109 @@
       <p style="font-size:.8rem;color:var(--text-light);margin-top:.2rem;">Configure clinic settings and billing rates</p>
     </div>
 
-    <!-- Profile settings -->
-    <div class="settings-card">
-      <div class="settings-card__title">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span data-i18n="profile">Profile</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem;">
-        <div id="settings-avatar" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;font-weight:700;">DR</div>
-        <div>
-          <h3 id="settings-user-name" style="font-weight:600;font-size:1rem;margin-bottom:.2rem;">Admin</h3>
-          <p id="settings-user-email" style="font-size:.8rem;color:var(--text-light);display:none;"></p>
+    <div class="settings-grid">
+      <!-- Left Column: Profile & Sign Out -->
+      <div class="settings-col">
+        <!-- Profile settings -->
+        <div class="settings-card">
+          <div class="settings-card__title">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span data-i18n="profile">Profile</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem;">
+            <div id="settings-avatar" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;font-weight:700;">DR</div>
+            <div>
+              <h3 id="settings-user-name" style="font-weight:600;font-size:1rem;margin-bottom:.2rem;">Admin</h3>
+              <p id="settings-user-email" style="font-size:.8rem;color:var(--text-light);display:none;"></p>
+            </div>
+          </div>
+          <div class="f-group" style="margin-bottom:1.25rem;">
+            <label class="f-label" data-i18n="displayName">Display Name</label>
+            <input class="f-input" id="setting-username" type="text" placeholder="Enter your display name">
+          </div>
+          <button class="btn-save" onclick="saveProfile()" data-i18n="saveProfile">Save Profile</button>
+        </div>
+
+        <!-- Sign Out card -->
+        <div class="settings-card" style="border-color:rgba(185,64,64,.2);background:rgba(185,64,64,.04);">
+          <div class="settings-card__title" style="color:var(--error);">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            <span>Sign Out</span>
+          </div>
+          <p style="font-size:.85rem;color:var(--text-light);margin-bottom:1.25rem;">You will be logged out of the admin portal. Your session data will be cleared.</p>
+          <button id="logout-btn" class="btn-save" style="background:linear-gradient(135deg,#b94040,#8b2222);box-shadow:0 4px 14px rgba(185,64,64,.35);" onclick="handleLogout()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            Sign Out from Dashboard
+          </button>
         </div>
       </div>
-      <div class="f-group" style="margin-bottom:1.25rem;">
-        <label class="f-label" data-i18n="displayName">Display Name</label>
-        <input class="f-input" id="setting-username" type="text" placeholder="Enter your display name">
+
+      <!-- Right Column: Billing Defaults -->
+      <div class="settings-col">
+        <div class="settings-card">
+          <div class="settings-card__title">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <span data-i18n="billingDefaults">Billing Defaults</span>
+          </div>
+
+          <!-- Core fees -->
+          <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Core Charges</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
+            <div class="f-group">
+              <label class="f-label" data-i18n="consultFee">Consulting Fee</label>
+              <input class="f-input" id="setting-consult-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="dressingFee">Dressing Fee</label>
+              <input class="f-input" id="setting-dressing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="xrayFee">X-Ray Fee</label>
+              <input class="f-input" id="setting-xray-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="nursingFee">Nursing Fee</label>
+              <input class="f-input" id="setting-nursing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="drVisitCharge">Dr. Visiting Charge</label>
+              <input class="f-input" id="setting-dr-visit-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="surgeonFee">Surgeon Fee</label>
+              <input class="f-input" id="setting-surgeon-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="implantFee">Implant Fee</label>
+              <input class="f-input" id="setting-implant-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="anaesthetistFee">Anaesthetist Fee</label>
+              <input class="f-input" id="setting-anaesthetist-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group" style="grid-column:1/-1;">
+              <label class="f-label" data-i18n="procedureCharge">Procedure Charge</label>
+              <input class="f-input" id="setting-procedure-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+          </div>
+
+          <!-- Room rates -->
+          <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Room Rates (per night)</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
+            <div class="f-group">
+              <label class="f-label" data-i18n="roomRateIns">With Insurance</label>
+              <input class="f-input" id="setting-room-rate-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="roomRateNoIns">Without Insurance</label>
+              <input class="f-input" id="setting-room-rate-no-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+          </div>
+
+          <button class="btn-save" onclick="saveBillingSettings()" data-i18n="saveBillingDefaults">Save Billing Defaults</button>
+        </div>
       </div>
-      <button class="btn-save" onclick="saveProfile()" data-i18n="saveProfile">Save Profile</button>
     </div>
-
-    <!-- Billing Defaults settings -->
-    <div class="settings-card" style="max-width:680px;">
-      <div class="settings-card__title">
-        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        <span data-i18n="billingDefaults">Billing Defaults</span>
-      </div>
-
-      <!-- Core fees -->
-      <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Core Charges</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
-        <div class="f-group">
-          <label class="f-label" data-i18n="consultFee">Consulting Fee</label>
-          <input class="f-input" id="setting-consult-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="dressingFee">Dressing Fee</label>
-          <input class="f-input" id="setting-dressing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="xrayFee">X-Ray Fee</label>
-          <input class="f-input" id="setting-xray-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="nursingFee">Nursing Fee</label>
-          <input class="f-input" id="setting-nursing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="drVisitCharge">Dr. Visiting Charge</label>
-          <input class="f-input" id="setting-dr-visit-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="surgeonFee">Surgeon Fee</label>
-          <input class="f-input" id="setting-surgeon-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="implantFee">Implant Fee</label>
-          <input class="f-input" id="setting-implant-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="anaesthetistFee">Anaesthetist Fee</label>
-          <input class="f-input" id="setting-anaesthetist-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group" style="grid-column:1/-1;">
-          <label class="f-label" data-i18n="procedureCharge">Procedure Charge</label>
-          <input class="f-input" id="setting-procedure-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-      </div>
-
-      <!-- Room rates -->
-      <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Room Rates (per night)</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
-        <div class="f-group">
-          <label class="f-label" data-i18n="roomRateIns">With Insurance</label>
-          <input class="f-input" id="setting-room-rate-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-        <div class="f-group">
-          <label class="f-label" data-i18n="roomRateNoIns">Without Insurance</label>
-          <input class="f-input" id="setting-room-rate-no-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
-        </div>
-      </div>
-
-      <button class="btn-save" onclick="saveBillingSettings()" data-i18n="saveBillingDefaults">Save Billing Defaults</button>
-    </div>
-
-    <!-- Sign Out card -->
-    <div class="settings-card" style="max-width:680px;border-color:rgba(185,64,64,.2);background:rgba(185,64,64,.04);">
-      <div class="settings-card__title" style="color:var(--error);">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-        <span>Sign Out</span>
-      </div>
-      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:1.25rem;">You will be logged out of the admin portal. Your session data will be cleared.</p>
-      <button id="logout-btn" class="btn-save" style="background:linear-gradient(135deg,#b94040,#8b2222);box-shadow:0 4px 14px rgba(185,64,64,.35);" onclick="handleLogout()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-        Sign Out from Dashboard
-      </button>
-    </div>
-  </div>
 </div>
 
 <!-- ── TOAST ── -->
