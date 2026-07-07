@@ -1,0 +1,124 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/patients",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/patients/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/login",
+      "permanent": false
+    },
+    {
+      "source": "/admin",
+      "destination": "https://admin.gopalorthocare.com/login",
+      "permanent": true
+    },
+    {
+      "source": "/admin/login",
+      "destination": "https://admin.gopalorthocare.com/login",
+      "permanent": true
+    },
+    {
+      "source": "/admin/dashboard",
+      "destination": "https://admin.gopalorthocare.com/dashboard",
+      "permanent": true
+    },
+    {
+      "source": "/admin/bill",
+      "destination": "https://admin.gopalorthocare.com/bill",
+      "permanent": true
+    },
+    {
+      "source": "/admin/settings",
+      "destination": "https://admin.gopalorthocare.com/settings",
+      "permanent": true
+    },
+    {
+      "source": "/admin/room",
+      "destination": "https://admin.gopalorthocare.com/room",
+      "permanent": true
+    },
+    {
+      "source": "/admin/noticeboard",
+      "destination": "https://admin.gopalorthocare.com/noticeboard",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/login",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/login"
+    },
+    {
+      "source": "/dashboard",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/dashboard"
+    },
+    {
+      "source": "/bill",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/bill"
+    },
+    {
+      "source": "/settings",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/settings"
+    },
+    {
+      "source": "/room",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/room"
+    },
+    {
+      "source": "/noticeboard",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/noticeboard"
+    }
+  ]
+}
