@@ -9,6 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Hide input number spinners */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     :root{
       --primary:#0A6EBD;--primary-dark:#064A80;--primary-darker:#062A45;
@@ -380,24 +390,24 @@
   </div>
   <div style="padding:.375rem 1.25rem 0;"><span class="sidebar__badge">Admin Portal</span></div>
   <nav class="sidebar__nav">
-    <a href="dashboard.html" class="nav-item active">
+    <a id="nav-dashboard" href="dashboard.html" class="nav-item active">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
       <span data-i18n="patients">Patient Records</span>
     </a>
-    <a href="room.html" class="nav-item">
+    <a id="nav-room" href="room.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span data-i18n="rooms">Room Management</span>
     </a>
-    <a href="bill.html" class="nav-item">
+    <a id="nav-bill" href="bill.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
       <span data-i18n="bills">Billing</span>
     </a>
-    <a href="noticeboard.html" class="nav-item">
+    <a id="nav-noticeboard" href="noticeboard.html" class="nav-item">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       <span data-i18n="noticeboard">Notice Board</span>
     </a>
     <div class="nav-divider"></div>
-    <a href="settings.html" class="nav-item">
+    <a id="nav-settings" href="settings.html" class="nav-item">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       <span data-i18n="settings">Settings</span>
     </a>
@@ -1039,63 +1049,10 @@ const esc = str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'
 const fmtDate = dStr => { if(!dStr)return'—'; const d=new Date(dStr); return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); };
 
 // Patients Firebase query
-const checkAndAddMockPatients = async () => {
-  const mockFlag = localStorage.getItem('mockPatientsAdded');
-  if (mockFlag === 'true') return;
-  try {
-    const snap = await getDocs(collection(db, 'patients'));
-    if (snap.size > 2) {
-      localStorage.setItem('mockPatientsAdded', 'true');
-      return;
-    }
-    showToast("Seeding 25 mock patients...", "info");
-    const mockData = [
-      { name: "Aarav Sharma", phone: "9876543210", age: 34, gender: "Male", bloodGroup: "O+", hasInsurance: true, address: "Nagercoil", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Knee pain / ligament check", source: "Walk-in", injuryType: "Ligament Tear", bodyPart: "Knee", side: "Right", injuryDate: "2026-06-15", cause: "Sports Injury", notes: "Slight swelling, recommended MRI." },
-      { name: "Aditi Rao", phone: "9812345678", age: 29, gender: "Female", bloodGroup: "B+", hasInsurance: false, address: "Kanyakumari", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Regular sugar check", source: "Walk-in", symptoms: "Fatigue, mild headache", duration: "3 days", prev: "Diabetes", sugar: "160 mg/dL" },
-      { name: "Arjun Nair", phone: "9445123456", age: 45, gender: "Male", bloodGroup: "A-", hasInsurance: true, address: "Trivandrum", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Post-surgery check", source: "Walk-in", injuryType: "Fracture", bodyPart: "Ankle", side: "Left", injuryDate: "2026-05-10", cause: "Fall", notes: "Healing well." },
-      { name: "Bhavana Sen", phone: "9940123456", age: 52, gender: "Female", bloodGroup: "O-", hasInsurance: false, address: "Nagercoil", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-06-30", reason: "Hypertension checkup", source: "Walk-in", symptoms: "Dizziness", duration: "1 week", prev: "Hypertension", sugar: "130 mg/dL" },
-      { name: "Chandan Kumar", phone: "9843112233", age: 22, gender: "Male", bloodGroup: "AB+", hasInsurance: true, address: "Thuckalay", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Shoulder dislocation", source: "Walk-in", injuryType: "Dislocation", bodyPart: "Shoulder", side: "Right", injuryDate: "2026-06-28", cause: "Sports Injury", notes: "Reduced successfully." },
-      { name: "Deepika Padukone", phone: "9003554433", age: 38, gender: "Female", bloodGroup: "A+", hasInsurance: true, address: "Mumbai", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-06-29", reason: "Fever and cold check", source: "Walk-in", symptoms: "High fever", duration: "2 days", prev: "None", sugar: "105 mg/dL" },
-      { name: "Eshwar Prasad", phone: "9488223344", age: 60, gender: "Male", bloodGroup: "B-", hasInsurance: false, address: "Marthandam", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Chronic back stiffness", source: "Walk-in", injuryType: "Joint Pain (Chronic)", bodyPart: "Spine / Back", side: "Bilateral", injuryDate: "2026-03-12", cause: "Gradual wear", notes: "Physiotherapy advised." },
-      { name: "Fathima Beevi", phone: "8122445566", age: 67, gender: "Female", bloodGroup: "O+", hasInsurance: true, address: "Colachel", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Diabetes review", source: "Walk-in", symptoms: "Increased thirst", duration: "2 weeks", prev: "Diabetes", sugar: "210 mg/dL" },
-      { name: "Ganesh Hegde", phone: "9080112233", age: 41, gender: "Male", bloodGroup: "AB-", hasInsurance: false, address: "Nagercoil", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-06-25", reason: "Wrist strain", source: "Walk-in", injuryType: "Muscle Strain", bodyPart: "Wrist", side: "Left", injuryDate: "2026-06-24", cause: "Work injury", notes: "Rest and splint." },
-      { name: "Hari Krishnan", phone: "9489110022", age: 12, gender: "Male", bloodGroup: "A+", hasInsurance: true, address: "Suchindrum", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Elbow fracture", source: "Walk-in", injuryType: "Fracture", bodyPart: "Elbow", side: "Right", injuryDate: "2026-06-30", cause: "Sports Injury", notes: "Cast applied today." },
-      { name: "Indu Nair", phone: "9943887766", age: 31, gender: "Female", bloodGroup: "O+", hasInsurance: false, address: "Trivandrum", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Thyroid checkup", source: "Walk-in", symptoms: "Weight gain", duration: "1 month", prev: "Hypothyroidism", sugar: "95 mg/dL" },
-      { name: "Jayakumar S", phone: "9865113355", age: 48, gender: "Male", bloodGroup: "B+", hasInsurance: true, address: "Nagercoil", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Routine health check", source: "Walk-in", symptoms: "None", duration: "N/A", prev: "None", sugar: "115 mg/dL" },
-      { name: "Kavitha R", phone: "9442114477", age: 35, gender: "Female", bloodGroup: "A+", hasInsurance: false, address: "Kanyakumari", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Hip joint clicking", source: "Walk-in", injuryType: "Joint Pain (Chronic)", bodyPart: "Hip", side: "Right", injuryDate: "2026-01-20", cause: "Wear & Tear", notes: "X-ray shows hip wear." },
-      { name: "Lokesh Rahul", phone: "9000111222", age: 28, gender: "Male", bloodGroup: "O+", hasInsurance: true, address: "Bangalore", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-06-27", reason: "Knee ligament pull", source: "Walk-in", injuryType: "Ligament Tear", bodyPart: "Knee", side: "Left", injuryDate: "2026-06-26", cause: "Sports Injury", notes: "Knee brace advised." },
-      { name: "Meena Kumari", phone: "9842110099", age: 55, gender: "Female", bloodGroup: "B+", hasInsurance: true, address: "Nagercoil", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Sugar checkup", source: "Walk-in", symptoms: "Fatigue", duration: "5 days", prev: "Diabetes", sugar: "190 mg/dL" },
-      { name: "Nandhini G", phone: "9486112299", age: 24, gender: "Female", bloodGroup: "AB+", hasInsurance: false, address: "Vallioor", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Ankle sprain", source: "Walk-in", injuryType: "Muscle Strain", bodyPart: "Ankle", side: "Left", injuryDate: "2026-06-29", cause: "Fall", notes: "Compression bandage." },
-      { name: "Omana Amma", phone: "9443224488", age: 72, gender: "Female", bloodGroup: "O+", hasInsurance: false, address: "Trivandrum", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Knee arthritis", source: "Walk-in", injuryType: "Joint Pain (Chronic)", bodyPart: "Knee", side: "Bilateral", injuryDate: "2025-05-10", cause: "Wear & Tear", notes: "Recommended knee brace." },
-      { name: "Pranav M", phone: "9092110022", age: 19, gender: "Male", bloodGroup: "A+", hasInsurance: true, address: "Nagercoil", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Wrist fracture", source: "Walk-in", injuryType: "Fracture", bodyPart: "Wrist", side: "Right", injuryDate: "2026-06-30", cause: "Road Accident", notes: "Plaster cast applied." },
-      { name: "Qadir Khan", phone: "9865009911", age: 50, gender: "Male", bloodGroup: "B-", hasInsurance: true, address: "Colachel", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Diabetic foot check", source: "Walk-in", symptoms: "Numbness", duration: "1 month", prev: "Diabetes", sugar: "175 mg/dL" },
-      { name: "Rithika S", phone: "9487556622", age: 33, gender: "Female", bloodGroup: "O+", hasInsurance: false, address: "Kottar", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-06-28", reason: "Pregnancy check", source: "Walk-in", symptoms: "Giddiness", duration: "2 days", prev: "None", sugar: "125 mg/dL" },
-      { name: "Suresh Raina", phone: "9003224411", age: 39, gender: "Male", bloodGroup: "AB+", hasInsurance: true, address: "Chennai", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Elbow strain review", source: "Walk-in", injuryType: "Muscle Strain", bodyPart: "Elbow", side: "Left", injuryDate: "2026-06-15", cause: "Sports Injury", notes: "Improving." },
-      { name: "Thangadurai P", phone: "9442119900", age: 62, gender: "Male", bloodGroup: "O+", hasInsurance: false, address: "Nagercoil", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Hypertension check", source: "Walk-in", symptoms: "Headache", duration: "3 days", prev: "Hypertension", sugar: "140 mg/dL" },
-      { name: "Usha Rani", phone: "9488334455", age: 57, gender: "Female", bloodGroup: "A+", hasInsurance: true, address: "Marthandam", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Diabetes review", source: "Walk-in", symptoms: "Fatigue", duration: "2 weeks", prev: "Diabetes", sugar: "185 mg/dL" },
-      { name: "Vignesh K", phone: "9080224499", age: 26, gender: "Male", bloodGroup: "O+", hasInsurance: false, address: "Thuckalay", consultationType: "Orthopedic", doctor: "Dr. N. Gopala Krishnan", visitDate: "2026-07-01", reason: "Road accident leg injury", source: "Walk-in", injuryType: "Fracture", bodyPart: "Ankle", side: "Right", injuryDate: "2026-06-30", cause: "Road Accident", notes: "Plaster splint applied." },
-      { name: "Yasmin F", phone: "9843998822", age: 43, gender: "Female", bloodGroup: "AB-", hasInsurance: true, address: "Nagercoil", consultationType: "General", doctor: "Dr. R. Shiny", visitDate: "2026-07-01", reason: "Gastritis checkup", source: "Walk-in", symptoms: "Stomach burning", duration: "4 days", prev: "None", sugar: "110 mg/dL" }
-    ];
-    for (let i = 0; i < mockData.length; i++) {
-      const p = mockData[i];
-      p.patientCode = `GDX${(i + 1) < 10 ? '0' + (i + 1) : (i + 1)}`;
-      p.createdAt = new Date(Date.now() - (mockData.length - i) * 60000);
-      await addDoc(collection(db, 'patients'), p);
-    }
-    localStorage.setItem('mockPatientsAdded', 'true');
-    showToast("25 mock patients added successfully!");
-  } catch (err) {
-    console.error("Error seeding mock patients:", err);
-  }
-};
-
 onSnapshot(query(collection(db,'patients'),orderBy('createdAt','desc')),snap=>{
   allPatients=snap.docs.map(d=>({id:d.id,...d.data()}));
   updateStats();
   applyFilters();
-  if (allPatients.length < 5) {
-    checkAndAddMockPatients();
-  }
 });
 
 const updateStats = () => {
@@ -1623,6 +1580,28 @@ window.startSpeech = (fieldId, nextFieldId) => {
 window.setLang(currentLang);
 updateThemeIcons();
 
+</script>
+<script>
+// Fix sidebar nav links for custom domain clean URLs
+(function() {
+  const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
+  if (!isCustom) return;
+  const map = {
+    'nav-dashboard': '/dashboard',
+    'nav-room': '/room',
+    'nav-bill': '/bill',
+    'nav-noticeboard': '/noticeboard',
+    'nav-settings': '/settings'
+  };
+  Object.entries(map).forEach(([id, path]) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('href', path);
+  });
+  // Also fix any bill.html links in table
+  document.querySelectorAll('a[href^="bill.html"]').forEach(a => {
+    a.setAttribute('href', a.getAttribute('href').replace('bill.html', '/bill'));
+  });
+})();
 </script>
 </body>
 </html>
