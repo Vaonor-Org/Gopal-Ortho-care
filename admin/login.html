@@ -390,12 +390,13 @@
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyC6u7Bm1qosC7IDx5Qk7mD-QlRTDV3o1RA",
-      authDomain: "gopal-fd3d8.firebaseapp.com",
-      projectId: "gopal-fd3d8",
-      storageBucket: "gopal-fd3d8.firebasestorage.app",
-      messagingSenderId: "114488164961",
-      appId: "1:114488164961:web:ad3a60422ff71545032020"
+      apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
+      authDomain: "gopalorthocare-e97cf.firebaseapp.com",
+      projectId: "gopalorthocare-e97cf",
+      storageBucket: "gopalorthocare-e97cf.firebasestorage.app",
+      messagingSenderId: "263458525081",
+      appId: "1:263458525081:web:78c763dac387f9ab4bcd08",
+      measurementId: "G-3EHZ3EQFHL"
     };
 
     const app      = initializeApp(firebaseConfig);
@@ -404,17 +405,24 @@
     const provider = new GoogleAuthProvider();
 
     // Allowed admins (client-side guard + Firestore double-check)
-    const ADMIN_EMAILS = ['gopalorthocare@gmail.com', 'whitedevil874@gmail.com'];
+    const ADMIN_EMAILS = ['gopalorthocare@gmail.com'];
 
     // Show reason banners from URL params
     const params = new URLSearchParams(window.location.search);
     if (params.get('reason') === 'denied') document.getElementById('alert-denied').classList.add('show');
     if (params.get('reason') === 'timeout') document.getElementById('alert-timeout').classList.add('show');
 
-    // If already signed-in admin → go to dashboard
+    // If already signed-in admin AND session is not expired → go to dashboard
     onAuthStateChanged(auth, user => {
       if (user && ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
-        window.location.href = 'dashboard.html';
+        const last = localStorage.getItem('lastActivity');
+        const SESSION_MS = 24 * 60 * 60 * 1000;
+        if (last && (Date.now() - last < SESSION_MS)) {
+          window.location.href = 'dashboard.html';
+        } else {
+          // Local session expired, sign out from firebase too to prevent loop
+          signOut(auth).catch(err => console.error(err));
+        }
       }
     });
 

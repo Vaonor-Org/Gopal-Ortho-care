@@ -452,19 +452,20 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey:"AIzaSyC6u7Bm1qosC7IDx5Qk7mD-QlRTDV3o1RA",
-  authDomain:"gopal-fd3d8.firebaseapp.com",
-  projectId:"gopal-fd3d8",
-  storageBucket:"gopal-fd3d8.firebasestorage.app",
-  messagingSenderId:"114488164961",
-  appId:"1:114488164961:web:ad3a60422ff71545032020"
+  apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
+  authDomain: "gopalorthocare-e97cf.firebaseapp.com",
+  projectId: "gopalorthocare-e97cf",
+  storageBucket: "gopalorthocare-e97cf.firebasestorage.app",
+  messagingSenderId: "263458525081",
+  appId: "1:263458525081:web:78c763dac387f9ab4bcd08",
+  measurementId: "G-3EHZ3EQFHL"
 };
 const app    = initializeApp(firebaseConfig);
 const authFB = getAuth(app);
 const db     = getFirestore(app);
 
 // Auth Check + Session Timeout
-const ADMIN_EMAILS = ['gopalorthocare@gmail.com','whitedevil874@gmail.com'];
+const ADMIN_EMAILS = ['gopalorthocare@gmail.com'];
 const SESSION_MS = 24 * 60 * 60 * 1000;
 let _activityTimer = null;
 const resetActivityTimer = () => {

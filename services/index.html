@@ -102,15 +102,50 @@
     .emergency-text{font-family:'DM Sans',sans-serif;font-size:1rem;color:rgba(255,255,255,.85);max-width:620px;}
     .cta-final{background:#F8FBFF;border:1px solid #D6E6F5;border-radius:20px;padding:2.5rem;text-align:center;}
     .cta-final__actions{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;}
-    .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
-    .footer-simple__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
-    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);margin-bottom:.5rem;}
-    .footer-simple__meta{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.6);}
-    .footer-simple__extra{display:flex;flex-wrap:wrap;gap:2rem;}
-    .footer-simple__label{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
-    .footer-simple__links{display:flex;flex-wrap:wrap;gap:.5rem 1rem;}
-    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:0;}
-    .wa-btn{position:fixed;bottom:24px;right:24px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;}
+    /* ================================================================
+       FOOTER
+    ================================================================ */
+    #footer{
+      background:#031422;
+      border-top:1px solid rgba(56,189,248,0.06);
+      padding:5rem 0 2.5rem;
+    }
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:4rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .footer-logo{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;}
+    .footer-logo img{width:auto;height:56px;object-fit:contain;}
+    .footer-tagline{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,0.35);line-height:1.65;max-width:260px;margin-bottom:1.5rem;}
+    .footer-socials{display:flex;gap:.75rem;}
+    .footer-social{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s;}
+    .footer-social:hover{border-color:var(--accent);background:rgba(56,189,248,0.08);}
+    .footer-social svg{stroke:rgba(255,255,255,0.4);transition:stroke .25s;}
+    .footer-social:hover svg{stroke:var(--accent);}
+    .footer-col-title{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.25rem;}
+    .footer-links{display:flex;flex-direction:column;gap:.75rem;}
+    .footer-link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.375rem;}
+    .footer-link::before{content:'';width:0;height:1px;background:var(--accent);transition:width .25s;}
+    .footer-link:hover{color:rgba(255,255,255,0.75);}
+    .footer-link:hover::before{width:10px;}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:2rem;}
+    .footer-copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,0.2);}
+    .footer-bottom-links{display:flex;gap:1.5rem;}
+    .footer-bottom-link{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,0.2);text-decoration:none;transition:color .2s;}
+    .footer-bottom-link:hover{color:rgba(255,255,255,0.5);}
+    .footer-accreditation{display:flex;align-items:center;gap:.5rem;margin-top:1.25rem;}
+    .footer-accred-badge{font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.12em;color:var(--gold);background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.2);padding:.2rem .625rem;border-radius:4px;}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+
+    /* WhatsApp FAB */
+    #wa-fab{
+      position:fixed;bottom:28px;right:28px;z-index:900;
+      width:56px;height:56px;border-radius:50%;
+      background:linear-gradient(135deg,#25D366,#128C7E);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 28px rgba(37,211,102,0.45);
+      text-decoration:none;
+      transition:all .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    #wa-fab:hover{transform:scale(1.12);box-shadow:0 8px 40px rgba(37,211,102,0.55);}
     @media(max-width:1100px){.about-grid{grid-template-columns:1fr 1fr;}.team-grid{grid-template-columns:1fr 1fr;}.testimonial-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:900px){.service-detail{grid-template-columns:1fr;direction:ltr!important;}.service-detail:nth-child(even){direction:ltr;}.service-detail__info{grid-template-columns:1fr;}.cta-banner{flex-direction:column;align-items:flex-start;}.cta-inline{flex-direction:column;align-items:flex-start;}.facility-grid{grid-template-columns:1fr;}}
     @media(max-width:700px){.about-grid{grid-template-columns:1fr;}.team-grid{grid-template-columns:1fr;}.testimonial-grid{grid-template-columns:1fr;}.why-grid{grid-template-columns:1fr;}.journey-grid{grid-template-columns:1fr;}}
@@ -647,47 +682,75 @@
   </section>
 </main>
 
-<footer class="footer-simple" role="contentinfo">
+<footer id="footer" role="contentinfo">
   <div class="container">
-    <div class="footer-simple__inner">
-      <div>
-        <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
-        <div class="footer-simple__meta">Emergency: <a href="tel:+919597040918" class="footer-simple__link">095970 40918</a></div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="../assets/Logo.png" alt="Gopal Ortho Care Hospital logo" style="width: auto; height: 62px;">
+        </div>
+        <p class="footer-tagline">Delivering precision orthopaedic care to South Tamil Nadu since 2009. Restoring movement. Rebuilding lives.</p>
+        <div class="footer-accreditation" aria-label="Accreditations">
+          <span class="footer-accred-badge">Ministry of Health</span>
+        </div>
+        <div class="footer-socials" style="margin-top:1.5rem;" aria-label="Social media links">
+          <a href="#" class="footer-social" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="https://wa.me/919597040918" class="footer-social" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="footer-simple__extra">
-        <div>
-          <div class="footer-simple__label">Quick Links</div>
-          <div class="footer-simple__links">
-            <a href="../index.html" class="footer-simple__link">Home</a>
-            <a href="../services/index.html" class="footer-simple__link">Services</a>
-            <a href="../doctors/index.html" class="footer-simple__link">Doctors</a>
-            <a href="../gallery/index.html" class="footer-simple__link">Facilities</a>
-            <a href="../insurance/index.html" class="footer-simple__link">Insurance</a>
-            <a href="../patients/index.html" class="footer-simple__link">Patients</a>
-            <a href="../contact/index.html" class="footer-simple__link">Contact</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-simple__label">Legal</div>
-          <div class="footer-simple__links">
-            <a href="../privacy/index.html" class="footer-simple__link">Privacy Policy</a>
-            <a href="../terms/index.html" class="footer-simple__link">Terms &amp; Conditions</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-simple__label">Social</div>
-          <div class="footer-simple__links">
-            <a href="https://facebook.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Facebook</a>
-            <a href="https://instagram.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://youtube.com/@gopalortho" class="footer-simple__link" target="_blank" rel="noopener">YouTube</a>
-          </div>
-        </div>
+      <div>
+        <h3 class="footer-col-title">Services</h3>
+        <ul class="footer-links">
+          <li><a href="../services/index.html#fracture" class="footer-link">Fracture &amp; Trauma</a></li>
+          <li><a href="../services/index.html#joint" class="footer-link">Joint Replacement</a></li>
+          <li><a href="../services/index.html#spine" class="footer-link">Spine Surgery</a></li>
+          <li><a href="../services/index.html#sports" class="footer-link">Sports Medicine</a></li>
+          <li><a href="../services/index.html#physio" class="footer-link">Physiotherapy</a></li>
+          <li><a href="../services/index.html#pain" class="footer-link">Pain Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="../index.html" class="footer-link">Home</a></li>
+          <li><a href="../about/index.html" class="footer-link">About Us</a></li>
+          <li><a href="../doctors/index.html" class="footer-link">Our Doctors</a></li>
+          <li><a href="../contact/index.html" class="footer-link">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Contact</h3>
+        <ul class="footer-links">
+          <li><a href="tel:+919597040918" class="footer-link">095970 40918</a></li>
+          <li><a href="https://wa.me/919597040918" class="footer-link" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><span class="footer-link" style="cursor:default;">195/3, Parakkai Road Jct.</span></li>
+          <li><span class="footer-link" style="cursor:default;">Kottar, Nagercoil 629002</span></li>
+          <li><span class="footer-link" style="cursor:default;">Mon–Sat: 9AM–7PM</span></li>
+          <li><span class="footer-link" style="cursor:default;color:#FCA5A5;">24/7 Emergency</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Gopal Ortho Care Hospital. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms of Use</a>
+        <a href="../contact/index.html" class="footer-bottom-link">Contact</a>
       </div>
     </div>
   </div>
 </footer>
 
-<a href="https://wa.me/919597040918" class="wa-btn" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="white" width="24" height="24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<a id="wa-fab" href="https://wa.me/919597040918" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="white" width="26" height="26" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
 </body>
 </html>
