@@ -708,14 +708,7 @@ svg {
     height: 38px !important;
   }
 
-  #cookie-notice {
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    max-width: 100% !important;
-    border-radius: 16px 16px 0 0 !important;
-    border-bottom: none !important;
-  }
+
 }
 
 /* ============================================================

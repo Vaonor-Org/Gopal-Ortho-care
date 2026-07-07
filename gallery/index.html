@@ -10,92 +10,99 @@
   <link rel="stylesheet" href="../styles/tokens.css">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'DM Sans',sans-serif;color:#1A1A1A;background:#fff;-webkit-font-smoothing:antialiased;}
+    body{font-family:'DM Sans',sans-serif;color:#1A1A1A;background:#f5f8fc;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
     h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15;letter-spacing:-0.02em;}
-    a{color:inherit;text-decoration:none;}
-    img,svg{display:block;max-width:100%;}
-    .container{max-width:1280px;margin:0 auto;padding:0 clamp(1.25rem,5vw,4.5rem);}
+    a{color:inherit;text-decoration:none;} img,svg{display:block;max-width:100%;}
+    
+    .container{max-width:1440px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem);}
+    
+    /* Section & Header */
+    .gallery-section{padding:5rem 0 7rem;position:relative;}
+    .gallery-section::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 50% 0%,rgba(10,110,189,0.05),transparent 70%);pointer-events:none;}
+    .header-compact{margin-bottom:3rem;position:relative;z-index:2;text-align:center;}
+    .eyebrow{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#C8973A;margin-bottom:.5rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;}
+    .eyebrow::before, .eyebrow::after{content:'';width:24px;height:2px;background:#C8973A;border-radius:2px;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);color:#041C30;margin-bottom:.75rem;}
+    .section-sub{font-family:'DM Sans',sans-serif;font-size:1.05rem;color:#4A4A4A;max-width:600px;line-height:1.6;margin:0 auto;}
 
-    .page-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#062A45,#0A6EBD);padding:clamp(4rem,8vw,6rem) 0;}
-    .page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,0.16),transparent 55%);pointer-events:none;}
-    .page-hero__eyebrow{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.8rem;position:relative;z-index:1;}
-    .page-hero__title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5.5vw,4rem);font-weight:700;color:white;margin-bottom:1rem;position:relative;z-index:1;}
-    .page-hero__sub{font-family:'DM Sans',sans-serif;font-size:1.05rem;color:rgba(255,255,255,0.78);max-width:640px;position:relative;z-index:1;}
+    /* Masonry Grid */
+    .custom-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));grid-auto-rows:250px;gap:1.5rem;grid-auto-flow:dense;position:relative;z-index:2;}
+    
+    /* Dynamic Spans for Masonry */
+    .span-row-2{grid-row:span 2;}
+    .span-col-2{grid-column:span 2;}
+    
+    /* Premium Gallery Card */
+    .premium-gallery-card{position:relative;border-radius:16px;overflow:hidden;background:#062A45;box-shadow:0 12px 32px rgba(0,0,0,0.2);cursor:pointer;transition:transform .4s cubic-bezier(0.25,1,0.5,1),box-shadow .4s;}
+    .premium-gallery-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(10,110,189,0.2);z-index:10;}
+    
+    .premium-gallery-card__photo{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(0.25,1,0.5,1);filter:contrast(1.05);}
+    .premium-gallery-card:hover .premium-gallery-card__photo{transform:scale(1.08);}
+    
+    /* Overlay & Details */
+    .premium-gallery-card__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,28,48,0.9) 0%,rgba(4,28,48,0.2) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;opacity:0;transform:translateY(10px);transition:all .4s cubic-bezier(0.25,1,0.5,1);}
+    .premium-gallery-card:hover .premium-gallery-card__overlay{opacity:1;transform:translateY(0);}
+    .premium-gallery-card__title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.25rem;}
+    .premium-gallery-card__desc{font-family:'DM Sans',sans-serif;font-size:.85rem;color:rgba(255,255,255,0.7);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 
-    .section{padding:clamp(3.5rem,7vw,6rem) 0;}
-    .section-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#1A1A1A;margin-bottom:.75rem;}
-    .section-sub{font-family:'DM Sans',sans-serif;font-size:1rem;color:#4A4A4A;line-height:1.7;margin-bottom:2.5rem;}
+    /* Scroll Animations */
+    .reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.25,1,0.5,1);}
+    .reveal.active{opacity:1;transform:translateY(0);}
 
-    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
-    .gallery-card{position:relative;border-radius:18px;overflow:hidden;background:white;box-shadow:0 16px 36px rgba(10,110,189,.12);transition:transform .35s ease,box-shadow .35s ease;}
-    .gallery-card__media{position:relative;aspect-ratio:4/3;overflow:hidden;}
-    .gallery-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
-    .gallery-card__overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1.25rem;background:linear-gradient(180deg,rgba(6,42,69,0) 35%,rgba(6,42,69,0.72) 100%);opacity:.95;transition:opacity .35s ease;}
-    .gallery-card__title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:white;margin-bottom:.15rem;}
-    .gallery-card__caption{font-family:'DM Sans',sans-serif;font-size:.85rem;color:rgba(255,255,255,.85);}
-    .gallery-card__hint{display:inline-flex;align-items:center;gap:.35rem;margin-top:.75rem;padding:.35rem .65rem;border-radius:999px;background:rgba(255,255,255,.14);font-family:'DM Sans',sans-serif;font-size:.72rem;color:#fff;backdrop-filter:blur(14px);}
-    .gallery-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(10,110,189,.18);}
-    .gallery-card:hover img{transform:scale(1.06);}
-    .gallery-card:hover .gallery-card__overlay{opacity:1;}
-
-    @media (max-width:900px) {
-      .gallery-card__overlay {
-        padding:1rem;
-      }
+    /* ================================================================
+       FOOTER
+    ================================================================ */
+    #footer{
+      background:#031422;
+      border-top:1px solid rgba(56,189,248,0.06);
+      padding:5rem 0 2.5rem;
     }
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:4rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .footer-logo{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;}
+    .footer-logo img{width:auto;height:56px;object-fit:contain;}
+    .footer-tagline{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,0.35);line-height:1.65;max-width:260px;margin-bottom:1.5rem;}
+    .footer-socials{display:flex;gap:.75rem;}
+    .footer-social{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s;}
+    .footer-social:hover{border-color:var(--accent);background:rgba(56,189,248,0.08);}
+    .footer-social svg{stroke:rgba(255,255,255,0.4);transition:stroke .25s;}
+    .footer-social:hover svg{stroke:var(--accent);}
+    .footer-col-title{font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.25rem;}
+    .footer-links{display:flex;flex-direction:column;gap:.75rem;}
+    .footer-link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.375rem;}
+    .footer-link::before{content:'';width:0;height:1px;background:var(--accent);transition:width .25s;}
+    .footer-link:hover{color:rgba(255,255,255,0.75);}
+    .footer-link:hover::before{width:10px;}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:2rem;}
+    .footer-copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,0.2);}
+    .footer-bottom-links{display:flex;gap:1.5rem;}
+    .footer-bottom-link{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,0.2);text-decoration:none;transition:color .2s;}
+    .footer-bottom-link:hover{color:rgba(255,255,255,0.5);}
+    .footer-accreditation{display:flex;align-items:center;gap:.5rem;margin-top:1.25rem;}
+    .footer-accred-badge{font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.12em;color:var(--gold);background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.2);padding:.2rem .625rem;border-radius:4px;}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
 
-    @media (max-width:640px) {
-      .gallery-card { border-radius:16px; }
-      .gallery-card__overlay { padding:1rem; }
-      .gallery-card__title { font-size:1.05rem; }
-      .gallery-card__caption { font-size:.85rem; }
-      .gallery-card__hint { font-size:.7rem; }
+    /* WhatsApp FAB */
+    #wa-fab{
+      position:fixed;bottom:28px;right:28px;z-index:900;
+      width:56px;height:56px;border-radius:50%;
+      background:linear-gradient(135deg,#25D366,#128C7E);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 28px rgba(37,211,102,0.45);
+      text-decoration:none;
+      transition:all .3s cubic-bezier(.34,1.56,.64,1);
     }
+    #wa-fab:hover{transform:scale(1.12);box-shadow:0 8px 40px rgba(37,211,102,0.55);}
 
-    .lightbox{position:fixed;inset:0;background:rgba(6,13,25,.78);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:2000;}
-    .lightbox.is-open{opacity:1;pointer-events:auto;}
-    .lightbox__content{background:white;border-radius:20px;max-width:1100px;width:100%;overflow:hidden;box-shadow:0 24px 60px rgba(6,13,25,.35);}
-    .lightbox__image{width:100%;height:auto;display:block;}
-    .lightbox__caption{padding:1.25rem 1.5rem 1.5rem;}
-    .lightbox__title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;margin-bottom:.35rem;}
-    .lightbox__desc{font-family:'DM Sans',sans-serif;font-size:.9rem;color:#4A4A4A;line-height:1.6;}
-    .lightbox__close{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;border:none;background:white;color:#062A45;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 28px rgba(6,13,25,.3);}
-
-    .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 32px rgba(37,211,102,.35);animation:wa-pulse 2.4s ease-in-out infinite;z-index:1200;}
-    .wa-float svg{width:26px;height:26px;}
-    @keyframes wa-pulse{
-      0%{box-shadow:0 0 0 0 rgba(37,211,102,.45),0 16px 32px rgba(37,211,102,.35);}
-      70%{box-shadow:0 0 0 14px rgba(37,211,102,0),0 16px 32px rgba(37,211,102,.35);}
-      100%{box-shadow:0 0 0 0 rgba(37,211,102,0),0 16px 32px rgba(37,211,102,.35);}
-    }
-
-    .footer-simple{background:#041C30;border-top:2px solid #C8973A;padding:2rem 0;}
-    .footer-simple__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
-    .footer-simple__copy{font-family:'DM Sans',sans-serif;font-size:.8125rem;color:rgba(255,255,255,.3);margin-bottom:.5rem;}
-    .footer-simple__meta{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.6);}
-    .footer-simple__extra{display:flex;flex-wrap:wrap;gap:2rem;}
-    .footer-simple__label{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
-    .footer-simple__links{display:flex;flex-wrap:wrap;gap:.5rem 1rem;}
-    .footer-simple__link{font-family:'DM Sans',sans-serif;font-size:.875rem;color:rgba(255,255,255,.5);text-decoration:none;margin-left:0;}
-
-    @media(max-width:900px){
-      .lightbox{padding:1rem;}
-      .lightbox__content{border-radius:16px;}
-      .lightbox__close{top:16px;right:16px;}
-    }
-
-    @media(max-width:600px){
-      .page-hero{padding:3.5rem 0;}
-      .section{padding:3rem 0;}
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      *{scroll-behavior:auto;}
-      .gallery-card,.gallery-card__media img,.gallery-card__overlay,.lightbox{transition:none;}
-      .wa-float{animation:none;}
+    @media(max-width:768px){
+      .custom-gallery-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));grid-auto-rows:220px;}
+      .span-col-2{grid-column:span 1;}
+      .lightbox__image{max-height:60vh;}
+      .lightbox__close{top:16px;right:16px;width:40px;height:40px;}
     }
   </style>
   <link rel="stylesheet" href="../styles/mobile.css">
+  <link rel="icon" href="../assets/Logo.png" type="image/png">
 </head>
 <body>
 
@@ -105,249 +112,179 @@
   loadSharedNavbar({ basePath: '../', activePage: 'gallery' });
 </script>
 
-<section class="page-hero">
+<main id="main" class="gallery-section">
   <div class="container">
-    <p class="page-hero__eyebrow">Hospital Gallery</p>
-    <h1 class="page-hero__title">Our Facilities</h1>
-    <p class="page-hero__sub">Advanced Infrastructure for Better Care. Explore the clinical environment, imaging systems, and rehabilitation spaces that support safe outcomes.</p>
-  </div>
-</section>
-
-<main id="main">
-  <section class="section" aria-labelledby="facilities-heading">
-    <div class="container">
-      <h2 class="section-headline" id="facilities-heading">Premium spaces built for precision care</h2>
-      <p class="section-sub">Every zone is designed to improve safety, efficiency, and patient comfort with modern equipment and clean, calming interiors.</p>
-
-      <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
+    <div class="header-compact reveal">
+      <p class="eyebrow">Visual Tour</p>
+      <h1 class="section-title">Clinical Facilities</h1>
+      <p class="section-sub">Experience the advanced infrastructure built for precision care. From sterile surgical suites to comfortable recovery spaces.</p>
     </div>
-  </section>
+
+    <div class="custom-gallery-grid" id="galleryGrid" aria-live="polite"></div>
+  </div>
 </main>
 
 <script>
   const galleryGrid = document.getElementById('galleryGrid');
   const facilityCards = [
     {
-      title: 'Hospital Corridor',
-      description: 'Clean and spacious hospital corridors designed for smooth patient movement and accessibility.',
-      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-7f9iy6r9yx.avif',
-      alt: 'Clean hospital corridor'
-    },
-    {
-      title: 'Examination Room',
-      description: 'Well-equipped examination and treatment rooms for patient assessment and care.',
-      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-a60up0u9bp.avif',
-      alt: 'Examination room interior'
-    },
-    {
-      title: 'Patient Waiting Area',
-      description: 'Comfortable waiting spaces designed to provide a calm experience for patients and visitors.',
-      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-eb1l7oatub.avif',
-      alt: 'Patient waiting area'
-    },
-    {
-      title: 'Recovery Room',
-      description: 'Dedicated recovery spaces for post-treatment monitoring and patient comfort.',
-      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-mmppcjn7zg.avif',
-      alt: 'Recovery room setting'
-    },
-    {
-      title: 'Pharmacy & Medical Storage',
-      description: 'Organized storage of medicines and essential medical supplies for efficient healthcare delivery.',
-      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-nxmufv44qc.avif',
-      alt: 'Pharmacy and medical storage shelves'
-    },
-    {
-      title: 'Sterilization & Equipment Room',
-      description: 'Specialized area for equipment preparation, sterilization, and infection control.',
-      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-wopc4crd7v.avif',
-      alt: 'Sterilization and equipment room'
+      title: 'Operating Theatre (OT)',
+      description: 'Modern surgical theatre equipped for safe and efficient orthopedic procedures.',
+      img: '../assets/facilities/WhatsApp Image 2026-04-29 at 8.06.37 PM.jpeg',
+      className: 'span-col-2 span-row-2'
     },
     {
       title: 'Endoscopy System',
       description: 'Advanced endoscopy equipment providing precise visualization for diagnosis and treatment.',
       img: '../assets/facilities/WhatsApp Image 2026-04-29 at 7.57.58 PM.jpeg',
-      alt: 'Endoscopy system equipment'
+      className: ''
     },
     {
-      title: 'Operating Theatre (OT)',
-      description: 'Modern surgical theatre equipped for safe and efficient orthopedic procedures.',
-      img: '../assets/facilities/WhatsApp Image 2026-04-29 at 8.06.37 PM.jpeg',
-      alt: 'Operating theatre equipment'
+      title: 'Hospital Corridor',
+      description: 'Clean and spacious hospital corridors designed for smooth patient movement and accessibility.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-7f9iy6r9yx.avif',
+      className: 'span-row-2'
+    },
+    {
+      title: 'Examination Room',
+      description: 'Well-equipped examination and treatment rooms for patient assessment and care.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-a60up0u9bp.avif',
+      className: ''
+    },
+    {
+      title: 'Patient Waiting Area',
+      description: 'Comfortable waiting spaces designed to provide a calm experience for patients and visitors.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-eb1l7oatub.avif',
+      className: 'span-col-2'
+    },
+    {
+      title: 'Recovery Room',
+      description: 'Dedicated recovery spaces for post-treatment monitoring and patient comfort.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-mmppcjn7zg.avif',
+      className: ''
+    },
+    {
+      title: 'Pharmacy & Medical Storage',
+      description: 'Organized storage of medicines and essential medical supplies for efficient healthcare delivery.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-nxmufv44qc.avif',
+      className: ''
+    },
+    {
+      title: 'Sterilization Room',
+      description: 'Specialized area for equipment preparation, sterilization, and infection control.',
+      img: '../assets/facilities/gopal-ortho-care-hospital-kottar-nagercoil-hospitals-wopc4crd7v.avif',
+      className: 'span-col-2'
     }
   ];
 
-  function createFacilityCard(facility) {
-    const anchor = document.createElement('a');
-    anchor.className = 'gallery-card';
-    const params = new URLSearchParams({
-      img: facility.img,
-      title: facility.title,
-      desc: facility.description
-    });
-    anchor.href = `facilities_image_preview.html?${params.toString()}`;
-
-    const media = document.createElement('div');
-    media.className = 'gallery-card__media';
-
-    const img = document.createElement('img');
-    img.src = facility.img;
-    img.alt = facility.alt || facility.title;
-    img.loading = 'lazy';
-
-    const overlay = document.createElement('div');
-    overlay.className = 'gallery-card__overlay';
-
-    const content = document.createElement('div');
-    const title = document.createElement('h3');
-    title.className = 'gallery-card__title';
-    title.textContent = facility.title;
-
-    const caption = document.createElement('p');
-    caption.className = 'gallery-card__caption';
-    caption.textContent = facility.description;
-
-    content.appendChild(title);
-    content.appendChild(caption);
-    overlay.appendChild(content);
-    media.appendChild(img);
-    media.appendChild(overlay);
-    anchor.appendChild(media);
-
-    return anchor;
-  }
-
-  function renderFacilityGallery() {
+  function renderGallery() {
     if (!galleryGrid) return;
     galleryGrid.innerHTML = '';
-    facilityCards.forEach(facility => {
-      galleryGrid.appendChild(createFacilityCard(facility));
+    
+    facilityCards.forEach((facility, i) => {
+      const card = document.createElement('div');
+      card.className = `premium-gallery-card reveal ${facility.className || ''}`;
+      card.style.transitionDelay = `${(i % 3) * 0.15}s`;
+      card.setAttribute('data-img', facility.img);
+      card.setAttribute('data-title', facility.title);
+      card.setAttribute('data-desc', facility.description);
+      
+      card.innerHTML = `
+        <img class="premium-gallery-card__photo" src="${facility.img}" alt="${facility.title}" loading="lazy">
+        <div class="premium-gallery-card__overlay">
+          <h3 class="premium-gallery-card__title">${facility.title}</h3>
+          <p class="premium-gallery-card__desc">${facility.description}</p>
+        </div>
+      `;
+      
+      galleryGrid.appendChild(card);
     });
+    
+    // Setup observers
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
 
-  document.addEventListener('DOMContentLoaded', renderFacilityGallery);
+  document.addEventListener('DOMContentLoaded', renderGallery);
+
 </script>
 
-<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Facility image preview">
-  <button class="lightbox__close" type="button" aria-label="Close preview">
-    <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </button>
-  <div class="lightbox__content">
-    <img class="lightbox__image" src="" alt="">
-    <div class="lightbox__caption">
-      <h3 class="lightbox__title"></h3>
-      <p class="lightbox__desc"></p>
-    </div>
-  </div>
-</div>
-
-<footer class="footer-simple" role="contentinfo">
+<footer id="footer" role="contentinfo">
   <div class="container">
-    <div class="footer-simple__inner">
-      <div>
-        <p class="footer-simple__copy">&copy; 2026 Gopal Ortho. All rights reserved.</p>
-        <div class="footer-simple__meta">Emergency: <a href="tel:+919597040918" class="footer-simple__link">095970 40918</a></div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="../assets/Logo.png" alt="Gopal Ortho Care Hospital logo" style="width: auto; height: 62px;">
+        </div>
+        <p class="footer-tagline">Delivering precision orthopaedic care to South Tamil Nadu since 2009. Restoring movement. Rebuilding lives.</p>
+        <div class="footer-accreditation" aria-label="Accreditations">
+          <span class="footer-accred-badge">Ministry of Health</span>
+        </div>
+        <div class="footer-socials" style="margin-top:1.5rem;" aria-label="Social media links">
+          <a href="#" class="footer-social" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="https://wa.me/919597040918" class="footer-social" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="footer-simple__extra">
-        <div>
-          <div class="footer-simple__label">Quick Links</div>
-          <div class="footer-simple__links">
-            <a href="../index.html" class="footer-simple__link">Home</a>
-            <a href="../services/index.html" class="footer-simple__link">Services</a>
-            <a href="../doctors/index.html" class="footer-simple__link">Doctors</a>
-            <a href="../gallery/index.html" class="footer-simple__link">Facilities</a>
-            <a href="../insurance/index.html" class="footer-simple__link">Insurance</a>
-            <a href="../patients/index.html" class="footer-simple__link">Patients</a>
-            <a href="../contact/index.html" class="footer-simple__link">Contact</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-simple__label">Legal</div>
-          <div class="footer-simple__links">
-            <a href="../privacy/index.html" class="footer-simple__link">Privacy Policy</a>
-            <a href="../terms/index.html" class="footer-simple__link">Terms &amp; Conditions</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-simple__label">Social</div>
-          <div class="footer-simple__links">
-            <a href="https://facebook.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Facebook</a>
-            <a href="https://instagram.com/gopalortho" class="footer-simple__link" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://youtube.com/@gopalortho" class="footer-simple__link" target="_blank" rel="noopener">YouTube</a>
-          </div>
-        </div>
+      <div>
+        <h3 class="footer-col-title">Services</h3>
+        <ul class="footer-links">
+          <li><a href="../services/index.html#fracture" class="footer-link">Fracture &amp; Trauma</a></li>
+          <li><a href="../services/index.html#joint" class="footer-link">Joint Replacement</a></li>
+          <li><a href="../services/index.html#spine" class="footer-link">Spine Surgery</a></li>
+          <li><a href="../services/index.html#sports" class="footer-link">Sports Medicine</a></li>
+          <li><a href="../services/index.html#physio" class="footer-link">Physiotherapy</a></li>
+          <li><a href="../services/index.html#pain" class="footer-link">Pain Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="../index.html" class="footer-link">Home</a></li>
+          <li><a href="../about/index.html" class="footer-link">About Us</a></li>
+          <li><a href="../doctors/index.html" class="footer-link">Our Doctors</a></li>
+          <li><a href="../contact/index.html" class="footer-link">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Contact</h3>
+        <ul class="footer-links">
+          <li><a href="tel:+919597040918" class="footer-link">095970 40918</a></li>
+          <li><a href="https://wa.me/919597040918" class="footer-link" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><span class="footer-link" style="cursor:default;">195/3, Parakkai Road Jct.</span></li>
+          <li><span class="footer-link" style="cursor:default;">Kottar, Nagercoil 629002</span></li>
+          <li><span class="footer-link" style="cursor:default;">Mon–Sat: 9AM–7PM</span></li>
+          <li><span class="footer-link" style="cursor:default;color:#FCA5A5;">24/7 Emergency</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Gopal Ortho Care Hospital. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms of Use</a>
+        <a href="../contact/index.html" class="footer-bottom-link">Contact</a>
       </div>
     </div>
   </div>
 </footer>
 
-<a href="https://wa.me/919597040918" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a id="wa-fab" href="https://wa.me/919597040918" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="white" width="26" height="26" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-
-<script>
-  (function () {
-    var lightbox = document.getElementById('lightbox');
-    if (!lightbox) return;
-    var lightboxImg = lightbox.querySelector('.lightbox__image');
-    var lightboxTitle = lightbox.querySelector('.lightbox__title');
-    var lightboxDesc = lightbox.querySelector('.lightbox__desc');
-    var closeBtn = lightbox.querySelector('.lightbox__close');
-    var triggers = document.querySelectorAll('[data-lightbox]');
-    var lastFocused = null;
-
-    function openLightbox(src, title, desc) {
-      lastFocused = document.activeElement;
-      lightboxImg.src = src;
-      lightboxImg.alt = title || 'Facility image';
-      lightboxTitle.textContent = title || '';
-      lightboxDesc.textContent = desc || '';
-      lightbox.classList.add('is-open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('is-open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
-      if (lastFocused) lastFocused.focus();
-    }
-
-    triggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function (event) {
-        event.preventDefault();
-        var src = trigger.getAttribute('data-full');
-        var title = trigger.getAttribute('data-title');
-        var desc = trigger.getAttribute('data-desc');
-        openLightbox(src, title, desc);
-      });
-    });
-
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', function (event) {
-      if (event.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
-        closeLightbox();
-      }
-    });
-
-    var rotatingImages = document.querySelectorAll('[data-rotate-image]');
-    rotatingImages.forEach(function (img) {
-      var sources = (img.getAttribute('data-rotate-images') || '').split('|').filter(Boolean);
-      if (sources.length < 2) return;
-      var index = 0;
-      setInterval(function () {
-        index = (index + 1) % sources.length;
-        img.src = sources[index];
-      }, 2400);
-    });
-  })();
-</script>
-
 </body>
 </html>
