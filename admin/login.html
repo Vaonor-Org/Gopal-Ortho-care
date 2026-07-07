@@ -412,13 +412,17 @@
     if (params.get('reason') === 'denied') document.getElementById('alert-denied').classList.add('show');
     if (params.get('reason') === 'timeout') document.getElementById('alert-timeout').classList.add('show');
 
+    const getDashboardDest = () => {
+      return window.location.hostname === 'admin.gopalorthocare.com' ? '/dashboard' : 'dashboard.html';
+    };
+
     // If already signed-in admin AND session is not expired → go to dashboard
     onAuthStateChanged(auth, user => {
       if (user && ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
         const last = localStorage.getItem('lastActivity');
         const SESSION_MS = 24 * 60 * 60 * 1000;
         if (last && (Date.now() - last < SESSION_MS)) {
-          window.location.href = 'dashboard.html';
+          window.location.href = getDashboardDest();
         } else {
           // Local session expired, sign out from firebase too to prevent loop
           signOut(auth).catch(err => console.error(err));
@@ -474,7 +478,7 @@
         // Stamp activity time
         localStorage.setItem('lastActivity', Date.now());
 
-        window.location.href = 'dashboard.html';
+        window.location.href = getDashboardDest();
 
       } catch (err) {
         btn.classList.remove('loading');

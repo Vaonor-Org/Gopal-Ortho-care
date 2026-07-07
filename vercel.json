@@ -24,38 +24,145 @@
       "permanent": false
     },
     {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/",
+      "permanent": true
+    },
+    {
+      "source": "/admin/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
       "source": "/admin",
       "destination": "https://admin.gopalorthocare.com/login",
       "permanent": true
     },
     {
-      "source": "/admin/login",
-      "destination": "https://admin.gopalorthocare.com/login",
+      "source": "/admin/:path*",
+      "destination": "https://admin.gopalorthocare.com/:path*",
       "permanent": true
     },
     {
-      "source": "/admin/dashboard",
-      "destination": "https://admin.gopalorthocare.com/dashboard",
+      "source": "/about/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/about/:path*",
       "permanent": true
     },
     {
-      "source": "/admin/bill",
-      "destination": "https://admin.gopalorthocare.com/bill",
+      "source": "/about",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/about",
       "permanent": true
     },
     {
-      "source": "/admin/settings",
-      "destination": "https://admin.gopalorthocare.com/settings",
+      "source": "/services/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/services/:path*",
       "permanent": true
     },
     {
-      "source": "/admin/room",
-      "destination": "https://admin.gopalorthocare.com/room",
+      "source": "/services",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/services",
       "permanent": true
     },
     {
-      "source": "/admin/noticeboard",
-      "destination": "https://admin.gopalorthocare.com/noticeboard",
+      "source": "/contact/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/contact/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/contact",
+      "permanent": true
+    },
+    {
+      "source": "/terms/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/terms/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/terms",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/privacy/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "https://gopalorthocare.com/privacy",
       "permanent": true
     }
   ],

@@ -468,20 +468,27 @@ const db     = getFirestore(app);
 const ADMIN_EMAILS = ['gopalorthocare@gmail.com'];
 const SESSION_MS = 24 * 60 * 60 * 1000;
 let _activityTimer = null;
+
+const getLoginDest = (reason = '') => {
+  const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
+  let dest = isCustom ? '/login' : 'login.html';
+  return reason ? `${dest}?reason=${reason}` : dest;
+};
+
 const resetActivityTimer = () => {
   if (_activityTimer) clearTimeout(_activityTimer);
   localStorage.setItem('lastActivity', Date.now());
-  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href='login.html?reason=timeout'; }, SESSION_MS);
+  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href = getLoginDest('timeout'); }, SESSION_MS);
 };
 document.addEventListener('mousemove', resetActivityTimer, { passive: true });
 document.addEventListener('keydown', resetActivityTimer, { passive: true });
 document.addEventListener('click', resetActivityTimer, { passive: true });
 
 onAuthStateChanged(authFB, async user => {
-  if (!user) { window.location.href='login.html'; return; }
-  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) { await signOut(authFB); window.location.href='login.html?reason=denied'; return; }
+  if (!user) { window.location.href = getLoginDest(); return; }
+  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) { await signOut(authFB); window.location.href = getLoginDest('denied'); return; }
   const last = parseInt(localStorage.getItem('lastActivity')||'0');
-  if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href='login.html?reason=timeout'; return; }
+  if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); return; }
   resetActivityTimer();
   const displayName = user.displayName || (user.email||'DR').split('@')[0];
   const savedName = localStorage.getItem('displayName') || displayName;
