@@ -911,43 +911,73 @@ ul{list-style:none;padding:0;margin:0;}
 /* ================================================================
    TESTIMONIALS
 ================================================================ */
-#testimonials{background:#fff;position:relative;overflow:hidden;}
-.testimonials-header{text-align:center;max-width:520px;margin:0 auto 3.5rem;}
-.testi-track-wrap{overflow:hidden;position:relative;}
-.testi-track-wrap::before,.testi-track-wrap::after{
-  content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;
-}
-.testi-track-wrap::before{left:0;background:linear-gradient(to right,#fff,transparent);}
-.testi-track-wrap::after{right:0;background:linear-gradient(to left,#fff,transparent);}
-.testi-track{display:flex;gap:1.5rem;transition:transform .5s cubic-bezier(.34,1.56,.64,1);padding:.5rem 0;}
+#testimonials{background:linear-gradient(180deg,#F8FAFC 0%,#F1F5F9 100%);position:relative;overflow:hidden;padding:clamp(4rem,7vw,6rem) 0;}
+.testimonials-header{text-align:center;max-width:580px;margin:0 auto 3rem;}
+.testi-track-wrap{overflow:hidden;position:relative;padding:.5rem 0 1rem;max-width:1180px;margin:0 auto;}
+.testi-track{display:flex;gap:1.5rem;transition:transform .5s cubic-bezier(.34,1.56,.64,1);align-items:stretch;}
 .testi-card{
-  flex:0 0 380px;
-  background:var(--surface-card);border:1px solid var(--border-light);
-  border-radius:20px;padding:2rem;
-  position:relative;transition:all .35s;
+  flex:0 0 calc(50% - 0.75rem);
+  box-sizing:border-box;
+  background:#ffffff;
+  border:1px solid #E2E8F0;
+  border-radius:24px;
+  padding:2rem;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 10px 30px -5px rgba(10,110,189,0.06), 0 4px 12px -2px rgba(0,0,0,0.03);
+  transition:all .35s cubic-bezier(.25,.46,.45,.94);
 }
-.testi-card.active{border-color:var(--primary);box-shadow:var(--shadow-blue);}
-.testi-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-card);}
-.testi-quote{
-  position:absolute;top:1.5rem;right:1.5rem;
-  font-family:'Cormorant Garamond',serif;font-size:5rem;line-height:1;
-  color:var(--primary-lighter);opacity:0.5;
+.testi-card.active{border-color:#0A6EBD;box-shadow:0 16px 40px -10px rgba(10,110,189,0.18);}
+.testi-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px -10px rgba(10,110,189,0.18);}
+.testi-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.testi-gmaps-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:.75rem;
+  font-weight:600;
+  color:#1A73E8;
+  background:rgba(26,115,232,0.08);
+  border:1px solid rgba(26,115,232,0.18);
+  padding:.3rem .75rem;
+  border-radius:9999px;
 }
-.testi-stars{display:flex;gap:3px;margin-bottom:1rem;}
-.testi-star{color:var(--gold);}
-.testi-text{font-family:'DM Sans',sans-serif;font-size:.9375rem;color:var(--text-medium);line-height:1.75;margin-bottom:1.5rem;}
-.testi-author{display:flex;align-items:center;gap:.875rem;}
-.testi-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.125rem;font-weight:700;color:#fff;flex-shrink:0;}
-.testi-name{font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;color:var(--text-dark);}
-.testi-procedure{font-family:'DM Sans',sans-serif;font-size:.75rem;color:var(--text-light);margin-top:.1rem;}
-.testi-procedure-chip{display:inline-block;background:var(--bg-tertiary);color:var(--primary);font-size:.625rem;font-weight:500;padding:.15rem .5rem;border-radius:9999px;margin-top:.2rem;}
-.testi-controls{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2.5rem;}
-.testi-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;background:#fff;}
-.testi-btn:hover{border-color:var(--primary);background:var(--primary);}
-.testi-btn:hover svg{stroke:#fff;}
-.testi-btn svg{stroke:var(--text-medium);transition:stroke .25s;}
-.testi-dots{display:flex;gap:.375rem;}
-.testi-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s;}
+.testi-stars{display:flex;gap:3px;color:#F59E0B;font-size:1.05rem;}
+.testi-quote-mark{
+  position:absolute;top:1.25rem;right:1.75rem;
+  font-family:'Cormorant Garamond',serif;font-size:4.5rem;line-height:1;
+  color:#0A6EBD;opacity:0.08;pointer-events:none;
+}
+.testi-text{
+  font-family:'DM Sans',sans-serif;
+  font-size:.9375rem;
+  color:#334155;
+  line-height:1.7;
+  margin-bottom:1.5rem;
+  flex-grow:1;
+}
+.testi-author{display:flex;align-items:center;gap:1rem;border-top:1px solid #F1F5F9;padding-top:1.125rem;margin-top:auto;}
+.testi-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,#0A6EBD,#062A45);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;
+  color:#fff;flex-shrink:0;
+  box-shadow:0 4px 12px rgba(10,110,189,0.2);
+}
+.testi-name{font-family:'DM Sans',sans-serif;font-size:.9375rem;font-weight:700;color:#0F172A;}
+.testi-procedure{font-family:'DM Sans',sans-serif;font-size:.78rem;color:#64748B;margin-top:.15rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.testi-chip{display:inline-block;background:#EFF6FF;color:#0A6EBD;font-size:.7rem;font-weight:600;padding:.15rem .6rem;border-radius:9999px;border:1px solid rgba(10,110,189,0.12);}
+.testi-controls{display:flex;align-items:center;justify-content:center;gap:1.25rem;margin-top:2rem;}
+.testi-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid #CBD5E1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;background:#fff;color:#0A6EBD;box-shadow:0 4px 12px rgba(0,0,0,0.04);}
+.testi-btn:hover{border-color:#0A6EBD;background:#0A6EBD;color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(10,110,189,0.3);}
+.testi-btn svg{stroke:currentColor;transition:stroke .25s;}
+.testi-dots{display:flex;gap:.5rem;}
+.testi-dot{width:8px;height:8px;border-radius:50%;background:#94A3B8;cursor:pointer;transition:all .3s;}
+.testi-dot.active{background:#0A6EBD;width:24px;border-radius:4px;}
 .testi-dot.active{background:var(--primary);width:18px;border-radius:3px;}
 
 /* ================================================================
@@ -1069,13 +1099,8 @@ ul{list-style:none;padding:0;margin:0;}
       <h1 class="hero__heading">
         Precision Care<br>for Every Bone,<br>Joint &amp; Movement.
       </h1>
-      <p class="hero__sub">Expert orthopaedic and physiotherapy treatment. From fracture care to full rehabilitation — we restore your movement and quality of life.</p>
-      <div class="hero__ctas">
-        <a href="services/index.html" class="btn btn-secondary" id="hero-services-btn">
-          Our Services
-          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
+      <p class="hero__sub">Serving Kanyakumari district since 2009. Joint replacement, spine surgery, fracture care, sports medicine, and physiotherapy — all under one roof in Kottar, Nagercoil.</p>
+
       <div class="hero__trust" aria-label="Why patients trust us">
         <span class="trust-pill">
           <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1135,8 +1160,8 @@ ul{list-style:none;padding:0;margin:0;}
       <!-- Text col -->
       <div class="about__text-block">
         <p class="eyebrow reveal">About Gopal Ortho</p>
-        <h2 class="headline reveal reveal-delay-1" id="about-headline">15 Years of Precision<br><em>Orthopaedic Care</em></h2>
-        <p class="body-text reveal reveal-delay-2" style="margin-top:1.25rem;">Founded with the mission to bring world-class musculoskeletal care to South Tamil Nadu, Gopal Ortho Care Hospital has grown into the region's most trusted orthopaedic institution — without patients needing to travel to Chennai or beyond.</p>
+        <h2 class="headline reveal reveal-delay-1" id="about-headline">17 Years Serving<br><em>Kanyakumari District</em></h2>
+        <p class="body-text reveal reveal-delay-2" style="margin-top:1.25rem;">Founded in 2009, Gopal Ortho Care Hospital has grown into the most trusted orthopaedic institution in South Tamil Nadu — treating patients from Nagercoil, Marthandam, Padmanabhapuram, Colachel, and across Kanyakumari district, without needing to travel to Chennai.</p>
         <ul class="about__list" aria-label="Key strengths">
           <li class="about__list-item reveal reveal-delay-2">
             <div class="about__list-tick" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" width="10" height="10"><path d="M2 6l3 3 5-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1268,15 +1293,15 @@ ul{list-style:none;padding:0;margin:0;}
         <div class="hospital-showcase__stats reveal reveal-delay-3" aria-label="Hospital highlights">
           <div class="hospital-stat">
             <div class="hospital-stat__value">24/7</div>
-            <div class="hospital-stat__label">Emergency orthopaedic response</div>
+            <div class="hospital-stat__label">Emergency orthopaedic response — walk in any time</div>
           </div>
           <div class="hospital-stat">
-            <div class="hospital-stat__value">Facilities</div>
-            <div class="hospital-stat__label">Consultation, surgery, and rehab together</div>
+            <div class="hospital-stat__value">17+</div>
+            <div class="hospital-stat__label">Years serving Kanyakumari district since 2009</div>
           </div>
           <div class="hospital-stat">
-            <div class="hospital-stat__value">Patient First</div>
-            <div class="hospital-stat__label">Clean, organized, family-friendly spaces</div>
+            <div class="hospital-stat__value">OPD+OT</div>
+            <div class="hospital-stat__label">Consultation, surgery &amp; rehab under one roof</div>
           </div>
         </div>
       </div>
@@ -1340,8 +1365,8 @@ ul{list-style:none;padding:0;margin:0;}
             <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div>
-            <div class="why-title">Advanced Surgical Technology</div>
-            <div class="why-text">C-arm fluoroscopy, HD arthroscopy, Class B implants. Precision tools matching metropolitan facilities.</div>
+            <div class="why-title">C-Arm, Arthroscopy &amp; Minimally Invasive Techniques</div>
+            <div class="why-text">C-arm fluoroscopy for real-time intraoperative imaging, HD arthroscopy for joint procedures, and minimally invasive approaches that mean smaller incisions and faster recovery.</div>
           </div>
         </div>
         <div class="why-item reveal reveal-delay-2">
@@ -1358,8 +1383,8 @@ ul{list-style:none;padding:0;margin:0;}
             <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 2L4 6v6c0 5 3.6 9.3 8 10 4.4-.7 8-5 8-10V6L12 2z" stroke="#38BDF8" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
           <div>
-            <div class="why-title">Transparent, Ethical Pricing</div>
-            <div class="why-text">Clear cost breakdowns before every procedure. Insurance cashless support.</div>
+            <div class="why-title">Written Cost Estimate Before Every Procedure</div>
+            <div class="why-text">You receive a written cost breakdown before any planned surgery. Cashless insurance support available — call us to confirm your provider.</div>
           </div>
         </div>
         <div class="why-item reveal reveal-delay-4">
@@ -1374,7 +1399,7 @@ ul{list-style:none;padding:0;margin:0;}
       </div>
       <div style="margin-top:2.5rem;" class="reveal reveal-delay-3">
         <a href="about/index.html" class="btn btn-ghost btn-sm" style="margin-right:.875rem;">Our Story</a>
-        <a href="doctors/index.html" class="btn btn-gold btn-sm">Meet Our Team</a>
+        <a href="doctors/index.html" class="btn btn-gold btn-sm"> Our Doctors  </a>
       </div>
     </div>
   </div>
@@ -1386,7 +1411,7 @@ ul{list-style:none;padding:0;margin:0;}
 <section id="cta-banner" aria-label="Contact call to action">
   <div class="cta-banner__inner">
     <div class="cta-banner__pills reveal">
-      <span class="cta-pill"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg> Same-day appointments available</span>
+      <span class="cta-pill"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg> Consultations Mon–Sat 9AM–7PM</span>
       <span class="cta-pill"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg> Insurance cashless accepted</span>
       <span class="cta-pill"><svg viewBox="0 0 16 16" fill="none" width="12" height="12"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg> 24/7 emergency line</span>
     </div>
@@ -1410,71 +1435,96 @@ ul{list-style:none;padding:0;margin:0;}
     <div class="testimonials-header reveal">
       <p class="eyebrow" style="justify-content:center;">Patient Stories</p>
       <h2 class="headline" id="testi-headline">Voices of <em>Recovery</em></h2>
-      <p class="body-text" style="margin-top:.875rem;color:var(--text-light);">Real outcomes, real lives changed. What our patients say about their journey at Gopal Ortho.</p>
+      <p class="body-text" style="margin-top:.875rem;color:var(--text-light);">Real Google Maps reviews from patients and families cared for at Gopal Ortho. Visit our <a href="https://www.google.com/maps/place/GOPAL+ORTHO+CARE+HOSPITAL/@8.1688547,77.4402167,17z" target="_blank" rel="noopener noreferrer" style="color:var(--primary);font-weight:600;text-decoration:underline;text-underline-offset:2px;">Google Business Listing</a> to view all reviews.</p>
     </div>
     <div class="testi-track-wrap">
       <div class="testi-track" id="testi-track" role="list">
+
+        <!-- Review 1: K.T. Ajith -->
         <div class="testi-card active" role="listitem">
-          <div class="testi-quote" aria-hidden="true">"</div>
-          <div class="testi-stars" aria-label="5 stars rating">
-            <span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span>
+          <div class="testi-quote-mark" aria-hidden="true">“</div>
+          <div class="testi-card-top">
+            <span class="testi-gmaps-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+              Google Review
+            </span>
+            <div class="testi-stars" aria-label="5 stars rating">★ ★ ★ ★ ★</div>
           </div>
-          <p class="testi-text">"I had severe knee osteoarthritis for 3 years and could barely walk. After total knee replacement at Gopal Ortho, I was walking without pain in 3 weeks. The surgical team was exceptionally skilled and the physiotherapy brought me back faster than I expected."</p>
+          <p class="testi-text">"Dr. N. Gopalakrishnan &amp; Dr. Shiny are polite, humble and medical service is very impressive. All Nursing Staff take care of patients wholeheartedly like relatives. 24h purified water, clean wards. Sanitation 100%. A team of people who tirelessly provide medical services."</p>
           <div class="testi-author">
-            <div class="testi-avatar" aria-hidden="true">R</div>
+            <div class="testi-avatar" aria-hidden="true">KA</div>
             <div>
-              <div class="testi-name">Rajendran M.</div>
-              <div class="testi-procedure">Age 62 · <span class="testi-procedure-chip">Total Knee Replacement</span></div>
+              <div class="testi-name">K.T. Ajith</div>
+              <div class="testi-procedure">Verified Patient · <span class="testi-chip">Inpatient &amp; Nursing Care</span></div>
             </div>
           </div>
         </div>
+
+        <!-- Review 2: Bharathi Kani -->
         <div class="testi-card" role="listitem">
-          <div class="testi-quote" aria-hidden="true">"</div>
-          <div class="testi-stars" aria-label="5 stars rating">
-            <span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span>
+          <div class="testi-quote-mark" aria-hidden="true">“</div>
+          <div class="testi-card-top">
+            <span class="testi-gmaps-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+              Google Review
+            </span>
+            <div class="testi-stars" aria-label="5 stars rating">★ ★ ★ ★ ★</div>
           </div>
-          <p class="testi-text">"I tore my ACL playing cricket and feared my sports career was over. The arthroscopic surgery and the intensive rehabilitation program here were world-class. I was back on the field in 7 months. Couldn't have asked for better care."</p>
+          <p class="testi-text">"Took a chance to meet this doctor as my mother had an ankle fracture. Dr. Gopala Krishnan is phenomenal and explains everything clearly for recovery. The Diabetic Consultant Dr. Shiny continuously monitors sugar levels. Feel like a home."</p>
           <div class="testi-author">
-            <div class="testi-avatar" aria-hidden="true">A</div>
+            <div class="testi-avatar" aria-hidden="true">BK</div>
             <div>
-              <div class="testi-name">Aravind K.</div>
-              <div class="testi-procedure">Age 24 · <span class="testi-procedure-chip">ACL Reconstruction</span></div>
+              <div class="testi-name">Bharathi Kani</div>
+              <div class="testi-procedure">Verified Patient · <span class="testi-chip">Ankle Fracture &amp; Diabetes</span></div>
             </div>
           </div>
         </div>
+
+        <!-- Review 3: Rajapathi N. -->
         <div class="testi-card" role="listitem">
-          <div class="testi-quote" aria-hidden="true">"</div>
-          <div class="testi-stars" aria-label="5 stars rating">
-            <span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span>
+          <div class="testi-quote-mark" aria-hidden="true">“</div>
+          <div class="testi-card-top">
+            <span class="testi-gmaps-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+              Google Review
+            </span>
+            <div class="testi-stars" aria-label="5 stars rating">★ ★ ★ ★ ★</div>
           </div>
-          <p class="testi-text">"My mother was diagnosed with a vertebral fracture and needed spine surgery. The team at Gopal Ortho explained every step patiently, performed the procedure flawlessly, and the post-op nursing care was exceptional. We feel very blessed."</p>
+          <p class="testi-text">"Monisha is a great physiotherapist! One of the best in this hospital. Her hospitality towards patient are really commendable. She takes time to help with health issues! My back pain got cured within a short span. Highly recommended!"</p>
           <div class="testi-author">
-            <div class="testi-avatar" aria-hidden="true">S</div>
+            <div class="testi-avatar" aria-hidden="true">RN</div>
             <div>
-              <div class="testi-name">Selvi P.</div>
-              <div class="testi-procedure">Family of Patient · <span class="testi-procedure-chip">Spine Surgery</span></div>
+              <div class="testi-name">Rajapathi N.</div>
+              <div class="testi-procedure">Verified Patient · <span class="testi-chip">Physiotherapy &amp; Back Pain</span></div>
             </div>
           </div>
         </div>
+
+        <!-- Review 4: Revathi K.T. -->
         <div class="testi-card" role="listitem">
-          <div class="testi-quote" aria-hidden="true">"</div>
-          <div class="testi-stars" aria-label="5 stars rating">
-            <span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span><span class="testi-star" aria-hidden="true">★</span>
+          <div class="testi-quote-mark" aria-hidden="true">“</div>
+          <div class="testi-card-top">
+            <span class="testi-gmaps-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+              Google Review
+            </span>
+            <div class="testi-stars" aria-label="5 stars rating">★ ★ ★ ★ ★</div>
           </div>
-          <p class="testi-text">"Suffered a complex tibial plateau fracture in an accident. The emergency team responded immediately, the surgery was precise, and the rehab program was tailored exactly to my recovery. Back to normal life in 4 months — truly grateful."</p>
+          <p class="testi-text">"We are very grateful for Gopal Ortho Care Hospital. The best ever hospital I have come across. I visited Dr. Gopal with my parents for treating fracture, and also consulted Dr. Shiny. Completely satisfied with their service!"</p>
           <div class="testi-author">
-            <div class="testi-avatar" aria-hidden="true">M</div>
+            <div class="testi-avatar" aria-hidden="true">RK</div>
             <div>
-              <div class="testi-name">Muthu D.</div>
-              <div class="testi-procedure">Age 38 · <span class="testi-procedure-chip">Complex Fracture</span></div>
+              <div class="testi-name">Revathi K.T.</div>
+              <div class="testi-procedure">Verified Patient · <span class="testi-chip">Fracture Treatment</span></div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
     <div class="testi-controls" aria-label="Testimonial navigation">
       <button class="testi-btn" id="testi-prev" aria-label="Previous testimonial">
-        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="testi-dots" id="testi-dots" role="tablist" aria-label="Testimonial slides">
         <div class="testi-dot active" data-index="0" role="tab" aria-selected="true" aria-label="Slide 1" tabindex="0"></div>
@@ -1483,7 +1533,7 @@ ul{list-style:none;padding:0;margin:0;}
         <div class="testi-dot" data-index="3" role="tab" aria-selected="false" aria-label="Slide 4" tabindex="0"></div>
       </div>
       <button class="testi-btn" id="testi-next" aria-label="Next testimonial">
-        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
   </div>
@@ -1574,21 +1624,15 @@ ul{list-style:none;padding:0;margin:0;}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo">
-          <img src="assets/Logo.png" alt="Gopal Ortho Care Hospital logo" style="width: auto; height: 62px;">
-        </div>
-        <p class="footer-tagline">Delivering precision orthopaedic care to South Tamil Nadu since 2009. Restoring movement. Rebuilding lives.</p>
-        <div class="footer-accreditation" aria-label="Accreditations">
-          <span class="footer-accred-badge">Ministry of Health</span>
-        </div>
-        <div class="footer-socials" style="margin-top:1.5rem;" aria-label="Social media links">
-          <a href="#" class="footer-social" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="#" class="footer-social" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-          </a>
-        </div>
+        <a href="index.html" class="footer-logo" aria-label="Gopal Ortho Care Hospital Home" style="display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;">
+          <img src="assets/Logo.png" alt="Gopal Ortho Care Hospital logo" style="width: auto; height: 54px; display:block;">
+          <div style="display:flex;flex-direction:column;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:#ffffff;letter-spacing:.03em;line-height:1;text-transform:uppercase;">GOPAL ORTHO</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:.6875rem;font-weight:600;letter-spacing:.16em;color:rgba(255,255,255,0.75);text-transform:uppercase;margin-top:4px;">CARE HOSPITAL</span>
+          </div>
+        </a>
+        <p class="footer-tagline">Delivering orthopaedic care to South Tamil Nadu since 2009. Restoring movement. Rebuilding lives.</p>
+
       </div>
       <div>
         <h3 class="footer-col-title">Services</h3>
@@ -1624,8 +1668,8 @@ ul{list-style:none;padding:0;margin:0;}
     <div class="footer-bottom">
       <p class="footer-copy">&copy; 2026 Gopal Ortho Care Hospital. All rights reserved.</p>
       <div class="footer-bottom-links">
-        <a href="#" class="footer-bottom-link">Privacy Policy</a>
-        <a href="#" class="footer-bottom-link">Terms of Use</a>
+        <a href="privacy/index.html" class="footer-bottom-link">Privacy Policy</a>
+        <a href="terms/index.html" class="footer-bottom-link">Terms of Use</a>
         <a href="contact/index.html" class="footer-bottom-link">Contact</a>
       </div>
     </div>
@@ -1699,36 +1743,58 @@ statNums.forEach(el => countObs.observe(el));
   const cards = document.querySelectorAll('.testi-card');
   const prev = document.getElementById('testi-prev');
   const next = document.getElementById('testi-next');
+  if (!track || !cards.length) return;
   let current = 0;
   let autoplay;
 
+  function getMaxIndex() {
+    return window.innerWidth > 900 ? Math.max(0, cards.length - 2) : cards.length - 1;
+  }
+
   function goTo(idx) {
-    cards[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    dots[current].setAttribute('aria-selected', 'false');
-    current = (idx + cards.length) % cards.length;
-    cards[current].classList.add('active');
-    dots[current].classList.add('active');
-    dots[current].setAttribute('aria-selected', 'true');
-    const cardWidth = cards[0].offsetWidth + 24; // gap
+    if (cards[current]) cards[current].classList.remove('active');
+    if (dots[current]) {
+      dots[current].classList.remove('active');
+      dots[current].setAttribute('aria-selected', 'false');
+    }
+
+    const maxIdx = getMaxIndex();
+    if (idx > maxIdx) {
+      current = 0;
+    } else if (idx < 0) {
+      current = maxIdx;
+    } else {
+      current = idx;
+    }
+
+    if (cards[current]) cards[current].classList.add('active');
+    if (dots[current]) {
+      dots[current].classList.add('active');
+      dots[current].setAttribute('aria-selected', 'true');
+    }
+
+    const gap = parseFloat(getComputedStyle(track).gap) || 24;
+    const cardWidth = cards[0].offsetWidth + gap;
     track.style.transform = `translateX(-${current * cardWidth}px)`;
   }
 
-  prev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-  next.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+  if (prev) prev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  if (next) next.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
   dots.forEach(d => {
     d.addEventListener('click', () => { goTo(+d.dataset.index); resetAuto(); });
     d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { goTo(+d.dataset.index); resetAuto(); } });
   });
 
-  function startAuto() { autoplay = setInterval(() => goTo(current + 1), 5000); }
+  function startAuto() { autoplay = setInterval(() => goTo(current + 1), 6000); }
   function resetAuto() { clearInterval(autoplay); startAuto(); }
   startAuto();
 
   // Handle resize
   window.addEventListener('resize', () => {
-    const cardWidth = cards[0].offsetWidth + 24;
+    const gap = parseFloat(getComputedStyle(track).gap) || 24;
+    const cardWidth = cards[0].offsetWidth + gap;
     track.style.transition = 'none';
+    if (current > getMaxIndex()) current = getMaxIndex();
     track.style.transform = `translateX(-${current * cardWidth}px)`;
     setTimeout(() => { track.style.transition = ''; }, 100);
   }, {passive: true});

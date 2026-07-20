@@ -54,7 +54,6 @@
 
     function updateHeaderOnScroll() {
       var currentScrollY = window.scrollY;
-
       if (navbar) {
         navbar.classList.toggle('scrolled', currentScrollY > 40);
       }
@@ -115,26 +114,24 @@
 
     var basePath = typeof opts.basePath === 'string' ? opts.basePath : '';
     var componentPath = opts.componentPath || (basePath + 'components/Navbar.html');
-
-    var request = new XMLHttpRequest();
-    try {
-      request.open('GET', componentPath, false);
-      request.send(null);
-    } catch (err) {
-      console.error('Failed to load shared navbar:', err);
-      return;
-    }
-
-    if (!((request.status >= 200 && request.status < 300) || request.status === 0)) {
-      console.error('Failed to load shared navbar component:', request.status);
-      return;
-    }
-
-    mount.innerHTML = request.responseText.replace(/\{\{BASE\}\}/g, basePath);
-
     var activePage = opts.activePage || inferActivePage(window.location.pathname);
-    setActiveLinks(mount, activePage);
-    initHeaderInteractions();
+
+    // Use async fetch instead of blocking synchronous XHR
+    fetch(componentPath)
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('Failed to load navbar: ' + response.status);
+        }
+        return response.text();
+      })
+      .then(function (html) {
+        mount.innerHTML = html.replace(/\{\{BASE\}\}/g, basePath);
+        setActiveLinks(mount, activePage);
+        initHeaderInteractions();
+      })
+      .catch(function (err) {
+        console.error('Failed to load shared navbar:', err);
+      });
   }
 
   window.loadSharedNavbar = loadSharedNavbar;
