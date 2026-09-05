@@ -804,33 +804,48 @@ const getNextBillNumber = async () => {
   return `INV${String(seq).padStart(5, '0')}`;
 };
 
-// Same field-detection + prefix-query approach as dashboard.html's patient
-// search — kept in sync there since Firestore has no native "contains
-// anywhere" search. Queries on demand instead of loading every patient.
+// Same field-detection approach as dashboard.html's patient search — kept in
+// sync there since Firestore has no native "contains anywhere" search.
+// Queries on demand instead of loading every patient. OP No and phone are
+// both plain digit strings; length tells them apart (OP registers stay
+// short, Indian phone numbers are 10+ digits). OP No is a Number field, so
+// it's an exact match rather than a "starts with" prefix query.
 const detectSearchField = q => {
   const v = q.trim();
   if (!v) return null;
-  if (/^g\d/i.test(v)) return 'patientCode';
-  if (/^[\d\s+]+$/.test(v)) return 'phone';
+  const digitsOnly = v.replace(/[\s+]/g, '');
+  if (/^\d+$/.test(digitsOnly)) return digitsOnly.length >= 8 ? 'phone' : 'opNo';
   return 'nameLower';
 };
 const PREFIX_END = String.fromCharCode(0xf8ff); // Firestore "starts with" trick: high private-use codepoint as the range's upper bound
 const searchPatients = async q => {
   const field = detectSearchField(q);
   if (!field) return [];
-  const value = field === 'patientCode' ? q.trim().toUpperCase() : field === 'phone' ? q.trim() : q.trim().toLowerCase();
-  const snap = await getDocs(query(collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field), limit(10)));
+  let snap;
+  if (field === 'opNo') {
+    snap = await getDocs(query(collection(db, 'patients'), where('opNo', '==', Number(q.trim())), limit(10)));
+  } else {
+    const value = field === 'phone' ? q.trim() : q.trim().toLowerCase();
+    snap = await getDocs(query(collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field), limit(10)));
+  }
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 };
 
-// Same idea for the bills list: prefix-search on whichever bill field the
-// query looks like, instead of loading every bill into memory.
+// Same idea for the bills list: search on whichever bill field the query
+// looks like, instead of loading every bill into memory. patientOpNo is a
+// Number, so it's an exact match; the rest are "starts with" prefix queries.
 const detectBillSearchField = q => {
   const v = q.trim();
   if (!v) return null;
-  if (/^g\d/i.test(v)) return 'patientCode';
-  if (/^[\d\s+]+$/.test(v)) return 'patientPhone';
+  const digitsOnly = v.replace(/[\s+]/g, '');
+  if (/^\d+$/.test(digitsOnly)) return digitsOnly.length >= 8 ? 'patientPhone' : 'patientOpNo';
   return 'patientNameLower';
+};
+const buildBillOpNoQuery = (value, cursor) => {
+  const clauses = [collection(db, 'bills'), where('patientOpNo', '==', value)];
+  if (cursor) clauses.push(startAfter(cursor));
+  clauses.push(limit(billsPerPage + 1));
+  return query(...clauses);
 };
 const buildBillPrefixQuery = (field, value, cursor) => {
   const clauses = [collection(db, 'bills'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field)];
@@ -909,7 +924,7 @@ const loadBillsPage = async pageIndex => {
   let snap;
   try {
     if (field === 'patientPhone') snap = await getDocs(buildBillPrefixQuery('patientPhone', searchQ.trim(), cursor));
-    else if (field === 'patientCode') snap = await getDocs(buildBillPrefixQuery('patientCode', searchQ.trim().toUpperCase(), cursor));
+    else if (field === 'patientOpNo') snap = await getDocs(buildBillOpNoQuery(Number(searchQ.trim()), cursor));
     else if (field === 'patientNameLower') snap = await getDocs(buildBillPrefixQuery('patientNameLower', searchQ.trim().toLowerCase(), cursor));
     else snap = await getDocs(buildBillBrowseQuery(cursor));
   } catch (err) {
@@ -1010,7 +1025,7 @@ window.filterBillPatients = (q) => {
     dropdown.style.display = 'block';
     dropdown.innerHTML = matches.map(p => `
       <div onclick="selectBillPatient('${p.id}')" style="padding:.625rem 1rem;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border);transition:background .15s;" onmouseenter="this.style.background='var(--primary-ul)'" onmouseleave="this.style.background='transparent'">
-        <div style="font-weight:600;">${esc(p.name)} <span style="font-family:monospace;font-size:.7rem;color:var(--primary);">${esc(p.patientCode)}</span></div>
+        <div style="font-weight:600;">${esc(p.name)} <span style="font-family:monospace;font-size:.7rem;color:var(--primary);">OP${p.opNo ?? '—'}</span></div>
         <div style="font-size:.75rem;color:var(--text-light);">${p.age||'?'}y · ${p.gender||''} · ${esc(p.phone||'')}</div>
       </div>`).join('');
   }, 250);
@@ -1152,7 +1167,7 @@ window.saveBillAndPrint = async () => {
     patientId: pid,
     patientName: p?.name || searchText,
     patientNameLower: (p?.name || searchText || '').toLowerCase(),
-    patientCode: p?.patientCode || '',
+    patientOpNo: p?.opNo ?? null,
     patientPhone: p?.phone || '',
     doctor,
     date,
@@ -1179,10 +1194,10 @@ window.printBill = async (id) => {
   const b = currentBills.find(x => x.id === id);
   if(!b) return;
   // Targeted single-doc lookup (only used as a fallback when the bill itself
-  // predates storing patientCode/patientPhone directly on the bill doc) —
+  // predates storing patientOpNo/patientPhone directly on the bill doc) —
   // not a scan of every patient.
   let p = null;
-  if (b.patientId && (!b.patientCode || !b.patientPhone)) {
+  if (b.patientId && (b.patientOpNo == null || !b.patientPhone)) {
     try {
       const pSnap = await getDoc(doc(db, 'patients', b.patientId));
       if (pSnap.exists()) p = { id: pSnap.id, ...pSnap.data() };
@@ -1216,7 +1231,7 @@ const renderBillTemplate = (b, p) => {
     <div class="bill-date-row">Date: <strong style="margin-left:.5rem;">${fmtDate(b.date)}</strong></div>
     <div class="bill-patient-row">
       <div class="bill-patient-field">Patient: <span>${esc(b.patientName||'—')}</span></div>
-      <div class="bill-patient-field" style="margin-left:auto;">Patient ID: <span style="font-family:monospace;">${esc(b.patientCode || p?.patientCode || '—')}</span></div>
+      <div class="bill-patient-field" style="margin-left:auto;">OP No: <span style="font-family:monospace;">${b.patientOpNo ?? p?.opNo ?? '—'}</span></div>
     </div>
     <div class="bill-patient-row" style="border-bottom:none;padding-bottom:0;margin-bottom:.875rem;">
       <div class="bill-patient-field">Doctor: <span>${esc(b.doctor||'—')}</span></div>

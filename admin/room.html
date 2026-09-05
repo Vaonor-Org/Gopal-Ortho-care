@@ -538,22 +538,30 @@ let selectedCheckinPatient = null;
 let allLoadedLogs = [];
 let checkinRoomId = null;
 
-// Same field-detection + prefix-query approach as dashboard.html's patient
-// search — kept in sync there since Firestore has no native "contains
-// anywhere" search. Queries on demand instead of loading every patient.
+// Same field-detection approach as dashboard.html's patient search — kept in
+// sync there since Firestore has no native "contains anywhere" search.
+// Queries on demand instead of loading every patient. OP No and phone are
+// both plain digit strings; length tells them apart (OP registers stay
+// short, Indian phone numbers are 10+ digits). OP No is a Number field, so
+// it's an exact match rather than a "starts with" prefix query.
 const detectSearchField = q => {
   const v = q.trim();
   if (!v) return null;
-  if (/^g\d/i.test(v)) return 'patientCode';
-  if (/^[\d\s+]+$/.test(v)) return 'phone';
+  const digitsOnly = v.replace(/[\s+]/g, '');
+  if (/^\d+$/.test(digitsOnly)) return digitsOnly.length >= 8 ? 'phone' : 'opNo';
   return 'nameLower';
 };
 const PREFIX_END = String.fromCharCode(0xf8ff); // Firestore "starts with" trick: high private-use codepoint as the range's upper bound
 const searchPatients = async q => {
   const field = detectSearchField(q);
   if (!field) return [];
-  const value = field === 'patientCode' ? q.trim().toUpperCase() : field === 'phone' ? q.trim() : q.trim().toLowerCase();
-  const snap = await getDocs(query(collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field), limit(10)));
+  let snap;
+  if (field === 'opNo') {
+    snap = await getDocs(query(collection(db, 'patients'), where('opNo', '==', Number(q.trim())), limit(10)));
+  } else {
+    const value = field === 'phone' ? q.trim() : q.trim().toLowerCase();
+    snap = await getDocs(query(collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field), limit(10)));
+  }
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 };
 
@@ -756,7 +764,7 @@ window.filterCheckinPatients = (q) => {
     dropdown.style.display = 'block';
     dropdown.innerHTML = matches.map(p => `
       <div onclick="selectCheckinPatient('${p.id}')" style="padding:.625rem 1rem;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border);transition:background .15s;" onmouseenter="this.style.background='var(--primary-ul)'" onmouseleave="this.style.background='transparent'">
-        <div style="font-weight:600;">${esc(p.name)} <span style="font-family:monospace;font-size:.7rem;color:var(--primary);">${esc(p.patientCode)}</span></div>
+        <div style="font-weight:600;">${esc(p.name)} <span style="font-family:monospace;font-size:.7rem;color:var(--primary);">OP${p.opNo ?? '—'}</span></div>
         <div style="font-size:.75rem;color:var(--text-light);">${p.age||'?'}y · ${p.gender||''} · ${esc(p.phone||'')}</div>
       </div>`).join('');
   }, 250);

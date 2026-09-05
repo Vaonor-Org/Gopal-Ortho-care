@@ -309,6 +309,26 @@
           <button class="btn-save" onclick="saveProfile()" data-i18n="saveProfile">Save Profile</button>
         </div>
 
+        <!-- OP No register starting point -->
+        <div class="settings-card">
+          <div class="settings-card__title">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span>OP No Register</span>
+          </div>
+          <p style="font-size:.85rem;color:var(--text-light);margin-bottom:1.25rem;">
+            New patients are auto-assigned the next OP No in this sequence. If your clinic already
+            has a paper register with existing OP numbers, set the next number here once so new
+            patients start clear of that range — you can then add old patients separately with
+            their real historical OP No.
+          </p>
+          <div style="font-size:.8rem;color:var(--text-med);margin-bottom:.75rem;">Current next OP No: <strong id="current-next-opno">—</strong></div>
+          <div class="f-group" style="margin-bottom:1.25rem;">
+            <label class="f-label">Set Next OP No To</label>
+            <input class="f-input" id="setting-next-opno" type="number" min="1" placeholder="e.g. 4300">
+          </div>
+          <button class="btn-save" onclick="saveNextOpNo()">Save Next OP No</button>
+        </div>
+
         <!-- Sign Out card -->
         <div class="settings-card" style="border-color:rgba(185,64,64,.2);background:rgba(185,64,64,.04);">
           <div class="settings-card__title" style="color:var(--error);">
@@ -400,7 +420,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
@@ -516,6 +536,38 @@ const loadBillingDefaults = () => {
   } catch(e) {}
 };
 loadBillingDefaults();
+
+// OP No register — shows the next number that will be auto-assigned, and
+// lets the admin move it forward once (e.g. clear of an existing paper
+// register's range) without touching already-assigned patient records.
+const opNoCounterRef = () => doc(db, 'meta', 'opNoCounter');
+const loadNextOpNo = async () => {
+  try {
+    const snap = await getDoc(opNoCounterRef());
+    const next = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
+    document.getElementById('current-next-opno').textContent = next;
+  } catch (e) { console.warn('Could not load OP No counter:', e); }
+};
+loadNextOpNo();
+
+window.saveNextOpNo = async () => {
+  const raw = document.getElementById('setting-next-opno').value.trim();
+  const n = parseInt(raw, 10);
+  if (!raw || isNaN(n) || n <= 0) { showToast('Enter a valid OP No.', 'error'); return; }
+  try {
+    const snap = await getDoc(opNoCounterRef());
+    const currentNext = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
+    if (n < currentNext && !confirm(`${n} is lower than the current next OP No (${currentNext}). This can cause a collision with a patient already assigned a number in that range. Continue anyway?`)) {
+      return;
+    }
+    await setDoc(opNoCounterRef(), { seq: n - 1 }, { merge: true });
+    document.getElementById('current-next-opno').textContent = n;
+    document.getElementById('setting-next-opno').value = '';
+    showToast(`Next OP No set to ${n}.`);
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+};
 
 // i18n
 const i18n = {

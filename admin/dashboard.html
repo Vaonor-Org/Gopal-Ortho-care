@@ -538,7 +538,6 @@
         <table>
           <thead>
             <tr>
-              <th>Patient ID</th>
               <th>OP No</th>
               <th>Patient Name</th>
               <th data-i18n="age">Age</th>
@@ -550,7 +549,7 @@
             </tr>
           </thead>
           <tbody id="patient-rows">
-            <tr><td colspan="9" style="text-align:center;padding:3rem;color:var(--text-light);">Loading records…</td></tr>
+            <tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--text-light);">Loading records…</td></tr>
           </tbody>
         </table>
       </div>
@@ -580,6 +579,18 @@
             <div class="form-section__title" style="margin-bottom:1.25rem;">
               <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span data-i18n="patientInfo">Patient Information</span>
+            </div>
+            <div class="form-row col-1" id="f-opno-manual-row" style="margin-bottom:.625rem;">
+              <label class="f-label" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-weight:500;">
+                <input type="checkbox" id="f-opno-manual" onchange="window.toggleOpNoManual()" style="width:auto;">
+                Existing patient — enter their OP No manually (for old paper records)
+              </label>
+            </div>
+            <div class="form-row col-1" style="margin-bottom:1rem;">
+              <div class="f-group">
+                <label class="f-label">OP No</label>
+                <input class="f-input" id="f-opno" type="number" min="1" placeholder="Auto-assigned on save" disabled>
+              </div>
             </div>
             <div class="form-row col-1" style="margin-bottom:1rem;">
               <div class="f-group">
@@ -1070,56 +1081,35 @@ const normalizePhone = s => {
   return d;
 };
 
-const formatPatientCode = seq => `G${seq < 10 ? '0' + seq : seq}`;
-const parsePatientCodeSeq = code => {
-  const m = /^(?:GDX|G)?(\d+)$/i.exec(code || '');
-  return m ? parseInt(m[1], 10) : null;
-};
+const opNoCounterRef = () => doc(db, 'meta', 'opNoCounter');
 
-const patientCounterRef = () => doc(db, 'meta', 'patientCounter');
-
-// Atomically issues the next Patient ID (G01, G02, …) via a Firestore
-// transaction on a counter doc, so concurrent saves / deleted patients can
-// never produce a duplicate ID.
-const getNextPatientCode = async () => {
-  let bootstrapSeq = null; // only computed once, lazily, if the counter doc doesn't exist yet
-  const seq = await runTransaction(db, async tx => {
-    const snap = await tx.get(patientCounterRef());
-    if (snap.exists()) {
-      const next = (snap.data().seq || 0) + 1;
-      tx.set(patientCounterRef(), { seq: next }, { merge: true });
-      return next;
-    }
-    // Bootstrap once from the most recently-created patient's existing code
-    // (old "GDX01"-style or plain numeric) — a single cheap 1-doc read instead
-    // of scanning the whole (possibly 20,000+ row) collection.
-    if (bootstrapSeq === null) {
-      const recentSnap = await getDocs(query(collection(db, 'patients'), orderBy('createdAt', 'desc'), limit(1)));
-      bootstrapSeq = recentSnap.docs.length ? (parsePatientCodeSeq(recentSnap.docs[0].data().patientCode) || 0) : 0;
-    }
-    const next = bootstrapSeq + 1;
-    tx.set(patientCounterRef(), { seq: next }, { merge: true });
-    return next;
-  });
-  return formatPatientCode(seq);
-};
-
-// OP No is a separate per-visit register number from the Patient ID — plain
-// sequential, its own counter, assigned once at creation (never renumbered).
+// OP No is the hospital's real register number and the sole patient
+// identifier in this app. Auto-assigned via an atomic Firestore transaction
+// counter for new patients; staff can override it with a historical number
+// when backfilling old paper records (see the "existing patient" toggle in
+// the form). Stored as a real Number (not a padded string) so the patient
+// list can sort by it correctly.
 const getNextOpNo = async () => {
-  const counterRef = doc(db, 'meta', 'opNoCounter');
   const seq = await runTransaction(db, async tx => {
-    const snap = await tx.get(counterRef);
+    const snap = await tx.get(opNoCounterRef());
     const next = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
-    tx.set(counterRef, { seq: next }, { merge: true });
+    tx.set(opNoCounterRef(), { seq: next }, { merge: true });
     return next;
   });
-  return String(seq);
+  return seq;
+};
+
+// Checks whether an OP No is already used by a different patient — needed
+// for manually-entered historical numbers, which don't go through the
+// collision-proof atomic counter.
+const isOpNoTaken = async (opNo, excludeId) => {
+  const snap = await getDocs(query(collection(db, 'patients'), where('opNo', '==', opNo), limit(5)));
+  return snap.docs.some(d => d.id !== excludeId);
 };
 
 // Fetches the whole patients collection in bounded chunks (cursor-paged, not
-// one giant unbounded read) — shared by the two maintenance tools below, both
-// of which need to touch every record at 20,000+ scale.
+// one giant unbounded read) — used by the search-index backfill tool below,
+// which needs to touch every record at 20,000+ scale.
 const forEachPatientBatch = async (handler) => {
   let cursor = null;
   const chunkSize = 500; // Firestore's writeBatch cap, so fetch/write chunks line up 1:1
@@ -1136,40 +1126,6 @@ const forEachPatientBatch = async (handler) => {
     if (snap.docs.length < chunkSize) break;
   }
   return totalSeen;
-};
-
-// One-time maintenance action: rewrites every existing patient's ID to the
-// current G01/G02/… format, in order of registration (oldest = G01), and
-// resets the counter so new patients continue on from there. Uses chunked
-// reads + batched writes (500 at a time) so it stays correct and reasonably
-// fast at 20,000+ patients instead of issuing one write per patient.
-window.renumberPatientIds = async () => {
-  let count = '?';
-  try { count = (await getCountFromServer(collection(db, 'patients'))).data().count; } catch (e) { /* fall back to unknown count */ }
-  if (!confirm(`This will renumber ALL ${count} patients to the G01, G02, … format, oldest first — roughly ${count} reads and up to ${count} writes. This can take a little while on a large clinic. Continue?`)) return;
-  showToast('Renumbering patient IDs…');
-  try {
-    let seq = 0, changed = 0;
-    const total = await forEachPatientBatch(async docs => {
-      const batch = writeBatch(db);
-      let batchHasWrites = false;
-      docs.forEach(d => {
-        seq++;
-        const newCode = formatPatientCode(seq);
-        if (d.data().patientCode !== newCode) {
-          batch.update(doc(db, 'patients', d.id), { patientCode: newCode });
-          batchHasWrites = true;
-          changed++;
-        }
-      });
-      if (batchHasWrites) await batch.commit();
-    });
-    await runTransaction(db, async tx => { tx.set(patientCounterRef(), { seq: total }, { merge: true }); });
-    showToast(`Renumbered ${changed} of ${total} patient IDs.`);
-    loadPatientPage(currentPageIndex);
-  } catch (err) {
-    showToast('Error renumbering: ' + err.message, 'error');
-  }
 };
 
 // One-time maintenance action: backfills the lowercase `nameLower` field (used
@@ -1230,15 +1186,17 @@ document.addEventListener('click', e => {
   }
 });
 
-// Decides which Firestore field to prefix-search based on what the query looks
-// like, so one search box still covers name / phone / Patient ID as before —
-// but as a server-side "starts with" query instead of loading everything and
-// scanning in memory for a "contains anywhere" match.
+// Decides which Firestore field to search based on what the query looks
+// like, so one search box still covers OP No / name / phone — as a
+// server-side query instead of loading everything and scanning in memory.
+// OP No and phone are both plain digit strings, so length is what tells them
+// apart: OP numbers are short (a hospital's register realistically never
+// reaches 7 digits), Indian phone numbers are 10+ digits.
 const detectSearchField = q => {
   const v = q.trim();
   if (!v) return null;
-  if (/^g\d/i.test(v)) return 'patientCode';
-  if (/^[\d\s+]+$/.test(v)) return 'phone';
+  const digitsOnly = v.replace(/[\s+]/g, '');
+  if (/^\d+$/.test(digitsOnly)) return digitsOnly.length >= 8 ? 'phone' : 'opNo';
   return 'nameLower';
 };
 
@@ -1250,8 +1208,13 @@ const buildPrefixQuery = (field, value, cursor) => {
   return query(...clauses);
 };
 
+// OP No is a Number, not a string, so it gets an exact-match lookup instead
+// of a string "starts with" — staff type the full register number they see
+// on the patient's card, not a partial prefix.
+const buildOpNoQuery = value => query(collection(db, 'patients'), where('opNo', '==', value), limit(perPage + 1));
+
 const buildBrowseQuery = cursor => {
-  const clauses = [collection(db, 'patients'), orderBy('createdAt', 'desc')];
+  const clauses = [collection(db, 'patients'), orderBy('opNo', 'desc')];
   if (cursor) clauses.push(startAfter(cursor));
   clauses.push(limit(perPage + 1));
   return query(...clauses);
@@ -1324,7 +1287,7 @@ const loadPatientPage = async pageIndex => {
   let snap;
   try {
     if (field === 'phone') snap = await getDocs(buildPrefixQuery('phone', searchQ.trim(), cursor));
-    else if (field === 'patientCode') snap = await getDocs(buildPrefixQuery('patientCode', searchQ.trim().toUpperCase(), cursor));
+    else if (field === 'opNo') snap = await getDocs(buildOpNoQuery(Number(searchQ.trim())));
     else if (field === 'nameLower') snap = await getDocs(buildPrefixQuery('nameLower', searchQ.trim().toLowerCase(), cursor));
     else snap = await getDocs(buildBrowseQuery(cursor));
   } catch (err) {
@@ -1367,7 +1330,7 @@ const renderPatientsTable = () => {
   const tbody = document.getElementById('patient-rows');
   if (!tbody) return;
   if (!currentPatients.length) {
-    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="empty-state__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>No patients found</h3><p>Try refining your search or add a new record.</p></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-state__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>No patients found</h3><p>Try refining your search or add a new record.</p></div></td></tr>`;
     document.getElementById('patients-pagination').style.display = 'none';
     return;
   }
@@ -1376,8 +1339,7 @@ const renderPatientsTable = () => {
     const genBadge = p.gender === 'Male' ? 'badge-male' : (p.gender === 'Female' ? 'badge-female' : 'badge-other');
     return `
       <tr>
-        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--primary);">${esc(p.patientCode)||'—'}</span></td>
-        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--text-med);">${esc(p.opNo)||'—'}</span></td>
+        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--primary);">${p.opNo ?? '—'}</span></td>
         <td><div class="patient-name">${esc(p.name)}</div></td>
         <td>${p.age || '—'}</td>
         <td><span class="badge ${genBadge}">${p.gender || '—'}</span></td>
@@ -1417,7 +1379,7 @@ window.viewPatient = id => {
   const ini = (p.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   document.getElementById('view-avatar').textContent = ini;
   document.getElementById('view-name').textContent = p.name;
-  document.getElementById('view-meta').textContent = `${p.age || '?'}y · ${p.gender || ''} · ${p.phone || ''} · Patient ID: ${p.patientCode||'—'} · OP No: ${p.opNo||'—'}`;
+  document.getElementById('view-meta').textContent = `${p.age || '?'}y · ${p.gender || ''} · ${p.phone || ''} · OP No: ${p.opNo ?? '—'}`;
   
   const isOrtho = p.consultationType === 'Orthopedic';
   let bodyHtml = `
@@ -1492,7 +1454,18 @@ window.openFormModal = () => {
   document.getElementById('form-modal').classList.add('show');
   document.getElementById('f-visit-date').value = todayIST();
   document.body.style.overflow = 'hidden';
+  document.getElementById('f-opno-manual-row').style.display = '';
+  document.getElementById('f-opno-manual').checked = false;
+  window.toggleOpNoManual();
   setTimeout(() => document.getElementById('f-name')?.focus(), 50);
+};
+
+window.toggleOpNoManual = () => {
+  const manual = document.getElementById('f-opno-manual').checked;
+  const input = document.getElementById('f-opno');
+  input.disabled = !manual;
+  input.placeholder = manual ? 'e.g. 4210' : 'Auto-assigned on save';
+  if (!manual) input.value = '';
 };
 
 window.closeFormModal = () => {
@@ -1556,7 +1529,7 @@ window.savePatient = async () => {
       const dup = dupSnap.docs.map(d => d.data()).find(p => normalizePhone(p.phone) === normNew);
       if (dup) {
         const proceed = confirm(
-          `A patient named "${dup.name}" with this phone number already exists (Patient ID: ${dup.patientCode || '—'}).\n\n` +
+          `A patient named "${dup.name}" with this phone number already exists (OP No: ${dup.opNo ?? '—'}).\n\n` +
           `Add as a new record anyway? Click Cancel to go back and edit the existing record instead.`
         );
         if (!proceed) return;
@@ -1566,13 +1539,34 @@ window.savePatient = async () => {
     }
   }
 
+  // OP No: auto-assigned for a brand-new registration, or typed in manually
+  // when backfilling an old paper record that already has a real OP No.
+  const opNoManual = document.getElementById('f-opno-manual').checked;
+  const opNoRaw = document.getElementById('f-opno').value.trim();
+  let opNoValue = null;
+  if (!window.editingId) {
+    if (opNoManual) {
+      const n = parseInt(opNoRaw, 10);
+      if (!opNoRaw || isNaN(n) || n <= 0) { showToast('Enter a valid OP No for this old patient record.', 'error'); return; }
+      if (await isOpNoTaken(n)) { showToast(`OP No ${n} is already used by another patient.`, 'error'); return; }
+      opNoValue = n;
+    }
+  } else if (opNoRaw !== '') {
+    const n = parseInt(opNoRaw, 10);
+    if (isNaN(n) || n <= 0) { showToast('OP No must be a positive number.', 'error'); return; }
+    if (n !== Number(currentPatients.find(x => x.id === window.editingId)?.opNo) && await isOpNoTaken(n, window.editingId)) {
+      showToast(`OP No ${n} is already used by another patient.`, 'error'); return;
+    }
+    opNoValue = n;
+  }
+
   try {
     if (window.editingId) {
+      if (opNoValue !== null) pData.opNo = opNoValue;
       await updateDoc(doc(db, 'patients', window.editingId), pData);
       showToast('Patient record updated.');
     } else {
-      pData.patientCode = await getNextPatientCode();
-      pData.opNo = await getNextOpNo();
+      pData.opNo = opNoManual ? opNoValue : await getNextOpNo();
       pData.createdAt = serverTimestamp();
       await addDoc(collection(db, 'patients'), pData);
       showToast('Patient record saved.');
@@ -1593,6 +1587,10 @@ window.editPatient = id => {
   document.getElementById('modal-title').textContent = 'Edit Patient Details';
   
   document.getElementById('f-doc-id').value = id;
+  document.getElementById('f-opno-manual-row').style.display = 'none';
+  const opnoInput = document.getElementById('f-opno');
+  opnoInput.disabled = false;
+  opnoInput.value = p.opNo ?? '';
   document.getElementById('f-name').value = p.name || '';
   document.getElementById('f-age').value = p.age || '';
   document.getElementById('f-gender').value = p.gender || 'Male';
