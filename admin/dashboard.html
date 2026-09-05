@@ -486,13 +486,6 @@
               <option value="Other">Other</option>
             </select>
             
-            <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Insurance Status</h4>
-            <select id="pop-insurance" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="applyFilters()">
-              <option value="all">All</option>
-              <option value="yes">Has Insurance</option>
-              <option value="no">No Insurance</option>
-            </select>
-            
             <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Age Range</h4>
             <select id="pop-age-range" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="applyFilters()">
               <option value="all">All Ages</option>
@@ -569,7 +562,7 @@
         <h2 style="font-family:'DM Sans',sans-serif;font-size:1.35rem;font-weight:700;color:#fff;" id="modal-title" data-i18n="addPatient">Add New Patient</h2>
         <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.1rem;">Enter patient details</div>
       </div>
-      <button class="modal-close" onclick="closeFormModal()" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.6);"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      <button class="modal-close" onclick="closeFormModal()" style="border-color:rgba(255,255,255,.25);color:#fff;background:rgba(255,255,255,.12);"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
     
     <div class="modal-body wizard-body-scroll" style="padding:1.5rem;">
@@ -625,17 +618,10 @@
                 </select>
               </div>
             </div>
-            <div class="form-row" style="margin-bottom:1rem;">
+            <div class="form-row col-1" style="margin-bottom:1rem;">
               <div class="f-group">
                 <label class="f-label"><span data-i18n="phone">Phone Number</span> <span>*</span></label>
                 <input class="f-input" id="f-phone" type="tel" placeholder="e.g. 9876543210" required style="padding-right:.75rem;">
-              </div>
-              <div class="f-group">
-                <label class="f-label">Insurance Status</label>
-                <select class="f-select" id="f-insurance" style="padding-right:2rem;">
-                  <option value="no">No Insurance</option>
-                  <option value="yes">Has Insurance</option>
-                </select>
               </div>
             </div>
             <div class="form-row col-1">
@@ -701,108 +687,8 @@
                 <label class="f-label" data-i18n="diagnosis">Diagnosis</label>
                 <div class="input-icon-wrap">
                   <input class="f-input" id="f-diagnosis" type="text" placeholder="e.g. ACL tear, Type 2 Diabetes" style="padding-right:2.5rem;">
-                  <button type="button" class="mic-btn" onclick="startSpeech('f-diagnosis','f-notes')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
+                  <button type="button" class="mic-btn" onclick="startSpeech('f-diagnosis','')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Orthopedic fields -->
-          <div class="form-section" id="ortho-fields">
-            <div class="form-section__title" style="margin-bottom:1.25rem;">
-              <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              <span data-i18n="orthoDetails">Orthopedic Details</span>
-            </div>
-            <div class="form-row" style="margin-bottom:1rem;">
-              <div class="f-group">
-                <label class="f-label" data-i18n="injuryType">Injury Type</label>
-                <select class="f-select" id="f-injury-type" style="padding-right:2rem;">
-                  <option value="">None / Not injury related</option>
-                  <option>Fracture</option><option>Ligament Tear</option>
-                  <option>Dislocation</option><option>Muscle Strain</option>
-                  <option>Joint Pain (Chronic)</option><option>Other</option>
-                </select>
-              </div>
-              <div class="f-group">
-                <label class="f-label" data-i18n="bodyPart">Affected Body Part</label>
-                <select class="f-select" id="f-body-part" style="padding-right:2rem;">
-                  <option value="">Select body part</option>
-                  <option>Knee</option><option>Hip</option><option>Shoulder</option>
-                  <option>Ankle</option><option>Wrist</option><option>Elbow</option>
-                  <option>Spine / Back</option><option>Neck</option><option>Foot</option><option>Hand</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row" style="margin-bottom:1rem;">
-              <div class="f-group">
-                <label class="f-label" data-i18n="side">Side</label>
-                <select class="f-select" id="f-side" style="padding-right:2rem;">
-                  <option value="">N/A</option>
-                  <option>Left</option><option>Right</option><option>Bilateral</option>
-                </select>
-              </div>
-              <div class="f-group">
-                <label class="f-label" data-i18n="injuryDate">Injury Date</label>
-                <input class="f-input" id="f-injury-date" type="date">
-              </div>
-            </div>
-            <div class="form-row col-1" style="margin-bottom:1rem;">
-              <div class="f-group">
-                <label class="f-label" data-i18n="cause">Cause of Injury</label>
-                <select class="f-select" id="f-cause" style="padding-right:2rem;">
-                  <option value="">Select cause</option>
-                  <option>Fall</option><option>Road Accident</option>
-                  <option>Sports Injury</option><option>Work Accident</option>
-                  <option>Gradual / Wear &amp; Tear</option><option>Post-Surgical</option><option>Unknown</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row col-1">
-              <div class="f-group">
-                <label class="f-label" data-i18n="notes">Clinical Notes</label>
-                <div class="input-icon-wrap" style="align-items:flex-start;">
-                  <textarea class="f-textarea" id="f-notes" placeholder="Additional notes (optional) - e.g. X-ray findings, prior treatments" style="padding-right:2.5rem;"></textarea>
-                  <button type="button" class="mic-btn" style="top:.75rem;transform:none;" onclick="startSpeech('f-notes','')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- General/Diabetology fields -->
-          <div class="form-section" id="general-fields" style="display:none;">
-            <div class="form-section__title" style="margin-bottom:1.25rem;">
-              <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              <span data-i18n="generalDetails">General / Diabetology Details</span>
-            </div>
-            <div class="form-row col-1" style="margin-bottom:1rem;">
-              <div class="f-group">
-                <label class="f-label" data-i18n="symptoms">Symptoms</label>
-                <div class="input-icon-wrap" style="align-items:flex-start;">
-                  <textarea class="f-textarea" id="f-symptoms" placeholder="Enter symptoms" style="padding-right:2.5rem;"></textarea>
-                  <button type="button" class="mic-btn" style="top:.75rem;transform:none;" onclick="startSpeech('f-symptoms','f-duration')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
-                </div>
-              </div>
-            </div>
-            <div class="form-row" style="margin-bottom:1rem;">
-              <div class="f-group">
-                <label class="f-label" data-i18n="duration">Duration of Symptoms</label>
-                <div class="input-icon-wrap">
-                  <input class="f-input" id="f-duration" type="text" placeholder="e.g. 3 days, 2 weeks" style="padding-right:2.5rem;">
-                  <button type="button" class="mic-btn" onclick="startSpeech('f-duration','f-prev')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
-                </div>
-              </div>
-              <div class="f-group">
-                <label class="f-label" data-i18n="prevConditions">Previous Conditions</label>
-                <div class="input-icon-wrap">
-                  <input class="f-input" id="f-prev" type="text" placeholder="e.g. Diabetes, Hypertension" style="padding-right:2.5rem;">
-                  <button type="button" class="mic-btn" onclick="startSpeech('f-prev','')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
-                </div>
-              </div>
-            </div>
-            <div class="form-row col-1">
-              <div class="f-group">
-                <label class="f-label">Blood Sugar Level</label>
-                <input class="f-input" id="f-sugar" type="text" placeholder="e.g. 180 mg/dL" style="padding-right:.75rem;">
               </div>
             </div>
           </div>
@@ -827,7 +713,7 @@
         <div class="view-header__avatar" id="view-avatar">?</div>
         <div class="view-header__info"><div class="name" id="view-name">—</div><div class="meta" id="view-meta"></div></div>
       </div>
-      <button class="modal-close" onclick="document.getElementById('view-modal').classList.remove('show')" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.6);"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      <button class="modal-close" onclick="document.getElementById('view-modal').classList.remove('show')" style="border-color:rgba(255,255,255,.25);color:#fff;background:rgba(255,255,255,.12);"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
     <div class="view-body" id="view-body"></div>
   </div>
@@ -986,12 +872,8 @@ const i18n = {
     totalPatients: 'Total Patients', todayVisits: "Today's Visits",
     ortho: 'Orthopaedic', general: 'General', all: 'All', chooseType: 'Consultation Type',
     doctorName: 'Doctor Name', visitDate: 'Visit Date', male: 'Male', female: 'Female', other: 'Other',
-    addItem: 'Add Item', description: 'Description', injuryType: 'Injury Type',
-    bodyPart: 'Affected Body Part', side: 'Side', injuryDate: 'Injury Date',
-    cause: 'Cause of Injury', notes: 'Clinical Notes', bloodGroup: 'Blood Group',
-    symptoms: 'Symptoms', duration: 'Duration of Symptoms', prevConditions: 'Previous Conditions',
-    patientInfo: 'Patient Information', consultation: 'Consultation', orthoDetails: 'Orthopedic Details',
-    generalDetails: 'General / Diabetology Details',
+    addItem: 'Add Item', description: 'Description', bloodGroup: 'Blood Group',
+    patientInfo: 'Patient Information', consultation: 'Consultation',
     noticeboard: 'Notice Board', settings: 'Settings',
     searchPatientsPlaceholder: 'Search patients… (press / to focus)',
     filter: 'Filter', actions: 'Actions'
@@ -1003,12 +885,8 @@ const i18n = {
     totalPatients: 'மொத்த நோயாளர்கள்', todayVisits: 'இன்றைய வருகைகள்',
     ortho: 'எலும்பியல்', general: 'பொது', all: 'அனைத்தும்', chooseType: 'ஆலோசனை வகை',
     doctorName: 'மருத்துவர் பெயர்', visitDate: 'வருகை தேதி', male: 'ஆண்', female: 'பெண்', other: 'மற்றவை',
-    addItem: 'பொருள் சேர்க்க', description: 'விளக்கம்', injuryType: 'காயம் வகை',
-    bodyPart: 'பாதிக்கப்பட்ட பகுதி', side: 'பக்கம்', injuryDate: 'காயம் தேதி',
-    cause: 'காரணம்', notes: 'மருத்துவ குறிப்புகள்', bloodGroup: 'இரத்த வகை',
-    symptoms: 'அறிகுறிகள்', duration: 'காலம்', prevConditions: 'முந்தைய நிலைமை',
-    patientInfo: 'நோயாளர் தகவல்', consultation: 'ஆலோசனை', orthoDetails: 'எலும்பியல் விவரம்',
-    generalDetails: 'பொது மருத்துவ விவரம்',
+    addItem: 'பொருள் சேர்க்க', description: 'விளக்கம்', bloodGroup: 'இரத்த வகை',
+    patientInfo: 'நோயாளர் தகவல்', consultation: 'ஆலோசனை',
     noticeboard: 'அறிவிப்பு பலகை', settings: 'அமைப்புகள்',
     searchPatientsPlaceholder: 'நோயாளர்களைத் தேடுக…',
     filter: 'வடிகட்டி', actions: 'செயல்பாடுகள்'
@@ -1237,10 +1115,6 @@ const applySecondaryFilters = list => {
   const popGender = document.getElementById('pop-gender')?.value || 'all';
   if (popGender !== 'all') list = list.filter(p => p.gender === popGender);
 
-  const popIns = document.getElementById('pop-insurance')?.value || 'all';
-  if (popIns === 'yes') list = list.filter(p => p.hasInsurance === true);
-  else if (popIns === 'no') list = list.filter(p => p.hasInsurance !== true);
-
   const popAgeRange = document.getElementById('pop-age-range')?.value || 'all';
   if (popAgeRange !== 'all') {
     list = list.filter(p => {
@@ -1353,7 +1227,7 @@ const renderPatientsTable = () => {
         <td>${p.age || '—'}</td>
         <td><span class="badge ${genBadge}">${p.gender || '—'}</span></td>
         <td>${esc(p.diagnosis) || '—'}</td>
-        <td style="font-weight:500;">${esc(p.doctor?.split(' ').pop() || '—')}</td>
+        <td style="font-weight:500;">${esc(p.doctor) || '—'}</td>
         <td style="font-family:'DM Mono',monospace;font-size:.8rem;">${fmtDate(p.visitDate)}</td>
         <td style="text-align:right;">
           <div class="table-actions" style="justify-content:flex-end;align-items:center;">
@@ -1390,7 +1264,6 @@ window.viewPatient = id => {
   document.getElementById('view-name').textContent = p.name;
   document.getElementById('view-meta').textContent = `${p.age || '?'}y · ${p.gender || ''} · ${p.phone || ''} · OP No: ${p.opNo ?? '—'}`;
   
-  const isOrtho = p.consultationType === 'Orthopedic';
   let bodyHtml = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
       <div>
@@ -1409,11 +1282,7 @@ window.viewPatient = id => {
         <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Diagnosis</h4>
         <div style="font-size:.9rem;line-height:1.4;">${esc(p.diagnosis) || '—'}</div>
       </div>
-      <div>
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Insurance Status</h4>
-        <div style="font-weight:600;font-size:.9rem;">${p.hasInsurance ? 'Has Insurance' : 'No Insurance'}</div>
-      </div>
-      <div>
+      <div style="grid-column:1/-1;">
         <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Blood Group</h4>
         <div style="font-weight:600;font-size:.9rem;">${p.bloodGroup || 'Unknown'}</div>
       </div>
@@ -1421,30 +1290,8 @@ window.viewPatient = id => {
         <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Address</h4>
         <div style="font-size:.9rem;">${esc(p.address || '—')}</div>
       </div>
-    </div>
-    <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0;">`;
-  
-  if (isOrtho) {
-    bodyHtml += `
-      <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;">Orthopaedic Details</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;">
-        <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Injury Type</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.injuryType || 'None')}</div></div>
-        <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Affected Body Part</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.bodyPart || '—')} (${esc(p.side || 'N/A')})</div></div>
-        <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Injury Date</h4><div style="font-weight:600;font-size:.85rem;font-family:monospace;">${fmtDate(p.injuryDate)}</div></div>
-        <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Cause</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.cause || '—')}</div></div>
-        <div style="grid-column:1/-1;"><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Clinical Notes</h4><div style="font-size:.85rem;line-height:1.4;white-space:pre-wrap;background:var(--surface-card);padding:.75rem;border-radius:8px;border:1px solid var(--border);">${esc(p.notes || '—')}</div></div>
-      </div>`;
-  } else {
-    bodyHtml += `
-      <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;">General / Diabetology Details</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;">
-        <div style="grid-column:1/-1;"><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Symptoms</h4><div style="font-size:.85rem;line-height:1.4;">${esc(p.symptoms || '—')}</div></div>
-        <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Duration</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.duration || '—')}</div></div>
-        <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Blood Sugar Level</h4><div style="font-weight:600;font-size:.85rem;font-family:monospace;">${esc(p.sugar || '—')}</div></div>
-        <div style="grid-column:1/-1;"><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Previous Conditions</h4><div style="font-size:.85rem;line-height:1.4;background:var(--surface-card);padding:.75rem;border-radius:8px;border:1px solid var(--border);">${esc(p.prev || '—')}</div></div>
-      </div>`;
-  }
-  
+    </div>`;
+
   document.getElementById('view-body').innerHTML = bodyHtml;
   document.getElementById('view-modal').classList.add('show');
 };
@@ -1487,8 +1334,6 @@ window.setConsultationType = type => {
   const isOrtho = type === 'Orthopedic';
   document.getElementById('type-card-ortho').classList.toggle('selected', isOrtho);
   document.getElementById('type-card-general').classList.toggle('selected', !isOrtho);
-  document.getElementById('ortho-fields').style.display = isOrtho ? 'block' : 'none';
-  document.getElementById('general-fields').style.display = isOrtho ? 'none' : 'block';
   document.getElementById('f-doctor').value = isOrtho ? 'Dr. N. Gopala Krishnan' : 'Dr. R. Shiny';
 };
 
@@ -1500,7 +1345,6 @@ window.savePatient = async () => {
   const age = Number(document.getElementById('f-age').value) || null;
   const gender = document.getElementById('f-gender').value;
   const bloodGroup = document.getElementById('f-blood-group').value;
-  const hasInsurance = document.getElementById('f-insurance').value === 'yes';
   const address = document.getElementById('f-address').value.trim();
 
   const docName = document.getElementById('f-doctor').value;
@@ -1509,25 +1353,11 @@ window.savePatient = async () => {
   const diagnosis = document.getElementById('f-diagnosis').value.trim();
 
   const pData = {
-    name, phone, age, gender, bloodGroup, hasInsurance, address,
+    name, phone, age, gender, bloodGroup, address,
     nameLower: name.toLowerCase(),
     consultationType, doctor: docName, visitDate, reason, diagnosis,
     source: 'Walk-in'
   };
-
-  if (consultationType === 'Orthopedic') {
-    pData.injuryType = document.getElementById('f-injury-type').value;
-    pData.bodyPart = document.getElementById('f-body-part').value;
-    pData.side = document.getElementById('f-side').value;
-    pData.injuryDate = document.getElementById('f-injury-date').value;
-    pData.cause = document.getElementById('f-cause').value;
-    pData.notes = document.getElementById('f-notes').value.trim();
-  } else {
-    pData.symptoms = document.getElementById('f-symptoms').value.trim();
-    pData.duration = document.getElementById('f-duration').value.trim();
-    pData.prev = document.getElementById('f-prev').value.trim();
-    pData.sugar = document.getElementById('f-sugar').value.trim();
-  }
 
   if (!window.editingId) {
     // Targeted query (exact name match, bounded) instead of scanning every
@@ -1605,7 +1435,6 @@ window.editPatient = id => {
   document.getElementById('f-gender').value = p.gender || 'Male';
   document.getElementById('f-blood-group').value = p.bloodGroup || '';
   document.getElementById('f-phone').value = p.phone || '';
-  document.getElementById('f-insurance').value = p.hasInsurance ? 'yes' : 'no';
   document.getElementById('f-address').value = p.address || '';
   
   setConsultationType(p.consultationType || 'Orthopedic');
@@ -1614,19 +1443,6 @@ window.editPatient = id => {
   document.getElementById('f-reason').value = p.reason || '';
   document.getElementById('f-diagnosis').value = p.diagnosis || '';
 
-  if (p.consultationType === 'Orthopedic') {
-    document.getElementById('f-injury-type').value = p.injuryType || '';
-    document.getElementById('f-body-part').value = p.bodyPart || '';
-    document.getElementById('f-side').value = p.side || '';
-    document.getElementById('f-injury-date').value = p.injuryDate || '';
-    document.getElementById('f-cause').value = p.cause || '';
-    document.getElementById('f-notes').value = p.notes || '';
-  } else {
-    document.getElementById('f-symptoms').value = p.symptoms || '';
-    document.getElementById('f-duration').value = p.duration || '';
-    document.getElementById('f-prev').value = p.prev || '';
-    document.getElementById('f-sugar').value = p.sugar || '';
-  }
 };
 
 window.confirmDeletePatient = id => {
