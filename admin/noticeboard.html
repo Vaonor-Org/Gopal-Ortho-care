@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Hide input number spinners */
     input::-webkit-outer-spin-button,
@@ -67,7 +67,7 @@
     .sidebar__brand{padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid rgba(255,255,255,.06);}
     .sidebar__logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;}
     .sidebar__logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(10,110,189,.35);}
-    .sidebar__logo-text .gopal{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
+    .sidebar__logo-text .gopal{display:block;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
     .sidebar__logo-text .ortho{display:block;font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;}
     .sidebar__badge{margin:.5rem 1.25rem;padding:.2rem .625rem;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:5px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-block;}
     .sidebar__nav{flex:1;padding:.875rem .75rem;display:flex;flex-direction:column;gap:.2rem;}
@@ -91,7 +91,7 @@
     /* ── TOPBAR ── */
     .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
     .topbar__left{display:flex;align-items:center;gap:.75rem;}
-    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
+    .topbar__title{font-family:'DM Sans',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
     .topbar__right{display:flex;align-items:center;gap:.75rem;}
 
     /* Language toggle */
@@ -110,7 +110,7 @@
     .f-group{display:flex;flex-direction:column;gap:.3rem;}
     .f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-med);}
     .f-label span{color:var(--error);}
-    .f-select{height:40px;padding:0 2rem 0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;cursor:pointer;padding-right:2rem;}
+    .f-select{height:44px;padding:0 2rem 0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.9375rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;cursor:pointer;padding-right:2rem;}
     .f-select:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);}
     .f-textarea{height:72px;padding:.625rem .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;resize:vertical;}
     .f-textarea:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);}
@@ -125,7 +125,7 @@
     .center-modal-overlay.show{display:flex;}
     .center-modal{background:var(--surface);border-radius:16px;width:min(440px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(4,28,48,.3);}
     .center-modal__header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-    .center-modal__title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;}
+    .center-modal__title{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;}
     .center-modal__body{padding:1.5rem;display:flex;flex-direction:column;gap:.875rem;}
     .center-modal__footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.75rem;justify-content:flex-end;}
     .modal-close{width:34px;height:34px;border-radius:7px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-light);transition:all .2s;}
@@ -346,7 +346,7 @@
   <div id="section-noticeboard" class="section-page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
       <div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;" data-i18n="noticeboard">Notice Board</h2>
+        <h2 style="font-family:'DM Sans',sans-serif;font-size:1.5rem;font-weight:700;" data-i18n="noticeboard">Notice Board</h2>
         <p style="font-size:.8rem;color:var(--text-light);margin-top:.2rem;" data-i18n="noticeboardSubtitle">Task reminders and staff notes</p>
       </div>
       <button class="btn-add" onclick="openAddNoticeModal()">
@@ -413,11 +413,11 @@
 </div>
 
 <script type="module">
-import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   getFirestore, collection, addDoc, updateDoc, deleteDoc,
-  doc, onSnapshot, query, orderBy, serverTimestamp
+  doc, onSnapshot, query, orderBy, serverTimestamp, getDoc, limit
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -444,18 +444,33 @@ const getLoginDest = (reason = '') => {
   return reason ? `${dest}?reason=${reason}` : dest;
 };
 
+const checkSessionTimeout = async () => {
+  const last = parseInt(localStorage.getItem('lastActivity') || '0');
+  const idleFor = Date.now() - last;
+  if (idleFor >= SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); }
+  else { _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS - idleFor); }
+};
 const resetActivityTimer = () => {
   if (_activityTimer) clearTimeout(_activityTimer);
   localStorage.setItem('lastActivity', Date.now());
-  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href = getLoginDest('timeout'); }, SESSION_MS);
+  _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS);
 };
 document.addEventListener('mousemove', resetActivityTimer, { passive: true });
 document.addEventListener('keydown', resetActivityTimer, { passive: true });
 document.addEventListener('click', resetActivityTimer, { passive: true });
 
+const isAuthorizedAdmin = async email => {
+  if (ADMIN_EMAILS.includes(email)) return true;
+  try {
+    const snap = await getDoc(doc(db, 'admins', email));
+    return snap.exists() && snap.data()?.role === 'admin';
+  } catch (e) { return false; }
+};
+
 onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href = getLoginDest(); return; }
-  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) { await signOut(authFB); window.location.href = getLoginDest('denied'); return; }
+  const email = (user.email||'').toLowerCase();
+  if (!(await isAuthorizedAdmin(email))) { await signOut(authFB); window.location.href = getLoginDest('denied'); return; }
   const last = parseInt(localStorage.getItem('lastActivity')||'0');
   if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); return; }
   resetActivityTimer();
@@ -465,6 +480,15 @@ onAuthStateChanged(authFB, async user => {
   const nd = document.getElementById('user-name-display');
   if (av) av.textContent = savedName.slice(0,2).toUpperCase();
   if (nd) nd.textContent = savedName;
+});
+
+window.addEventListener('storage', e => {
+  if (e.key === 'displayName' && e.newValue) {
+    const av = document.getElementById('user-avatar');
+    const nd = document.getElementById('user-name-display');
+    if (av) av.textContent = e.newValue.slice(0,2).toUpperCase();
+    if (nd) nd.textContent = e.newValue;
+  }
 });
 
 // State & Configs
@@ -478,8 +502,10 @@ const NOTICE_COLORS = [
   '#C5E1A5', // light green / lime
 ];
 let draggedTaskId = null;
-let undoTaskId = null;
-let undoTimerId = null;
+// Each pending delete gets its own independent 5s timer, keyed by task id, so
+// deleting a second note while a first one's undo window is still open no
+// longer force-commits the first without warning.
+let pendingDeletes = new Map(); // taskId -> { timeLeft, timerId }
 
 // i18n Dictionary
 const i18n = {
@@ -659,64 +685,70 @@ const tearNoteAnimation = (taskId, rect) => {
   triggerDeleteFlow(taskId);
 };
 
-const triggerDeleteFlow = (taskId) => {
-  if(undoTaskId && undoTaskId !== taskId) {
-    executePendingDelete();
-  }
-  
-  undoTaskId = taskId;
+const updateUndoBanner = () => {
   const banner = document.getElementById('undo-banner');
   const countSpan = document.getElementById('undo-countdown');
   const textSpan = document.getElementById('undo-banner-text');
-  
-  if(banner && countSpan) {
-    textSpan.textContent = currentLang === 'ta' ? 'பணி நீக்கப்பட்டது.' : 'Task teared/deleted.';
-    banner.classList.add('show');
-    let timeLeft = 5;
-    countSpan.textContent = timeLeft;
-    
-    clearInterval(undoTimerId);
-    undoTimerId = setInterval(() => {
-      timeLeft--;
-      countSpan.textContent = timeLeft;
-      if(timeLeft <= 0) {
-        clearInterval(undoTimerId);
-        executePendingDelete();
-      }
-    }, 1000);
+  if (!banner) return;
+  if (pendingDeletes.size === 0) {
+    banner.classList.remove('show');
+    return;
+  }
+  const lastId = [...pendingDeletes.keys()].pop();
+  const entry = pendingDeletes.get(lastId);
+  const extra = pendingDeletes.size > 1 ? ` (+${pendingDeletes.size - 1} more)` : '';
+  textSpan.textContent = (currentLang === 'ta' ? 'பணி நீக்கப்பட்டது.' : 'Task teared/deleted.') + extra;
+  countSpan.textContent = entry.timeLeft;
+  banner.classList.add('show');
+};
+
+const triggerDeleteFlow = (taskId) => {
+  if (pendingDeletes.has(taskId)) return;
+  const entry = { timeLeft: 5, timerId: null };
+  pendingDeletes.set(taskId, entry);
+  updateUndoBanner();
+  entry.timerId = setInterval(() => {
+    entry.timeLeft--;
+    updateUndoBanner();
+    if (entry.timeLeft <= 0) {
+      clearInterval(entry.timerId);
+      pendingDeletes.delete(taskId);
+      executePendingDelete(taskId);
+      updateUndoBanner();
+    }
+  }, 1000);
+};
+
+const executePendingDelete = async (taskId) => {
+  try {
+    await deleteDoc(doc(db, 'noticeTasks', taskId));
+  } catch(err) {
+    console.error(err);
   }
 };
 
-const executePendingDelete = async () => {
-  const banner = document.getElementById('undo-banner');
-  if(banner) banner.classList.remove('show');
-  
-  if(undoTaskId) {
-    const id = undoTaskId;
-    undoTaskId = null;
-    try {
-      await deleteDoc(doc(db, 'noticeTasks', id));
-    } catch(err) {
-      console.error(err);
-    }
-  }
+window.requestDeleteTask = (taskId) => {
+  const cardContainer = document.getElementById(`notice-task-${taskId}`);
+  if (!cardContainer) return;
+  const rect = cardContainer.getBoundingClientRect();
+  tearNoteAnimation(taskId, rect);
 };
 
 window.triggerUndoDelete = () => {
-  clearInterval(undoTimerId);
-  const banner = document.getElementById('undo-banner');
-  if(banner) banner.classList.remove('show');
-  
-  if(undoTaskId) {
-    const cardContainer = document.getElementById(`notice-task-${undoTaskId}`);
-    if (cardContainer) {
-      cardContainer.style.visibility = 'visible';
-      cardContainer.style.opacity = '1';
-    }
-    undoTaskId = null;
-    showToast(currentLang === 'ta' ? 'மீட்டெடுக்கப்பட்டது!' : 'Restored!');
-    renderNoticeTasks();
+  const lastId = [...pendingDeletes.keys()].pop();
+  if (!lastId) return;
+  const entry = pendingDeletes.get(lastId);
+  clearInterval(entry.timerId);
+  pendingDeletes.delete(lastId);
+
+  const cardContainer = document.getElementById(`notice-task-${lastId}`);
+  if (cardContainer) {
+    cardContainer.style.visibility = 'visible';
+    cardContainer.style.opacity = '1';
   }
+  showToast(currentLang === 'ta' ? 'மீட்டெடுக்கப்பட்டது!' : 'Restored!');
+  updateUndoBanner();
+  renderNoticeTasks();
 };
 
 window.saveNoticeTask = async () => {
@@ -737,9 +769,12 @@ window.saveNoticeTask = async () => {
   } catch(err) { showToast('Error: ' + err.message, 'error'); }
 };
 
-// Listen and render tasks
+// Listen and render tasks. Bounded to the most recent 300 — a staff notice
+// board is meant for active reminders, not a permanent record, so this stays
+// a live realtime subscription (unlike the patient/bill lists) rather than a
+// full pagination rework, which wouldn't fit the drag-and-drop board UI anyway.
 let allTasks = [];
-onSnapshot(query(collection(db,'noticeTasks'),orderBy('createdAt','desc')),snap=>{
+onSnapshot(query(collection(db,'noticeTasks'),orderBy('createdAt','desc'),limit(300)),snap=>{
   allTasks=snap.docs.map(d=>({id:d.id,...d.data()}));
   renderNoticeTasks();
 });
@@ -748,13 +783,13 @@ const renderNoticeTasks = () => {
   const grid = document.getElementById('notice-tasks-grid');
   if (!grid) return;
   if (!allTasks.length) {
-    grid.innerHTML = '<div style="text-align:center;padding:4rem;color:rgba(255,255,255,.35);grid-column:1/-1;"><div style="font-size:2.5rem;margin-bottom:1rem;">📋</div><div style="font-size:1rem;font-family:\'Cormorant Garamond\',serif;">Board is empty</div><div style="font-size:.8rem;margin-top:.5rem;">Click \'Add Task\' to pin a note</div></div>';
+    grid.innerHTML = '<div style="text-align:center;padding:4rem;color:rgba(255,255,255,.35);grid-column:1/-1;"><div style="font-size:2.5rem;margin-bottom:1rem;">📋</div><div style="font-size:1rem;font-family:\'DM Sans\',sans-serif;">Board is empty</div><div style="font-size:.8rem;margin-top:.5rem;">Click \'Add Task\' to pin a note</div></div>';
     return;
   }
   grid.innerHTML = allTasks.map(task => {
     const urgentBadge = task.priority === 'urgent' ? '<div class="urgent-badge-html" style="font-size:.55rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#c62828;margin-bottom:.25rem;">🚨 URGENT</div>' : '';
     const pinStyle = `width:16px;height:16px;background:#c62828;border-radius:50%;margin:0 auto -8px;position:relative;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,.3);`;
-    const visibility = (task.id === undoTaskId) ? 'hidden' : 'visible';
+    const visibility = pendingDeletes.has(task.id) ? 'hidden' : 'visible';
     return `
       <div id="notice-task-${task.id}" draggable="true" ondragstart="handleNoticeDragStart(event, '${task.id}')" ondragend="handleNoticeDragEnd(event)" class="draggable-task" style="position:relative; visibility:${visibility};">
         <div style="${pinStyle}"></div>
@@ -768,6 +803,7 @@ const renderNoticeTasks = () => {
             <span style="font-size:.6rem;color:rgba(0,0,0,.4);">${task.createdAt ? fmtTs(task.createdAt) : ''}</span>
             <div style="display:flex;gap:.25rem;">
               ${task.done ? '<button onclick="toggleNotice(\''+task.id+'\',false)" style="width:22px;height:22px;border:none;background:rgba(0,0,0,0.15);border-radius:4px;cursor:pointer;font-size:.7rem;" title="Mark incomplete">↩</button>' : '<button onclick="toggleNotice(\''+task.id+'\',true)" style="width:22px;height:22px;border:none;background:rgba(45,122,79,.2);border-radius:4px;cursor:pointer;font-size:.7rem;" title="Mark done">✓</button>'}
+              <button onclick="requestDeleteTask('${task.id}')" style="width:22px;height:22px;border:none;background:rgba(185,64,64,.18);border-radius:4px;cursor:pointer;font-size:.7rem;color:#8a1f1f;" title="Delete task">🗑</button>
             </div>
           </div>
           ${task.done ? '<div style="position:absolute;inset:0;background:rgba(255,255,255,.5);border-radius:0px;display:flex;align-items:center;justify-content:center;"><div style="font-size:1.25rem;color:#2d7a4f;">✓</div></div>' : ''}
@@ -784,6 +820,13 @@ window.toggleNotice = async (id, done) => {
 // Initial Language & theme load
 window.setLang(currentLang);
 updateThemeIcons();
+
+// Escape closes the notice modal, for fast desktop keyboard use.
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const el = document.getElementById('notice-modal');
+  if (el && el.classList.contains('show')) el.classList.remove('show');
+});
 
 </script>
 <script>

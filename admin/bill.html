@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Hide input number spinners */
     input::-webkit-outer-spin-button,
@@ -67,7 +67,7 @@
     .sidebar__brand{padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid rgba(255,255,255,.06);}
     .sidebar__logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;}
     .sidebar__logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(10,110,189,.35);}
-    .sidebar__logo-text .gopal{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
+    .sidebar__logo-text .gopal{display:block;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
     .sidebar__logo-text .ortho{display:block;font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;}
     .sidebar__badge{margin:.5rem 1.25rem;padding:.2rem .625rem;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:5px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-block;}
     .sidebar__nav{flex:1;padding:.875rem .75rem;display:flex;flex-direction:column;gap:.2rem;}
@@ -91,7 +91,7 @@
     /* ── TOPBAR ── */
     .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
     .topbar__left{display:flex;align-items:center;gap:.75rem;}
-    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
+    .topbar__title{font-family:'DM Sans',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
     .topbar__right{display:flex;align-items:center;gap:.75rem;}
 
     /* Language toggle */
@@ -125,7 +125,7 @@
     .f-group{display:flex;flex-direction:column;gap:.3rem;}
     .f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-med);}
     .f-label span{color:var(--error);}
-    .f-input,.f-select{height:40px;padding:0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
+    .f-input,.f-select{height:44px;padding:0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.9375rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
     .f-input:focus,.f-select:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);}
     .f-select{cursor:pointer;padding-right:2rem;}
     .filter-btn{height:34px;padding:0 .875rem;border:1.5px solid var(--border);border-radius:7px;background:var(--surface);font-family:inherit;font-size:.775rem;font-weight:500;color:var(--text-med);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.3rem;}
@@ -153,8 +153,9 @@
 
     /* Search */
     .search-box{position:relative;}
-    .search-box svg{position:absolute;left:.875rem;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
-    #search-input{height:42px;padding:0 1.1rem 0 2.4rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface);outline:none;width:260px;transition:all .25s;}
+    .search-box svg{position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);width:19px;height:19px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
+    #search-input{height:50px;padding:0 1.25rem 0 3rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:1rem;color:var(--text-dark);background:var(--surface);outline:none;width:340px;max-width:100%;transition:all .25s;}
+    #search-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-ul);}
     #search-input:focus{border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px rgba(10,110,189,.1);width:320px;}
     html[data-theme="dark"] #search-input{background:var(--surface);color:var(--text-dark);border-color:var(--border);}
     html[data-theme="dark"] #search-input:focus{background:var(--surface-card);border-color:var(--primary);}
@@ -172,7 +173,7 @@
     .center-modal-overlay.show{display:flex;}
     .center-modal{background:var(--surface);border-radius:16px;width:min(440px,95vw);max-height:90vh;overflow:hidden;box-shadow:0 24px 60px rgba(4,28,48,.3);display:flex;flex-direction:column;}
     .center-modal__header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-    .center-modal__title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;}
+    .center-modal__title{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;}
     .center-modal__body{padding:1.5rem;display:flex;flex-direction:column;gap:.875rem;overflow-y:auto;flex:1;overscroll-behavior:contain;}
     .center-modal__footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.75rem;justify-content:flex-end;flex-shrink:0;}
     .modal-close{width:34px;height:34px;border-radius:7px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-light);transition:all .2s;}
@@ -372,7 +373,7 @@
   <div id="section-bills" class="section-page">
     <div class="bills-header">
       <div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;" data-i18n="bills">Billing</h2>
+        <h2 style="font-family:'DM Sans',sans-serif;font-size:1.5rem;font-weight:700;" data-i18n="bills">Billing</h2>
         <p style="font-size:.8rem;color:var(--text-light);margin-top:.2rem;" data-i18n="billsSubtitle">Generate and manage patient bills</p>
       </div>
       <button class="btn-add" onclick="openBillGenerator()">
@@ -419,7 +420,7 @@
       
       <div class="search-box">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-input" placeholder="Search bills by name or ID…" oninput="handleSearch(this.value)">
+        <input type="text" id="search-input" placeholder="Search bills by name or ID… (press / to focus)" oninput="handleSearch(this.value)">
       </div>
     </div>
     <div class="bills-grid" id="bills-grid">
@@ -549,11 +550,12 @@
 </div>
 
 <script type="module">
-import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   getFirestore, collection, addDoc, updateDoc, deleteDoc,
-  doc, onSnapshot, query, orderBy, serverTimestamp, getDocs, limit
+  doc, onSnapshot, query, orderBy, serverTimestamp, getDocs, limit, where, startAfter,
+  getDoc, runTransaction, getCountFromServer
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -580,18 +582,33 @@ const getLoginDest = (reason = '') => {
   return reason ? `${dest}?reason=${reason}` : dest;
 };
 
+const checkSessionTimeout = async () => {
+  const last = parseInt(localStorage.getItem('lastActivity') || '0');
+  const idleFor = Date.now() - last;
+  if (idleFor >= SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); }
+  else { _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS - idleFor); }
+};
 const resetActivityTimer = () => {
   if (_activityTimer) clearTimeout(_activityTimer);
   localStorage.setItem('lastActivity', Date.now());
-  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href = getLoginDest('timeout'); }, SESSION_MS);
+  _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS);
 };
 document.addEventListener('mousemove', resetActivityTimer, { passive: true });
 document.addEventListener('keydown', resetActivityTimer, { passive: true });
 document.addEventListener('click', resetActivityTimer, { passive: true });
 
+const isAuthorizedAdmin = async email => {
+  if (ADMIN_EMAILS.includes(email)) return true;
+  try {
+    const snap = await getDoc(doc(db, 'admins', email));
+    return snap.exists() && snap.data()?.role === 'admin';
+  } catch (e) { return false; }
+};
+
 onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href = getLoginDest(); return; }
-  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) { await signOut(authFB); window.location.href = getLoginDest('denied'); return; }
+  const email = (user.email||'').toLowerCase();
+  if (!(await isAuthorizedAdmin(email))) { await signOut(authFB); window.location.href = getLoginDest('denied'); return; }
   const last = parseInt(localStorage.getItem('lastActivity')||'0');
   if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); return; }
   resetActivityTimer();
@@ -603,12 +620,26 @@ onAuthStateChanged(authFB, async user => {
   if (nd) nd.textContent = savedName;
 });
 
+window.addEventListener('storage', e => {
+  if (e.key === 'displayName' && e.newValue) {
+    const av = document.getElementById('user-avatar');
+    const nd = document.getElementById('user-name-display');
+    if (av) av.textContent = e.newValue.slice(0,2).toUpperCase();
+    if (nd) nd.textContent = e.newValue;
+  }
+});
+
 // State
-let allPatients = [];
+let billSearchMatches = []; // last patient-search results, replaces holding all 20,000+ patients in memory
+let selectedBillPatient = null;
 let allRooms = [];
-let allBills = [];
-let filteredBills = [];
-let billsCurrentPage = 1;
+// currentBills holds only the currently-visible page — same cursor-paged
+// approach as the patient list, so bill volume has no upper bound either.
+let currentBills = [];
+let lastFetchedBills = [];  // raw page before popover filters are applied
+let billsPageCursors = [null];
+let billsPageIndex = 0;
+let billsHasMore = false;
 const billsPerPage = 12;
 let searchQ = '';
 
@@ -720,17 +751,103 @@ window.showToast = (msg, type = 'success') => {
 const esc = str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const fmtDate = dStr => { if(!dStr)return'—'; const d=new Date(dStr); return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); };
 const fmtTs=ts=>{if(!ts)return'—';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:true});};
+// The clinic is India-only; toISOString() is UTC, ~5.5h behind IST.
+const todayIST = () => new Date(Date.now() + 5.5 * 3600000).toISOString().slice(0, 10);
+// Avoids floating-point artifacts like ₹123.30000000000001 in totals.
+const round2 = n => Math.round((Number(n) || 0) * 100) / 100;
+const toDateVal = ts => ts ? (ts.toDate ? ts.toDate() : new Date(ts)) : null;
+
+// Works out the billable nights for a patient's room stay: if they're still
+// admitted, anchors to now; if discharged, anchors to their actual checkout
+// time (from roomLogs) instead of always using "now" (which overbills once the
+// bill is generated any time after the stay actually ended).
+const getStayInfo = async pid => {
+  const activeRoom = allRooms.find(r => r.patientId === pid && r.occupied);
+  if (activeRoom && activeRoom.checkInTime) {
+    const checkIn = toDateVal(activeRoom.checkInTime);
+    const nights = Math.max(1, Math.ceil((Date.now() - checkIn.getTime()) / 86400000));
+    return { nights, hasInsurance: activeRoom.hasInsurance === true, roomName: activeRoom.name };
+  }
+  try {
+    const snap = await getDocs(query(collection(db, 'roomLogs'), orderBy('createdAt', 'desc'), limit(500)));
+    const lastLog = snap.docs.map(d => ({ id: d.id, ...d.data() })).find(l => l.patientId === pid);
+    if (lastLog && lastLog.checkInTime) {
+      const checkIn = toDateVal(lastLog.checkInTime);
+      const checkOut = toDateVal(lastLog.checkOutTime) || new Date();
+      const nights = Math.max(1, Math.ceil((checkOut.getTime() - checkIn.getTime()) / 86400000));
+      return { nights, hasInsurance: lastLog.hasInsurance === true, roomName: lastLog.roomName || 'Room' };
+    }
+  } catch (e) { console.warn('Room log lookup failed:', e); }
+  return null;
+};
+
+// Atomically issues a sequential invoice number via a Firestore transaction
+// counter, instead of slicing a random Firestore document id.
+const getNextBillNumber = async () => {
+  const counterRef = doc(db, 'meta', 'billCounter');
+  let bootstrapSeq = null; // only computed once, lazily, if the counter doc doesn't exist yet
+  const seq = await runTransaction(db, async tx => {
+    const snap = await tx.get(counterRef);
+    if (snap.exists()) {
+      const next = (snap.data().seq || 0) + 1;
+      tx.set(counterRef, { seq: next }, { merge: true });
+      return next;
+    }
+    if (bootstrapSeq === null) {
+      const countSnap = await getCountFromServer(collection(db, 'bills'));
+      bootstrapSeq = countSnap.data().count;
+    }
+    const next = bootstrapSeq + 1;
+    tx.set(counterRef, { seq: next }, { merge: true });
+    return next;
+  });
+  return `INV${String(seq).padStart(5, '0')}`;
+};
+
+// Same field-detection + prefix-query approach as dashboard.html's patient
+// search — kept in sync there since Firestore has no native "contains
+// anywhere" search. Queries on demand instead of loading every patient.
+const detectSearchField = q => {
+  const v = q.trim();
+  if (!v) return null;
+  if (/^g\d/i.test(v)) return 'patientCode';
+  if (/^[\d\s+]+$/.test(v)) return 'phone';
+  return 'nameLower';
+};
+const PREFIX_END = String.fromCharCode(0xf8ff); // Firestore "starts with" trick: high private-use codepoint as the range's upper bound
+const searchPatients = async q => {
+  const field = detectSearchField(q);
+  if (!field) return [];
+  const value = field === 'patientCode' ? q.trim().toUpperCase() : field === 'phone' ? q.trim() : q.trim().toLowerCase();
+  const snap = await getDocs(query(collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field), limit(10)));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+};
+
+// Same idea for the bills list: prefix-search on whichever bill field the
+// query looks like, instead of loading every bill into memory.
+const detectBillSearchField = q => {
+  const v = q.trim();
+  if (!v) return null;
+  if (/^g\d/i.test(v)) return 'patientCode';
+  if (/^[\d\s+]+$/.test(v)) return 'patientPhone';
+  return 'patientNameLower';
+};
+const buildBillPrefixQuery = (field, value, cursor) => {
+  const clauses = [collection(db, 'bills'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field)];
+  if (cursor) clauses.push(startAfter(cursor));
+  clauses.push(limit(billsPerPage + 1));
+  return query(...clauses);
+};
+const buildBillBrowseQuery = cursor => {
+  const clauses = [collection(db, 'bills'), orderBy('createdAt', 'desc')];
+  if (cursor) clauses.push(startAfter(cursor));
+  clauses.push(limit(billsPerPage + 1));
+  return query(...clauses);
+};
 
 // Listeners
-onSnapshot(query(collection(db,'patients'),orderBy('createdAt','desc')),snap=>{
-  allPatients=snap.docs.map(d=>({id:d.id,...d.data()}));
-});
 onSnapshot(query(collection(db,'rooms'),orderBy('createdAt','asc')),snap=>{
   allRooms=snap.docs.map(d=>({id:d.id,...d.data()}));
-});
-onSnapshot(query(collection(db,'bills'),orderBy('createdAt','desc'),limit(500)),snap=>{
-  allBills=snap.docs.map(d=>({id:d.id,...d.data()}));
-  applyFilters();
 });
 
 // Search and Filter Logic
@@ -748,37 +865,21 @@ document.addEventListener('click', (e) => {
   }
 });
 
-window.handleSearch = (val) => {
-  searchQ = val;
-  billsCurrentPage = 1;
-  applyFilters();
-};
-
-window.applyFilters = () => {
-  let list = [...allBills];
-  
-  // Search
-  if (searchQ.trim()) {
-    const q = searchQ.toLowerCase().trim();
-    list = list.filter(b => 
-      (b.patientName||'').toLowerCase().includes(q) ||
-      (b.id||'').toLowerCase().includes(q)
-    );
-  }
-  
-  // Payment Filter
+// Popover filters (payment/date/doctor) apply client-side, but only against
+// the small page of bills already fetched — not every bill ever created.
+// Same trade-off as the patient list, for the same reason: staying scalable
+// without a matching Firestore composite index per filter combination.
+const applyBillSecondaryFilters = list => {
   const popPay = document.getElementById('pop-payment')?.value || 'all';
   if (popPay === 'paid') list = list.filter(b => b.paid === true);
   if (popPay === 'unpaid') list = list.filter(b => b.paid !== true);
-  
-  // Date Range Filter
+
   const popDateRange = document.getElementById('pop-date-range')?.value || 'all';
   if (popDateRange !== 'all') {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const yesterdayStr = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const todayStr = todayIST();
+    const yesterdayStr = new Date(Date.now() - 86400000 + 5.5 * 3600000).toISOString().slice(0, 10);
     const sevenDaysAgo = new Date(Date.now() - 7 * 86400000);
     const startOfMonthStr = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10);
-    
     list = list.filter(b => {
       const d = b.date || '';
       if (!d) return false;
@@ -789,8 +890,7 @@ window.applyFilters = () => {
       return true;
     });
   }
-  
-  // Doctor Filter
+
   const gopalCh = document.getElementById('pop-doc-gopal')?.checked;
   const shinyCh = document.getElementById('pop-doc-shiny')?.checked;
   list = list.filter(b => {
@@ -798,34 +898,71 @@ window.applyFilters = () => {
     if (b.doctor === 'Dr. R. Shiny') return shinyCh;
     return true;
   });
-  
-  filteredBills = list;
-  billsCurrentPage = 1;
+
+  return list;
+};
+
+// Fetches one page from Firestore (search-filtered or plain browse) and renders it.
+const loadBillsPage = async pageIndex => {
+  const field = detectBillSearchField(searchQ);
+  const cursor = billsPageCursors[pageIndex] || null;
+  let snap;
+  try {
+    if (field === 'patientPhone') snap = await getDocs(buildBillPrefixQuery('patientPhone', searchQ.trim(), cursor));
+    else if (field === 'patientCode') snap = await getDocs(buildBillPrefixQuery('patientCode', searchQ.trim().toUpperCase(), cursor));
+    else if (field === 'patientNameLower') snap = await getDocs(buildBillPrefixQuery('patientNameLower', searchQ.trim().toLowerCase(), cursor));
+    else snap = await getDocs(buildBillBrowseQuery(cursor));
+  } catch (err) {
+    showToast('Error loading bills: ' + err.message, 'error');
+    return;
+  }
+
+  let docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  billsHasMore = docs.length > billsPerPage;
+  if (billsHasMore) {
+    docs = docs.slice(0, billsPerPage);
+    billsPageCursors[pageIndex + 1] = snap.docs[billsPerPage - 1];
+  }
+  billsPageIndex = pageIndex;
+  lastFetchedBills = docs;
+  currentBills = applyBillSecondaryFilters(docs);
   renderBills();
 };
 
-// Bill listing pagination
+window.handleSearch = (val) => {
+  searchQ = val;
+  billsPageCursors = [null];
+  loadBillsPage(0);
+};
+
+// Popover filter change — re-filters the page already in hand, no new query.
+window.applyFilters = () => {
+  currentBills = applyBillSecondaryFilters(lastFetchedBills);
+  renderBills();
+};
+
+window.goBillsPage = n => {
+  if (n < 0) return;
+  loadBillsPage(n);
+};
+
 const renderBills = () => {
   const grid = document.getElementById('bills-grid');
   const pag = document.getElementById('bills-pagination');
-  if(!filteredBills.length){
+  if(!currentBills.length){
     grid.innerHTML='<div style="text-align:center;padding:3rem;color:var(--text-light);">No bills found.</div>';
     if(pag) pag.style.display='none';
     return;
   }
-  const total=filteredBills.length;
-  const start=(billsCurrentPage-1)*billsPerPage;
-  const slice=filteredBills.slice(start,start+billsPerPage);
-  
-  grid.innerHTML=slice.map(b=>`
+  grid.innerHTML=currentBills.map(b=>`
     <div class="bill-card">
       <div class="bill-card__icon"><svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/></svg></div>
       <div class="bill-card__info">
         <div class="bill-card__name">${esc(b.patientName||'—')}</div>
-        <div class="bill-card__meta">${esc(b.doctor||'—')} · ${fmtDate(b.date)} · Bill #${b.id.slice(0,6).toUpperCase()}</div>
+        <div class="bill-card__meta">${esc(b.doctor||'—')} · ${fmtDate(b.date)} · Bill #${esc(b.billNumber || b.id.slice(0,6).toUpperCase())}</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.375rem;">
-        <div class="bill-card__amount">₹${b.total||0}</div>
+        <div class="bill-card__amount">₹${round2(b.total)}</div>
         <div style="display:flex;gap:.5rem;align-items:center;">
           ${b.paid ? `
             <span style="display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:700;color:var(--success);background:var(--success-bg);padding:.25rem .625rem;border-radius:9999px;">
@@ -844,58 +981,60 @@ const renderBills = () => {
       </div>
     </div>`).join('');
     
-  const pages=Math.ceil(total/billsPerPage);
-  if(pag){
-    if(pages>1){
-      pag.style.display='flex';
-      document.getElementById('bills-page-info').textContent=`${start+1}–${Math.min(start+billsPerPage,total)} of ${total}`;
-      document.getElementById('bills-page-btns').innerHTML=
-        `<button class="page-btn" onclick="goBillsPage(${billsCurrentPage-1})" ${billsCurrentPage===1?'disabled':''}>←</button>`+
-        Array.from({length:pages},(_,i)=>`<button class="page-btn${billsCurrentPage===i+1?' active':''}" onclick="goBillsPage(${i+1})">${i+1}</button>`).join('')+
-        `<button class="page-btn" onclick="goBillsPage(${billsCurrentPage+1})" ${billsCurrentPage===pages?'disabled':''}>→</button>`;
-    }else{pag.style.display='none';}
+  // Cursor-based pagination (Previous/Next) — same reasoning as the patient
+  // list: no cheap total-match count for an arbitrary query, so no numbered
+  // "page 1 2 3…" here.
+  if (pag) {
+    const start = billsPageIndex * billsPerPage;
+    pag.style.display = 'flex';
+    document.getElementById('bills-page-info').textContent = `${start + 1}–${start + currentBills.length}`;
+    document.getElementById('bills-page-btns').innerHTML =
+      `<button class="page-btn" onclick="goBillsPage(${billsPageIndex - 1})" ${billsPageIndex === 0 ? 'disabled' : ''}>← Prev</button>` +
+      `<button class="page-btn" onclick="goBillsPage(${billsPageIndex + 1})" ${billsHasMore ? '' : 'disabled'}>Next →</button>`;
   }
 };
-window.goBillsPage=n=>{billsCurrentPage=n;renderBills();};
 
-// Search Patients
+// Search Patients — queried on demand (debounced) rather than filtered from an
+// in-memory copy of every patient, so this stays cheap at 20,000+ records.
+let _billPatientSearchTimer = null;
 window.filterBillPatients = (q) => {
+  clearTimeout(_billPatientSearchTimer);
   const dropdown = document.getElementById('bill-patient-dropdown');
   const hiddenInput = document.getElementById('bill-patient');
   if (!q || q.length < 1) { dropdown.style.display='none'; hiddenInput.value=''; return; }
-  const matches = allPatients.filter(p =>
-    (p.name||'').toLowerCase().includes(q.toLowerCase()) ||
-    (p.patientCode||'').toLowerCase().includes(q.toLowerCase()) ||
-    (p.phone||'').includes(q)
-  ).slice(0, 10);
-  if (!matches.length) { dropdown.style.display='none'; return; }
-  dropdown.style.display = 'block';
-  dropdown.innerHTML = matches.map(p => `
-    <div onclick="selectBillPatient('${p.id}','${esc(p.name)}','${esc(p.doctor||'')}', ${p.hasInsurance === true})" style="padding:.625rem 1rem;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border);transition:background .15s;" onmouseenter="this.style.background='var(--primary-ul)'" onmouseleave="this.style.background='transparent'">
-      <div style="font-weight:600;">${esc(p.name)} <span style="font-family:monospace;font-size:.7rem;color:var(--primary);">${p.patientCode||''}</span></div>
-      <div style="font-size:.75rem;color:var(--text-light);">${p.age||'?'}y · ${p.gender||''} · ${esc(p.phone||'')}</div>
-    </div>`).join('');
+  _billPatientSearchTimer = setTimeout(async () => {
+    let matches = [];
+    try { matches = await searchPatients(q); } catch (e) { console.warn('Patient search failed:', e); }
+    billSearchMatches = matches;
+    if (!matches.length) { dropdown.style.display='none'; return; }
+    dropdown.style.display = 'block';
+    dropdown.innerHTML = matches.map(p => `
+      <div onclick="selectBillPatient('${p.id}')" style="padding:.625rem 1rem;cursor:pointer;font-size:.85rem;border-bottom:1px solid var(--border);transition:background .15s;" onmouseenter="this.style.background='var(--primary-ul)'" onmouseleave="this.style.background='transparent'">
+        <div style="font-weight:600;">${esc(p.name)} <span style="font-family:monospace;font-size:.7rem;color:var(--primary);">${esc(p.patientCode)}</span></div>
+        <div style="font-size:.75rem;color:var(--text-light);">${p.age||'?'}y · ${p.gender||''} · ${esc(p.phone||'')}</div>
+      </div>`).join('');
+  }, 250);
 };
 
-window.selectBillPatient = (id, name, doctor, hasIns) => {
+window.selectBillPatient = async (id) => {
+  const p = billSearchMatches.find(x => x.id === id);
+  if (!p) return;
+  selectedBillPatient = p;
   document.getElementById('bill-patient').value = id;
-  document.getElementById('bill-patient-search').value = name;
+  document.getElementById('bill-patient-search').value = p.name || '';
   document.getElementById('bill-patient-dropdown').style.display = 'none';
-  if(doctor) document.getElementById('bill-doctor').value = doctor;
-  
-  // Auto-fill room rent calculation if they are checked in
-  const roomForPatient = allRooms.find(r => r.patientId === id && r.occupied);
-  if (roomForPatient && roomForPatient.checkInTime) {
-    const ms = Date.now() - (roomForPatient.checkInTime.toDate ? roomForPatient.checkInTime.toDate() : new Date(roomForPatient.checkInTime)).getTime();
-    const nights = Math.max(1, Math.ceil(ms / 86400000));
-    const roomRate = roomForPatient.hasInsurance ? billingDefaults.roomRateIns : billingDefaults.roomRateNoIns;
-    const roomTotal = nights * roomRate;
+  if (p.doctor) document.getElementById('bill-doctor').value = p.doctor;
+
+  // Auto-fill room rent calculation using the patient's actual stay (anchored
+  // to checkout time if discharged, or "now" if still admitted)
+  const stay = await getStayInfo(id);
+  if (stay) {
+    const roomRate = stay.hasInsurance ? billingDefaults.roomRateIns : billingDefaults.roomRateNoIns;
+    const roomTotal = round2(stay.nights * roomRate);
+    const desc = `Room Rent – ${stay.roomName} (${stay.nights} night${stay.nights>1?'s':''})`;
     const existingIdx = window.billItemsData.findIndex(it => it.desc && it.desc.toLowerCase().includes('room'));
-    if (existingIdx >= 0) {
-      window.billItemsData[existingIdx] = { desc: `Room Rent – ${roomForPatient.name} (${nights} night${nights>1?'s':''})`, amount: roomTotal };
-    } else {
-      window.billItemsData.push({ desc: `Room Rent – ${roomForPatient.name} (${nights} night${nights>1?'s':''})`, amount: roomTotal });
-    }
+    if (existingIdx >= 0) window.billItemsData[existingIdx] = { desc, amount: roomTotal };
+    else window.billItemsData.push({ desc, amount: roomTotal });
     renderBillItems(); calcBillTotal();
   }
 };
@@ -915,7 +1054,7 @@ window.renderBillItems = () => {
   list.innerHTML = window.billItemsData.map((it, i) => `
     <div style="display:flex;gap:.5rem;align-items:center;">
       <input class="f-input" style="flex:1;" placeholder="Description" value="${esc(it.desc)}" oninput="window.billItemsData[${i}].desc=this.value;calcBillTotal()">
-      <input class="f-input" style="width:90px;" type="number" placeholder="0" value="${it.amount}" oninput="window.billItemsData[${i}].amount=Number(this.value)||0;calcBillTotal()">
+      <input class="f-input" style="width:90px;" type="number" min="0" placeholder="0" value="${it.amount}" oninput="window.billItemsData[${i}].amount=Math.max(0,Number(this.value)||0);calcBillTotal()">
       <button onclick="window.billItemsData.splice(${i},1);renderBillItems();calcBillTotal()" style="width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;color:var(--error);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">x</button>
     </div>`).join('');
 };
@@ -927,7 +1066,7 @@ window.addBillItem = () => {
 };
 
 window.calcBillTotal = () => {
-  const tot = window.billItemsData.reduce((a, b) => a + (b.amount || 0), 0);
+  const tot = round2(window.billItemsData.reduce((a, b) => a + (b.amount || 0), 0));
   document.getElementById('bill-total-display').textContent = '₹' + tot;
 };
 
@@ -948,17 +1087,18 @@ window.addPresetBillItem = (desc) => {
 
 // Room rent – custom modal (no browser prompt/confirm)
 let _roomRentResolve = null;
-window.addRoomRentPreset = () => {
+window.addRoomRentPreset = async () => {
   const pid = document.getElementById('bill-patient').value;
-  const p = allPatients.find(x => x.id === pid);
+  const p = selectedBillPatient && selectedBillPatient.id === pid ? selectedBillPatient : null;
   let defaultNights = 1;
   let defaultIns = p ? p.hasInsurance === true : false;
+  let roomLabel = null;
 
-  const roomForPatient = allRooms.find(r => r.patientId === pid && r.occupied);
-  if (roomForPatient && roomForPatient.checkInTime) {
-    const ms = Date.now() - (roomForPatient.checkInTime.toDate ? roomForPatient.checkInTime.toDate() : new Date(roomForPatient.checkInTime)).getTime();
-    defaultNights = Math.max(1, Math.ceil(ms / 86400000));
-    defaultIns = roomForPatient.hasInsurance === true;
+  const stay = await getStayInfo(pid);
+  if (stay) {
+    defaultNights = stay.nights;
+    defaultIns = stay.hasInsurance;
+    roomLabel = stay.roomName;
   }
 
   // Populate and show the custom room-rent dialog
@@ -969,16 +1109,15 @@ window.addRoomRentPreset = () => {
   document.getElementById('rr-rate-preview').textContent =
     `Insurance rate ₹${rateIns}/night · Regular ₹${rateNoIns}/night`;
   document.getElementById('room-rent-modal').classList.add('show');
-  window._rrRoom = roomForPatient;
+  window._rrRoomName = roomLabel;
 };
 
 window.confirmRoomRent = () => {
-  const nights = parseInt(document.getElementById('rr-nights').value) || 1;
+  const nights = Math.max(1, parseInt(document.getElementById('rr-nights').value) || 1);
   const ins = document.getElementById('rr-ins').value === 'yes';
   const rate = ins ? billingDefaults.roomRateIns : billingDefaults.roomRateNoIns;
-  const total = nights * rate;
-  const rr = window._rrRoom;
-  const desc = `Room Rent – ${rr ? rr.name : 'Room'} (${nights} night${nights > 1 ? 's' : ''})`;
+  const total = round2(nights * rate);
+  const desc = `Room Rent – ${window._rrRoomName || 'Room'} (${nights} night${nights > 1 ? 's' : ''})`;
   window.billItemsData.push({ desc, amount: total });
   renderBillItems();
   calcBillTotal();
@@ -992,7 +1131,7 @@ window.openBillGenerator = () => {
   ];
   renderBillItems();
   calcBillTotal();
-  document.getElementById('bill-date').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('bill-date').value = todayIST();
   const bps = document.getElementById('bill-patient-search');
   const bph = document.getElementById('bill-patient');
   if(bps) bps.value = '';
@@ -1005,13 +1144,16 @@ window.saveBillAndPrint = async () => {
   const pid = document.getElementById('bill-patient').value;
   if(!pid){showToast('Search and select a patient.','error');return;}
   const searchText = document.getElementById('bill-patient-search').value;
-  const p = allPatients.find(x => x.id === pid);
+  const p = selectedBillPatient && selectedBillPatient.id === pid ? selectedBillPatient : null;
   const doctor = document.getElementById('bill-doctor').value;
   const date = document.getElementById('bill-date').value;
-  const total = window.billItemsData.reduce((a, b) => a + (b.amount || 0), 0);
+  const total = round2(window.billItemsData.reduce((a, b) => a + (b.amount || 0), 0));
   const billData = {
     patientId: pid,
     patientName: p?.name || searchText,
+    patientNameLower: (p?.name || searchText || '').toLowerCase(),
+    patientCode: p?.patientCode || '',
+    patientPhone: p?.phone || '',
     doctor,
     date,
     items: [...window.billItemsData],
@@ -1020,21 +1162,32 @@ window.saveBillAndPrint = async () => {
     createdAt: serverTimestamp()
   };
   try {
+    billData.billNumber = await getNextBillNumber();
     const ref = await addDoc(collection(db, 'bills'), billData);
     document.getElementById('bill-gen-modal').classList.remove('show');
     document.body.style.overflow = '';
     showToast('Bill saved.');
     renderBillTemplate({ id: ref.id, ...billData }, p);
     document.getElementById('bill-print-overlay').classList.add('show');
+    loadBillsPage(billsPageIndex);
   } catch(err) {
     showToast('Error: ' + err.message, 'error');
   }
 };
 
 window.printBill = async (id) => {
-  const b = allBills.find(x => x.id === id);
+  const b = currentBills.find(x => x.id === id);
   if(!b) return;
-  const p = allPatients.find(x => x.id === b.patientId);
+  // Targeted single-doc lookup (only used as a fallback when the bill itself
+  // predates storing patientCode/patientPhone directly on the bill doc) —
+  // not a scan of every patient.
+  let p = null;
+  if (b.patientId && (!b.patientCode || !b.patientPhone)) {
+    try {
+      const pSnap = await getDoc(doc(db, 'patients', b.patientId));
+      if (pSnap.exists()) p = { id: pSnap.id, ...pSnap.data() };
+    } catch (e) { console.warn('Patient lookup failed:', e); }
+  }
   renderBillTemplate(b, p);
   document.getElementById('bill-print-overlay').classList.add('show');
 };
@@ -1063,16 +1216,20 @@ const renderBillTemplate = (b, p) => {
     <div class="bill-date-row">Date: <strong style="margin-left:.5rem;">${fmtDate(b.date)}</strong></div>
     <div class="bill-patient-row">
       <div class="bill-patient-field">Patient: <span>${esc(b.patientName||'—')}</span></div>
+      <div class="bill-patient-field" style="margin-left:auto;">Patient ID: <span style="font-family:monospace;">${esc(b.patientCode || p?.patientCode || '—')}</span></div>
     </div>
     <div class="bill-patient-row" style="border-bottom:none;padding-bottom:0;margin-bottom:.875rem;">
       <div class="bill-patient-field">Doctor: <span>${esc(b.doctor||'—')}</span></div>
-      <div class="bill-patient-field" style="margin-left:auto;">Bill No.: <span style="font-family:monospace;">${b.id.slice(0,8).toUpperCase()}</span></div>
+      <div class="bill-patient-field" style="margin-left:auto;">Bill No.: <span style="font-family:monospace;">${esc(b.billNumber || b.id.slice(0,8).toUpperCase())}</span></div>
+    </div>
+    <div class="bill-patient-row" style="border-bottom:none;padding-top:0;margin-bottom:.875rem;">
+      <div class="bill-patient-field">Phone: <span>${esc(b.patientPhone || p?.phone || '—')}</span></div>
     </div>
     <table class="bill-table">
       <thead><tr><th>Description</th><th>Amount (₹)</th></tr></thead>
       <tbody>
-        ${(b.items || []).map(it => `<tr><td>${esc(it.desc)}</td><td>₹${it.amount || 0}</td></tr>`).join('')}
-        <tr class="bill-total-row"><td>Total</td><td>₹${b.total||0}</td></tr>
+        ${(b.items || []).map(it => `<tr><td>${esc(it.desc)}</td><td>₹${round2(it.amount)}</td></tr>`).join('')}
+        <tr class="bill-total-row"><td>Total</td><td>₹${round2(b.total)}</td></tr>
       </tbody>
     </table>
     <div class="bill-sign"><div style="text-align:right;"><div style="width:120px;border-top:1px solid #333;margin-bottom:.25rem;"></div>Signature</div></div>
@@ -1082,30 +1239,65 @@ const renderBillTemplate = (b, p) => {
 window.togglePaid = async (id, paid) => {
   await updateDoc(doc(db, 'bills', id), { paid });
   showToast(paid ? 'Marked as paid.' : 'Marked as unpaid.');
+  loadBillsPage(billsPageIndex);
 };
 
 window.deleteBill = async (id) => {
   if(!confirm('Delete this bill?')) return;
   await deleteDoc(doc(db, 'bills', id));
   showToast('Bill deleted.');
+  loadBillsPage(billsPageIndex);
 };
 
 // Init Language load
 window.setLang(currentLang);
 updateThemeIcons();
 
-// Parse patientId from URL parameters on load
+// Initial bills list load (no realtime listener — same reasoning as the
+// patient list: bounded, on-demand pages instead of an unbounded live subscription)
+loadBillsPage(0);
+
+// Parse patientId from URL parameters on load (e.g. the "Generate Bill" link
+// from the patient records table) — a direct single-doc fetch instead of
+// waiting on an in-memory patient list that no longer exists.
 const urlParams = new URLSearchParams(window.location.search);
 const preselectedPatientId = urlParams.get('patientId');
 if (preselectedPatientId) {
-  setTimeout(() => {
-    const p = allPatients.find(x => x.id === preselectedPatientId);
-    if (p) {
-      window.openBillGenerator();
-      window.selectBillPatient(p.id, p.name, p.doctor || '', p.hasInsurance === true);
-    }
-  }, 600);
+  (async () => {
+    try {
+      const pSnap = await getDoc(doc(db, 'patients', preselectedPatientId));
+      if (pSnap.exists()) {
+        const p = { id: pSnap.id, ...pSnap.data() };
+        billSearchMatches = [p];
+        window.openBillGenerator();
+        window.selectBillPatient(p.id);
+      }
+    } catch (e) { console.warn('Preselect patient failed:', e); }
+  })();
 }
+
+// Keyboard shortcuts for fast desktop use: Escape closes whichever modal/
+// popover is open, and "/" jumps to whichever search box makes sense right
+// now (the bill-generator's own patient search if that modal is open,
+// otherwise the main bills-list search).
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const candidates = [
+      ['bill-gen-modal', () => { document.getElementById('bill-gen-modal').classList.remove('show'); document.body.style.overflow = ''; }],
+      ['room-rent-modal', () => document.getElementById('room-rent-modal').classList.remove('show')],
+      ['bill-print-overlay', () => document.getElementById('bill-print-overlay').classList.remove('show')],
+      ['filter-popover', () => document.getElementById('filter-popover').classList.remove('show')]
+    ];
+    for (const [id, close] of candidates) {
+      const el = document.getElementById(id);
+      if (el && el.classList.contains('show')) { close(); return; }
+    }
+  } else if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+    e.preventDefault();
+    const genModalOpen = document.getElementById('bill-gen-modal')?.classList.contains('show');
+    document.getElementById(genModalOpen ? 'bill-patient-search' : 'search-input')?.focus();
+  }
+});
 
 </script>
 <script>

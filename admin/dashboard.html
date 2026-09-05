@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Hide input number spinners */
     input::-webkit-outer-spin-button,
@@ -67,7 +67,7 @@
     .sidebar__brand{padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid rgba(255,255,255,.06);}
     .sidebar__logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;}
     .sidebar__logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(10,110,189,.35);}
-    .sidebar__logo-text .gopal{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
+    .sidebar__logo-text .gopal{display:block;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
     .sidebar__logo-text .ortho{display:block;font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;}
     .sidebar__badge{margin:.5rem 1.25rem;padding:.2rem .625rem;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:5px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-block;}
     .sidebar__nav{flex:1;padding:.875rem .75rem;display:flex;flex-direction:column;gap:.2rem;}
@@ -91,7 +91,7 @@
     /* ── TOPBAR ── */
     .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
     .topbar__left{display:flex;align-items:center;gap:.75rem;}
-    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
+    .topbar__title{font-family:'DM Sans',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
     .topbar__right{display:flex;align-items:center;gap:.75rem;}
 
     /* Language toggle */
@@ -101,8 +101,9 @@
 
     /* Search */
     .search-box{position:relative;}
-    .search-box svg{position:absolute;left:.875rem;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
-    #search-input{height:42px;padding:0 1.1rem 0 2.4rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface);outline:none;width:260px;transition:all .25s;}
+    .search-box svg{position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);width:19px;height:19px;stroke:var(--text-light);fill:none;stroke-width:1.7;stroke-linecap:round;pointer-events:none;}
+    #search-input{height:50px;padding:0 1.25rem 0 3rem;border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:1rem;color:var(--text-dark);background:var(--surface);outline:none;width:340px;max-width:100%;transition:all .25s;}
+    #search-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-ul);}
     #search-input:focus{border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px rgba(10,110,189,.1);width:320px;}
     html[data-theme="dark"] #search-input{background:var(--surface);color:var(--text-dark);border-color:var(--border);}
     html[data-theme="dark"] #search-input:focus{background:var(--surface-card);border-color:var(--primary);}
@@ -120,7 +121,7 @@
     .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:.875rem;}
     .stat-card__icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
     .stat-card__icon svg{width:20px;height:20px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
-    .stat-card__num{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;line-height:1;color:var(--text-dark);}
+    .stat-card__num{font-family:'DM Sans',sans-serif;font-size:1.65rem;font-weight:700;line-height:1;color:var(--text-dark);}
     .stat-card__label{font-size:.7rem;color:var(--text-light);letter-spacing:.04em;margin-top:.2rem;}
 
     /* ── TOOLBAR ── */
@@ -161,7 +162,7 @@
     .empty-state{text-align:center;padding:3.5rem 2rem;}
     .empty-state__icon{width:56px;height:56px;background:var(--primary-ul);border-radius:15px;display:flex;align-items:center;justify-content:center;margin:0 auto .875rem;}
     .empty-state__icon svg{width:24px;height:24px;stroke:var(--primary);fill:none;stroke-width:1.5;stroke-linecap:round;}
-    .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.3rem;}
+    .empty-state h3{font-family:'DM Sans',sans-serif;font-size:1.25rem;margin-bottom:.3rem;}
     .empty-state p{font-size:.8rem;color:var(--text-light);}
 
     /* ── PAGINATION ── */
@@ -184,7 +185,7 @@
 
     /* ── FORM ELEMENTS ── */
     .form-section{margin-bottom:1.5rem;}
-    .form-section__title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;padding-bottom:.4rem;border-bottom:2px solid var(--primary-ul);display:flex;align-items:center;gap:.4rem;}
+    .form-section__title{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;padding-bottom:.4rem;border-bottom:2px solid var(--primary-ul);display:flex;align-items:center;gap:.4rem;}
     .form-section__title svg{width:15px;height:15px;stroke:var(--primary);fill:none;stroke-width:1.7;stroke-linecap:round;}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:.875rem;}
     .form-row.col-3{grid-template-columns:1fr 1fr 1fr;}
@@ -193,7 +194,7 @@
     .f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-med);}
     .f-label span{color:var(--error);}
     .input-icon-wrap{position:relative;display:flex;align-items:center;width:100%;}
-    .f-input,.f-select,.f-textarea{height:40px;padding:0 2.5rem 0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
+    .f-input,.f-select,.f-textarea{height:44px;padding:0 2.5rem 0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.9375rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
     .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);}
     .f-textarea{height:72px;padding:.625rem .75rem;resize:vertical;}
     .f-select{cursor:pointer;padding-right:2rem;}
@@ -240,8 +241,8 @@
     .view-modal-overlay.show{display:flex;}
     .view-modal{background:var(--surface);border-radius:18px;width:min(640px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 40px 80px rgba(4,28,48,.25);}
     .view-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;background:linear-gradient(135deg,var(--bg-darker),var(--bg-dark));border-radius:18px 18px 0 0;}
-    .view-header__avatar{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;flex-shrink:0;}
-    .view-header__info .name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
+    .view-header__avatar{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;flex-shrink:0;}
+    .view-header__info .name{font-family:'DM Sans',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
     .view-header__info .meta{font-size:.8rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
     .view-body{padding:1.5rem;}
 
@@ -251,7 +252,7 @@
     .confirm-box{background:var(--surface);border-radius:16px;padding:1.75rem;width:min(360px,95vw);text-align:center;box-shadow:0 24px 60px rgba(4,28,48,.35);}
     .confirm-box__icon{width:52px;height:52px;background:var(--error-bg);color:var(--error);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
     .confirm-box__icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;}
-    .confirm-box h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.5rem;}
+    .confirm-box h3{font-family:'DM Sans',sans-serif;font-size:1.25rem;margin-bottom:.5rem;}
     .confirm-box p{font-size:.8rem;color:var(--text-light);margin-bottom:1.5rem;line-height:1.4;}
     .confirm-box__btns{display:flex;gap:.625rem;}
     .btn-confirm-cancel{flex:1;height:38px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);font-family:inherit;font-size:.85rem;font-weight:500;color:var(--text-med);cursor:pointer;transition:all .2s;}
@@ -524,10 +525,10 @@
           </div>
         </div>
       </div>
-      
+
       <div class="search-box">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-input" placeholder="Search patients…" oninput="handleSearch(this.value)">
+        <input type="text" id="search-input" placeholder="Search patients… (press / to focus)" oninput="handleSearch(this.value)">
       </div>
     </div>
 
@@ -537,14 +538,14 @@
         <table>
           <thead>
             <tr>
-              <th data-i18n="name">Full Name</th>
-              <th>GDX ID</th>
-              <th data-i18n="phone">Phone</th>
+              <th>Patient ID</th>
+              <th>OP No</th>
+              <th>Patient Name</th>
               <th data-i18n="age">Age</th>
-              <th data-i18n="gender">Gender</th>
-              <th data-i18n="chooseType">Consultation Type</th>
-              <th data-i18n="doctorName">Doctor Name</th>
-              <th data-i18n="visitDate">Visit Date</th>
+              <th>Sex</th>
+              <th data-i18n="diagnosis">Diagnosis</th>
+              <th>Consultant</th>
+              <th>Visiting Date</th>
               <th style="width:100px;text-align:right;">Actions</th>
             </tr>
           </thead>
@@ -566,32 +567,14 @@
   <div class="modal-wizard">
     <div style="background:linear-gradient(135deg,var(--bg-darker),var(--bg-dark));padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;color:#fff;">
       <div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;" id="modal-title" data-i18n="addPatient">Add New Patient</h2>
+        <h2 style="font-family:'DM Sans',sans-serif;font-size:1.35rem;font-weight:700;color:#fff;" id="modal-title" data-i18n="addPatient">Add New Patient</h2>
         <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.1rem;">Enter patient details</div>
       </div>
       <button class="modal-close" onclick="closeFormModal()" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.6);"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
     
-    <div class="wizard-steps">
-      <div class="wizard-step active" id="step-ind-1">
-        <div class="step-circle">1</div>
-        <span class="step-label">Personal Info</span>
-      </div>
-      <div class="step-divider" id="step-divider-1"></div>
-      <div class="wizard-step" id="step-ind-2">
-        <div class="step-circle">2</div>
-        <span class="step-label">Medical Info</span>
-      </div>
-      <div class="step-divider" id="step-divider-2"></div>
-      <div class="wizard-step" id="step-ind-3">
-        <div class="step-circle">3</div>
-        <span class="step-label">Review</span>
-      </div>
-    </div>
-    
     <div class="modal-body wizard-body-scroll" style="padding:1.5rem;">
       <form id="patient-form" novalidate onsubmit="return false;">
-        <!-- STEP 1: PERSONAL INFO -->
         <div id="wizard-step-1" class="wizard-content">
           <div class="form-section" style="margin-bottom:0;border:none;padding:0;">
             <div class="form-section__title" style="margin-bottom:1.25rem;">
@@ -656,8 +639,7 @@
           </div>
         </div>
         
-        <!-- STEP 2: MEDICAL INFO -->
-        <div id="wizard-step-2" class="wizard-content" style="display:none;">
+        <div id="wizard-step-2" class="wizard-content">
           <div class="form-section">
             <div class="form-section__title" style="margin-bottom:1.25rem;">
               <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -694,17 +676,26 @@
               </div>
             </div>
             
+            <div class="form-row col-1" style="margin-bottom:1rem;">
+              <div class="f-group">
+                <label class="f-label" data-i18n="reason">Reason for Visit</label>
+                <div class="input-icon-wrap">
+                  <input class="f-input" id="f-reason" type="text" placeholder="e.g. Knee pain, regular checkup" style="padding-right:2.5rem;">
+                  <button type="button" class="mic-btn" onclick="startSpeech('f-reason','f-diagnosis')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
+                </div>
+              </div>
+            </div>
             <div class="form-row col-1">
               <div class="f-group">
-                <label class="f-label"><span data-i18n="reason">Reason for Visit</span> <span>*</span></label>
+                <label class="f-label" data-i18n="diagnosis">Diagnosis</label>
                 <div class="input-icon-wrap">
-                  <input class="f-input" id="f-reason" type="text" placeholder="e.g. Knee pain, regular checkup" required style="padding-right:2.5rem;">
-                  <button type="button" class="mic-btn" onclick="startSpeech('f-reason','f-notes')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
+                  <input class="f-input" id="f-diagnosis" type="text" placeholder="e.g. ACL tear, Type 2 Diabetes" style="padding-right:2.5rem;">
+                  <button type="button" class="mic-btn" onclick="startSpeech('f-diagnosis','f-notes')"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></button>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <!-- Orthopedic fields -->
           <div class="form-section" id="ortho-fields">
             <div class="form-section__title" style="margin-bottom:1.25rem;">
@@ -806,25 +797,13 @@
           </div>
         </div>
         
-        <!-- STEP 3: REVIEW -->
-        <div id="wizard-step-3" class="wizard-content" style="display:none;">
-          <div class="form-section" style="margin-bottom:0;border:none;padding:0;">
-            <div class="form-section__title" style="margin-bottom:1.25rem;">
-              <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              <span>Review Patient Details</span>
-            </div>
-            <div id="wizard-review-body" style="display:flex;flex-direction:column;gap:1.5rem;"></div>
-          </div>
-        </div>
-        
         <input type="hidden" id="f-doc-id">
       </form>
     </div>
-    
+
     <div class="modal-footer" style="padding:1.25rem 1.5rem;background:var(--surface-card);border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:.75rem;">
       <button class="btn-cancel" onclick="closeFormModal()" data-i18n="cancel" style="margin-right:auto;">Cancel</button>
-      <button class="btn-cancel" id="btn-wizard-back" onclick="window.setWizardStep(window.wizardStep - 1)" style="display:none;">Back</button>
-      <button class="btn-save" id="btn-wizard-next" onclick="window.handleWizardNext()">Next →</button>
+      <button class="btn-save" id="btn-save-patient" onclick="window.savePatient()" data-i18n="save">Save Patient</button>
     </div>
   </div>
 </div>
@@ -863,11 +842,12 @@
 </div>
 
 <script type="module">
-import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   getFirestore, collection, addDoc, updateDoc, deleteDoc,
-  doc, onSnapshot, query, orderBy, serverTimestamp, getDocs, limit
+  doc, query, orderBy, serverTimestamp, getDocs, limit, where, startAfter,
+  getDoc, runTransaction, writeBatch, getCountFromServer
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -894,13 +874,24 @@ const getLoginDest = (reason = '') => {
   return reason ? `${dest}?reason=${reason}` : dest;
 };
 
+// Session timer re-checks shared lastActivity when it fires, instead of blindly
+// signing out — otherwise an idle tab's own timer force-logs-out every tab the
+// moment it elapses, even if another tab kept the session alive in the meantime.
+const checkSessionTimeout = async () => {
+  const last = parseInt(localStorage.getItem('lastActivity') || '0');
+  const idleFor = Date.now() - last;
+  if (idleFor >= SESSION_MS) {
+    await signOut(authFB);
+    window.location.href = getLoginDest('timeout');
+  } else {
+    _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS - idleFor);
+  }
+};
+
 const resetActivityTimer = () => {
   if (_activityTimer) clearTimeout(_activityTimer);
   localStorage.setItem('lastActivity', Date.now());
-  _activityTimer = setTimeout(async () => {
-    await signOut(authFB);
-    window.location.href = getLoginDest('timeout');
-  }, SESSION_MS);
+  _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS);
 };
 
 document.addEventListener('mousemove', resetActivityTimer, { passive: true });
@@ -908,11 +899,22 @@ document.addEventListener('keydown', resetActivityTimer, { passive: true });
 document.addEventListener('click', resetActivityTimer, { passive: true });
 document.addEventListener('touchstart', resetActivityTimer, { passive: true });
 
+// Admin gate: the hardcoded list is the permanent bootstrap admin (can never be
+// locked out); any other admin is granted via an admins/{email} doc with
+// role:'admin', addable from the Firestore console without a code redeploy.
+const isAuthorizedAdmin = async email => {
+  if (ADMIN_EMAILS.includes(email)) return true;
+  try {
+    const snap = await getDoc(doc(db, 'admins', email));
+    return snap.exists() && snap.data()?.role === 'admin';
+  } catch (e) { return false; }
+};
+
 onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href = getLoginDest(); return; }
 
-  // Check admin allowlist
-  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
+  const email = (user.email||'').toLowerCase();
+  if (!(await isAuthorizedAdmin(email))) {
     await signOut(authFB);
     window.location.href = getLoginDest('denied');
     return;
@@ -934,13 +936,25 @@ onAuthStateChanged(authFB, async user => {
   document.getElementById('user-name-display').textContent = savedName;
 });
 
+// Keep display name in sync if it's changed from Settings in another tab
+window.addEventListener('storage', e => {
+  if (e.key === 'displayName' && e.newValue) {
+    document.getElementById('user-avatar').textContent = e.newValue.slice(0,2).toUpperCase();
+    document.getElementById('user-name-display').textContent = e.newValue;
+  }
+});
+
 // State
-let allPatients = [];
-let filteredPatients = [];
-let currentFilter = 'all';
+// currentPatients holds only the currently-visible page of results — with
+// 20,000+ patients we no longer keep the whole collection in memory. Pagination
+// is cursor-based (Firestore startAfter), not client-side array slicing.
+let currentPatients = [];
+let lastFetchedDocs = [];   // raw page before popover filters are applied
 let searchQ = '';
 let deleteId = null;
-let currentPage = 1;
+let pageCursors = [null];   // pageCursors[i] = QueryDocumentSnapshot to startAfter for page i (0 = first page)
+let currentPageIndex = 0;
+let hasMorePages = false;
 const perPage = 12;
 
 // i18n dictionary
@@ -948,7 +962,7 @@ const i18n = {
   en: {
     patients: 'Patient Records', rooms: 'Room Management', bills: 'Billing',
     addPatient: 'Add Patient', name: 'Full Name', phone: 'Phone', age: 'Age', gender: 'Gender',
-    reason: 'Reason for Visit', save: 'Save Patient', cancel: 'Cancel', signOut: 'Sign Out',
+    reason: 'Reason for Visit', diagnosis: 'Diagnosis', save: 'Save Patient', cancel: 'Cancel', signOut: 'Sign Out',
     totalPatients: 'Total Patients', todayVisits: "Today's Visits",
     ortho: 'Orthopaedic', general: 'General', all: 'All', chooseType: 'Consultation Type',
     doctorName: 'Doctor Name', visitDate: 'Visit Date', male: 'Male', female: 'Female', other: 'Other',
@@ -959,13 +973,13 @@ const i18n = {
     patientInfo: 'Patient Information', consultation: 'Consultation', orthoDetails: 'Orthopedic Details',
     generalDetails: 'General / Diabetology Details',
     noticeboard: 'Notice Board', settings: 'Settings',
-    searchPatientsPlaceholder: 'Search patients…',
+    searchPatientsPlaceholder: 'Search patients… (press / to focus)',
     filter: 'Filter', actions: 'Actions'
   },
   ta: {
     patients: 'நோயாளர் பதிவுகள்', rooms: 'அறை மேலாண்மை', bills: 'கட்டண மசோதா',
     addPatient: 'நோயாளர் சேர்க்க', name: 'முழு பெயர்', phone: 'தொலைபேசி', age: 'வயது', gender: 'பாலினம்',
-    reason: 'வருகைக்கான காரணம்', save: 'சேமிக்க', cancel: 'ரத்துசெய்', signOut: 'வெளியேறு',
+    reason: 'வருகைக்கான காரணம்', diagnosis: 'நோய் கண்டறிதல்', save: 'சேமிக்க', cancel: 'ரத்துசெய்', signOut: 'வெளியேறு',
     totalPatients: 'மொத்த நோயாளர்கள்', todayVisits: 'இன்றைய வருகைகள்',
     ortho: 'எலும்பியல்', general: 'பொது', all: 'அனைத்தும்', chooseType: 'ஆலோசனை வகை',
     doctorName: 'மருத்துவர் பெயர்', visitDate: 'வருகை தேதி', male: 'ஆண்', female: 'பெண்', other: 'மற்றவை',
@@ -1044,20 +1058,161 @@ window.showToast = (msg, type = 'success') => {
 
 const esc = str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const fmtDate = dStr => { if(!dStr)return'—'; const d=new Date(dStr); return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); };
+// The clinic is India-only; toISOString() is UTC, which is ~5.5h behind IST, so
+// "today" must be computed in IST or the first hours of each day use yesterday's date.
+const todayIST = () => new Date(Date.now() + 5.5 * 3600000).toISOString().slice(0, 10);
 
-// Patients Firebase query
-onSnapshot(query(collection(db,'patients'),orderBy('createdAt','desc')),snap=>{
-  allPatients=snap.docs.map(d=>({id:d.id,...d.data()}));
-  updateStats();
-  applyFilters();
-});
+// Strips formatting so "9876543210" and "+91 98765 43210" compare equal.
+const normalizePhone = s => {
+  let d = String(s || '').replace(/\D/g, '');
+  if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
+  else if (d.length > 10 && d.startsWith('0')) d = d.replace(/^0+/, '');
+  return d;
+};
 
-const updateStats = () => {
-  const tot = allPatients.length;
-  const today = new Date().toISOString().slice(0, 10);
-  const visits = allPatients.filter(p => p.visitDate === today).length;
-  document.getElementById('stat-total').textContent = tot;
-  document.getElementById('stat-visits').textContent = visits;
+const formatPatientCode = seq => `G${seq < 10 ? '0' + seq : seq}`;
+const parsePatientCodeSeq = code => {
+  const m = /^(?:GDX|G)?(\d+)$/i.exec(code || '');
+  return m ? parseInt(m[1], 10) : null;
+};
+
+const patientCounterRef = () => doc(db, 'meta', 'patientCounter');
+
+// Atomically issues the next Patient ID (G01, G02, …) via a Firestore
+// transaction on a counter doc, so concurrent saves / deleted patients can
+// never produce a duplicate ID.
+const getNextPatientCode = async () => {
+  let bootstrapSeq = null; // only computed once, lazily, if the counter doc doesn't exist yet
+  const seq = await runTransaction(db, async tx => {
+    const snap = await tx.get(patientCounterRef());
+    if (snap.exists()) {
+      const next = (snap.data().seq || 0) + 1;
+      tx.set(patientCounterRef(), { seq: next }, { merge: true });
+      return next;
+    }
+    // Bootstrap once from the most recently-created patient's existing code
+    // (old "GDX01"-style or plain numeric) — a single cheap 1-doc read instead
+    // of scanning the whole (possibly 20,000+ row) collection.
+    if (bootstrapSeq === null) {
+      const recentSnap = await getDocs(query(collection(db, 'patients'), orderBy('createdAt', 'desc'), limit(1)));
+      bootstrapSeq = recentSnap.docs.length ? (parsePatientCodeSeq(recentSnap.docs[0].data().patientCode) || 0) : 0;
+    }
+    const next = bootstrapSeq + 1;
+    tx.set(patientCounterRef(), { seq: next }, { merge: true });
+    return next;
+  });
+  return formatPatientCode(seq);
+};
+
+// OP No is a separate per-visit register number from the Patient ID — plain
+// sequential, its own counter, assigned once at creation (never renumbered).
+const getNextOpNo = async () => {
+  const counterRef = doc(db, 'meta', 'opNoCounter');
+  const seq = await runTransaction(db, async tx => {
+    const snap = await tx.get(counterRef);
+    const next = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
+    tx.set(counterRef, { seq: next }, { merge: true });
+    return next;
+  });
+  return String(seq);
+};
+
+// Fetches the whole patients collection in bounded chunks (cursor-paged, not
+// one giant unbounded read) — shared by the two maintenance tools below, both
+// of which need to touch every record at 20,000+ scale.
+const forEachPatientBatch = async (handler) => {
+  let cursor = null;
+  const chunkSize = 500; // Firestore's writeBatch cap, so fetch/write chunks line up 1:1
+  let totalSeen = 0;
+  while (true) {
+    const pageQ = cursor
+      ? query(collection(db, 'patients'), orderBy('createdAt', 'asc'), startAfter(cursor), limit(chunkSize))
+      : query(collection(db, 'patients'), orderBy('createdAt', 'asc'), limit(chunkSize));
+    const snap = await getDocs(pageQ);
+    if (snap.empty) break;
+    await handler(snap.docs, totalSeen);
+    totalSeen += snap.docs.length;
+    cursor = snap.docs[snap.docs.length - 1];
+    if (snap.docs.length < chunkSize) break;
+  }
+  return totalSeen;
+};
+
+// One-time maintenance action: rewrites every existing patient's ID to the
+// current G01/G02/… format, in order of registration (oldest = G01), and
+// resets the counter so new patients continue on from there. Uses chunked
+// reads + batched writes (500 at a time) so it stays correct and reasonably
+// fast at 20,000+ patients instead of issuing one write per patient.
+window.renumberPatientIds = async () => {
+  let count = '?';
+  try { count = (await getCountFromServer(collection(db, 'patients'))).data().count; } catch (e) { /* fall back to unknown count */ }
+  if (!confirm(`This will renumber ALL ${count} patients to the G01, G02, … format, oldest first — roughly ${count} reads and up to ${count} writes. This can take a little while on a large clinic. Continue?`)) return;
+  showToast('Renumbering patient IDs…');
+  try {
+    let seq = 0, changed = 0;
+    const total = await forEachPatientBatch(async docs => {
+      const batch = writeBatch(db);
+      let batchHasWrites = false;
+      docs.forEach(d => {
+        seq++;
+        const newCode = formatPatientCode(seq);
+        if (d.data().patientCode !== newCode) {
+          batch.update(doc(db, 'patients', d.id), { patientCode: newCode });
+          batchHasWrites = true;
+          changed++;
+        }
+      });
+      if (batchHasWrites) await batch.commit();
+    });
+    await runTransaction(db, async tx => { tx.set(patientCounterRef(), { seq: total }, { merge: true }); });
+    showToast(`Renumbered ${changed} of ${total} patient IDs.`);
+    loadPatientPage(currentPageIndex);
+  } catch (err) {
+    showToast('Error renumbering: ' + err.message, 'error');
+  }
+};
+
+// One-time maintenance action: backfills the lowercase `nameLower` field (used
+// for case-insensitive name search) on any patient created before that field
+// existed. Same chunked-read + batched-write approach as the renumber tool.
+window.backfillSearchIndex = async () => {
+  let count = '?';
+  try { count = (await getCountFromServer(collection(db, 'patients'))).data().count; } catch (e) { /* fall back to unknown count */ }
+  if (!confirm(`This scans all ${count} patients (roughly ${count} reads, plus a write for any missing a search index). Continue?`)) return;
+  showToast('Backfilling search index…');
+  try {
+    let updated = 0;
+    const total = await forEachPatientBatch(async docs => {
+      const batch = writeBatch(db);
+      let batchHasWrites = false;
+      docs.forEach(d => {
+        const data = d.data();
+        const expected = (data.name || '').toLowerCase();
+        if (data.nameLower !== expected) {
+          batch.update(doc(db, 'patients', d.id), { nameLower: expected });
+          batchHasWrites = true;
+          updated++;
+        }
+      });
+      if (batchHasWrites) await batch.commit();
+    });
+    showToast(`Search index updated for ${updated} of ${total} patients.`);
+  } catch (err) {
+    showToast('Error backfilling: ' + err.message, 'error');
+  }
+};
+
+// Cheap aggregate counts (1 read each, regardless of collection size) instead
+// of counting an in-memory array of every patient.
+const refreshStats = async () => {
+  try {
+    const totalSnap = await getCountFromServer(collection(db, 'patients'));
+    document.getElementById('stat-total').textContent = totalSnap.data().count;
+  } catch (e) { console.warn('Total count query failed:', e); }
+  try {
+    const visitsSnap = await getCountFromServer(query(collection(db, 'patients'), where('visitDate', '==', todayIST())));
+    document.getElementById('stat-visits').textContent = visitsSnap.data().count;
+  } catch (e) { console.warn('Visits count query failed:', e); }
 };
 
 // Filtering & Search
@@ -1075,35 +1230,45 @@ document.addEventListener('click', e => {
   }
 });
 
-window.applyFilters = () => {
-  let list = [...allPatients];
-  
-  // Search Query
-  if (searchQ.trim()) {
-    const q = searchQ.toLowerCase().trim();
-    list = list.filter(p => 
-      (p.name||'').toLowerCase().includes(q) ||
-      (p.phone||'').includes(q) ||
-      (p.patientCode||'').toLowerCase().includes(q) ||
-      (p.reason||'').toLowerCase().includes(q)
-    );
-  }
-  
-  // Gender Filter
+// Decides which Firestore field to prefix-search based on what the query looks
+// like, so one search box still covers name / phone / Patient ID as before —
+// but as a server-side "starts with" query instead of loading everything and
+// scanning in memory for a "contains anywhere" match.
+const detectSearchField = q => {
+  const v = q.trim();
+  if (!v) return null;
+  if (/^g\d/i.test(v)) return 'patientCode';
+  if (/^[\d\s+]+$/.test(v)) return 'phone';
+  return 'nameLower';
+};
+
+const PREFIX_END = String.fromCharCode(0xf8ff); // Firestore prefix-range trick: high private-use codepoint as the upper bound
+const buildPrefixQuery = (field, value, cursor) => {
+  const clauses = [collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field)];
+  if (cursor) clauses.push(startAfter(cursor));
+  clauses.push(limit(perPage + 1)); // +1 to detect whether a next page exists
+  return query(...clauses);
+};
+
+const buildBrowseQuery = cursor => {
+  const clauses = [collection(db, 'patients'), orderBy('createdAt', 'desc')];
+  if (cursor) clauses.push(startAfter(cursor));
+  clauses.push(limit(perPage + 1));
+  return query(...clauses);
+};
+
+// Popover filters (gender/insurance/age/date/consultation type/doctor) are
+// applied client-side, but only against the small page of records already
+// fetched — not the whole clinic history. That's the trade-off for staying
+// scalable without a matching Firestore composite index per filter combo.
+const applySecondaryFilters = list => {
   const popGender = document.getElementById('pop-gender')?.value || 'all';
-  if (popGender !== 'all') {
-    list = list.filter(p => p.gender === popGender);
-  }
-  
-  // Insurance Filter
+  if (popGender !== 'all') list = list.filter(p => p.gender === popGender);
+
   const popIns = document.getElementById('pop-insurance')?.value || 'all';
-  if (popIns === 'yes') {
-    list = list.filter(p => p.hasInsurance === true);
-  } else if (popIns === 'no') {
-    list = list.filter(p => p.hasInsurance !== true);
-  }
-  
-  // Age Range Filter
+  if (popIns === 'yes') list = list.filter(p => p.hasInsurance === true);
+  else if (popIns === 'no') list = list.filter(p => p.hasInsurance !== true);
+
   const popAgeRange = document.getElementById('pop-age-range')?.value || 'all';
   if (popAgeRange !== 'all') {
     list = list.filter(p => {
@@ -1116,15 +1281,12 @@ window.applyFilters = () => {
     });
   }
 
-  // Visit Date Range Filter
   const popDateRange = document.getElementById('pop-date-range')?.value || 'all';
   if (popDateRange !== 'all') {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const yesterday = new Date(Date.now() - 86400000);
-    const yesterdayStr = yesterday.toISOString().slice(0, 10);
+    const todayStr = todayIST();
+    const yesterdayStr = new Date(Date.now() - 86400000 + 5.5 * 3600000).toISOString().slice(0, 10);
     const sevenDaysAgo = new Date(Date.now() - 7 * 86400000);
     const startOfMonthStr = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10);
-    
     list = list.filter(p => {
       const vd = p.visitDate || '';
       if (!vd) return false;
@@ -1135,8 +1297,7 @@ window.applyFilters = () => {
       return true;
     });
   }
-  
-  // Consultation Type checkboxes
+
   const orthoCh = document.getElementById('pop-type-ortho').checked;
   const genCh = document.getElementById('pop-type-general').checked;
   list = list.filter(p => {
@@ -1144,8 +1305,7 @@ window.applyFilters = () => {
     if (p.consultationType === 'General') return genCh;
     return true;
   });
-  
-  // Doctor checkboxes
+
   const gopalCh = document.getElementById('pop-doc-gopal').checked;
   const shinyCh = document.getElementById('pop-doc-shiny').checked;
   list = list.filter(p => {
@@ -1153,47 +1313,75 @@ window.applyFilters = () => {
     if (p.doctor === 'Dr. R. Shiny') return shinyCh;
     return true;
   });
-  
-  filteredPatients = list;
-  currentPage = 1;
+
+  return list;
+};
+
+// Fetches one page from Firestore (search-filtered or plain browse) and renders it.
+const loadPatientPage = async pageIndex => {
+  const field = detectSearchField(searchQ);
+  const cursor = pageCursors[pageIndex] || null;
+  let snap;
+  try {
+    if (field === 'phone') snap = await getDocs(buildPrefixQuery('phone', searchQ.trim(), cursor));
+    else if (field === 'patientCode') snap = await getDocs(buildPrefixQuery('patientCode', searchQ.trim().toUpperCase(), cursor));
+    else if (field === 'nameLower') snap = await getDocs(buildPrefixQuery('nameLower', searchQ.trim().toLowerCase(), cursor));
+    else snap = await getDocs(buildBrowseQuery(cursor));
+  } catch (err) {
+    showToast('Error loading patients: ' + err.message, 'error');
+    return;
+  }
+
+  let docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  hasMorePages = docs.length > perPage;
+  if (hasMorePages) {
+    docs = docs.slice(0, perPage);
+    pageCursors[pageIndex + 1] = snap.docs[perPage - 1];
+  }
+  currentPageIndex = pageIndex;
+  lastFetchedDocs = docs;
+  currentPatients = applySecondaryFilters(docs);
+  renderPatientsTable();
+};
+
+// Called on an explicit user action (search box or popover filter change) —
+// search re-queries Firestore from page 1; popover filters just re-filter the
+// page already in hand.
+window.applyFilters = () => {
+  currentPatients = applySecondaryFilters(lastFetchedDocs);
   renderPatientsTable();
 };
 
 window.handleSearch = q => {
   searchQ = q;
-  applyFilters();
+  pageCursors = [null];
+  loadPatientPage(0);
+};
+
+window.goPage = n => {
+  if (n < 0) return;
+  loadPatientPage(n);
 };
 
 const renderPatientsTable = () => {
   const tbody = document.getElementById('patient-rows');
   if (!tbody) return;
-  if (!filteredPatients.length) {
+  if (!currentPatients.length) {
     tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="empty-state__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>No patients found</h3><p>Try refining your search or add a new record.</p></div></td></tr>`;
     document.getElementById('patients-pagination').style.display = 'none';
     return;
   }
-  
-  const total = filteredPatients.length;
-  const start = (currentPage - 1) * perPage;
-  const slice = filteredPatients.slice(start, start + perPage);
-  
-  tbody.innerHTML = slice.map(p => {
-    const isOrtho = p.consultationType === 'Orthopedic';
-    const tag = isOrtho
-      ? `<span class="consult-tag consult-tag-ortho">${esc(p.bodyPart || 'Ortho')}</span>`
-      : `<span class="consult-tag consult-tag-general">General</span>`;
+
+  tbody.innerHTML = currentPatients.map(p => {
     const genBadge = p.gender === 'Male' ? 'badge-male' : (p.gender === 'Female' ? 'badge-female' : 'badge-other');
     return `
       <tr>
-        <td>
-          <div class="patient-name">${esc(p.name)}</div>
-          <div style="font-size:.75rem;color:var(--text-light);">${esc(p.reason)}</div>
-        </td>
-        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--primary);">${p.patientCode||'—'}</span></td>
-        <td style="font-family:'DM Mono',monospace;">${esc(p.phone || '—')}</td>
+        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--primary);">${esc(p.patientCode)||'—'}</span></td>
+        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--text-med);">${esc(p.opNo)||'—'}</span></td>
+        <td><div class="patient-name">${esc(p.name)}</div></td>
         <td>${p.age || '—'}</td>
         <td><span class="badge ${genBadge}">${p.gender || '—'}</span></td>
-        <td>${tag}</td>
+        <td>${esc(p.diagnosis) || '—'}</td>
         <td style="font-weight:500;">${esc(p.doctor?.split(' ').pop() || '—')}</td>
         <td style="font-family:'DM Mono',monospace;font-size:.8rem;">${fmtDate(p.visitDate)}</td>
         <td style="text-align:right;">
@@ -1208,30 +1396,28 @@ const renderPatientsTable = () => {
         </td>
       </tr>`;
   }).join('');
-  
-  const pages = Math.ceil(total / perPage);
+
+  // Cursor-based pagination (Previous/Next) — Firestore doesn't give a cheap
+  // total-match count for an arbitrary query, so unlike before there's no
+  // numbered "page 1 2 3…" or "X of Y total" here; the "Total Patients" stat
+  // card above covers the overall count instead.
   const pag = document.getElementById('patients-pagination');
-  if (pages > 1) {
-    pag.style.display = 'flex';
-    document.getElementById('patients-page-info').textContent = `${start+1}–${Math.min(start+perPage,total)} of ${total}`;
-    document.getElementById('patients-page-btns').innerHTML = 
-      `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>`+
-      Array.from({length:pages},(_,i)=>`<button class="page-btn${currentPage===i+1?' active':''}" onclick="goPage(${i+1})">${i+1}</button>`).join('')+
-      `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>→</button>`;
-  } else {
-    pag.style.display = 'none';
-  }
+  const start = currentPageIndex * perPage;
+  pag.style.display = 'flex';
+  document.getElementById('patients-page-info').textContent = `${start + 1}–${start + currentPatients.length}`;
+  document.getElementById('patients-page-btns').innerHTML =
+    `<button class="page-btn" onclick="goPage(${currentPageIndex - 1})" ${currentPageIndex === 0 ? 'disabled' : ''}>← Prev</button>` +
+    `<button class="page-btn" onclick="goPage(${currentPageIndex + 1})" ${hasMorePages ? '' : 'disabled'}>Next →</button>`;
 };
-window.goPage = n => { currentPage = n; renderPatientsTable(); };
 
 // View Details Modal
 window.viewPatient = id => {
-  const p = allPatients.find(x => x.id === id);
+  const p = currentPatients.find(x => x.id === id);
   if (!p) return;
   const ini = (p.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   document.getElementById('view-avatar').textContent = ini;
   document.getElementById('view-name').textContent = p.name;
-  document.getElementById('view-meta').textContent = `${p.age || '?'}y · ${p.gender || ''} · ${p.phone || ''} · Code: ${p.patientCode||'—'}`;
+  document.getElementById('view-meta').textContent = `${p.age || '?'}y · ${p.gender || ''} · ${p.phone || ''} · Patient ID: ${p.patientCode||'—'} · OP No: ${p.opNo||'—'}`;
   
   const isOrtho = p.consultationType === 'Orthopedic';
   let bodyHtml = `
@@ -1246,7 +1432,11 @@ window.viewPatient = id => {
       </div>
       <div style="grid-column:1/-1;">
         <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Reason for Visit</h4>
-        <div style="font-size:.9rem;line-height:1.4;">${esc(p.reason)}</div>
+        <div style="font-size:.9rem;line-height:1.4;">${esc(p.reason) || '—'}</div>
+      </div>
+      <div style="grid-column:1/-1;">
+        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Diagnosis</h4>
+        <div style="font-size:.9rem;line-height:1.4;">${esc(p.diagnosis) || '—'}</div>
       </div>
       <div>
         <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Insurance Status</h4>
@@ -1265,7 +1455,7 @@ window.viewPatient = id => {
   
   if (isOrtho) {
     bodyHtml += `
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;">Orthopaedic Details</h3>
+      <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;">Orthopaedic Details</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;">
         <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Injury Type</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.injuryType || 'None')}</div></div>
         <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Affected Body Part</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.bodyPart || '—')} (${esc(p.side || 'N/A')})</div></div>
@@ -1275,7 +1465,7 @@ window.viewPatient = id => {
       </div>`;
   } else {
     bodyHtml += `
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;">General / Diabetology Details</h3>
+      <h3 style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:.875rem;">General / Diabetology Details</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;">
         <div style="grid-column:1/-1;"><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Symptoms</h4><div style="font-size:.85rem;line-height:1.4;">${esc(p.symptoms || '—')}</div></div>
         <div><h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;">Duration</h4><div style="font-weight:600;font-size:.85rem;">${esc(p.duration || '—')}</div></div>
@@ -1288,8 +1478,9 @@ window.viewPatient = id => {
   document.getElementById('view-modal').classList.add('show');
 };
 
-// Wizard navigation and form submission
-let wizardStep = 1;
+// Single-page form (no wizard) — every field is visible at once so a
+// receptionist can register a patient in one pass instead of clicking
+// through steps.
 let consultationType = 'Orthopedic';
 
 window.openFormModal = () => {
@@ -1298,41 +1489,15 @@ window.openFormModal = () => {
   document.getElementById('f-doc-id').value = '';
   document.getElementById('modal-title').textContent = 'Add New Patient';
   setConsultationType('Orthopedic');
-  window.setWizardStep(1);
   document.getElementById('form-modal').classList.add('show');
-  document.getElementById('f-visit-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('f-visit-date').value = todayIST();
   document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('f-name')?.focus(), 50);
 };
 
 window.closeFormModal = () => {
   document.getElementById('form-modal').classList.remove('show');
   document.body.style.overflow = '';
-};
-
-window.setWizardStep = step => {
-  window.wizardStep = step;
-  // Content panels
-  document.getElementById('wizard-step-1').style.display = step === 1 ? 'block' : 'none';
-  document.getElementById('wizard-step-2').style.display = step === 2 ? 'block' : 'none';
-  document.getElementById('wizard-step-3').style.display = step === 3 ? 'block' : 'none';
-  
-  // Indicators
-  const ind1 = document.getElementById('step-ind-1');
-  const ind2 = document.getElementById('step-ind-2');
-  const ind3 = document.getElementById('step-ind-3');
-  const div1 = document.getElementById('step-divider-1');
-  const div2 = document.getElementById('step-divider-2');
-  
-  ind1.className = 'wizard-step' + (step >= 1 ? ' active' : '') + (step > 1 ? ' completed' : '');
-  ind2.className = 'wizard-step' + (step >= 2 ? ' active' : '') + (step > 2 ? ' completed' : '');
-  ind3.className = 'wizard-step' + (step === 3 ? ' active' : '');
-  
-  div1.className = 'step-divider' + (step > 1 ? ' active' : '');
-  div2.className = 'step-divider' + (step > 2 ? ' active' : '');
-  
-  // Buttons
-  document.getElementById('btn-wizard-back').style.display = step > 1 ? 'inline-block' : 'none';
-  document.getElementById('btn-wizard-next').textContent = step === 3 ? 'Save Patient' : 'Next →';
 };
 
 window.setConsultationType = type => {
@@ -1345,111 +1510,29 @@ window.setConsultationType = type => {
   document.getElementById('f-doctor').value = isOrtho ? 'Dr. N. Gopala Krishnan' : 'Dr. R. Shiny';
 };
 
-window.handleWizardNext = () => {
-  if (window.wizardStep === 1) {
-    const name = document.getElementById('f-name').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    if (!name || !phone) { showToast('Name and Phone Number are required.', 'error'); return; }
-    window.setWizardStep(2);
-  } else if (window.wizardStep === 2) {
-    const reason = document.getElementById('f-reason').value.trim();
-    if (!reason) { showToast('Reason for visit is required.', 'error'); return; }
-    renderWizardReview();
-    window.setWizardStep(3);
-  } else if (window.wizardStep === 3) {
-    savePatient();
-  }
-};
-
-const renderWizardReview = () => {
-  const name = document.getElementById('f-name').value.trim();
-  const age = document.getElementById('f-age').value;
-  const gender = document.getElementById('f-gender').value;
-  const phone = document.getElementById('f-phone').value.trim();
-  const address = document.getElementById('f-address').value.trim();
-  const doc = document.getElementById('f-doctor').value;
-  const visit = document.getElementById('f-visit-date').value;
-  const reason = document.getElementById('f-reason').value.trim();
-  const ins = document.getElementById('f-insurance').value === 'yes' ? 'Has Insurance' : 'No Insurance';
-  
-  let html = `
-    <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-      <div style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">${esc(name)}</div>
-      <div style="font-size:.8rem;color:var(--text-light);display:flex;gap:.75rem;flex-wrap:wrap;">
-        <span>Gender: <strong>${gender}</strong></span>
-        <span>Age: <strong>${age||'—'}</strong></span>
-        <span>Phone: <strong>${phone}</strong></span>
-        <span>Insurance: <strong>${ins}</strong></span>
-      </div>
-      ${address ? `<div style="font-size:.8rem;color:var(--text-med);margin-top:.5rem;">Address: ${esc(address)}</div>` : ''}
-    </div>
-    
-    <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-      <div style="font-weight:600;font-size:.8rem;color:var(--primary);text-transform:uppercase;margin-bottom:.5rem;">Consultation Details (${consultationType})</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;font-size:.8rem;">
-        <div>Doctor: <strong>${esc(doc)}</strong></div>
-        <div>Date: <strong style="font-family:monospace;">${fmtDate(visit)}</strong></div>
-        <div style="grid-column:1/-1;">Reason: <strong>${esc(reason)}</strong></div>
-      </div>
-    </div>`;
-    
-  if (consultationType === 'Orthopedic') {
-    const inj = document.getElementById('f-injury-type').value;
-    const part = document.getElementById('f-body-part').value;
-    const side = document.getElementById('f-side').value;
-    const injDate = document.getElementById('f-injury-date').value;
-    const cause = document.getElementById('f-cause').value;
-    const clNotes = document.getElementById('f-notes').value.trim();
-    html += `
-      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-        <div style="font-weight:600;font-size:.8rem;color:var(--primary);text-transform:uppercase;margin-bottom:.5rem;">Orthopedic Fields</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;font-size:.8rem;">
-          <div>Injury: <strong>${esc(inj||'None')}</strong></div>
-          <div>Location: <strong>${esc(part||'—')} (${side||'N/A'})</strong></div>
-          <div>Injury Date: <strong style="font-family:monospace;">${fmtDate(injDate)}</strong></div>
-          <div>Cause: <strong>${esc(cause||'—')}</strong></div>
-          ${clNotes ? `<div style="grid-column:1/-1;margin-top:.25rem;">Notes: <em style="color:var(--text-med);">${esc(clNotes)}</em></div>` : ''}
-        </div>
-      </div>`;
-  } else {
-    const symp = document.getElementById('f-symptoms').value.trim();
-    const dur = document.getElementById('f-duration').value.trim();
-    const prev = document.getElementById('f-prev').value.trim();
-    const sug = document.getElementById('f-sugar').value.trim();
-    html += `
-      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-        <div style="font-weight:600;font-size:.8rem;color:var(--primary);text-transform:uppercase;margin-bottom:.5rem;">General / Diabetology Fields</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;font-size:.8rem;">
-          <div>Duration: <strong>${esc(dur||'—')}</strong></div>
-          <div>Sugar: <strong style="font-family:monospace;">${esc(sug||'—')}</strong></div>
-          ${symp ? `<div style="grid-column:1/-1;">Symptoms: <span style="color:var(--text-med);">${esc(symp)}</span></div>` : ''}
-          ${prev ? `<div style="grid-column:1/-1;">Prior Conditions: <span style="color:var(--text-med);">${esc(prev)}</span></div>` : ''}
-        </div>
-      </div>`;
-  }
-  
-  document.getElementById('wizard-review-body').innerHTML = html;
-};
-
-const savePatient = async () => {
+window.savePatient = async () => {
   const name = document.getElementById('f-name').value.trim();
   const phone = document.getElementById('f-phone').value.trim();
+  if (!name || !phone) { showToast('Name and Phone Number are required.', 'error'); return; }
+
   const age = Number(document.getElementById('f-age').value) || null;
   const gender = document.getElementById('f-gender').value;
   const bloodGroup = document.getElementById('f-blood-group').value;
   const hasInsurance = document.getElementById('f-insurance').value === 'yes';
   const address = document.getElementById('f-address').value.trim();
-  
+
   const docName = document.getElementById('f-doctor').value;
   const visitDate = document.getElementById('f-visit-date').value;
   const reason = document.getElementById('f-reason').value.trim();
-  
+  const diagnosis = document.getElementById('f-diagnosis').value.trim();
+
   const pData = {
     name, phone, age, gender, bloodGroup, hasInsurance, address,
-    consultationType, doctor: docName, visitDate, reason,
+    nameLower: name.toLowerCase(),
+    consultationType, doctor: docName, visitDate, reason, diagnosis,
     source: 'Walk-in'
   };
-  
+
   if (consultationType === 'Orthopedic') {
     pData.injuryType = document.getElementById('f-injury-type').value;
     pData.bodyPart = document.getElementById('f-body-part').value;
@@ -1463,28 +1546,47 @@ const savePatient = async () => {
     pData.prev = document.getElementById('f-prev').value.trim();
     pData.sugar = document.getElementById('f-sugar').value.trim();
   }
-  
+
+  if (!window.editingId) {
+    // Targeted query (exact name match, bounded) instead of scanning every
+    // patient in memory — scales fine at 20,000+ records.
+    try {
+      const dupSnap = await getDocs(query(collection(db, 'patients'), where('nameLower', '==', pData.nameLower), limit(20)));
+      const normNew = normalizePhone(phone);
+      const dup = dupSnap.docs.map(d => d.data()).find(p => normalizePhone(p.phone) === normNew);
+      if (dup) {
+        const proceed = confirm(
+          `A patient named "${dup.name}" with this phone number already exists (Patient ID: ${dup.patientCode || '—'}).\n\n` +
+          `Add as a new record anyway? Click Cancel to go back and edit the existing record instead.`
+        );
+        if (!proceed) return;
+      }
+    } catch (err) {
+      console.warn('Duplicate check failed (non-blocking):', err);
+    }
+  }
+
   try {
     if (window.editingId) {
       await updateDoc(doc(db, 'patients', window.editingId), pData);
       showToast('Patient record updated.');
     } else {
-      // Generate Unique Patient Code (e.g. GDX01, GDX02)
-      const snap = await getDocs(query(collection(db, 'patients')));
-      const nextId = snap.size + 1;
-      pData.patientCode = `GDX${nextId < 10 ? '0' + nextId : nextId}`;
+      pData.patientCode = await getNextPatientCode();
+      pData.opNo = await getNextOpNo();
       pData.createdAt = serverTimestamp();
       await addDoc(collection(db, 'patients'), pData);
       showToast('Patient record saved.');
     }
     closeFormModal();
+    loadPatientPage(currentPageIndex);
+    refreshStats();
   } catch(err) {
     showToast('Error: ' + err.message, 'error');
   }
 };
 
 window.editPatient = id => {
-  const p = allPatients.find(x => x.id === id);
+  const p = currentPatients.find(x => x.id === id);
   if (!p) return;
   window.openFormModal();
   window.editingId = id;
@@ -1503,7 +1605,8 @@ window.editPatient = id => {
   document.getElementById('f-doctor').value = p.doctor || 'Dr. N. Gopala Krishnan';
   document.getElementById('f-visit-date').value = p.visitDate || '';
   document.getElementById('f-reason').value = p.reason || '';
-  
+  document.getElementById('f-diagnosis').value = p.diagnosis || '';
+
   if (p.consultationType === 'Orthopedic') {
     document.getElementById('f-injury-type').value = p.injuryType || '';
     document.getElementById('f-body-part').value = p.bodyPart || '';
@@ -1517,8 +1620,6 @@ window.editPatient = id => {
     document.getElementById('f-prev').value = p.prev || '';
     document.getElementById('f-sugar').value = p.sugar || '';
   }
-  
-  window.setWizardStep(1);
 };
 
 window.confirmDeletePatient = id => {
@@ -1531,6 +1632,8 @@ document.getElementById('confirm-delete').addEventListener('click', async () => 
     try {
       await deleteDoc(doc(db, 'patients', deleteId));
       showToast('Patient deleted.');
+      loadPatientPage(currentPageIndex);
+      refreshStats();
     } catch(err) {
       showToast('Error deleting: ' + err.message, 'error');
     }
@@ -1576,6 +1679,32 @@ window.startSpeech = (fieldId, nextFieldId) => {
 // Initial Language load
 window.setLang(currentLang);
 updateThemeIcons();
+
+// Initial patient list load (no realtime listener — see note above on why the
+// list is fetched on demand instead of subscribed to at 20,000+ record scale)
+loadPatientPage(0);
+refreshStats();
+
+// Keyboard shortcuts for fast desktop use: Escape closes whichever modal/
+// popover is open, and "/" jumps straight to the search box (unless already
+// typing somewhere else).
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const candidates = [
+      ['form-modal', closeFormModal],
+      ['view-modal', () => document.getElementById('view-modal').classList.remove('show')],
+      ['confirm-modal', () => { document.getElementById('confirm-modal').classList.remove('show'); deleteId = null; }],
+      ['filter-popover', () => document.getElementById('filter-popover').classList.remove('show')]
+    ];
+    for (const [id, close] of candidates) {
+      const el = document.getElementById(id);
+      if (el && el.classList.contains('show')) { close(); return; }
+    }
+  } else if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+    e.preventDefault();
+    document.getElementById('search-input')?.focus();
+  }
+});
 
 </script>
 <script>

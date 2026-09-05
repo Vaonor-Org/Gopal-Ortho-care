@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Hide input number spinners */
     input::-webkit-outer-spin-button,
@@ -67,7 +67,7 @@
     .sidebar__brand{padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid rgba(255,255,255,.06);}
     .sidebar__logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;}
     .sidebar__logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(10,110,189,.35);}
-    .sidebar__logo-text .gopal{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
+    .sidebar__logo-text .gopal{display:block;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
     .sidebar__logo-text .ortho{display:block;font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;}
     .sidebar__badge{margin:.5rem 1.25rem;padding:.2rem .625rem;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:5px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-block;}
     .sidebar__nav{flex:1;padding:.875rem .75rem;display:flex;flex-direction:column;gap:.2rem;}
@@ -91,7 +91,7 @@
     /* ── TOPBAR ── */
     .topbar{height:62px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
     .topbar__left{display:flex;align-items:center;gap:.75rem;}
-    .topbar__title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
+    .topbar__title{font-family:'DM Sans',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text-dark);display:none;}
     .topbar__right{display:flex;align-items:center;gap:.75rem;}
 
     /* Language toggle */
@@ -106,7 +106,7 @@
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:.875rem;}
     .f-group{display:flex;flex-direction:column;gap:.3rem;}
     .f-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-med);}
-    .f-input{height:40px;padding:0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
+    .f-input{height:44px;padding:0 .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.9375rem;color:var(--text-dark);background:var(--surface-card);outline:none;transition:all .2s;width:100%;}
     .f-input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(10,110,189,.1);}
 
     .btn-save{height:38px;padding:0 1.375rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.875rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .25s;box-shadow:0 4px 14px rgba(10,110,189,.3);width:fit-content;}
@@ -133,7 +133,7 @@
       gap: 1.5rem;
     }
     .settings-card__title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Sans',sans-serif;
       font-size: 1.25rem;
       font-weight: 700;
       margin-bottom: 1.25rem;
@@ -282,7 +282,7 @@
   <!-- ─── SETTINGS SECTION ─── -->
   <div id="section-settings" class="section-page">
     <div style="margin-bottom:1.5rem;">
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;" data-i18n="settings">Settings</h2>
+      <h2 style="font-family:'DM Sans',sans-serif;font-size:1.5rem;font-weight:700;" data-i18n="settings">Settings</h2>
       <p style="font-size:.8rem;color:var(--text-light);margin-top:.2rem;">Configure clinic settings and billing rates</p>
     </div>
 
@@ -336,39 +336,39 @@
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
             <div class="f-group">
               <label class="f-label" data-i18n="consultFee">Consulting Fee</label>
-              <input class="f-input" id="setting-consult-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-consult-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="dressingFee">Dressing Fee</label>
-              <input class="f-input" id="setting-dressing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-dressing-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="xrayFee">X-Ray Fee</label>
-              <input class="f-input" id="setting-xray-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-xray-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="nursingFee">Nursing Fee</label>
-              <input class="f-input" id="setting-nursing-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-nursing-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="drVisitCharge">Dr. Visiting Charge</label>
-              <input class="f-input" id="setting-dr-visit-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-dr-visit-charge" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="surgeonFee">Surgeon Fee</label>
-              <input class="f-input" id="setting-surgeon-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-surgeon-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="implantFee">Implant Fee</label>
-              <input class="f-input" id="setting-implant-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-implant-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="anaesthetistFee">Anaesthetist Fee</label>
-              <input class="f-input" id="setting-anaesthetist-fee" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-anaesthetist-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group" style="grid-column:1/-1;">
               <label class="f-label" data-i18n="procedureCharge">Procedure Charge</label>
-              <input class="f-input" id="setting-procedure-charge" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-procedure-charge" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
           </div>
 
@@ -377,11 +377,11 @@
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
             <div class="f-group">
               <label class="f-label" data-i18n="roomRateIns">With Insurance</label>
-              <input class="f-input" id="setting-room-rate-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-room-rate-ins" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
             <div class="f-group">
               <label class="f-label" data-i18n="roomRateNoIns">Without Insurance</label>
-              <input class="f-input" id="setting-room-rate-no-ins" type="number" min="0" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+              <input class="f-input" id="setting-room-rate-no-ins" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
           </div>
 
@@ -398,8 +398,9 @@
 </div>
 
 <script type="module">
-import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
@@ -412,6 +413,7 @@ const firebaseConfig = {
 };
 const app    = initializeApp(firebaseConfig);
 const authFB = getAuth(app);
+const db     = getFirestore(app);
 
 // Auth Check + Session Timeout
 const ADMIN_EMAILS = ['gopalorthocare@gmail.com'];
@@ -424,18 +426,33 @@ const getLoginDest = (reason = '') => {
   return reason ? `${dest}?reason=${reason}` : dest;
 };
 
+const checkSessionTimeout = async () => {
+  const last = parseInt(localStorage.getItem('lastActivity') || '0');
+  const idleFor = Date.now() - last;
+  if (idleFor >= SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); }
+  else { _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS - idleFor); }
+};
 const resetActivityTimer = () => {
   if (_activityTimer) clearTimeout(_activityTimer);
   localStorage.setItem('lastActivity', Date.now());
-  _activityTimer = setTimeout(async () => { await signOut(authFB); window.location.href = getLoginDest('timeout'); }, SESSION_MS);
+  _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS);
 };
 document.addEventListener('mousemove', resetActivityTimer, { passive: true });
 document.addEventListener('keydown', resetActivityTimer, { passive: true });
 document.addEventListener('click', resetActivityTimer, { passive: true });
 
+const isAuthorizedAdmin = async email => {
+  if (ADMIN_EMAILS.includes(email)) return true;
+  try {
+    const snap = await getDoc(doc(db, 'admins', email));
+    return snap.exists() && snap.data()?.role === 'admin';
+  } catch (e) { return false; }
+};
+
 onAuthStateChanged(authFB, async user => {
   if (!user) { window.location.href = getLoginDest(); return; }
-  if (!ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
+  const email = (user.email||'').toLowerCase();
+  if (!(await isAuthorizedAdmin(email))) {
     await signOut(authFB); window.location.href = getLoginDest('denied'); return;
   }
   const last = parseInt(localStorage.getItem('lastActivity')||'0');
@@ -449,6 +466,16 @@ onAuthStateChanged(authFB, async user => {
   document.getElementById('settings-user-name').textContent = savedName;
   document.getElementById('settings-avatar').textContent = savedName.slice(0,2).toUpperCase();
   document.getElementById('setting-username').value = savedName;
+});
+
+window.addEventListener('storage', e => {
+  if (e.key === 'displayName' && e.newValue) {
+    document.getElementById('user-avatar').textContent = e.newValue.slice(0,2).toUpperCase();
+    document.getElementById('user-name-display').textContent = e.newValue;
+    document.getElementById('settings-user-name').textContent = e.newValue;
+    document.getElementById('settings-avatar').textContent = e.newValue.slice(0,2).toUpperCase();
+    document.getElementById('setting-username').value = e.newValue;
+  }
 });
 
 window.handleLogout = async () => {
@@ -580,19 +607,28 @@ window.showToast = (msg, type = 'success') => {
 // Validations and Sanitization of Billing Inputs
 window.validateBillingInput = (e) => {
   const charCode = e.which ? e.which : e.keyCode;
+  const char = String.fromCharCode(charCode);
+  if (char === '.') {
+    if (e.target.value.includes('.')) e.preventDefault();
+    return;
+  }
   if (charCode < 48 || charCode > 57) {
     e.preventDefault();
   }
 };
 
+// Runs on 'input' (typing AND paste) — strips anything but digits/one decimal
+// point instead of stripping the '.' itself, which used to turn a pasted
+// "12.50" into "1250" (a silent 100x error).
 window.sanitizeBillingInput = (el) => {
-  let val = el.value.replace(/[^0-9]/g, '');
-  if (val.length > 0) {
-    val = Math.max(0, parseInt(val));
-    el.value = val;
-  } else {
-    el.value = '';
+  let val = el.value.replace(/[^0-9.]/g, '');
+  const firstDot = val.indexOf('.');
+  if (firstDot !== -1) {
+    val = val.slice(0, firstDot + 1) + val.slice(firstDot + 1).replace(/\./g, '');
+    const decimals = val.slice(firstDot + 1);
+    if (decimals.length > 2) val = val.slice(0, firstDot + 3);
   }
+  el.value = val;
 };
 
 // Save settings functions
@@ -616,7 +652,10 @@ window.saveProfile = async () => {
 };
 
 window.saveBillingSettings = () => {
-  const g = id => Math.max(0, parseInt(document.getElementById(id)?.value) || 0);
+  const g = id => {
+    const v = parseFloat(document.getElementById(id)?.value);
+    return Math.max(0, isNaN(v) ? 0 : Math.round(v * 100) / 100);
+  };
   billingDefaults = {
     consultFee:      g('setting-consult-fee'),
     dressingFee:     g('setting-dressing-fee'),

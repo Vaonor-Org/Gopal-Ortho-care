@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -96,7 +96,7 @@
 
     .brand__gopal {
       display: block;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Sans',sans-serif;
       font-size: 1.75rem;
       font-weight: 700;
       color: #fff;
@@ -147,7 +147,7 @@
     }
 
     .card__title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Sans',sans-serif;
       font-size: 2rem;
       font-weight: 700;
       color: var(--text-dark);
@@ -404,8 +404,17 @@
     const db       = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    // Allowed admins (client-side guard + Firestore double-check)
+    // Allowed admins (client-side guard + Firestore double-check). The hardcoded
+    // email is the permanent bootstrap admin; any other admin is granted via an
+    // admins/{email} doc with role:'admin', addable from the Firestore console.
     const ADMIN_EMAILS = ['gopalorthocare@gmail.com'];
+    const isAuthorizedAdmin = async email => {
+      if (ADMIN_EMAILS.includes(email)) return true;
+      try {
+        const snap = await getDoc(doc(db, 'admins', email));
+        return snap.exists() && snap.data()?.role === 'admin';
+      } catch (e) { return false; }
+    };
 
     // Show reason banners from URL params
     const params = new URLSearchParams(window.location.search);
@@ -417,8 +426,8 @@
     };
 
     // If already signed-in admin AND session is not expired → go to dashboard
-    onAuthStateChanged(auth, user => {
-      if (user && ADMIN_EMAILS.includes((user.email||'').toLowerCase())) {
+    onAuthStateChanged(auth, async user => {
+      if (user && (await isAuthorizedAdmin((user.email||'').toLowerCase()))) {
         const last = localStorage.getItem('lastActivity');
         const SESSION_MS = 24 * 60 * 60 * 1000;
         if (last && (Date.now() - last < SESSION_MS)) {
@@ -449,7 +458,7 @@
         const email  = (user.email||'').toLowerCase();
 
         // Admin check
-        if (!ADMIN_EMAILS.includes(email)) {
+        if (!(await isAuthorizedAdmin(email))) {
           await signOut(auth);
           btn.classList.remove('loading');
           btn.disabled = false;

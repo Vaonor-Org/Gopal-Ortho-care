@@ -4,17 +4,25 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // Helper: is the caller an authorised admin?
+    // Bootstrap admin is always hardcoded so the system can never be locked out;
+    // any additional admin is granted by creating admins/{email} with role: 'admin'
+    // directly in the Firestore console — no code redeploy required.
     function isAdmin() {
       return request.auth != null &&
-             request.auth.token.email in [
-               'gopalorthocare@gmail.com'
-             ];
+             (request.auth.token.email in ['gopalorthocare@gmail.com'] ||
+              (exists(/databases/$(database)/documents/admins/$(request.auth.token.email)) &&
+               get(/databases/$(database)/documents/admins/$(request.auth.token.email)).data.role == 'admin'));
     }
 
     // Admins collection — only admins can read; write only for own doc
     match /admins/{email} {
       allow read:  if isAdmin();
       allow write: if isAdmin() && request.auth.token.email == email;
+    }
+
+    // Meta — internal atomic counters (patient codes, invoice numbers). Admin only.
+    match /meta/{id} {
+      allow read, write: if isAdmin();
     }
 
     // Patients — admin only
