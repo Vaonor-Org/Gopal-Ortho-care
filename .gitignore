@@ -1,0 +1,4 @@
+# Local-only developer testing tools — never pushed. Mock Firestore/Auth
+# backend and its standalone login entry point, used only on localhost.
+admin/dev-mock.js
+admin/dev-login.html
