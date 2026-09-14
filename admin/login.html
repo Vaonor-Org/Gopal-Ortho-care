@@ -425,16 +425,16 @@
       return window.location.hostname === 'admin.gopalorthocare.com' ? '/dashboard' : 'dashboard.html';
     };
 
+    let isSigningIn = false;
+
     // If already signed-in admin AND session is not expired → go to dashboard
     onAuthStateChanged(auth, async user => {
+      if (isSigningIn) return; // Never interrupt active sign-in
       if (user && (await isAuthorizedAdmin((user.email||'').toLowerCase()))) {
-        const last = localStorage.getItem('lastActivity');
+        const last = parseInt(localStorage.getItem('lastActivity') || '0');
         const SESSION_MS = 24 * 60 * 60 * 1000;
         if (last && (Date.now() - last < SESSION_MS)) {
           window.location.href = getDashboardDest();
-        } else {
-          // Local session expired, sign out from firebase too to prevent loop
-          signOut(auth).catch(err => console.error(err));
         }
       }
     });
@@ -448,9 +448,12 @@
     }
 
     window.signInWithGoogle = async () => {
+      isSigningIn = true;
       btn.classList.add('loading');
       btn.disabled = true;
       document.getElementById('alert-error').style.display = 'none';
+      document.getElementById('alert-denied').classList.remove('show');
+      document.getElementById('alert-timeout').classList.remove('show');
 
       try {
         const result = await signInWithPopup(auth, provider);
@@ -462,9 +465,15 @@
           await signOut(auth);
           btn.classList.remove('loading');
           btn.disabled = false;
+          isSigningIn = false;
           document.getElementById('alert-denied').classList.add('show');
           return;
         }
+
+        // Stamp activity time and display name IMMEDIATELY
+        localStorage.setItem('lastActivity', Date.now());
+        const resolvedName = user.displayName || (user.email||'Doctor').split('@')[0];
+        localStorage.setItem('displayName', resolvedName);
 
         // Write / update admin record in Firestore
         try {
@@ -479,17 +488,10 @@
           console.warn('Firestore admin write failed (non-critical):', fsErr);
         }
 
-        // Save display name
-        if (user.displayName) {
-          localStorage.setItem('displayName', user.displayName);
-        }
-
-        // Stamp activity time
-        localStorage.setItem('lastActivity', Date.now());
-
         window.location.href = getDashboardDest();
 
       } catch (err) {
+        isSigningIn = false;
         btn.classList.remove('loading');
         btn.disabled = false;
         if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {

@@ -159,6 +159,46 @@
   ],
   "rewrites": [
     {
+      "source": "/overview",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/overview"
+    },
+    {
+      "source": "/reception",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/reception"
+    },
+    {
+      "source": "/patient",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/patient-profile"
+    },
+    {
+      "source": "/patient-profile",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/patient-profile"
+    },
+    {
       "source": "/login",
       "has": [
         {

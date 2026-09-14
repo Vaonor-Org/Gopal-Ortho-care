@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reception Record — Gopal Ortho Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0a6ebd;
+  --primary-dark: #07528e;
+  --primary-light: #e8f4fd;
+  --primary-ul: #f0f7fd;
+  --gold: #c8973a;
+  --gold-light: #fbf5ea;
+  --bg: #f4f7fb;
+  --bg-dark: #041c30;
+  --bg-darker: #020f1c;
+  --surface: #ffffff;
+  --surface-card: #f8fafc;
+  --text-dark: #0f2338;
+  --text-med: #475569;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --border-focus: #0a6ebd;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+}
+
+[data-theme="dark"] {
+  --bg: #091522;
+  --surface: #0e2236;
+  --surface-card: #0b1a2b;
+  --text-dark: #f1f5f9;
+  --text-med: #94a3b8;
+  --text-light: #64748b;
+  --border: #1a334d;
+  --primary-ul: rgba(10,110,189,.15);
+  --primary-light: rgba(10,110,189,.2);
+  --gold-light: rgba(200,151,58,.15);
+  --success-bg: rgba(22,163,74,.15);
+  --warning-bg: rgba(217,119,6,.15);
+  --error-bg: rgba(220,38,38,.15);
+}
+
+:root {
+  --sidebar-w: 240px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text-dark); min-height: 100vh; display: flex; transition: background .2s, color .2s; }
+
+/* ── SIDEBAR ── */
+#sidebar { width: var(--sidebar-w); min-height: 100vh; background: var(--bg-dark); color: #fff; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 200; overflow-y: auto; transform: translateX(-100%); transition: transform .25s cubic-bezier(.4,0,.2,1); }
+body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+body.sidebar-collapsed #main { margin-left: 0; }
+@media (min-width: 961px) {
+  body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+  body:not(.sidebar-collapsed) #main { margin-left: var(--sidebar-w); }
+  body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+  body.sidebar-collapsed #main { margin-left: 0; }
+}
+@media (max-width: 960px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0 !important; }
+}
+
+.sidebar__brand { padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.07); }
+.sidebar__logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; color: #fff; }
+.sidebar__logo-icon { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(10,110,189,.35); flex-shrink: 0; }
+.sidebar__logo-text { font-size: .95rem; font-weight: 700; line-height: 1.2; }
+.sidebar__logo-text .gopal { color: #fff; letter-spacing: .02em; display: block; }
+.sidebar__logo-text .ortho { color: var(--gold); font-size: .75rem; font-weight: 500; }
+.sidebar__nav { padding: .75rem; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.nav-item { display: flex; align-items: center; gap: .75rem; padding: .65rem .85rem; border-radius: 9px; color: rgba(255,255,255,.7); text-decoration: none; font-size: .85rem; font-weight: 500; transition: all .18s ease; }
+.nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+.nav-item.active { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; font-weight: 600; box-shadow: 0 4px 12px rgba(10,110,189,.35); }
+.nav-item svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.nav-divider { height: 1px; background: rgba(255,255,255,.08); margin: .5rem 0; }
+.sidebar__user { margin-top: auto; padding: 1rem; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; gap: .75rem; }
+.user-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #9a6d1a); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; color: #fff; flex-shrink: 0; }
+.user-info { overflow: hidden; }
+.user-name { font-size: .82rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; color: #fff; }
+.user-role { font-size: .7rem; color: rgba(255,255,255,.45); }
+
+/* ── MAIN CONTENT ── */
+#main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-width: 0; overflow-x: hidden; transition: margin-left .25s cubic-bezier(.4,0,.2,1); }
+
+/* Topbar */
+.topbar { height: 64px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; position: sticky; top: 0; z-index: 90; }
+.topbar__left { display: flex; align-items: center; gap: 1rem; }
+#sidebar-toggle-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: .35rem; border-radius: 7px; color: var(--text-med); }
+#sidebar-toggle-btn:hover { background: var(--surface-card); }
+.topbar__title { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); }
+.topbar__right { display: flex; align-items: center; gap: .75rem; }
+.btn-action-icon { width: 34px; height: 34px; border-radius: 9999px; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-med); transition: all .2s; flex-shrink: 0; }
+.btn-action-icon:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-ul); }
+
+/* Reception Layout */
+.reception-content { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* Stats Row */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.stat-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 1rem; box-shadow: 0 2px 6px rgba(10,110,189,.03); }
+.stat-card__icon { width: 44px; height: 44px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stat-card__icon svg { width: 22px; height: 22px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.stat-card__num { font-size: 1.65rem; font-weight: 700; line-height: 1; color: var(--text-dark); font-family: 'DM Mono', monospace; }
+.stat-card__label { font-size: .75rem; color: var(--text-light); margin-top: .25rem; font-weight: 500; }
+
+/* Main Grid: Form + Live Queue */
+.reception-grid { display: grid; grid-template-columns: 380px 1fr; gap: 1.5rem; align-items: start; }
+@media (max-width: 1100px) {
+  .reception-grid { grid-template-columns: 1fr; }
+}
+
+/* Card Container */
+.card-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; box-shadow: 0 4px 16px rgba(10,110,189,.04); position: relative; overflow: visible; }
+.card-box.table-card { overflow: hidden; }
+.card-box__header { padding: 1.1rem 1.35rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface-card); border-top-left-radius: 15px; border-top-right-radius: 15px; }
+.card-box__title { font-size: 1rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: .5rem; }
+.card-box__body { padding: 1.35rem; }
+
+/* Mode Switcher Tabs */
+.mode-tabs { display: flex; background: var(--bg); padding: 4px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 1.25rem; gap: 4px; }
+.mode-tab { flex: 1; padding: .55rem .75rem; border: none; background: transparent; font-family: inherit; font-size: .8rem; font-weight: 600; color: var(--text-med); border-radius: 7px; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; gap: .4rem; }
+.mode-tab.active { background: var(--surface); color: var(--primary); box-shadow: 0 2px 6px rgba(10,110,189,.15); font-weight: 700; }
+
+/* Form Controls */
+.f-group { margin-bottom: 1rem; }
+.f-label { display: block; font-size: .775rem; font-weight: 600; color: var(--text-med); margin-bottom: .35rem; }
+.f-label span { color: var(--error); }
+.f-input, .f-select, .f-textarea { width: 100%; height: 40px; border: 1.5px solid var(--border); border-radius: 8px; padding: 0 .85rem; font-family: inherit; font-size: .85rem; color: var(--text-dark); background: var(--surface); outline: none; transition: all .2s; }
+.f-input:focus, .f-select:focus, .f-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ul); }
+.f-textarea { height: 70px; padding: .65rem .85rem; resize: vertical; }
+.f-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.f-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+/* Search Box in Existing Patient Mode */
+.search-existing-wrap { position: relative; margin-bottom: 1rem; }
+.search-match-item { padding: .85rem 1rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .15s; }
+.search-match-item:hover { background: var(--primary-ul); }
+.search-match-item:last-child { border-bottom: none; }
+#existing-search-results { max-height: 320px; overflow-y: auto; position: absolute; top: calc(100% + 4px); left: 0; right: 0; width: 100%; background: var(--surface); border: 1.5px solid var(--border-focus); border-radius: 12px; box-shadow: 0 14px 35px rgba(10,110,189,.18), 0 4px 12px rgba(0,0,0,.08); z-index: 1000; }
+
+/* Action Buttons */
+.btn-primary-action { width: 100%; height: 44px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; border: none; border-radius: 9px; font-family: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: .5rem; transition: all .2s; box-shadow: 0 4px 14px rgba(10,110,189,.3); }
+.btn-primary-action:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(10,110,189,.4); }
+.btn-primary-action:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+/* Table */
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th { background: var(--surface-card); border-bottom: 1px solid var(--border); padding: .75rem 1rem; text-align: left; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-light); white-space: nowrap; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+tbody tr:hover { background: var(--surface-card); }
+tbody td { padding: .85rem 1rem; font-size: .85rem; color: var(--text-dark); vertical-align: middle; }
+
+/* Badges & Tags */
+.token-pill { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85rem; font-family: 'DM Mono', monospace; }
+.op-tag { font-family: 'DM Mono', monospace; font-size: .75rem; font-weight: 700; color: var(--primary); background: var(--primary-ul); padding: .2rem .5rem; border-radius: 6px; border: 1px solid rgba(10,110,189,.2); display: inline-block; }
+.visit-type-badge { display: inline-flex; align-items: center; padding: .15rem .45rem; border-radius: 4px; font-size: .675rem; font-weight: 700; text-transform: uppercase; }
+.visit-type-badge.new { background: #dcfce7; color: #166534; }
+.visit-type-badge.return { background: #fef3c7; color: #92400e; }
+.patient-queue-name { font-weight: 600; color: var(--primary); text-decoration: none; font-size: .9rem; }
+.patient-queue-name:hover { text-decoration: underline; }
+
+/* Status dropdown */
+.status-select { height: 28px; padding: 0 .5rem; border-radius: 6px; font-family: inherit; font-size: .75rem; font-weight: 600; outline: none; border: 1px solid transparent; cursor: pointer; }
+.status-select.badge-waiting { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.status-select.badge-consulting { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.status-select.badge-completed { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+.action-btn-sm { display: inline-flex; align-items: center; gap: .3rem; height: 28px; padding: 0 .65rem; border-radius: 6px; font-size: .75rem; font-weight: 600; text-decoration: none; border: 1px solid var(--border); background: var(--surface); color: var(--text-dark); cursor: pointer; transition: all .2s; }
+.action-btn-sm:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-ul); }
+.action-btn-sm.bill { border-color: rgba(200,151,58,.4); color: var(--gold); background: var(--gold-light); }
+.action-btn-sm.bill:hover { border-color: var(--gold); background: rgba(200,151,58,.25); }
+
+/* Toast */
+.toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--surface); border: 1.5px solid var(--border); box-shadow: 0 8px 30px rgba(0,0,0,.15); border-radius: 12px; padding: .85rem 1.25rem; display: flex; align-items: center; gap: .75rem; z-index: 9999; transform: translateY(100px); opacity: 0; transition: all .3s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+.toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.toast svg { width: 20px; height: 20px; stroke: var(--success); fill: none; stroke-width: 2; flex-shrink: 0; }
+.toast.error svg { stroke: var(--error); }
+</style>
+</head>
+<body class="sidebar-collapsed">
+
+<script>
+  // Init theme immediately to prevent flashing
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+</script>
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<aside id="sidebar">
+  <div class="sidebar__brand">
+    <a href="#" class="sidebar__logo">
+      <div class="sidebar__logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="rgba(255,255,255,.15)" stroke="white" stroke-width="1.5"/><path d="M9 12h6M12 9v6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="sidebar__logo-text"><span class="gopal">GOPAL</span><span class="ortho">Ortho Care</span></div>
+    </a>
+  </div>
+  <nav class="sidebar__nav" style="margin-top:.75rem;">
+    <a id="nav-overview" href="overview.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span>Overview</span>
+    </a>
+    <a id="nav-reception" href="reception.html" class="nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <span>Reception Record</span>
+    </a>
+    <a id="nav-dashboard" href="dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      <span>Patient Records</span>
+    </a>
+    <a id="nav-room" href="room.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Room Management</span>
+    </a>
+    <a id="nav-bill" href="bill.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+      <span>Billing</span>
+    </a>
+    <a id="nav-noticeboard" href="noticeboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Notice Board</span>
+    </a>
+    <div class="nav-divider"></div>
+    <a id="nav-settings" href="settings.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <span>Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar__user">
+    <div class="user-avatar" id="user-avatar">DR</div>
+    <div class="user-info">
+      <div class="user-name" id="user-name-display">Doctor</div>
+      <div class="user-role">Front Desk &amp; Clinic</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div id="main">
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <button id="sidebar-toggle-btn" onclick="window.toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <h1 class="topbar__title">Reception &amp; Walk-in Records</h1>
+    </div>
+    <div class="topbar__right">
+      <button class="btn-action-icon" onclick="window.receptionInstance && window.receptionInstance.refreshQueue()" title="Refresh Queue">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </button>
+      <button id="theme-toggle-btn" class="btn-action-icon" onclick="window.toggleTheme()" title="Toggle Dark/Light Mode">
+        <svg id="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="theme-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="reception-content">
+
+    <!-- Top Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(10,110,189,.1);color:var(--primary);">
+          <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-today-total">0</div>
+          <div class="stat-card__label">Today's Walk-in Visits</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(22,163,74,.1);color:var(--success);">
+          <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-today-new" style="color:var(--success);">0</div>
+          <div class="stat-card__label">New Patients Registered</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(200,151,58,.1);color:var(--gold);">
+          <svg viewBox="0 0 24 24" stroke="currentColor"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-today-return" style="color:var(--gold);">0</div>
+          <div class="stat-card__label">Returning Follow-ups</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(217,119,6,.1);color:var(--warning);">
+          <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-today-waiting" style="color:var(--warning);">0</div>
+          <div class="stat-card__label">In Waiting Queue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid: Left Walk-in Entry Station, Right Live Queue Table -->
+    <div class="reception-grid">
+
+      <!-- LEFT: Walk-in Entry Form Card -->
+      <div class="card-box">
+        <div class="card-box__header">
+          <div class="card-box__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Walk-in Check-in Station
+          </div>
+        </div>
+
+        <div class="card-box__body">
+          <!-- Segmented Switch: New Patient vs Existing Patient -->
+          <div class="mode-tabs">
+            <button class="mode-tab active" id="tab-mode-new" onclick="setReceptionMode('new')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              New Patient
+            </button>
+            <button class="mode-tab" id="tab-mode-existing" onclick="setReceptionMode('existing')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="23 4 23 10 17 10"/></svg>
+              Existing Patient
+            </button>
+          </div>
+
+          <!-- ── MODE A: NEW PATIENT WALKIN FORM ── -->
+          <div id="section-form-new">
+            <form id="form-new-walkin" onsubmit="return false;">
+              <div class="f-group">
+                <label class="f-label">Patient Name <span>*</span></label>
+                <input class="f-input" id="new-walkin-name" type="text" placeholder="e.g. Ramesh Kumar" required>
+              </div>
+
+              <div class="f-row-2">
+                <div class="f-group">
+                  <label class="f-label">Phone Number <span>*</span></label>
+                  <input class="f-input" id="new-walkin-phone" type="tel" maxlength="10" pattern="[0-9]{10}" placeholder="e.g. 9876543210" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" required>
+                </div>
+                <div class="f-row-2" style="gap:6px;">
+                  <div class="f-group">
+                    <label class="f-label">Age (1-100)</label>
+                    <input class="f-input" id="new-walkin-age" type="text" inputmode="numeric" maxlength="3" placeholder="42" oninput="let v=this.value.replace(/\D/g,''); if(v){let n=parseInt(v,10); if(n>100)n=100; if(n<1)n=1; this.value=n;}else{this.value='';}">
+                  </div>
+                  <div class="f-group">
+                    <label class="f-label">Gender</label>
+                    <select class="f-select" id="new-walkin-gender">
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="f-row-2">
+                <div class="f-group">
+                  <label class="f-label">Blood Group</label>
+                  <select class="f-select" id="new-walkin-blood">
+                    <option value="">Unknown</option>
+                    <option>A+</option><option>A-</option>
+                    <option>B+</option><option>B-</option>
+                    <option>AB+</option><option>AB-</option>
+                    <option>O+</option><option>O-</option>
+                  </select>
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Consulting Doctor</label>
+                  <select class="f-select" id="new-walkin-doctor" onchange="window.syncDoctorDept('new-walkin', 'doctor')">
+                    <option value="Dr. N. Gopala Krishnan">Dr. N. Gopala Krishnan</option>
+                    <option value="Dr. R. Shiny">Dr. R. Shiny</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="f-row-2">
+                <div class="f-group">
+                  <label class="f-label">Visiting Date</label>
+                  <input class="f-input" id="new-walkin-date" type="date">
+                </div>
+                <div class="f-group">
+                  <label class="f-label">Visiting Time (Live)</label>
+                  <input class="f-input" id="new-walkin-time" type="text" placeholder="Live time…">
+                </div>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Consultation Department</label>
+                <select class="f-select" id="new-walkin-type" onchange="window.syncDoctorDept('new-walkin', 'dept')">
+                  <option value="Orthopaedic">Orthopaedic (Bone &amp; Joint)</option>
+                  <option value="General">General / Diabetology</option>
+                </select>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Chief Complaint / Reason</label>
+                <input class="f-input" id="new-walkin-reason" type="text" placeholder="e.g. Severe knee joint stiffness">
+              </div>
+
+              <div class="f-group">
+                <label class="f-label">Address / City</label>
+                <input class="f-input" id="new-walkin-address" type="text" placeholder="e.g. Nagercoil">
+              </div>
+
+              <input type="hidden" id="new-walkin-diagnosis" value="">
+
+              <button type="button" class="btn-primary-action" id="btn-submit-new-walkin" onclick="saveNewWalkin()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Register &amp; Add to Queue
+              </button>
+            </form>
+          </div>
+
+          <!-- ── MODE B: EXISTING PATIENT RETURN VISIT FORM ── -->
+          <div id="section-form-existing" style="display:none;">
+            <div class="search-existing-wrap">
+              <label class="f-label">Type OP Number, Name, or Phone</label>
+              <input class="f-input" id="existing-search-input" type="text" placeholder="Enter OP number (e.g. 20001) or name/phone…" oninput="searchExistingPatients(this.value)" autocomplete="off">
+              <div id="existing-search-results" style="display:none;"></div>
+            </div>
+
+            <!-- Selected Existing Patient Preview Card -->
+            <div id="existing-patient-preview" style="display:none; margin-bottom: 1rem;"></div>
+
+            <!-- Return Visit Details -->
+            <div id="existing-visit-form-fields" style="display:none;">
+              <form id="form-ext-walkin" onsubmit="return false;">
+                <div class="f-row-2">
+                  <div class="f-group">
+                    <label class="f-label">Doctor</label>
+                    <select class="f-select" id="ext-visit-doctor" onchange="window.syncDoctorDept('ext-visit', 'doctor')">
+                      <option value="Dr. N. Gopala Krishnan">Dr. N. Gopala Krishnan</option>
+                      <option value="Dr. R. Shiny">Dr. R. Shiny</option>
+                    </select>
+                  </div>
+                  <div class="f-group">
+                    <label class="f-label">Department</label>
+                    <select class="f-select" id="ext-visit-type" onchange="window.syncDoctorDept('ext-visit', 'dept')">
+                      <option value="Orthopaedic">Orthopaedic (Bone &amp; Joint)</option>
+                      <option value="General">General / Diabetology</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="f-row-2">
+                  <div class="f-group">
+                    <label class="f-label">Visiting Date</label>
+                    <input class="f-input" id="ext-visit-date" type="date">
+                  </div>
+                  <div class="f-group">
+                    <label class="f-label">Visiting Time (Live)</label>
+                    <input class="f-input" id="ext-visit-time" type="text" placeholder="Live time…">
+                  </div>
+                </div>
+
+                <div class="f-group">
+                  <label class="f-label">Reason for Today's Visit</label>
+                  <input class="f-input" id="ext-visit-reason" type="text" placeholder="e.g. Follow-up consultation / review">
+                </div>
+
+                <div class="f-group">
+                  <label class="f-label">Diagnosis / Notes</label>
+                  <input class="f-input" id="ext-visit-diagnosis" type="text" placeholder="e.g. Post-op follow-up">
+                </div>
+
+                <button type="button" class="btn-primary-action" id="btn-submit-ext-walkin" onclick="saveExistingReturnVisit()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                  Log Return Visit &amp; Add to Queue
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: Today's Live Reception Queue & Walk-in Records Table -->
+      <div class="card-box table-card">
+        <div class="card-box__header">
+          <div class="card-box__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Today's Walk-in Queue &amp; Reception Records
+          </div>
+          <div style="font-size:.775rem;color:var(--text-light);font-weight:600;">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--success);margin-right:4px;"></span>
+            Live Updates
+          </div>
+        </div>
+
+        <div class="card-box__body" style="padding:0;">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:50px;">Token</th>
+                  <th>OP No</th>
+                  <th>Patient Details</th>
+                  <th>Doctor &amp; Dept</th>
+                  <th>Visiting Date &amp; Time</th>
+                  <th>Queue Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="queue-table-body">
+                <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-light);">Loading reception records…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+  <svg id="toast-icon" viewBox="0 0 24 24"></svg>
+  <span id="toast-msg">Notification message</span>
+</div>
+
+<!-- Firebase SDKs -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getFirestore, 
+  doc, 
+  getDoc, 
+  setDoc, 
+  updateDoc, 
+  collection, 
+  getDocs, 
+  query, 
+  where, 
+  orderBy, 
+  limit, 
+  runTransaction,
+  serverTimestamp,
+  arrayUnion
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+import { initReceptionModule } from "./reception.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
+  authDomain: "gopalorthocare-e97cf.firebaseapp.com",
+  projectId: "gopalorthocare-e97cf",
+  storageBucket: "gopalorthocare-e97cf.firebasestorage.app",
+  messagingSenderId: "263458525081",
+  appId: "1:263458525081:web:78c763dac387f9ab4bcd08",
+  measurementId: "G-3EHZ3EQFHL"
+};
+
+const app = initializeApp(firebaseConfig);
+const authFB = getAuth(app);
+const db = getFirestore(app);
+
+// Theme Toggle
+window.toggleTheme = () => {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = cur === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcons(next);
+};
+
+function updateThemeIcons(theme) {
+  const sun = document.getElementById('theme-sun');
+  const moon = document.getElementById('theme-moon');
+  if (sun && moon) {
+    sun.style.display = theme === 'dark' ? 'block' : 'none';
+    moon.style.display = theme === 'dark' ? 'none' : 'block';
+  }
+}
+updateThemeIcons(savedTheme);
+
+// Sidebar Toggle
+window.toggleSidebar = () => {
+  if (window.innerWidth > 960) {
+    document.body.classList.toggle('sidebar-collapsed');
+  } else {
+    document.getElementById('sidebar')?.classList.toggle('open');
+  }
+};
+
+// Auth Guard & Init
+onAuthStateChanged(authFB, async user => {
+  if (!user) {
+    window.location.href = window.location.hostname === 'admin.gopalorthocare.com' ? '/login' : 'login.html';
+    return;
+  }
+  const displayName = user.displayName || (user.email||'Doctor').split('@')[0];
+  const savedName = localStorage.getItem('displayName') || displayName;
+  localStorage.setItem('displayName', savedName);
+  const av = document.getElementById('user-avatar');
+  const nd = document.getElementById('user-name-display');
+  if (av) av.textContent = savedName.slice(0,2).toUpperCase();
+  if (nd) nd.textContent = savedName;
+
+  window.receptionInstance = initReceptionModule({
+    db,
+    fs: {
+      doc, getDoc, setDoc, updateDoc, collection, getDocs,
+      query, where, orderBy, limit, runTransaction, serverTimestamp, arrayUnion
+    },
+    authFB
+  });
+});
+</script>
+<script>
+// Sidebar Toggle
+window.toggleSidebar = () => {
+  if (window.innerWidth > 960) {
+    document.body.classList.toggle('sidebar-collapsed');
+  } else {
+    document.getElementById('sidebar')?.classList.toggle('open');
+  }
+};
+
+// Clean URL handler & auto-close sidebar on navigation
+(function() {
+  const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
+  if (isCustom) {
+    const map = {
+      'nav-overview': '/overview',
+      'nav-reception': '/reception',
+      'nav-dashboard': '/dashboard',
+      'nav-room': '/room',
+      'nav-bill': '/bill',
+      'nav-noticeboard': '/noticeboard',
+      'nav-settings': '/settings'
+    };
+    Object.entries(map).forEach(([id, path]) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('href', path);
+    });
+  }
+
+  // Always close sidebar when navigating
+  document.querySelectorAll('.nav-item, .sidebar__logo').forEach(item => {
+    item.addEventListener('click', () => {
+      document.body.classList.add('sidebar-collapsed');
+      const sb = document.getElementById('sidebar');
+      if (sb) sb.classList.remove('open');
+    });
+  });
+
+  // Close sidebar if clicking outside
+  document.addEventListener('click', (e) => {
+    const sb = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    if (window.innerWidth <= 960) {
+      if (sb && sb.classList.contains('open') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        sb.classList.remove('open');
+      }
+    } else {
+      if (sb && !document.body.classList.contains('sidebar-collapsed') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        document.body.classList.add('sidebar-collapsed');
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

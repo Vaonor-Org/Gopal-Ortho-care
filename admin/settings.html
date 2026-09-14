@@ -36,14 +36,20 @@
     [data-lang="ta"] body,[data-lang="ta"] input,[data-lang="ta"] select,[data-lang="ta"] textarea,[data-lang="ta"] button{font-family:'Noto Sans Tamil','DM Sans',sans-serif;}
 
     /* ── SIDEBAR ── */
-    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);}
+    body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
     body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
     body.sidebar-collapsed #main { margin-left: 0; }
+    @media (min-width: 961px) {
+      body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+      body:not(.sidebar-collapsed) #main { margin-left: var(--sidebar-w); }
+      body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+      body.sidebar-collapsed #main { margin-left: 0; }
+    }
     @media (max-width: 960px) {
       #sidebar { transform: translateX(-100%); }
       #sidebar.open { transform: translateX(0); }
       #main { margin-left: 0 !important; }
-      body.sidebar-collapsed #sidebar { transform: translateX(0); }
     }
 
     #sidebar-toggle-btn {
@@ -203,7 +209,7 @@
     }
   </style>
 </head>
-<body>
+<body class="sidebar-collapsed">
 
 <script>
   // Init theme immediately to prevent flashing
@@ -221,8 +227,15 @@
       <div class="sidebar__logo-text"><span class="gopal">GOPAL</span><span class="ortho">Ortho Care</span></div>
     </a>
   </div>
-  <div style="padding:.375rem 1.25rem 0;"><span class="sidebar__badge">Admin Portal</span></div>
-  <nav class="sidebar__nav">
+  <nav class="sidebar__nav" style="margin-top:.75rem;">
+    <a id="nav-overview" href="overview.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span data-i18n="overview">Overview</span>
+    </a>
+    <a id="nav-reception" href="reception.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <span data-i18n="reception">Reception Record</span>
+    </a>
     <a id="nav-dashboard" href="dashboard.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
       <span data-i18n="patients">Patient Records</span>
@@ -249,11 +262,21 @@
     <div class="user-pill">
       <div class="user-pill__avatar" id="user-avatar">DR</div>
       <div style="flex:1;min-width:0;">
-        <div class="user-pill__name" id="user-name-display">Admin</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.04em;">Admin Portal</div>
+        <div class="user-pill__name" id="user-name-display">Doctor</div>
       </div>
     </div>
   </div>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('displayName');
+      if (saved && saved.trim()) {
+        const av = document.getElementById('user-avatar');
+        const nd = document.getElementById('user-name-display');
+        if (av) av.textContent = saved.trim().slice(0,2).toUpperCase();
+        if (nd) nd.textContent = saved.trim();
+      }
+    })();
+  </script>
 </aside>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
@@ -326,7 +349,7 @@
             <label class="f-label">Set Next OP No To</label>
             <input class="f-input" id="setting-next-opno" type="number" min="1" placeholder="e.g. 4300">
           </div>
-          <button class="btn-save" onclick="saveNextOpNo()">Save Next OP No</button>
+          <button class="btn-save" onclick="saveNextOpNo()">Save</button>
         </div>
 
         <!-- Sign Out card -->
@@ -352,7 +375,7 @@
           </div>
 
           <!-- Core fees -->
-          <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Core Charges</p>
+          <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Standard Core Charges</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
             <div class="f-group">
               <label class="f-label" data-i18n="consultFee">Consulting Fee</label>
@@ -394,7 +417,7 @@
 
           <!-- Room rates -->
           <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Room Rates (per night)</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem;">
             <div class="f-group">
               <label class="f-label" data-i18n="roomRateIns">With Insurance</label>
               <input class="f-input" id="setting-room-rate-ins" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
@@ -405,16 +428,20 @@
             </div>
           </div>
 
-          <button class="btn-save" onclick="saveBillingSettings()" data-i18n="saveBillingDefaults">Save Billing Defaults</button>
+          <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">
+            <button type="button" class="btn-save" style="background:var(--surface);border:1.5px solid var(--border);color:var(--text-dark);box-shadow:none;" onclick="resetBillingToDefaults()" data-i18n="setToDefault">Set Values to Default</button>
+            <button type="button" class="btn-save" onclick="saveBillingSettings()" data-i18n="save">Save</button>
+          </div>
         </div>
       </div>
     </div>
 </div>
 
 <!-- ── TOAST ── -->
-<div class="toast" id="toast">
+<div class="toast" id="toast" style="display:flex;align-items:center;gap:.65rem;">
   <svg id="toast-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"></svg>
   <span id="toast-msg"></span>
+  <button id="toast-undo-btn" type="button" style="display:none;margin-left:auto;background:var(--gold);color:#fff;border:none;padding:.3rem .75rem;border-radius:6px;font-family:inherit;font-weight:700;font-size:.78rem;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);">Undo (5s)</button>
 </div>
 
 <script type="module">
@@ -487,8 +514,9 @@ onAuthStateChanged(authFB, async user => {
   const last = parseInt(localStorage.getItem('lastActivity')||'0');
   if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); return; }
   resetActivityTimer();
-  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const displayName = user.displayName || (user.email||'Doctor').split('@')[0];
   const savedName = localStorage.getItem('displayName') || displayName;
+  localStorage.setItem('displayName', savedName);
   document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
   document.getElementById('user-name-display').textContent = savedName;
   document.getElementById('settings-user-email').textContent = user.email;
@@ -509,12 +537,13 @@ window.addEventListener('storage', e => {
 
 window.handleLogout = async () => {
   localStorage.removeItem('lastActivity');
+  localStorage.removeItem('displayName');
   await signOut(authFB);
   window.location.href = getLoginDest();
 };
 
 // Billing defaults config loading
-let billingDefaults = {
+const STANDARD_BILLING_DEFAULTS = {
   consultFee: 250,
   dressingFee: 100,
   xrayFee: 200,
@@ -527,22 +556,106 @@ let billingDefaults = {
   roomRateIns: 2000,
   roomRateNoIns: 1500
 };
-const loadBillingDefaults = () => {
+
+let billingDefaults = { ...STANDARD_BILLING_DEFAULTS };
+let previousBillingBackup = null;
+let undoTimer = null;
+let undoCountdown = 5;
+
+const populateBillingInputs = (data = billingDefaults) => {
+  document.getElementById('setting-consult-fee').value = data.consultFee ?? 250;
+  document.getElementById('setting-dressing-fee').value = data.dressingFee ?? 100;
+  document.getElementById('setting-xray-fee').value = data.xrayFee ?? 200;
+  document.getElementById('setting-nursing-fee').value = data.nursingFee ?? 150;
+  document.getElementById('setting-dr-visit-charge').value = data.drVisitCharge ?? 200;
+  document.getElementById('setting-surgeon-fee').value = data.surgeonFee ?? 500;
+  document.getElementById('setting-implant-fee').value = data.implantFee ?? 0;
+  document.getElementById('setting-anaesthetist-fee').value = data.anaesthetistFee ?? 300;
+  document.getElementById('setting-procedure-charge').value = data.procedureCharge ?? 0;
+  document.getElementById('setting-room-rate-ins').value = data.roomRateIns ?? 2000;
+  document.getElementById('setting-room-rate-no-ins').value = data.roomRateNoIns ?? 1500;
+};
+
+window.resetBillingToDefaults = () => {
+  // 1. Capture current values for undo backup
+  previousBillingBackup = {
+    consultFee: document.getElementById('setting-consult-fee').value,
+    dressingFee: document.getElementById('setting-dressing-fee').value,
+    xrayFee: document.getElementById('setting-xray-fee').value,
+    nursingFee: document.getElementById('setting-nursing-fee').value,
+    drVisitCharge: document.getElementById('setting-dr-visit-charge').value,
+    surgeonFee: document.getElementById('setting-surgeon-fee').value,
+    implantFee: document.getElementById('setting-implant-fee').value,
+    anaesthetistFee: document.getElementById('setting-anaesthetist-fee').value,
+    procedureCharge: document.getElementById('setting-procedure-charge').value,
+    roomRateIns: document.getElementById('setting-room-rate-ins').value,
+    roomRateNoIns: document.getElementById('setting-room-rate-no-ins').value
+  };
+
+  // 2. Set default values into form inputs
+  populateBillingInputs(STANDARD_BILLING_DEFAULTS);
+
+  // 3. Show warning toast with 5s Undo timer
+  const toast = document.getElementById('toast');
+  const msgEl = document.getElementById('toast-msg');
+  const undoBtn = document.getElementById('toast-undo-btn');
+  const icon = document.getElementById('toast-icon');
+
+  if (undoTimer) clearInterval(undoTimer);
+  undoCountdown = 5;
+
+  if (toast && undoBtn) {
+    toast.className = 'toast show';
+    toast.style.borderLeft = '4px solid var(--warning)';
+    if (msgEl) msgEl.textContent = 'Values reset to defaults.';
+    if (icon) icon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+    undoBtn.style.display = 'inline-block';
+    undoBtn.textContent = `Undo (${undoCountdown}s)`;
+
+    undoTimer = setInterval(() => {
+      undoCountdown--;
+      if (undoCountdown > 0) {
+        undoBtn.textContent = `Undo (${undoCountdown}s)`;
+      } else {
+        clearInterval(undoTimer);
+        undoTimer = null;
+        undoBtn.style.display = 'none';
+        toast.classList.remove('show');
+      }
+    }, 1000);
+
+    undoBtn.onclick = () => {
+      if (undoTimer) { clearInterval(undoTimer); undoTimer = null; }
+      if (previousBillingBackup) {
+        populateBillingInputs(previousBillingBackup);
+      }
+      undoBtn.style.display = 'none';
+      toast.classList.remove('show');
+      showToast('Reset undone. Previous values restored.');
+    };
+  }
+};
+
+const loadBillingDefaults = async () => {
+  // Load local cache first
   try {
     const saved = JSON.parse(localStorage.getItem('billingDefaults') || '{}');
-    billingDefaults = { ...billingDefaults, ...saved };
-    document.getElementById('setting-consult-fee').value = billingDefaults.consultFee;
-    document.getElementById('setting-dressing-fee').value = billingDefaults.dressingFee;
-    document.getElementById('setting-xray-fee').value = billingDefaults.xrayFee;
-    document.getElementById('setting-nursing-fee').value = billingDefaults.nursingFee;
-    document.getElementById('setting-dr-visit-charge').value = billingDefaults.drVisitCharge;
-    document.getElementById('setting-surgeon-fee').value = billingDefaults.surgeonFee;
-    document.getElementById('setting-implant-fee').value = billingDefaults.implantFee;
-    document.getElementById('setting-anaesthetist-fee').value = billingDefaults.anaesthetistFee;
-    document.getElementById('setting-procedure-charge').value = billingDefaults.procedureCharge;
-    document.getElementById('setting-room-rate-ins').value = billingDefaults.roomRateIns;
-    document.getElementById('setting-room-rate-no-ins').value = billingDefaults.roomRateNoIns;
+    billingDefaults = { ...STANDARD_BILLING_DEFAULTS, ...saved };
+    populateBillingInputs(billingDefaults);
   } catch(e) {}
+
+  // Fetch from Firebase cluster
+  try {
+    const snap = await getDoc(doc(db, 'settings', 'billing'));
+    if (snap.exists()) {
+      const cloudData = snap.data();
+      billingDefaults = { ...STANDARD_BILLING_DEFAULTS, ...cloudData };
+      localStorage.setItem('billingDefaults', JSON.stringify(billingDefaults));
+      populateBillingInputs(billingDefaults);
+    }
+  } catch (err) {
+    console.warn('Could not load billing from Firestore cluster:', err);
+  }
 };
 loadBillingDefaults();
 
@@ -553,7 +666,7 @@ const opNoCounterRef = () => doc(db, 'meta', 'opNoCounter');
 const loadNextOpNo = async () => {
   try {
     const snap = await getDoc(opNoCounterRef());
-    const next = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
+    const next = (snap.exists() ? (snap.data().current || snap.data().seq || 0) : 0) + 1;
     document.getElementById('current-next-opno').textContent = next;
   } catch (e) { console.warn('Could not load OP No counter:', e); }
 };
@@ -565,11 +678,11 @@ window.saveNextOpNo = async () => {
   if (!raw || isNaN(n) || n <= 0) { showToast('Enter a valid OP No.', 'error'); return; }
   try {
     const snap = await getDoc(opNoCounterRef());
-    const currentNext = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
+    const currentNext = (snap.exists() ? (snap.data().current || snap.data().seq || 0) : 0) + 1;
     if (n < currentNext && !confirm(`${n} is lower than the current next OP No (${currentNext}). This can cause a collision with a patient already assigned a number in that range. Continue anyway?`)) {
       return;
     }
-    await setDoc(opNoCounterRef(), { seq: n - 1 }, { merge: true });
+    await setDoc(opNoCounterRef(), { seq: n - 1, current: n }, { merge: true });
     document.getElementById('current-next-opno').textContent = n;
     document.getElementById('setting-next-opno').value = '';
     showToast(`Next OP No set to ${n}.`);
@@ -581,6 +694,8 @@ window.saveNextOpNo = async () => {
 // i18n
 const i18n = {
   en: {
+    overview: 'Overview',
+    reception: 'Reception Record',
     patients: 'Patient Records', rooms: 'Room Management', bills: 'Billing',
     signOut: 'Sign Out', noticeboard: 'Notice Board', settings: 'Settings',
     profile: 'Profile', displayName: 'Display Name', saveProfile: 'Save Profile',
@@ -590,9 +705,12 @@ const i18n = {
     surgeonFee: 'Surgeon Fee', implantFee: 'Implant Fee',
     anaesthetistFee: 'Anaesthetist Fee', procedureCharge: 'Procedure Charge',
     roomRateIns: 'With Insurance', roomRateNoIns: 'Without Insurance',
-    saveBillingDefaults: 'Save Billing Defaults'
+    setToDefault: 'Set Values to Default', save: 'Save',
+    saveBillingDefaults: 'Save'
   },
   ta: {
+    overview: 'கண்ணோட்டம்',
+    reception: 'வரவேற்பு பதிவு',
     patients: 'நோயாளர் பதிவுகள்', rooms: 'அறை மேலாண்மை', bills: 'கட்டண மசோதா',
     signOut: 'வெளியேறு', noticeboard: 'அறிவிப்பு பலகை', settings: 'அமைப்புகள்',
     profile: 'சுயவிவரம்', displayName: 'காட்சிப் பெயர்', saveProfile: 'சுயவிவரத்தைச் சேமி',
@@ -602,7 +720,8 @@ const i18n = {
     surgeonFee: 'அறுவை சிகிச்சை கட்டணம்', implantFee: 'இம்பிளன்ட் கட்டணம்',
     anaesthetistFee: 'மயக்கமருந்து கட்டணம்', procedureCharge: 'சிகிச்சை கட்டணம்',
     roomRateIns: 'காப்பீட்டுடன்', roomRateNoIns: 'காப்பீடு இல்லாமல்',
-    saveBillingDefaults: 'இயல்புநிலை கட்டணங்களைச் சேமி'
+    setToDefault: 'இயல்புநிலைக்கு மாற்றவும்', save: 'சேமி',
+    saveBillingDefaults: 'சேமி'
   }
 };
 
@@ -645,7 +764,7 @@ window.toggleSidebar = () => {
   if (window.innerWidth > 960) {
     document.body.classList.toggle('sidebar-collapsed');
   } else {
-    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar')?.classList.toggle('open');
   }
 };
 
@@ -712,7 +831,7 @@ window.saveProfile = async () => {
   showToast('Profile updated.');
 };
 
-window.saveBillingSettings = () => {
+window.saveBillingSettings = async () => {
   const g = id => {
     const v = parseFloat(document.getElementById(id)?.value);
     return Math.max(0, isNaN(v) ? 0 : Math.round(v * 100) / 100);
@@ -728,10 +847,18 @@ window.saveBillingSettings = () => {
     anaesthetistFee: g('setting-anaesthetist-fee'),
     procedureCharge: g('setting-procedure-charge'),
     roomRateIns:     g('setting-room-rate-ins'),
-    roomRateNoIns:   g('setting-room-rate-no-ins')
+    roomRateNoIns:   g('setting-room-rate-no-ins'),
+    updatedAt:       new Date().toISOString()
   };
   localStorage.setItem('billingDefaults', JSON.stringify(billingDefaults));
-  showToast('Billing defaults saved.');
+
+  try {
+    await setDoc(doc(db, 'settings', 'billing'), billingDefaults, { merge: true });
+    showToast('Billing defaults saved and synced to database.');
+  } catch (err) {
+    console.warn('Firestore billing save warning:', err);
+    showToast('Saved locally.');
+  }
 };
 
 // Init Language load
@@ -742,17 +869,44 @@ updateThemeIcons();
 <script>
 (function() {
   const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
-  if (!isCustom) return;
-  const map = {
-    'nav-dashboard': '/dashboard',
-    'nav-room': '/room',
-    'nav-bill': '/bill',
-    'nav-noticeboard': '/noticeboard',
-    'nav-settings': '/settings'
-  };
-  Object.entries(map).forEach(([id, path]) => {
-    const el = document.getElementById(id);
-    if (el) el.setAttribute('href', path);
+  if (isCustom) {
+    const map = {
+      'nav-overview': '/overview',
+      'nav-reception': '/reception',
+      'nav-dashboard': '/dashboard',
+      'nav-room': '/room',
+      'nav-bill': '/bill',
+      'nav-noticeboard': '/noticeboard',
+      'nav-settings': '/settings'
+    };
+    Object.entries(map).forEach(([id, path]) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('href', path);
+    });
+  }
+
+  // Always close sidebar when navigating
+  document.querySelectorAll('.nav-item, .sidebar__logo').forEach(item => {
+    item.addEventListener('click', () => {
+      document.body.classList.add('sidebar-collapsed');
+      const sb = document.getElementById('sidebar');
+      if (sb) sb.classList.remove('open');
+    });
+  });
+
+  // Close sidebar if clicking outside
+  document.addEventListener('click', (e) => {
+    const sb = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    if (window.innerWidth <= 960) {
+      if (sb && sb.classList.contains('open') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        sb.classList.remove('open');
+      }
+    } else {
+      if (sb && !document.body.classList.contains('sidebar-collapsed') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        document.body.classList.add('sidebar-collapsed');
+      }
+    }
   });
 })();
 </script>

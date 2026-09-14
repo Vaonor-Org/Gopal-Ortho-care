@@ -36,14 +36,20 @@
     [data-lang="ta"] body,[data-lang="ta"] input,[data-lang="ta"] select,[data-lang="ta"] textarea,[data-lang="ta"] button{font-family:'Noto Sans Tamil','DM Sans',sans-serif;}
 
     /* ── SIDEBAR ── */
-    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);}
+    body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
     body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
     body.sidebar-collapsed #main { margin-left: 0; }
+    @media (min-width: 961px) {
+      body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+      body:not(.sidebar-collapsed) #main { margin-left: var(--sidebar-w); }
+      body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+      body.sidebar-collapsed #main { margin-left: 0; }
+    }
     @media (max-width: 960px) {
       #sidebar { transform: translateX(-100%); }
       #sidebar.open { transform: translateX(0); }
       #main { margin-left: 0 !important; }
-      body.sidebar-collapsed #sidebar { transform: translateX(0); }
     }
 
     #sidebar-toggle-btn {
@@ -106,8 +112,44 @@
     /* ── SECTION PAGES ── */
     .section-page{flex:1;padding:1.5rem;}
 
-    /* ── BILLS ── */
+    /* ── BILLS EXCEL SPREADSHEET TABLE ── */
     .bills-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;}
+    .table-wrap{background:var(--surface);border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(4,28,48,.04);}
+    .table-scroll{overflow-x:auto;}
+    table.excel-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;border-spacing:0;}
+    table.excel-table thead th{background:#f1f5f9;border:1px solid #cbd5e1;border-top:none;padding:.65rem .875rem;text-align:left;font-size:.675rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#475569;white-space:nowrap;user-select:none;}
+    table.excel-table thead th:first-child{border-left:none;}
+    table.excel-table thead th:last-child{border-right:none;}
+    table.excel-table tbody tr{background:#ffffff;border-bottom:1px solid #e2e8f0;transition:background .15s;}
+    table.excel-table tbody tr:nth-child(even){background:#f8fafc;}
+    table.excel-table tbody tr:hover{background:#edf5ff !important;}
+    table.excel-table tbody td{border:1px solid #e2e8f0;padding:.65rem .875rem;font-size:.85rem;color:var(--text-dark);vertical-align:middle;}
+    table.excel-table tbody td:first-child{border-left:none;}
+    table.excel-table tbody td:last-child{border-right:none;}
+
+    /* Dark Mode Excel overrides */
+    html[data-theme="dark"] .table-wrap{border-color:#1e354d;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+    html[data-theme="dark"] table.excel-table thead th{background:#112338;border-color:#1e354d;color:#94a3b8;}
+    html[data-theme="dark"] table.excel-table tbody tr{background:#0a1726;border-bottom-color:#172c42;}
+    html[data-theme="dark"] table.excel-table tbody tr:nth-child(even){background:#0d1e30;}
+    html[data-theme="dark"] table.excel-table tbody tr:hover{background:#152e4a !important;}
+    html[data-theme="dark"] table.excel-table tbody td{border-color:#172c42;color:#f1f5f9;}
+
+    /* ── STATS ── */
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem;}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:.875rem;box-shadow:0 2px 8px rgba(4,28,48,.03);}
+    .stat-card__icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .stat-card__icon svg{width:20px;height:20px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+    .stat-card__num{font-family:'DM Sans',sans-serif;font-size:1.65rem;font-weight:700;line-height:1;color:var(--text-dark);}
+    .stat-card__label{font-size:.7rem;color:var(--text-light);letter-spacing:.04em;margin-top:.2rem;font-weight:600;}
+
+    /* ── QUICK FILTER PILLS ── */
+    .filter-pills-group{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface-card);padding:.25rem;border-radius:10px;border:1px solid var(--border);}
+    .filter-pill{height:30px;padding:0 .85rem;border-radius:7px;border:1px solid transparent;background:transparent;font-family:inherit;font-size:.775rem;font-weight:600;color:var(--text-med);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;}
+    .filter-pill:hover{color:var(--primary);background:var(--primary-ul);}
+    .filter-pill.active{background:var(--surface);color:var(--primary);border-color:var(--border);box-shadow:0 1px 4px rgba(4,28,48,.08);}
+    html[data-theme="dark"] .filter-pill.active{background:var(--surface);color:#93c5fd;border-color:var(--border);box-shadow:0 1px 4px rgba(0,0,0,.3);}
+
     .bills-grid{display:grid;gap:.875rem;}
     .bill-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem;display:flex;align-items:center;gap:1rem;transition:all .2s;}
     .bill-card:hover{box-shadow:0 4px 20px rgba(10,110,189,.1);border-color:var(--border-med);}
@@ -209,9 +251,12 @@
     .bill-sign{margin-top:1.5rem;display:flex;justify-content:flex-end;font-size:.8rem;color:#333;}
     .bill-footer-note{font-size:.7rem;color:#888;text-align:center;margin-top:.875rem;border-top:1px solid #eee;padding-top:.5rem;}
 
+    .bill-no-btn{background:none;border:none;padding:2px 6px;border-radius:6px;cursor:pointer;font-family:'DM Mono',monospace;color:var(--primary);font-size:.84rem;font-weight:700;transition:all .15s;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:3px;}
+    .bill-no-btn:hover{background:var(--primary-ul);color:var(--primary-dark);}
+
     /* ── TOAST ── */
-    .toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--bg-darker);color:#fff;padding:.75rem 1.1rem;border-radius:11px;font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 32px rgba(4,28,48,.35);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:320px;}
-    .toast.show{transform:translateY(0);opacity:1;}
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--bg-darker);color:#fff;padding:.75rem 1.1rem;border-radius:11px;font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 32px rgba(4,28,48,.35);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:440px;}
+    .toast.show{transform:translateY(0);opacity:1;pointer-events:auto;}
     .toast.success{border-left:4px solid #2D7A4F;}
     .toast.error{border-left:4px solid var(--error);}
     .toast svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;flex-shrink:0;}
@@ -293,7 +338,7 @@
     }
   </style>
 </head>
-<body>
+<body class="sidebar-collapsed">
 
 <script>
   // Init theme immediately to prevent flashing
@@ -311,8 +356,15 @@
       <div class="sidebar__logo-text"><span class="gopal">GOPAL</span><span class="ortho">Ortho Care</span></div>
     </a>
   </div>
-  <div style="padding:.375rem 1.25rem 0;"><span class="sidebar__badge">Admin Portal</span></div>
-  <nav class="sidebar__nav">
+  <nav class="sidebar__nav" style="margin-top:.75rem;">
+    <a id="nav-overview" href="overview.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span data-i18n="overview">Overview</span>
+    </a>
+    <a id="nav-reception" href="reception.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <span data-i18n="reception">Reception Record</span>
+    </a>
     <a id="nav-dashboard" href="dashboard.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
       <span data-i18n="patients">Patient Records</span>
@@ -339,11 +391,21 @@
     <div class="user-pill">
       <div class="user-pill__avatar" id="user-avatar">DR</div>
       <div style="flex:1;min-width:0;">
-        <div class="user-pill__name" id="user-name-display">Admin</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.04em;">Admin Portal</div>
+        <div class="user-pill__name" id="user-name-display">Doctor</div>
       </div>
     </div>
   </div>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('displayName');
+      if (saved && saved.trim()) {
+        const av = document.getElementById('user-avatar');
+        const nd = document.getElementById('user-name-display');
+        if (av) av.textContent = saved.trim().slice(0,2).toUpperCase();
+        if (nd) nd.textContent = saved.trim();
+      }
+    })();
+  </script>
 </aside>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
@@ -381,17 +443,63 @@
         <span data-i18n="generateBill">Generate Bill</span>
       </button>
     </div>
+
+    <!-- ── STATS CARDS ── -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(10,110,189,.1);color:var(--primary);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-total-bills">0</div>
+          <div class="stat-card__label" data-i18n="statTotalBills">TOTAL INVOICES</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(34,197,94,.1);color:#16a34a;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-paid-amount" style="color:#16a34a;">₹0</div>
+          <div class="stat-card__label" data-i18n="statPaidRevenue">COLLECTED REVENUE</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(245,158,11,.1);color:#d97706;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-unpaid-amount" style="color:#d97706;">₹0</div>
+          <div class="stat-card__label" data-i18n="statPendingAmount">PENDING / UNPAID</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon" style="background:rgba(99,102,241,.1);color:#6366f1;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <div>
+          <div class="stat-card__num" id="stat-today-bills">0</div>
+          <div class="stat-card__label" data-i18n="statTodayBills">TODAY'S INVOICES</div>
+        </div>
+      </div>
+    </div>
     
     <!-- Toolbar -->
     <div class="toolbar">
-      <div style="display:flex;gap:.5rem;align-items:center;">
+      <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
+        <div class="filter-pills-group">
+          <button class="filter-pill active" id="pill-all" onclick="setQuickFilter('all')">All</button>
+          <button class="filter-pill" id="pill-today" onclick="setQuickFilter('today')">Today</button>
+          <button class="filter-pill" id="pill-paid" onclick="setQuickFilter('paid')">Paid</button>
+          <button class="filter-pill" id="pill-unpaid" onclick="setQuickFilter('unpaid')">Unpaid</button>
+        </div>
+
         <div class="popover-wrap">
           <button class="filter-btn" id="filter-popover-trigger" onclick="toggleFilterPopover(event)" data-i18n="filter">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
             Filter
           </button>
           <div class="popover-content" id="filter-popover" style="width: 280px; max-height: 400px; overflow-y: auto;">
-            
             <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Payment Status</h4>
             <select id="pop-payment" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="applyFilters()">
               <option value="all">All</option>
@@ -413,7 +521,6 @@
               <label style="font-size:.85rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;"><input type="checkbox" id="pop-doc-gopal" checked onchange="applyFilters()"> Dr. Gopala Krishnan</label>
               <label style="font-size:.85rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;"><input type="checkbox" id="pop-doc-shiny" checked onchange="applyFilters()"> Dr. Shiny</label>
             </div>
-            
           </div>
         </div>
       </div>
@@ -423,12 +530,33 @@
         <input type="text" id="search-input" placeholder="Search bills by name or ID… (press / to focus)" oninput="handleSearch(this.value)">
       </div>
     </div>
-    <div class="bills-grid" id="bills-grid">
-      <div style="text-align:center;padding:3rem;color:var(--text-light);">Loading bills…</div>
-    </div>
-    <div class="pagination" id="bills-pagination" style="display:none;margin-top:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;">
-      <span class="pagination__info" id="bills-page-info"></span>
-      <div class="pagination__btns" id="bills-page-btns"></div>
+
+    <!-- Excel Spreadsheet Table -->
+    <div class="table-wrap" id="bills-table-wrap">
+      <div class="table-scroll">
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th style="width:115px;">Bill No.</th>
+              <th style="width:110px;">Date</th>
+              <th>Patient Name</th>
+              <th style="width:95px;text-align:center;">OP No.</th>
+              <th>Doctor</th>
+              <th>Items / Services</th>
+              <th style="text-align:right;width:120px;">Amount</th>
+              <th style="text-align:center;width:120px;">Status</th>
+              <th style="text-align:center;width:95px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bills-table-body">
+            <tr><td colspan="9" style="text-align:center;padding:3rem;color:var(--text-light);">Loading bills…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="bills-pagination" style="display:none;">
+        <span class="pagination__info" id="bills-page-info"></span>
+        <div class="pagination__btns" id="bills-page-btns"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -494,6 +622,35 @@
   </div>
 </div>
 
+<!-- ── BILL DETAILS MODAL ── -->
+<div class="center-modal-overlay" id="bill-details-modal">
+  <div class="center-modal" style="width:min(560px,95vw);">
+    <div class="center-modal__header">
+      <div style="display:flex;align-items:center;gap:.6rem;">
+        <span class="center-modal__title" id="bd-modal-title">Bill Details</span>
+        <span id="bd-status-badge"></span>
+      </div>
+      <button class="modal-close" onclick="closeBillDetails()"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="center-modal__body" id="bd-modal-body" style="gap:1rem;">
+      <!-- Populated dynamically by openBillDetails() -->
+    </div>
+    <div class="center-modal__footer" style="display:flex;justify-content:space-between;align-items:center;">
+      <button type="button" class="btn-cancel" style="color:var(--error);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06);display:flex;align-items:center;gap:.35rem;" onclick="handleDeleteFromDetailsModal()" id="bd-delete-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+        Delete Bill
+      </button>
+      <div style="display:flex;gap:.5rem;">
+        <button class="btn-cancel" onclick="closeBillDetails()">Close</button>
+        <button class="btn-save" id="bd-print-btn" onclick="handlePrintFromDetailsModal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print Bill
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ── BILL PRINT VIEW ── -->
 <div class="bill-print-overlay" id="bill-print-overlay">
   <div class="bill-print-modal">
@@ -543,10 +700,10 @@
 </div>
 
 <!-- ── TOAST ── -->
-
 <div class="toast" id="toast">
   <svg id="toast-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"></svg>
   <span id="toast-msg"></span>
+  <button id="toast-undo-btn" style="display:none;margin-left:.75rem;padding:4px 10px;background:#fff;color:#b91c1c;border:none;border-radius:6px;font-weight:700;font-size:.78rem;cursor:pointer;"></button>
 </div>
 
 <script type="module">
@@ -621,8 +778,9 @@ onAuthStateChanged(authFB, async user => {
   const last = parseInt(localStorage.getItem('lastActivity')||'0');
   if (last && Date.now()-last > SESSION_MS) { await signOut(authFB); window.location.href = getLoginDest('timeout'); return; }
   resetActivityTimer();
-  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const displayName = user.displayName || (user.email||'Doctor').split('@')[0];
   const savedName = localStorage.getItem('displayName') || displayName;
+  localStorage.setItem('displayName', savedName);
   const av = document.getElementById('user-avatar');
   const nd = document.getElementById('user-name-display');
   if (av) av.textContent = savedName.slice(0,2).toUpperCase();
@@ -677,6 +835,7 @@ loadBillingDefaults();
 // i18n Mappings
 const i18n = {
   en: {
+    overview: 'Overview',
     patients: 'Patient Records', rooms: 'Room Management', bills: 'Billing',
     signOut: 'Sign Out', total: 'Total', paid: 'Paid', unpaid: 'Unpaid',
     print: 'Print Bill', generateBill: 'Generate Bill', savePrint: 'Save & Print',
@@ -684,9 +843,14 @@ const i18n = {
     doctorName: 'Doctor', visitDate: 'Date', billItems: 'Bill Items',
     billsSubtitle: 'Generate and manage patient bills', patient: 'Patient',
     noticeboard: 'Notice Board', settings: 'Settings',
-    searchPatientsPlaceholder: 'Search patients…'
+    searchPatientsPlaceholder: 'Search patients…',
+    statTotalBills: 'TOTAL INVOICES',
+    statPaidRevenue: 'COLLECTED REVENUE',
+    statPendingAmount: 'PENDING / UNPAID',
+    statTodayBills: "TODAY'S INVOICES"
   },
   ta: {
+    overview: 'கண்ணோட்டம்',
     patients: 'நோயாளர் பதிவுகள்', rooms: 'அறை மேலாண்மை', bills: 'கட்டண மசோதா',
     signOut: 'வெளியேறு', total: 'மொத்தம்', paid: 'செலுத்தப்பட்டது', unpaid: 'நிலுவை',
     print: 'அச்சிடு', generateBill: 'மசோதா உருவாக்கு', savePrint: 'சேமி & அச்சிடு',
@@ -694,7 +858,11 @@ const i18n = {
     doctorName: 'மருத்துவர்', visitDate: 'தேதி', billItems: 'விவரங்கள்',
     billsSubtitle: 'மசோதா உருவாக்கி மேலாண்மை', patient: 'நோயாளர்',
     noticeboard: 'அறிவிப்பு பலகை', settings: 'அமைப்புகள்',
-    searchPatientsPlaceholder: 'நோயாளர்களைத் தேடுக…'
+    searchPatientsPlaceholder: 'நோயாளர்களைத் தேடுக…',
+    statTotalBills: 'மொத்த மசோதாக்கள்',
+    statPaidRevenue: 'பெறப்பட்ட தொகை',
+    statPendingAmount: 'நிலுவை தொகை',
+    statTodayBills: 'இன்றைய மசோதாக்கள்'
   }
 };
 
@@ -737,7 +905,7 @@ window.toggleSidebar = () => {
   if (window.innerWidth > 960) {
     document.body.classList.toggle('sidebar-collapsed');
   } else {
-    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar')?.classList.toggle('open');
   }
 };
 
@@ -889,6 +1057,68 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Quick filter pills
+window.setQuickFilter = (mode) => {
+  document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`pill-${mode}`)?.classList.add('active');
+
+  const popPay = document.getElementById('pop-payment');
+  const popDate = document.getElementById('pop-date-range');
+
+  if (mode === 'all') {
+    if (popPay) popPay.value = 'all';
+    if (popDate) popDate.value = 'all';
+  } else if (mode === 'today') {
+    if (popPay) popPay.value = 'all';
+    if (popDate) popDate.value = 'today';
+  } else if (mode === 'paid') {
+    if (popPay) popPay.value = 'paid';
+    if (popDate) popDate.value = 'all';
+  } else if (mode === 'unpaid') {
+    if (popPay) popPay.value = 'unpaid';
+    if (popDate) popDate.value = 'all';
+  }
+  applyFilters();
+};
+
+// Calculate and render stats row
+const loadBillingStats = () => {
+  try {
+    onSnapshot(query(collection(db, 'bills'), orderBy('createdAt', 'desc'), limit(300)), snap => {
+      const docs = snap.docs.map(d => d.data());
+      const totalCount = docs.length;
+      let paidSum = 0;
+      let unpaidSum = 0;
+      let todayCount = 0;
+      const todayStr = todayIST();
+
+      docs.forEach(b => {
+        const tot = Number(b.total) || 0;
+        if (b.paid) {
+          paidSum += tot;
+        } else {
+          unpaidSum += tot;
+        }
+        if (b.date === todayStr) {
+          todayCount++;
+        }
+      });
+
+      const elTotal = document.getElementById('stat-total-bills');
+      const elPaid = document.getElementById('stat-paid-amount');
+      const elUnpaid = document.getElementById('stat-unpaid-amount');
+      const elToday = document.getElementById('stat-today-bills');
+
+      if (elTotal) elTotal.textContent = totalCount;
+      if (elPaid) elPaid.textContent = `₹${round2(paidSum).toLocaleString('en-IN')}`;
+      if (elUnpaid) elUnpaid.textContent = `₹${round2(unpaidSum).toLocaleString('en-IN')}`;
+      if (elToday) elToday.textContent = todayCount;
+    });
+  } catch (err) {
+    console.warn('Billing stats calculation failed:', err);
+  }
+};
+
 // Popover filters (payment/date/doctor) apply client-side, but only against
 // the small page of bills already fetched — not every bill ever created.
 // Same trade-off as the patient list, for the same reason: staying scalable
@@ -971,43 +1201,54 @@ window.goBillsPage = n => {
 };
 
 const renderBills = () => {
-  const grid = document.getElementById('bills-grid');
+  const tbody = document.getElementById('bills-table-body');
   const pag = document.getElementById('bills-pagination');
-  if(!currentBills.length){
-    grid.innerHTML='<div style="text-align:center;padding:3rem;color:var(--text-light);">No bills found.</div>';
-    if(pag) pag.style.display='none';
+  if (!tbody) return;
+
+  if (!currentBills.length) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:3rem;color:var(--text-light);">No bills found.</td></tr>';
+    if (pag) pag.style.display = 'none';
     return;
   }
-  grid.innerHTML=currentBills.map(b=>`
-    <div class="bill-card">
-      <div class="bill-card__icon"><svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/></svg></div>
-      <div class="bill-card__info">
-        <div class="bill-card__name">${esc(b.patientName||'—')}</div>
-        <div class="bill-card__meta">${esc(b.doctor||'—')} · ${fmtDate(b.date)} · Bill #${esc(b.billNumber || b.id.slice(0,6).toUpperCase())}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.375rem;">
-        <div class="bill-card__amount">₹${round2(b.total)}</div>
-        <div style="display:flex;gap:.5rem;align-items:center;">
+
+  tbody.innerHTML = currentBills.map(b => {
+    const itemsSummary = (b.items || []).map(it => it.desc).filter(Boolean).join(', ') || 'Consultation';
+    const billNum = b.billNumber || b.id.slice(0, 6).toUpperCase();
+    const opNo = b.patientOpNo ? `OP ${b.patientOpNo}` : '—';
+    return `
+      <tr>
+        <td><button class="bill-no-btn" onclick="openBillDetails('${b.id}')" title="View bill details">#${esc(billNum)}</button></td>
+        <td style="font-size:.8rem;color:var(--text-med);white-space:nowrap;">${fmtDate(b.date)}</td>
+        <td>
+          <div style="font-weight:600;color:var(--text-dark);">${esc(b.patientName || '—')}</div>
+          ${b.patientPhone ? `<div style="font-size:.75rem;color:var(--text-light);">${esc(b.patientPhone)}</div>` : ''}
+        </td>
+        <td><span style="font-family:'DM Mono',monospace;font-size:.78rem;font-weight:600;color:var(--primary);background:var(--primary-ul);padding:.2rem .5rem;border-radius:6px;border:1px solid rgba(10,110,189,.2);">${esc(opNo)}</span></td>
+        <td style="font-size:.82rem;color:var(--text-med);white-space:nowrap;">${esc(b.doctor || '—')}</td>
+        <td style="font-size:.8rem;color:var(--text-med);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(itemsSummary)}">${esc(itemsSummary)}</td>
+        <td style="text-align:right;"><span style="font-family:'DM Mono',monospace;font-size:.9rem;font-weight:700;color:var(--text-dark);">₹${round2(b.total)}</span></td>
+        <td style="text-align:center;">
           ${b.paid ? `
-            <span style="display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:700;color:var(--success);background:var(--success-bg);padding:.25rem .625rem;border-radius:9999px;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span style="display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:700;color:var(--success);background:var(--success-bg);padding:.25rem .55rem;border-radius:9999px;border:1px solid rgba(22,163,74,.2);">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
               <span data-i18n="paid">Paid</span>
             </span>
           ` : `
-            <button class="filter-btn" onclick="togglePaid('${b.id}', true)" style="height:28px;padding:0 .5rem;font-size:.7rem;border-radius:6px;gap:.2rem;border-color:var(--warning);color:var(--warning);background:rgba(219,119,6,.06);" onmouseenter="this.style.background='rgba(219,119,6,.12)'" onmouseleave="this.style.background='rgba(219,119,6,.06)'">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <button class="filter-btn" onclick="togglePaid('${b.id}', true)" style="height:26px;padding:0 .5rem;font-size:.68rem;border-radius:6px;gap:.25rem;border-color:var(--warning);color:var(--warning);background:rgba(219,119,6,.06);margin:0 auto;" onmouseenter="this.style.background='rgba(219,119,6,.14)'" onmouseleave="this.style.background='rgba(219,119,6,.06)'">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
               Mark Paid
             </button>
           `}
-          <button class="icon-btn" onclick="printBill('${b.id}')" title="Print bill"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
-          <button class="icon-btn delete" onclick="deleteBill('${b.id}')" title="Delete bill"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>
-        </div>
-      </div>
-    </div>`).join('');
-    
-  // Cursor-based pagination (Previous/Next) — same reasoning as the patient
-  // list: no cheap total-match count for an arbitrary query, so no numbered
-  // "page 1 2 3…" here.
+        </td>
+        <td>
+          <div class="table-actions" style="display:flex;align-items:center;justify-content:center;">
+            <button class="icon-btn" onclick="printBill('${b.id}')" title="Print bill"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
   if (pag) {
     const start = billsPageIndex * billsPerPage;
     pag.style.display = 'flex';
@@ -1218,9 +1459,6 @@ window.printBill = async (id) => {
 
 const renderBillTemplate = (b, p) => {
   document.getElementById('bill-template').innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.375rem;">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M12 2C8 6 4 8 4 13a8 8 0 0016 0c0-5-4-7-8-11z" fill="#1a237e"/><path d="M12 7v10M9 10l3-3 3 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </div>
     <div class="bill-hospital-name">Gopal Ortho Care</div>
     <div class="bill-reg">Reg. No.: JM 4463</div>
     <div class="bill-address">195/3, Parakkai Road Jn., Kottar P.O., Nagercoil-2</div>
@@ -1228,7 +1466,7 @@ const renderBillTemplate = (b, p) => {
     <hr class="bill-divider">
     <div class="bill-doctors">
       <div class="bill-doctor-row">
-        <span class="bill-doctor-name">Dr. N. Gopala Krishman, M.B.B.S.,D.Ortho.,M.S. Ortho., Mch.Ortho.,FJIR (MGRU)</span>
+        <span class="bill-doctor-name">Dr. N. Gopala Krishnan, M.B.B.S.,D.Ortho.,M.S. Ortho., Mch.Ortho.,FJIR (MGRU)</span>
         <span class="bill-doctor-reg">Reg.No. 78340</span>
       </div>
       <div class="bill-doctor-row">
@@ -1256,8 +1494,7 @@ const renderBillTemplate = (b, p) => {
         <tr class="bill-total-row"><td>Total</td><td>₹${round2(b.total)}</td></tr>
       </tbody>
     </table>
-    <div class="bill-sign"><div style="text-align:right;"><div style="width:120px;border-top:1px solid #333;margin-bottom:.25rem;"></div>Signature</div></div>
-    <div class="bill-footer-note">We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.</div>`;
+    <div class="bill-footer-note" style="margin-top:1.5rem;">We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.</div>`;
 };
 
 window.togglePaid = async (id, paid) => {
@@ -1266,12 +1503,176 @@ window.togglePaid = async (id, paid) => {
   loadBillsPage(billsPageIndex);
 };
 
-window.deleteBill = async (id) => {
-  if(!confirm('Delete this bill?')) return;
-  await deleteDoc(doc(db, 'bills', id));
-  showToast('Bill deleted.');
-  loadBillsPage(billsPageIndex);
+// Bill Details Modal and Actions
+window.openBillDetails = (id) => {
+  const b = currentBills.find(x => x.id === id) || lastFetchedBills.find(x => x.id === id);
+  if (!b) return;
+  window._activeDetailsBillId = id;
+  window._activeDetailsBill = b;
+
+  const billNum = b.billNumber || b.id.slice(0, 6).toUpperCase();
+  const titleEl = document.getElementById('bd-modal-title');
+  if (titleEl) titleEl.textContent = `Bill #${billNum}`;
+
+  const badgeEl = document.getElementById('bd-status-badge');
+  if (badgeEl) {
+    if (b.paid) {
+      badgeEl.innerHTML = `<span style="font-size:.72rem;font-weight:700;color:var(--success);background:var(--success-bg);padding:.2rem .5rem;border-radius:9999px;border:1px solid rgba(22,163,74,.2);">Paid</span>`;
+    } else {
+      badgeEl.innerHTML = `<span style="font-size:.72rem;font-weight:700;color:var(--warning);background:rgba(219,119,6,.1);padding:.2rem .5rem;border-radius:9999px;border:1px solid rgba(219,119,6,.2);">Unpaid</span>`;
+    }
+  }
+
+  const itemsHtml = (b.items || []).map(it => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.85rem;">
+      <span style="color:var(--text-dark);">${esc(it.desc || 'Item')}</span>
+      <span style="font-family:'DM Mono',monospace;font-weight:600;color:var(--text-dark);">₹${round2(it.amount)}</span>
+    </div>
+  `).join('') || '<div style="color:var(--text-light);font-size:.85rem;padding:.5rem 0;">No items listed</div>';
+
+  const bodyEl = document.getElementById('bd-modal-body');
+  if (bodyEl) {
+    bodyEl.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;padding:.875rem;background:var(--surface-card);border:1px solid var(--border);border-radius:10px;">
+        <div>
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);">Patient</div>
+          <div style="font-weight:600;font-size:.92rem;color:var(--text-dark);margin-top:2px;">${esc(b.patientName || '—')}</div>
+          ${b.patientPhone ? `<div style="font-size:.78rem;color:var(--text-med);">${esc(b.patientPhone)}</div>` : ''}
+        </div>
+        <div>
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);">OP Number</div>
+          <div style="margin-top:2px;"><span style="font-family:'DM Mono',monospace;font-size:.8rem;font-weight:600;color:var(--primary);background:var(--primary-ul);padding:.15rem .45rem;border-radius:6px;border:1px solid rgba(10,110,189,.2);">${b.patientOpNo ? `OP ${b.patientOpNo}` : '—'}</span></div>
+        </div>
+        <div>
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);">Doctor</div>
+          <div style="font-size:.85rem;font-weight:500;color:var(--text-dark);margin-top:2px;">${esc(b.doctor || '—')}</div>
+        </div>
+        <div>
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);">Bill Date</div>
+          <div style="font-size:.85rem;font-weight:500;color:var(--text-dark);margin-top:2px;">${fmtDate(b.date)}</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;">Bill Items & Services</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 .875rem;">
+          ${itemsHtml}
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;font-weight:700;font-size:.95rem;">
+            <span>Total Amount</span>
+            <span style="font-family:'DM Mono',monospace;color:var(--primary);font-size:1.1rem;">₹${round2(b.total)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('bill-details-modal')?.classList.add('show');
+  document.body.style.overflow = 'hidden';
 };
+
+window.closeBillDetails = () => {
+  document.getElementById('bill-details-modal')?.classList.remove('show');
+  document.body.style.overflow = '';
+};
+
+window.handlePrintFromDetailsModal = () => {
+  if (window._activeDetailsBillId) {
+    const id = window._activeDetailsBillId;
+    closeBillDetails();
+    printBill(id);
+  }
+};
+
+let billDeleteUndoTimer = null;
+let billDeleteCountdown = 5;
+let pendingDeletedBill = null;
+
+const commitBillDelete = async (id) => {
+  try {
+    await deleteDoc(doc(db, 'bills', id));
+  } catch (e) {
+    console.error('Failed to delete bill doc:', e);
+    showToast('Failed to delete bill: ' + e.message, 'error');
+  }
+};
+
+window.handleDeleteFromDetailsModal = () => {
+  const id = window._activeDetailsBillId;
+  const b = window._activeDetailsBill;
+  if (!id || !b) return;
+
+  // Close details modal
+  closeBillDetails();
+
+  // If there was an already pending deletion, commit it immediately
+  if (billDeleteUndoTimer && pendingDeletedBill) {
+    clearInterval(billDeleteUndoTimer);
+    commitBillDelete(pendingDeletedBill.id);
+  }
+
+  // Backup bill object
+  pendingDeletedBill = { id, data: { ...b } };
+
+  // Optimistically remove from UI list
+  currentBills = currentBills.filter(x => x.id !== id);
+  lastFetchedBills = lastFetchedBills.filter(x => x.id !== id);
+  renderBills();
+
+  // Show warning message toast with 5s Undo timer
+  const toast = document.getElementById('toast');
+  const msgEl = document.getElementById('toast-msg');
+  const undoBtn = document.getElementById('toast-undo-btn');
+  const icon = document.getElementById('toast-icon');
+
+  if (billDeleteUndoTimer) clearInterval(billDeleteUndoTimer);
+  billDeleteCountdown = 5;
+
+  if (toast && undoBtn) {
+    toast.className = 'toast show';
+    toast.style.borderLeft = '4px solid var(--warning)';
+    if (msgEl) msgEl.textContent = `Bill #${b.billNumber || id.slice(0,6)} deleted.`;
+    if (icon) icon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+    undoBtn.style.display = 'inline-block';
+    undoBtn.textContent = `Undo (${billDeleteCountdown}s)`;
+
+    billDeleteUndoTimer = setInterval(() => {
+      billDeleteCountdown--;
+      if (billDeleteCountdown > 0) {
+        undoBtn.textContent = `Undo (${billDeleteCountdown}s)`;
+      } else {
+        clearInterval(billDeleteUndoTimer);
+        billDeleteUndoTimer = null;
+        undoBtn.style.display = 'none';
+        toast.classList.remove('show');
+        if (pendingDeletedBill) {
+          const toDeleteId = pendingDeletedBill.id;
+          pendingDeletedBill = null;
+          commitBillDelete(toDeleteId);
+        }
+      }
+    }, 1000);
+
+    undoBtn.onclick = () => {
+      if (billDeleteUndoTimer) { clearInterval(billDeleteUndoTimer); billDeleteUndoTimer = null; }
+      if (pendingDeletedBill) {
+        // Restore bill to current and lastFetched lists
+        currentBills.unshift(pendingDeletedBill.data);
+        lastFetchedBills.unshift(pendingDeletedBill.data);
+        pendingDeletedBill = null;
+        renderBills();
+      }
+      undoBtn.style.display = 'none';
+      toast.classList.remove('show');
+      showToast('Bill restored.');
+    };
+  }
+};
+
+window.addEventListener('beforeunload', () => {
+  if (pendingDeletedBill) {
+    commitBillDelete(pendingDeletedBill.id);
+  }
+});
 
 // Init Language load
 window.setLang(currentLang);
@@ -1280,6 +1681,7 @@ updateThemeIcons();
 // Initial bills list load (no realtime listener — same reasoning as the
 // patient list: bounded, on-demand pages instead of an unbounded live subscription)
 loadBillsPage(0);
+loadBillingStats();
 
 // Parse patientId from URL parameters on load (e.g. the "Generate Bill" link
 // from the patient records table) — a direct single-doc fetch instead of
@@ -1307,6 +1709,7 @@ if (preselectedPatientId) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     const candidates = [
+      ['bill-details-modal', () => closeBillDetails()],
       ['bill-gen-modal', () => { document.getElementById('bill-gen-modal').classList.remove('show'); document.body.style.overflow = ''; }],
       ['room-rent-modal', () => document.getElementById('room-rent-modal').classList.remove('show')],
       ['bill-print-overlay', () => document.getElementById('bill-print-overlay').classList.remove('show')],
@@ -1327,17 +1730,44 @@ document.addEventListener('keydown', e => {
 <script>
 (function() {
   const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
-  if (!isCustom) return;
-  const map = {
-    'nav-dashboard': '/dashboard',
-    'nav-room': '/room',
-    'nav-bill': '/bill',
-    'nav-noticeboard': '/noticeboard',
-    'nav-settings': '/settings'
-  };
-  Object.entries(map).forEach(([id, path]) => {
-    const el = document.getElementById(id);
-    if (el) el.setAttribute('href', path);
+  if (isCustom) {
+    const map = {
+      'nav-overview': '/overview',
+      'nav-reception': '/reception',
+      'nav-dashboard': '/dashboard',
+      'nav-room': '/room',
+      'nav-bill': '/bill',
+      'nav-noticeboard': '/noticeboard',
+      'nav-settings': '/settings'
+    };
+    Object.entries(map).forEach(([id, path]) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('href', path);
+    });
+  }
+
+  // Always close sidebar when navigating
+  document.querySelectorAll('.nav-item, .sidebar__logo').forEach(item => {
+    item.addEventListener('click', () => {
+      document.body.classList.add('sidebar-collapsed');
+      const sb = document.getElementById('sidebar');
+      if (sb) sb.classList.remove('open');
+    });
+  });
+
+  // Close sidebar if clicking outside
+  document.addEventListener('click', (e) => {
+    const sb = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    if (window.innerWidth <= 960) {
+      if (sb && sb.classList.contains('open') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        sb.classList.remove('open');
+      }
+    } else {
+      if (sb && !document.body.classList.contains('sidebar-collapsed') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        document.body.classList.add('sidebar-collapsed');
+      }
+    }
   });
 })();
 </script>

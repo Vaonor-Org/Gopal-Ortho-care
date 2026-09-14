@@ -36,14 +36,20 @@
     [data-lang="ta"] body,[data-lang="ta"] input,[data-lang="ta"] select,[data-lang="ta"] textarea,[data-lang="ta"] button{font-family:'Noto Sans Tamil','DM Sans',sans-serif;}
 
     /* ── SIDEBAR ── */
-    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);}
+    body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
     body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
     body.sidebar-collapsed #main { margin-left: 0; }
+    @media (min-width: 961px) {
+      body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+      body:not(.sidebar-collapsed) #main { margin-left: var(--sidebar-w); }
+      body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+      body.sidebar-collapsed #main { margin-left: 0; }
+    }
     @media (max-width: 960px) {
       #sidebar { transform: translateX(-100%); }
       #sidebar.open { transform: translateX(0); }
       #main { margin-left: 0 !important; }
-      body.sidebar-collapsed #sidebar { transform: translateX(0); }
     }
 
     #sidebar-toggle-btn {
@@ -124,20 +130,50 @@
     .stat-card__num{font-family:'DM Sans',sans-serif;font-size:1.65rem;font-weight:700;line-height:1;color:var(--text-dark);}
     .stat-card__label{font-size:.7rem;color:var(--text-light);letter-spacing:.04em;margin-top:.2rem;}
 
-    /* ── TOOLBAR ── */
+    /* ── TOOLBAR & QUICK FILTERS ── */
     .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;gap:1rem;flex-wrap:wrap;}
-    .filter-btn{height:32px;padding:0 .875rem;border:1.5px solid var(--border);border-radius:9999px;background:var(--surface);font-family:inherit;font-size:.775rem;font-weight:500;color:var(--text-med);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.3rem;}
+    .filter-pills-group{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface-card);padding:.25rem;border-radius:10px;border:1px solid var(--border);}
+    .filter-pill{height:30px;padding:0 .85rem;border-radius:7px;border:1px solid transparent;background:transparent;font-family:inherit;font-size:.775rem;font-weight:600;color:var(--text-med);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;}
+    .filter-pill:hover{color:var(--primary);background:var(--primary-ul);}
+    .filter-pill.active{background:var(--surface);color:var(--primary);border-color:var(--border);box-shadow:0 1px 4px rgba(4,28,48,.08);}
+    html[data-theme="dark"] .filter-pill.active{background:var(--surface);color:#93c5fd;border-color:var(--border);box-shadow:0 1px 4px rgba(0,0,0,.3);}
+    .filter-btn{height:32px;padding:0 .875rem;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);font-family:inherit;font-size:.775rem;font-weight:600;color:var(--text-med);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem;}
     .filter-btn.active,.filter-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-ul);}
 
-    /* ── TABLE ── */
-    .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    /* ── BATCH ACTION BAR ── */
+    .batch-action-bar{display:none;align-items:center;justify-content:space-between;background:var(--bg-dark);color:#fff;padding:.65rem 1.25rem;border-radius:12px;margin-bottom:1rem;box-shadow:0 8px 24px rgba(4,28,48,.25);border:1px solid rgba(255,255,255,.1);animation:batchSlideDown .25s ease;}
+    .batch-action-bar.show{display:flex;}
+    @keyframes batchSlideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+
+    /* ── EXCEL SPREADSHEET TABLE ── */
+    .table-wrap{background:var(--surface);border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(4,28,48,.04);}
     .table-scroll{overflow-x:auto;}
-    table{width:100%;border-collapse:collapse;}
-    thead th{background:var(--surface-card);border-bottom:1px solid var(--border);padding:.75rem 1rem;text-align:left;font-size:.625rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);white-space:nowrap;}
-    tbody tr{border-bottom:1px solid rgba(214,230,245,.6);transition:background .15s;}
-    tbody tr:last-child{border-bottom:none;}
-    tbody tr:hover{background:var(--surface-card);}
-    tbody td{padding:.875rem 1rem;font-size:.85rem;color:var(--text-dark);vertical-align:middle;}
+    table.excel-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;border-spacing:0;}
+    table.excel-table thead th{background:#f1f5f9;border:1px solid #cbd5e1;border-top:none;padding:.65rem .875rem;text-align:left;font-size:.675rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#475569;white-space:nowrap;user-select:none;}
+    table.excel-table thead th:first-child{border-left:none;}
+    table.excel-table thead th:last-child{border-right:none;}
+    table.excel-table tbody tr{background:#ffffff;border-bottom:1px solid #e2e8f0;transition:background .15s;}
+    table.excel-table tbody tr:nth-child(even){background:#f8fafc;}
+    table.excel-table tbody tr:hover{background:#edf5ff !important;}
+    table.excel-table tbody tr.selected-row{background:#e0f2fe !important;border-color:#bae6fd;}
+    table.excel-table tbody td{border:1px solid #e2e8f0;padding:.65rem .875rem;font-size:.85rem;color:var(--text-dark);vertical-align:middle;}
+    table.excel-table tbody td:first-child{border-left:none;}
+    table.excel-table tbody td:last-child{border-right:none;}
+
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { -moz-appearance: textfield; }
+
+    /* Checkbox */
+    .excel-checkbox{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;border-radius:4px;vertical-align:middle;}
+
+    /* Dark Mode Excel overrides */
+    html[data-theme="dark"] .table-wrap{border-color:#1e354d;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+    html[data-theme="dark"] table.excel-table thead th{background:#112338;border-color:#1e354d;color:#94a3b8;}
+    html[data-theme="dark"] table.excel-table tbody tr{background:#0a1726;border-bottom-color:#172c42;}
+    html[data-theme="dark"] table.excel-table tbody tr:nth-child(even){background:#0d1e30;}
+    html[data-theme="dark"] table.excel-table tbody tr:hover{background:#152e4a !important;}
+    html[data-theme="dark"] table.excel-table tbody tr.selected-row{background:rgba(10,110,189,.28) !important;border-color:#0a6ebd;}
+    html[data-theme="dark"] table.excel-table tbody td{border-color:#172c42;color:#f1f5f9;}
     .patient-name{font-weight:600;}
     .patient-id{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-light);margin-top:.1rem;}
     .badge{display:inline-flex;align-items:center;padding:.25rem .625rem;border-radius:6px;font-size:.7rem;font-weight:600;letter-spacing:.03em;border:1px solid transparent;}
@@ -366,12 +402,28 @@
     html[data-theme="dark"] .step-divider.active {
       background: var(--primary);
     }
-    html[data-theme="dark"] .confirm-box {
-      background: var(--surface);
+    /* Toggle Switch UI */
+    .toggle-switch-ui input:checked + .toggle-slider-ui {
+      background-color: var(--primary) !important;
+    }
+    .toggle-slider-ui:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .25s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .toggle-switch-ui input:checked + .toggle-slider-ui:before {
+      transform: translateX(20px);
     }
   </style>
 </head>
-<body>
+<body class="sidebar-collapsed">
 
 <script>
   // Init theme immediately to prevent flashing
@@ -389,8 +441,15 @@
       <div class="sidebar__logo-text"><span class="gopal">GOPAL</span><span class="ortho">Ortho Care</span></div>
     </a>
   </div>
-  <div style="padding:.375rem 1.25rem 0;"><span class="sidebar__badge">Admin Portal</span></div>
-  <nav class="sidebar__nav">
+  <nav class="sidebar__nav" style="margin-top:.75rem;">
+    <a id="nav-overview" href="overview.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span data-i18n="overview">Overview</span>
+    </a>
+    <a id="nav-reception" href="reception.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <span data-i18n="reception">Reception Record</span>
+    </a>
     <a id="nav-dashboard" href="dashboard.html" class="nav-item active">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
       <span data-i18n="patients">Patient Records</span>
@@ -417,11 +476,21 @@
     <div class="user-pill">
       <div class="user-pill__avatar" id="user-avatar">DR</div>
       <div style="flex:1;min-width:0;">
-        <div class="user-pill__name" id="user-name-display">Admin</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.04em;">Admin Portal</div>
+        <div class="user-pill__name" id="user-name-display">Doctor</div>
       </div>
     </div>
   </div>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('displayName');
+      if (saved && saved.trim()) {
+        const av = document.getElementById('user-avatar');
+        const nd = document.getElementById('user-name-display');
+        if (av) av.textContent = saved.trim().slice(0,2).toUpperCase();
+        if (nd) nd.textContent = saved.trim();
+      }
+    })();
+  </script>
 </aside>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
@@ -471,11 +540,22 @@
 
     <!-- Toolbar -->
     <div class="toolbar">
-      <div style="display:flex;gap:.5rem;align-items:center;">
+      <div style="display:flex;gap:.625rem;align-items:center;flex-wrap:wrap;">
+        <!-- Quick Preset Filter Pills -->
+        <div class="filter-pills-group">
+          <button type="button" class="filter-pill active" id="btn-filter-all" onclick="window.setQuickFilter('all')">
+            <span>All Patients (A–Z)</span>
+          </button>
+          <button type="button" class="filter-pill" id="btn-filter-today" onclick="window.setQuickFilter('today')">
+            <span>Today's Visits</span>
+            <span id="quick-today-badge" style="font-size:.7rem;font-weight:700;padding:.1rem .4rem;border-radius:9999px;background:var(--primary-ul);color:var(--primary);">0</span>
+          </button>
+        </div>
+
         <div class="popover-wrap">
           <button class="filter-btn" id="filter-popover-trigger" onclick="toggleFilterPopover(event)" data-i18n="filter">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            Filter
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <span>Advanced Filters</span>
           </button>
           <div class="popover-content" id="filter-popover" style="width: 280px; max-height: 400px; overflow-y: auto;">
             <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Gender</h4>
@@ -496,7 +576,7 @@
             </select>
 
             <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:.5rem;letter-spacing:.05em;">Visit Date Range</h4>
-            <select id="pop-date-range" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="applyFilters()">
+            <select id="pop-date-range" class="f-select" style="height:32px; font-size:.775rem; padding:0 .5rem; margin-bottom:.875rem;" onchange="window.onDateSelectChange()">
               <option value="all">All Time</option>
               <option value="today">Today</option>
               <option value="yesterday">Yesterday</option>
@@ -519,30 +599,51 @@
         </div>
       </div>
 
-      <div class="search-box">
+      <div class="search-box" style="position:relative;">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-input" placeholder="Search patients… (press / to focus)" oninput="handleSearch(this.value)">
+        <input type="text" id="search-input" placeholder="Search patients… (press / to focus)" autocomplete="off">
+        <div id="search-suggestions-dropdown" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;width:380px;max-width:90vw;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 14px 36px rgba(4,28,48,.18);z-index:999;overflow:hidden;"></div>
       </div>
     </div>
 
-    <!-- Table -->
+    <!-- Floating Batch Selection Action Bar -->
+    <div id="batch-action-bar" class="batch-action-bar">
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <div style="width:28px;height:28px;border-radius:7px;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span style="font-size:.875rem;font-weight:600;"><span id="batch-selected-count">0</span> patient(s) selected</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.625rem;">
+        <button type="button" onclick="window.clearPatientSelection()" style="padding:.4rem .85rem;border-radius:8px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;">
+          Deselect All
+        </button>
+        <button type="button" onclick="window.promptBulkDelete()" style="padding:.4rem 1rem;border-radius:8px;border:none;background:#dc2626;color:#fff;font-size:.8rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;box-shadow:0 2px 8px rgba(220,38,38,.4);transition:all .15s;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          Delete Selected
+        </button>
+      </div>
+    </div>
+
+    <!-- Excel-like Spreadsheet Table -->
     <div class="table-wrap">
       <div class="table-scroll">
-        <table>
+        <table class="excel-table">
           <thead>
             <tr>
-              <th>OP No</th>
+              <th style="width:40px;text-align:center;">
+                <input type="checkbox" id="excel-select-all" class="excel-checkbox" onchange="window.toggleSelectAllPatients(this)" title="Select/Deselect all records on this page">
+              </th>
+              <th style="width:100px;">OP No</th>
               <th>Patient Name</th>
-              <th data-i18n="age">Age</th>
-              <th>Sex</th>
-              <th data-i18n="diagnosis">Diagnosis</th>
+              <th data-i18n="age" style="width:85px;">Age</th>
+              <th style="width:90px;">Sex</th>
               <th>Consultant</th>
-              <th>Visiting Date</th>
-              <th style="width:100px;text-align:right;">Actions</th>
+              <th data-i18n="visitingDateTime">Visiting Date &amp; Time</th>
             </tr>
           </thead>
           <tbody id="patient-rows">
-            <tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--text-light);">Loading records…</td></tr>
+            <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-light);">Loading records…</td></tr>
           </tbody>
         </table>
       </div>
@@ -573,16 +674,22 @@
               <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span data-i18n="patientInfo">Patient Information</span>
             </div>
-            <div class="form-row col-1" id="f-opno-manual-row" style="margin-bottom:.625rem;">
-              <label class="f-label" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-weight:500;">
-                <input type="checkbox" id="f-opno-manual" onchange="window.toggleOpNoManual()" style="width:auto;">
-                Existing patient — enter their OP No manually (for old paper records)
-              </label>
+            <div class="form-row col-1" id="f-opno-manual-row" style="margin-bottom:1rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--surface-card);border:1px solid var(--border);border-radius:10px;">
+                <div>
+                  <div style="font-size:.85rem;font-weight:600;color:var(--text-dark);">Existing Patient (Old Paper Record)</div>
+                  <div style="font-size:.72rem;color:var(--text-med);margin-top:2px;">Enable to enter an existing OP number manually</div>
+                </div>
+                <label class="toggle-switch-ui" style="position:relative;display:inline-block;width:44px;height:24px;margin:0;cursor:pointer;flex-shrink:0;">
+                  <input type="checkbox" id="f-opno-manual" onchange="window.toggleOpNoManual()" style="opacity:0;width:0;height:0;position:absolute;">
+                  <span class="toggle-slider-ui" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#cbd5e1;transition:.25s;border-radius:24px;"></span>
+                </label>
+              </div>
             </div>
             <div class="form-row col-1" style="margin-bottom:1rem;">
               <div class="f-group">
                 <label class="f-label">OP No</label>
-                <input class="f-input" id="f-opno" type="number" min="1" placeholder="Auto-assigned on save" disabled>
+                <input class="f-input" id="f-opno" type="number" min="1" placeholder="Auto-assigned on save" disabled oninput="window.lookupOldPatientByOpNo(this.value)">
               </div>
             </div>
             <div class="form-row col-1" style="margin-bottom:1rem;">
@@ -596,8 +703,8 @@
             </div>
             <div class="form-row col-3" style="margin-bottom:1rem;">
               <div class="f-group">
-                <label class="f-label" data-i18n="age">Age</label>
-                <input class="f-input" id="f-age" type="number" min="0" max="120" placeholder="e.g. 45" style="padding-right:.75rem;">
+                <label class="f-label" data-i18n="age">Age (1-100)</label>
+                <input class="f-input" id="f-age" type="text" inputmode="numeric" maxlength="3" placeholder="e.g. 45" style="padding-right:.75rem;" oninput="let v=this.value.replace(/\D/g,''); if(v){let n=parseInt(v,10); if(n>100)n=100; if(n<1)n=1; this.value=n;}else{this.value='';}">
               </div>
               <div class="f-group">
                 <label class="f-label" data-i18n="gender">Gender</label>
@@ -621,7 +728,7 @@
             <div class="form-row col-1" style="margin-bottom:1rem;">
               <div class="f-group">
                 <label class="f-label"><span data-i18n="phone">Phone Number</span> <span>*</span></label>
-                <input class="f-input" id="f-phone" type="tel" placeholder="e.g. 9876543210" required style="padding-right:.75rem;">
+                <input class="f-input" id="f-phone" type="tel" maxlength="10" pattern="[0-9]{10}" placeholder="e.g. 9876543210" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" required style="padding-right:.75rem;">
               </div>
             </div>
             <div class="form-row col-1">
@@ -659,7 +766,7 @@
               </div>
             </div>
             
-            <div class="form-row" style="margin-bottom:1rem;">
+            <div class="form-row col-3" style="margin-bottom:1rem;">
               <div class="f-group">
                 <label class="f-label" data-i18n="doctorName">Doctor Name</label>
                 <select class="f-select" id="f-doctor" style="padding-right:2rem;">
@@ -670,6 +777,10 @@
               <div class="f-group">
                 <label class="f-label" data-i18n="visitDate">Visit Date</label>
                 <input class="f-input" id="f-visit-date" type="date">
+              </div>
+              <div class="f-group">
+                <label class="f-label">Visit Time</label>
+                <input class="f-input" id="f-visit-time" type="text" placeholder="e.g. 07:30 PM">
               </div>
             </div>
             
@@ -719,7 +830,7 @@
   </div>
 </div>
 
-<!-- ── CONFIRM PATIENT DELETE ── -->
+<!-- ── CONFIRM PATIENT DELETE (SINGLE) ── -->
 <div class="confirm-overlay" id="confirm-modal">
   <div class="confirm-box">
     <div class="confirm-box__icon"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6M9 6V4h6v2"/></svg></div>
@@ -728,6 +839,61 @@
     <div class="confirm-box__btns">
       <button class="btn-confirm-cancel" onclick="document.getElementById('confirm-modal').classList.remove('show')">Cancel</button>
       <button class="btn-confirm-delete" id="confirm-delete">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONFIRM BULK DELETE (MULTI-PATIENT WARNING MODAL) ── -->
+<div class="confirm-overlay" id="bulk-delete-modal">
+  <div class="confirm-box" style="max-width:440px; text-align:left; padding:1.75rem;">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+      <div style="width:46px;height:46px;border-radius:50%;background:#fee2e2;color:#dc2626;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--text-dark);margin:0;">Delete Selected Patients?</h3>
+        <p style="font-size:.8rem;color:var(--text-med);margin:0;">Irreversible batch delete action</p>
+      </div>
+    </div>
+    <p style="font-size:.875rem;color:var(--text-med);line-height:1.45;margin-bottom:.875rem;">
+      Are you sure you want to delete <strong id="bulk-delete-count-text" style="color:#dc2626;">0</strong> selected patient record(s)? This will permanently remove them from the database.
+    </p>
+    <div id="bulk-delete-names-preview" style="max-height:110px;overflow-y:auto;background:var(--surface-card);border:1px solid var(--border);border-radius:8px;padding:.6rem .85rem;font-size:.8rem;color:var(--text-dark);margin-bottom:1.25rem;"></div>
+    <div style="display:flex;justify-content:flex-end;gap:.75rem;">
+      <button type="button" class="btn-cancel" onclick="document.getElementById('bulk-delete-modal').classList.remove('show')" style="padding:0 1rem;height:38px;">Cancel</button>
+      <button type="button" id="btn-confirm-bulk-delete" onclick="window.executeBulkDelete()" style="height:38px;padding:0 1.25rem;background:#dc2626;color:#fff;border:none;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;box-shadow:0 2px 8px rgba(220,38,38,.4);">Yes, Delete Selected</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── EXISTING PATIENT DETECTED MODAL ── -->
+<div class="confirm-overlay" id="existing-patient-modal">
+  <div class="confirm-box" style="max-width: 440px; text-align: left; padding: 1.75rem;">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+      <div style="width:40px;height:40px;border-radius:10px;background:rgba(200,151,58,.15);color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--text-dark);margin:0;">Patient Already Exists</h3>
+        <p style="font-size:.8rem;color:var(--text-med);margin:0;">Matching name and phone number found</p>
+      </div>
+    </div>
+    <div id="dup-patient-info" style="background:var(--surface-card);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem;font-size:.85rem;margin-bottom:1.25rem;">
+      <!-- Populated dynamically -->
+    </div>
+    <p style="font-size:.9rem;font-weight:600;color:var(--text-dark);margin-bottom:1.25rem;">
+      Do you want to save as New or Add to Old record?
+    </p>
+    <div style="display:flex;flex-direction:column;gap:.5rem;">
+      <button class="btn-save" id="btn-dup-add-old" style="width:100%;height:40px;font-size:.85rem;justify-content:center;">
+        Add to Old Record
+      </button>
+      <button class="btn-cancel" id="btn-dup-save-new" style="width:100%;height:40px;font-size:.85rem;justify-content:center;border-color:var(--primary);color:var(--primary);">
+        Save as New Record
+      </button>
+      <button class="btn-cancel" onclick="document.getElementById('existing-patient-modal').classList.remove('show')" style="width:100%;height:36px;font-size:.8rem;justify-content:center;">
+        Cancel
+      </button>
     </div>
   </div>
 </div>
@@ -752,7 +918,7 @@ const { getAuth, onAuthStateChanged, signOut } = _authMod;
 const {
   getFirestore, collection, addDoc, updateDoc, deleteDoc,
   doc, query, orderBy, serverTimestamp, getDocs, limit, where, startAfter,
-  getDoc, runTransaction, writeBatch, getCountFromServer
+  getDoc, runTransaction, writeBatch, getCountFromServer, arrayUnion
 } = _fsMod;
 
 const firebaseConfig = {
@@ -836,10 +1002,13 @@ onAuthStateChanged(authFB, async user => {
 
   resetActivityTimer();
 
-  const displayName = user.displayName || (user.email||'DR').split('@')[0];
+  const displayName = user.displayName || (user.email||'Doctor').split('@')[0];
   const savedName = localStorage.getItem('displayName') || displayName;
-  document.getElementById('user-avatar').textContent = savedName.slice(0,2).toUpperCase();
-  document.getElementById('user-name-display').textContent = savedName;
+  localStorage.setItem('displayName', savedName);
+  const av = document.getElementById('user-avatar');
+  const nd = document.getElementById('user-name-display');
+  if (av) av.textContent = savedName.slice(0,2).toUpperCase();
+  if (nd) nd.textContent = savedName;
 });
 
 // Keep display name in sync if it's changed from Settings in another tab
@@ -850,22 +1019,12 @@ window.addEventListener('storage', e => {
   }
 });
 
-// State
-// currentPatients holds only the currently-visible page of results — with
-// 20,000+ patients we no longer keep the whole collection in memory. Pagination
-// is cursor-based (Firestore startAfter), not client-side array slicing.
-let currentPatients = [];
-let lastFetchedDocs = [];   // raw page before popover filters are applied
-let searchQ = '';
-let deleteId = null;
-let pageCursors = [null];   // pageCursors[i] = QueryDocumentSnapshot to startAfter for page i (0 = first page)
-let currentPageIndex = 0;
-let hasMorePages = false;
-const perPage = 12;
+
 
 // i18n dictionary
 const i18n = {
   en: {
+    overview: 'Overview',
     patients: 'Patient Records', rooms: 'Room Management', bills: 'Billing',
     addPatient: 'Add Patient', name: 'Full Name', phone: 'Phone', age: 'Age', gender: 'Gender',
     reason: 'Reason for Visit', diagnosis: 'Diagnosis', save: 'Save Patient', cancel: 'Cancel', signOut: 'Sign Out',
@@ -879,6 +1038,7 @@ const i18n = {
     filter: 'Filter', actions: 'Actions'
   },
   ta: {
+    overview: 'கண்ணோட்டம்',
     patients: 'நோயாளர் பதிவுகள்', rooms: 'அறை மேலாண்மை', bills: 'கட்டண மசோதா',
     addPatient: 'நோயாளர் சேர்க்க', name: 'முழு பெயர்', phone: 'தொலைபேசி', age: 'வயது', gender: 'பாலினம்',
     reason: 'வருகைக்கான காரணம்', diagnosis: 'நோய் கண்டறிதல்', save: 'சேமிக்க', cancel: 'ரத்துசெய்', signOut: 'வெளியேறு',
@@ -934,7 +1094,7 @@ window.toggleSidebar = () => {
   if (window.innerWidth > 960) {
     document.body.classList.toggle('sidebar-collapsed');
   } else {
-    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar')?.classList.toggle('open');
   }
 };
 
@@ -955,10 +1115,49 @@ window.showToast = (msg, type = 'success') => {
 };
 
 const esc = str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const fmtDate = dStr => { if(!dStr)return'—'; const d=new Date(dStr); return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); };
+const fmtDate = dStr => { 
+  if(!dStr) return '—'; 
+  try {
+    const d = dStr.toDate ? dStr.toDate() : new Date(dStr); 
+    if (isNaN(d.getTime())) return dStr;
+    return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }); 
+  } catch(e) { return dStr; }
+};
+
+const fmtTime = (timeStr, createdAt) => {
+  if (timeStr && timeStr.trim()) return timeStr;
+  if (createdAt) {
+    try {
+      const d = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
+      if (!isNaN(d.getTime())) {
+        return d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+      }
+    } catch(e) {}
+  }
+  return '';
+};
+
+const getUniquePatientCount = (list) => {
+  const uniqueKeys = new Set();
+  list.forEach(p => {
+    if (!p || !p.name || !p.name.trim()) return;
+    const key = p.opNo ? `op_${p.opNo}` : (p.phone ? `ph_${normalizePhone(p.phone)}` : `nm_${p.name.trim().toLowerCase()}`);
+    uniqueKeys.add(key);
+  });
+  return uniqueKeys.size;
+};
+
 // The clinic is India-only; toISOString() is UTC, which is ~5.5h behind IST, so
 // "today" must be computed in IST or the first hours of each day use yesterday's date.
 const todayIST = () => new Date(Date.now() + 5.5 * 3600000).toISOString().slice(0, 10);
+const nowTimeIST = () => {
+  const d = new Date(Date.now() + 5.5 * 3600000);
+  let hours = d.getUTCHours();
+  const minutes = String(d.getUTCMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  return `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+};
 
 // Strips formatting so "9876543210" and "+91 98765 43210" compare equal.
 const normalizePhone = s => {
@@ -1045,21 +1244,50 @@ window.backfillSearchIndex = async () => {
   }
 };
 
-// Cheap aggregate counts (1 read each, regardless of collection size) instead
-// of counting an in-memory array of every patient.
-const refreshStats = async () => {
-  try {
-    const totalSnap = await getCountFromServer(collection(db, 'patients'));
-    document.getElementById('stat-total').textContent = totalSnap.data().count;
-  } catch (e) { console.warn('Total count query failed:', e); }
-  try {
-    const visitsSnap = await getCountFromServer(query(collection(db, 'patients'), where('visitDate', '==', todayIST())));
-    document.getElementById('stat-visits').textContent = visitsSnap.data().count;
-  } catch (e) { console.warn('Visits count query failed:', e); }
+// State
+let allLoadedPatients = [];
+let currentPatients = [];
+let searchQ = '';
+let deleteId = null;
+let currentPageIndex = 0;
+let hasMorePages = false;
+const perPage = 15;
+const selectedPatientIds = new Set();
+
+const isTodayMatch = (visitDate, createdAt) => {
+  const t = todayIST();
+  if (visitDate) {
+    const vd = String(visitDate).trim();
+    if (vd === t || vd.startsWith(t)) return true;
+    const parts = t.split('-');
+    if (parts.length === 3) {
+      const [y, m, d] = parts;
+      if (vd === `${d}-${m}-${y}` || vd === `${d}/${m}/${y}`) return true;
+    }
+  }
+  if (createdAt) {
+    try {
+      const d = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
+      const istStr = new Date(d.getTime() + 5.5 * 3600000).toISOString().slice(0, 10);
+      if (istStr === t) return true;
+    } catch(e) {}
+  }
+  return false;
+};
+
+// Stats calculation based on all loaded valid patients (strictly unique patient count)
+const refreshStats = () => {
+  const validPatients = allLoadedPatients.filter(p => p && p.name && p.name.trim().length > 0);
+  const totalEl = document.getElementById('stat-total');
+  if (totalEl) totalEl.textContent = getUniquePatientCount(validPatients);
+  const todayCount = validPatients.filter(p => isTodayMatch(p.visitDate, p.createdAt)).length;
+  const visitEl = document.getElementById('stat-visits');
+  if (visitEl) visitEl.textContent = todayCount;
+  const quickBadge = document.getElementById('quick-today-badge');
+  if (quickBadge) quickBadge.textContent = todayCount;
 };
 
 // Filtering & Search
-
 window.toggleFilterPopover = e => {
   e.stopPropagation();
   document.getElementById('filter-popover').classList.toggle('show');
@@ -1073,44 +1301,6 @@ document.addEventListener('click', e => {
   }
 });
 
-// Decides which Firestore field to search based on what the query looks
-// like, so one search box still covers OP No / name / phone — as a
-// server-side query instead of loading everything and scanning in memory.
-// OP No and phone are both plain digit strings, so length is what tells them
-// apart: OP numbers are short (a hospital's register realistically never
-// reaches 7 digits), Indian phone numbers are 10+ digits.
-const detectSearchField = q => {
-  const v = q.trim();
-  if (!v) return null;
-  const digitsOnly = v.replace(/[\s+]/g, '');
-  if (/^\d+$/.test(digitsOnly)) return digitsOnly.length >= 8 ? 'phone' : 'opNo';
-  return 'nameLower';
-};
-
-const PREFIX_END = String.fromCharCode(0xf8ff); // Firestore prefix-range trick: high private-use codepoint as the upper bound
-const buildPrefixQuery = (field, value, cursor) => {
-  const clauses = [collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field)];
-  if (cursor) clauses.push(startAfter(cursor));
-  clauses.push(limit(perPage + 1)); // +1 to detect whether a next page exists
-  return query(...clauses);
-};
-
-// OP No is a Number, not a string, so it gets an exact-match lookup instead
-// of a string "starts with" — staff type the full register number they see
-// on the patient's card, not a partial prefix.
-const buildOpNoQuery = value => query(collection(db, 'patients'), where('opNo', '==', value), limit(perPage + 1));
-
-const buildBrowseQuery = cursor => {
-  const clauses = [collection(db, 'patients'), orderBy('opNo', 'desc')];
-  if (cursor) clauses.push(startAfter(cursor));
-  clauses.push(limit(perPage + 1));
-  return query(...clauses);
-};
-
-// Popover filters (gender/insurance/age/date/consultation type/doctor) are
-// applied client-side, but only against the small page of records already
-// fetched — not the whole clinic history. That's the trade-off for staying
-// scalable without a matching Firestore composite index per filter combo.
 const applySecondaryFilters = list => {
   const popGender = document.getElementById('pop-gender')?.value || 'all';
   if (popGender !== 'all') list = list.filter(p => p.gender === popGender);
@@ -1136,7 +1326,7 @@ const applySecondaryFilters = list => {
     list = list.filter(p => {
       const vd = p.visitDate || '';
       if (!vd) return false;
-      if (popDateRange === 'today') return vd === todayStr;
+      if (popDateRange === 'today') return isTodayMatch(vd, p.createdAt);
       if (popDateRange === 'yesterday') return vd === yesterdayStr;
       if (popDateRange === 'week') return new Date(vd) >= sevenDaysAgo;
       if (popDateRange === 'month') return vd >= startOfMonthStr;
@@ -1144,16 +1334,16 @@ const applySecondaryFilters = list => {
     });
   }
 
-  const orthoCh = document.getElementById('pop-type-ortho').checked;
-  const genCh = document.getElementById('pop-type-general').checked;
+  const orthoCh = document.getElementById('pop-type-ortho')?.checked ?? true;
+  const genCh = document.getElementById('pop-type-general')?.checked ?? true;
   list = list.filter(p => {
     if (p.consultationType === 'Orthopedic') return orthoCh;
     if (p.consultationType === 'General') return genCh;
     return true;
   });
 
-  const gopalCh = document.getElementById('pop-doc-gopal').checked;
-  const shinyCh = document.getElementById('pop-doc-shiny').checked;
+  const gopalCh = document.getElementById('pop-doc-gopal')?.checked ?? true;
+  const shinyCh = document.getElementById('pop-doc-shiny')?.checked ?? true;
   list = list.filter(p => {
     if (p.doctor === 'Dr. N. Gopala Krishnan') return gopalCh;
     if (p.doctor === 'Dr. R. Shiny') return shinyCh;
@@ -1163,44 +1353,249 @@ const applySecondaryFilters = list => {
   return list;
 };
 
-// Fetches one page from Firestore (search-filtered or plain browse) and renders it.
-const loadPatientPage = async pageIndex => {
-  const field = detectSearchField(searchQ);
-  const cursor = pageCursors[pageIndex] || null;
-  let snap;
-  try {
-    if (field === 'phone') snap = await getDocs(buildPrefixQuery('phone', searchQ.trim(), cursor));
-    else if (field === 'opNo') snap = await getDocs(buildOpNoQuery(Number(searchQ.trim())));
-    else if (field === 'nameLower') snap = await getDocs(buildPrefixQuery('nameLower', searchQ.trim().toLowerCase(), cursor));
-    else snap = await getDocs(buildBrowseQuery(cursor));
-  } catch (err) {
-    showToast('Error loading patients: ' + err.message, 'error');
-    return;
+// Quick Date Filter buttons
+window.setQuickFilter = (mode) => {
+  const allBtn = document.getElementById('btn-filter-all');
+  const todayBtn = document.getElementById('btn-filter-today');
+  const dateRangeSel = document.getElementById('pop-date-range');
+  
+  if (mode === 'today') {
+    if (allBtn) allBtn.classList.remove('active');
+    if (todayBtn) todayBtn.classList.add('active');
+    if (dateRangeSel) dateRangeSel.value = 'today';
+  } else {
+    if (allBtn) allBtn.classList.add('active');
+    if (todayBtn) todayBtn.classList.remove('active');
+    if (dateRangeSel) dateRangeSel.value = 'all';
   }
-
-  let docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  hasMorePages = docs.length > perPage;
-  if (hasMorePages) {
-    docs = docs.slice(0, perPage);
-    pageCursors[pageIndex + 1] = snap.docs[perPage - 1];
-  }
-  currentPageIndex = pageIndex;
-  lastFetchedDocs = docs;
-  currentPatients = applySecondaryFilters(docs);
-  renderPatientsTable();
+  loadPatientPage(0);
 };
 
-// Called on an explicit user action (search box or popover filter change) —
-// search re-queries Firestore from page 1; popover filters just re-filter the
-// page already in hand.
+window.onDateSelectChange = () => {
+  const val = document.getElementById('pop-date-range')?.value;
+  const allBtn = document.getElementById('btn-filter-all');
+  const todayBtn = document.getElementById('btn-filter-today');
+  if (val === 'today') {
+    if (allBtn) allBtn.classList.remove('active');
+    if (todayBtn) todayBtn.classList.add('active');
+  } else if (val === 'all') {
+    if (allBtn) allBtn.classList.add('active');
+    if (todayBtn) todayBtn.classList.remove('active');
+  } else {
+    if (allBtn) allBtn.classList.remove('active');
+    if (todayBtn) todayBtn.classList.remove('active');
+  }
+  applyFilters();
+};
+
+// Fetch and Cache All Patients for Instant Search and Navigation
+const fetchAllPatients = async () => {
+  try {
+    const snap = await getDocs(collection(db, 'patients'));
+    const rawList = snap.docs
+      .map(d => ({ id: d.id, ...d.data() }))
+      .filter(p => p && p.name && p.name.trim().length > 0);
+
+    // Group & deduplicate by unique patient key (OP No or normalized phone or normalized name)
+    // so every patient appears exactly ONCE in Patient Records, preserving all visit history
+    const patientMap = new Map();
+    rawList.forEach(p => {
+      const key = p.opNo ? `op_${p.opNo}` : (p.phone ? `ph_${normalizePhone(p.phone)}` : `nm_${p.name.trim().toLowerCase()}`);
+      if (!patientMap.has(key)) {
+        patientMap.set(key, { ...p });
+      } else {
+        const existing = patientMap.get(key);
+        // Merge visits
+        const existingVisits = existing.visits || [];
+        const incomingVisits = p.visits || [{
+          date: p.visitDate,
+          time: p.visitTime,
+          doctor: p.doctor,
+          consultationType: p.consultationType,
+          reason: p.reason,
+          diagnosis: p.diagnosis
+        }];
+        existing.visits = [...existingVisits, ...incomingVisits];
+        // Keep the latest visit data on the patient entity
+        if ((p.visitDate || '') >= (existing.visitDate || '')) {
+          existing.visitDate = p.visitDate;
+          existing.visitTime = p.visitTime;
+          existing.doctor = p.doctor || existing.doctor;
+          existing.consultationType = p.consultationType || existing.consultationType;
+          existing.reason = p.reason || existing.reason;
+          existing.diagnosis = p.diagnosis || existing.diagnosis;
+        }
+      }
+    });
+
+    allLoadedPatients = Array.from(patientMap.values());
+
+    // Sort alphabetically A to Z by default as requested
+    allLoadedPatients.sort((a, b) => {
+      const nameA = (a.name || '').trim();
+      const nameB = (b.name || '').trim();
+      return nameA.localeCompare(nameB, undefined, { sensitivity: 'base' });
+    });
+  } catch (err) {
+    showToast('Error loading records: ' + err.message, 'error');
+  }
+};
+
+// Batch Selection & Bulk Delete Handlers
+window.updateBatchActionBar = () => {
+  const bar = document.getElementById('batch-action-bar');
+  const countEl = document.getElementById('batch-selected-count');
+  const masterChk = document.getElementById('excel-select-all');
+  const count = selectedPatientIds.size;
+  
+  if (countEl) countEl.textContent = count;
+  if (bar) {
+    if (count > 0) bar.classList.add('show');
+    else bar.classList.remove('show');
+  }
+  
+  if (masterChk) {
+    if (currentPatients.length > 0 && currentPatients.every(p => selectedPatientIds.has(p.id))) {
+      masterChk.checked = true;
+      masterChk.indeterminate = false;
+    } else if (currentPatients.some(p => selectedPatientIds.has(p.id))) {
+      masterChk.checked = false;
+      masterChk.indeterminate = true;
+    } else {
+      masterChk.checked = false;
+      masterChk.indeterminate = false;
+    }
+  }
+};
+
+window.togglePatientSelection = (id, checked, e) => {
+  if (e) e.stopPropagation();
+  if (checked) {
+    selectedPatientIds.add(id);
+  } else {
+    selectedPatientIds.delete(id);
+  }
+  const rowEl = document.getElementById(`patient-row-${id}`);
+  if (rowEl) {
+    if (checked) rowEl.classList.add('selected-row');
+    else rowEl.classList.remove('selected-row');
+  }
+  window.updateBatchActionBar();
+};
+
+window.toggleSelectAllPatients = (masterChk) => {
+  const shouldSelect = masterChk.checked;
+  currentPatients.forEach(p => {
+    if (shouldSelect) selectedPatientIds.add(p.id);
+    else selectedPatientIds.delete(p.id);
+  });
+  renderPatientsTable(currentPatients.length);
+  window.updateBatchActionBar();
+};
+
+window.clearPatientSelection = () => {
+  selectedPatientIds.clear();
+  renderPatientsTable(currentPatients.length);
+  window.updateBatchActionBar();
+};
+
+window.promptBulkDelete = () => {
+  if (selectedPatientIds.size === 0) return;
+  const modal = document.getElementById('bulk-delete-modal');
+  const countText = document.getElementById('bulk-delete-count-text');
+  const previewBox = document.getElementById('bulk-delete-names-preview');
+  
+  if (countText) countText.textContent = selectedPatientIds.size;
+  if (previewBox) {
+    const selectedList = allLoadedPatients.filter(p => selectedPatientIds.has(p.id));
+    previewBox.innerHTML = selectedList.map(p => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px dashed var(--border);">
+        <strong>${esc(p.name)}</strong>
+        <span style="font-family:'DM Mono',monospace;color:var(--primary);font-size:.75rem;font-weight:700;">OP ${p.opNo ?? '—'}</span>
+      </div>
+    `).join('') || 'Selected patient records';
+  }
+  if (modal) modal.classList.add('show');
+};
+
+window.executeBulkDelete = async () => {
+  const btn = document.getElementById('btn-confirm-bulk-delete');
+  const modal = document.getElementById('bulk-delete-modal');
+  if (selectedPatientIds.size === 0) {
+    if (modal) modal.classList.remove('show');
+    return;
+  }
+  
+  if (btn) { btn.disabled = true; btn.textContent = 'Deleting…'; }
+  try {
+    const ids = Array.from(selectedPatientIds);
+    // Firestore batch cap is 500
+    for (let i = 0; i < ids.length; i += 400) {
+      const chunk = ids.slice(i, i + 400);
+      const batch = writeBatch(db);
+      chunk.forEach(docId => {
+        batch.delete(doc(db, 'patients', docId));
+      });
+      await batch.commit();
+    }
+    
+    showToast(`Deleted ${ids.length} patient record(s).`);
+    selectedPatientIds.clear();
+    if (modal) modal.classList.remove('show');
+    await fetchAllPatients();
+    loadPatientPage(currentPageIndex);
+    refreshStats();
+  } catch(err) {
+    showToast('Error deleting records: ' + err.message, 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Yes, Delete Selected'; }
+  }
+};
+
+// Load patient page
+const loadPatientPage = async (pageIndex = 0) => {
+  if (!allLoadedPatients.length) {
+    await fetchAllPatients();
+  }
+
+  let filtered = allLoadedPatients;
+  const q = (searchQ || '').trim().toLowerCase();
+
+  if (q) {
+    const digitsOnly = q.replace(/\D/g, '');
+    filtered = allLoadedPatients.filter(p => {
+      const name = String(p.name || '').toLowerCase();
+      const phone = String(p.phone || '').replace(/\D/g, '');
+      const opNo = String(p.opNo ?? '');
+      const diagnosis = String(p.diagnosis || '').toLowerCase();
+      const doctor = String(p.doctor || '').toLowerCase();
+
+      return name.includes(q) ||
+             (opNo === q || (digitsOnly && opNo.startsWith(digitsOnly))) ||
+             (digitsOnly && phone.includes(digitsOnly)) ||
+             doctor.includes(q) ||
+             diagnosis.includes(q);
+    });
+  }
+
+  filtered = applySecondaryFilters(filtered);
+
+  const totalFiltered = filtered.length;
+  const start = pageIndex * perPage;
+  currentPatients = filtered.slice(start, start + perPage);
+  currentPageIndex = pageIndex;
+  hasMorePages = start + perPage < totalFiltered;
+
+  renderPatientsTable(totalFiltered);
+  window.updateBatchActionBar();
+};
+
 window.applyFilters = () => {
-  currentPatients = applySecondaryFilters(lastFetchedDocs);
-  renderPatientsTable();
+  loadPatientPage(0);
 };
 
 window.handleSearch = q => {
   searchQ = q;
-  pageCursors = [null];
   loadPatientPage(0);
 };
 
@@ -1209,91 +1604,59 @@ window.goPage = n => {
   loadPatientPage(n);
 };
 
-const renderPatientsTable = () => {
+const renderPatientsTable = (totalCount = currentPatients.length) => {
   const tbody = document.getElementById('patient-rows');
   if (!tbody) return;
   if (!currentPatients.length) {
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-state__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>No patients found</h3><p>Try refining your search or add a new record.</p></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-state__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h3>No patients found</h3><p>Try searching by name, OP number, or phone number.</p></div></td></tr>`;
     document.getElementById('patients-pagination').style.display = 'none';
     return;
   }
 
   tbody.innerHTML = currentPatients.map(p => {
     const genBadge = p.gender === 'Male' ? 'badge-male' : (p.gender === 'Female' ? 'badge-female' : 'badge-other');
+    const vTime = fmtTime(p.visitTime, p.createdAt);
+    const isSelected = selectedPatientIds.has(p.id);
     return `
-      <tr>
-        <td><span style="font-family:monospace;font-size:.75rem;font-weight:600;color:var(--primary);">${p.opNo ?? '—'}</span></td>
-        <td><div class="patient-name">${esc(p.name)}</div></td>
-        <td>${p.age || '—'}</td>
-        <td><span class="badge ${genBadge}">${p.gender || '—'}</span></td>
-        <td>${esc(p.diagnosis) || '—'}</td>
-        <td style="font-weight:500;">${esc(p.doctor) || '—'}</td>
-        <td style="font-family:'DM Mono',monospace;font-size:.8rem;">${fmtDate(p.visitDate)}</td>
-        <td style="text-align:right;">
-          <div class="table-actions" style="justify-content:flex-end;align-items:center;">
-            <a class="icon-btn" href="bill.html?patientId=${p.id}" title="Generate Bill" style="text-decoration:none;">
-              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            </a>
-            <button class="icon-btn" title="View details" onclick="viewPatient('${p.id}')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
-            <button class="icon-btn" title="Edit patient" onclick="editPatient('${p.id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-            <button class="icon-btn delete" title="Delete patient" onclick="confirmDeletePatient('${p.id}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+      <tr id="patient-row-${p.id}" class="${isSelected ? 'selected-row' : ''}" onclick="viewPatient('${p.id}')" style="cursor:pointer;" title="Click to view full patient details & visit history">
+        <td style="text-align:center;" onclick="event.stopPropagation();">
+          <input type="checkbox" class="excel-checkbox patient-row-chk" data-id="${p.id}" ${isSelected ? 'checked' : ''} onchange="window.togglePatientSelection('${p.id}', this.checked, event)">
+        </td>
+        <td><span style="font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;color:var(--primary);background:var(--primary-ul);padding:.15rem .45rem;border-radius:4px;">OP ${p.opNo ?? '—'}</span></td>
+        <td>
+          <div class="patient-name" style="color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:.4rem;">
+            <span>${esc(p.name)}</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </div>
+        </td>
+        <td>${p.age ? p.age + ' yrs' : '—'}</td>
+        <td><span class="badge ${genBadge}">${p.gender || '—'}</span></td>
+        <td style="font-weight:500;">${esc(p.doctor) || '—'}</td>
+        <td style="font-family:'DM Mono',monospace;font-size:.8rem;">
+          <div style="font-weight:600;">${fmtDate(p.visitDate)}</div>
+          ${vTime ? `<div style="font-size:.72rem;color:var(--text-light);margin-top:2px;display:flex;align-items:center;gap:3px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${vTime}</div>` : ''}
         </td>
       </tr>`;
   }).join('');
 
-  // Cursor-based pagination (Previous/Next) — Firestore doesn't give a cheap
-  // total-match count for an arbitrary query, so unlike before there's no
-  // numbered "page 1 2 3…" or "X of Y total" here; the "Total Patients" stat
-  // card above covers the overall count instead.
   const pag = document.getElementById('patients-pagination');
-  const start = currentPageIndex * perPage;
-  pag.style.display = 'flex';
-  document.getElementById('patients-page-info').textContent = `${start + 1}–${start + currentPatients.length}`;
-  document.getElementById('patients-page-btns').innerHTML =
-    `<button class="page-btn" onclick="goPage(${currentPageIndex - 1})" ${currentPageIndex === 0 ? 'disabled' : ''}>← Prev</button>` +
-    `<button class="page-btn" onclick="goPage(${currentPageIndex + 1})" ${hasMorePages ? '' : 'disabled'}>Next →</button>`;
+  if (totalCount <= perPage) {
+    pag.style.display = 'none';
+  } else {
+    pag.style.display = 'flex';
+    const start = currentPageIndex * perPage;
+    document.getElementById('patients-page-info').textContent = `${start + 1}–${Math.min(start + perPage, totalCount)} of ${totalCount}`;
+    document.getElementById('patients-page-btns').innerHTML =
+      `<button class="page-btn" onclick="event.stopPropagation(); goPage(${currentPageIndex - 1})" ${currentPageIndex === 0 ? 'disabled' : ''}>← Prev</button>` +
+      `<button class="page-btn" onclick="event.stopPropagation(); goPage(${currentPageIndex + 1})" ${hasMorePages ? '' : 'disabled'}>Next →</button>`;
+  }
 };
 
-// View Details Modal
+// Open Dedicated Patient Profile Page
 window.viewPatient = id => {
-  const p = currentPatients.find(x => x.id === id);
-  if (!p) return;
-  const ini = (p.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-  document.getElementById('view-avatar').textContent = ini;
-  document.getElementById('view-name').textContent = p.name;
-  document.getElementById('view-meta').textContent = `${p.age || '?'}y · ${p.gender || ''} · ${p.phone || ''} · OP No: ${p.opNo ?? '—'}`;
-  
-  let bodyHtml = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-      <div>
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Consulting Doctor</h4>
-        <div style="font-weight:600;font-size:.9rem;">${esc(p.doctor)}</div>
-      </div>
-      <div>
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Visit Date</h4>
-        <div style="font-weight:600;font-size:.9rem;font-family:monospace;">${fmtDate(p.visitDate)}</div>
-      </div>
-      <div style="grid-column:1/-1;">
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Reason for Visit</h4>
-        <div style="font-size:.9rem;line-height:1.4;">${esc(p.reason) || '—'}</div>
-      </div>
-      <div style="grid-column:1/-1;">
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Diagnosis</h4>
-        <div style="font-size:.9rem;line-height:1.4;">${esc(p.diagnosis) || '—'}</div>
-      </div>
-      <div style="grid-column:1/-1;">
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Blood Group</h4>
-        <div style="font-weight:600;font-size:.9rem;">${p.bloodGroup || 'Unknown'}</div>
-      </div>
-      <div style="grid-column:1/-1;">
-        <h4 style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Address</h4>
-        <div style="font-size:.9rem;">${esc(p.address || '—')}</div>
-      </div>
-    </div>`;
-
-  document.getElementById('view-body').innerHTML = bodyHtml;
-  document.getElementById('view-modal').classList.add('show');
+  const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
+  const profileUrl = (isCustom ? '/patient' : 'patient-profile.html') + `?id=${encodeURIComponent(id)}`;
+  window.location.href = profileUrl;
 };
 
 // Single-page form (no wizard) — every field is visible at once so a
@@ -1309,6 +1672,8 @@ window.openFormModal = () => {
   setConsultationType('Orthopedic');
   document.getElementById('form-modal').classList.add('show');
   document.getElementById('f-visit-date').value = todayIST();
+  const vTimeEl = document.getElementById('f-visit-time');
+  if (vTimeEl) vTimeEl.value = nowTimeIST();
   document.body.style.overflow = 'hidden';
   document.getElementById('f-opno-manual-row').style.display = '';
   document.getElementById('f-opno-manual').checked = false;
@@ -1324,6 +1689,25 @@ window.toggleOpNoManual = () => {
   if (!manual) input.value = '';
 };
 
+window.lookupOldPatientByOpNo = (val) => {
+  if (!val || window.editingId) return;
+  const digitsOnly = String(val).trim().replace(/\D/g, '');
+  if (!digitsOnly) return;
+  const match = allLoadedPatients.find(p => String(p.opNo) === digitsOnly);
+  if (match) {
+    if (match.name) document.getElementById('f-name').value = match.name;
+    if (match.phone) document.getElementById('f-phone').value = match.phone;
+    if (match.age) document.getElementById('f-age').value = match.age;
+    if (match.gender) document.getElementById('f-gender').value = match.gender;
+    if (match.bloodGroup) document.getElementById('f-blood-group').value = match.bloodGroup;
+    if (match.address) document.getElementById('f-address').value = match.address;
+    if (match.doctor) document.getElementById('f-doctor').value = match.doctor;
+    if (match.consultationType) window.setConsultationType(match.consultationType);
+    if (match.reason) document.getElementById('f-reason').value = match.reason;
+    if (match.diagnosis) document.getElementById('f-diagnosis').value = match.diagnosis;
+  }
+};
+
 window.closeFormModal = () => {
   document.getElementById('form-modal').classList.remove('show');
   document.body.style.overflow = '';
@@ -1337,10 +1721,60 @@ window.setConsultationType = type => {
   document.getElementById('f-doctor').value = isOrtho ? 'Dr. N. Gopala Krishnan' : 'Dr. R. Shiny';
 };
 
+const promptExistingPatient = (dup, onSaveNew, onAddToOld) => {
+  const modal = document.getElementById('existing-patient-modal');
+  const info = document.getElementById('dup-patient-info');
+  if (!modal || !info) return;
+
+  info.innerHTML = `
+    <div style="font-weight:700;color:var(--text-dark);margin-bottom:.25rem;">${esc(dup.name)}</div>
+    <div style="color:var(--text-med);font-size:.8rem;">
+      OP No: <strong style="color:var(--primary);">${dup.opNo ?? '—'}</strong> · Phone: <strong>${esc(dup.phone) || '—'}</strong>
+    </div>
+  `;
+
+  document.getElementById('btn-dup-save-new').onclick = () => {
+    modal.classList.remove('show');
+    onSaveNew();
+  };
+
+  document.getElementById('btn-dup-add-old').onclick = () => {
+    modal.classList.remove('show');
+    onAddToOld();
+  };
+
+  modal.classList.add('show');
+};
+
+const executeSavePatient = async (pData, opNoManual, opNoValue) => {
+  try {
+    if (window.editingId) {
+      if (opNoValue !== null) pData.opNo = opNoValue;
+      await updateDoc(doc(db, 'patients', window.editingId), pData);
+      showToast('Patient record updated.');
+    } else {
+      pData.opNo = (opNoValue !== null) ? opNoValue : (opNoManual ? opNoValue : await getNextOpNo());
+      pData.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'patients'), pData);
+      showToast('Patient record saved.');
+    }
+    closeFormModal();
+    await fetchAllPatients();
+    loadPatientPage(currentPageIndex);
+    refreshStats();
+  } catch(err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+};
+
 window.savePatient = async () => {
   const name = document.getElementById('f-name').value.trim();
   const phone = document.getElementById('f-phone').value.trim();
-  if (!name || !phone) { showToast('Name and Phone Number are required.', 'error'); return; }
+  const cleanPhone = phone.replace(/\D/g, '').slice(0, 10);
+  if (!name || !cleanPhone || cleanPhone.length !== 10) { 
+    showToast('Name and a valid 10-digit Phone Number are required.', 'error'); 
+    return; 
+  }
 
   const age = Number(document.getElementById('f-age').value) || null;
   const gender = document.getElementById('f-gender').value;
@@ -1348,38 +1782,29 @@ window.savePatient = async () => {
   const address = document.getElementById('f-address').value.trim();
 
   const docName = document.getElementById('f-doctor').value;
-  const visitDate = document.getElementById('f-visit-date').value;
+  const visitDate = document.getElementById('f-visit-date').value || todayIST();
+  const visitTime = document.getElementById('f-visit-time') ? document.getElementById('f-visit-time').value.trim() : nowTimeIST();
   const reason = document.getElementById('f-reason').value.trim();
   const diagnosis = document.getElementById('f-diagnosis').value.trim();
 
   const pData = {
     name, phone, age, gender, bloodGroup, address,
     nameLower: name.toLowerCase(),
-    consultationType, doctor: docName, visitDate, reason, diagnosis,
-    source: 'Walk-in'
+    consultationType, doctor: docName, visitDate, visitTime, reason, diagnosis,
+    source: 'Walk-in',
+    visits: [
+      {
+        date: visitDate,
+        time: visitTime,
+        doctor: docName,
+        consultationType,
+        reason,
+        diagnosis,
+        timestamp: new Date().toISOString()
+      }
+    ]
   };
 
-  if (!window.editingId) {
-    // Targeted query (exact name match, bounded) instead of scanning every
-    // patient in memory — scales fine at 20,000+ records.
-    try {
-      const dupSnap = await getDocs(query(collection(db, 'patients'), where('nameLower', '==', pData.nameLower), limit(20)));
-      const normNew = normalizePhone(phone);
-      const dup = dupSnap.docs.map(d => d.data()).find(p => normalizePhone(p.phone) === normNew);
-      if (dup) {
-        const proceed = confirm(
-          `A patient named "${dup.name}" with this phone number already exists (OP No: ${dup.opNo ?? '—'}).\n\n` +
-          `Add as a new record anyway? Click Cancel to go back and edit the existing record instead.`
-        );
-        if (!proceed) return;
-      }
-    } catch (err) {
-      console.warn('Duplicate check failed (non-blocking):', err);
-    }
-  }
-
-  // OP No: auto-assigned for a brand-new registration, or typed in manually
-  // when backfilling an old paper record that already has a real OP No.
   const opNoManual = document.getElementById('f-opno-manual').checked;
   const opNoRaw = document.getElementById('f-opno').value.trim();
   let opNoValue = null;
@@ -1399,27 +1824,66 @@ window.savePatient = async () => {
     opNoValue = n;
   }
 
-  try {
-    if (window.editingId) {
-      if (opNoValue !== null) pData.opNo = opNoValue;
-      await updateDoc(doc(db, 'patients', window.editingId), pData);
-      showToast('Patient record updated.');
-    } else {
-      pData.opNo = opNoManual ? opNoValue : await getNextOpNo();
-      pData.createdAt = serverTimestamp();
-      await addDoc(collection(db, 'patients'), pData);
-      showToast('Patient record saved.');
+  if (!window.editingId) {
+    try {
+      const normNew = normalizePhone(phone);
+      const dup = allLoadedPatients.find(p => (
+        (p.nameLower && p.nameLower === pData.nameLower) ||
+        (p.phone && normalizePhone(p.phone) === normNew) ||
+        (opNoValue && Number(p.opNo) === Number(opNoValue))
+      ));
+
+      if (dup) {
+        promptExistingPatient(
+          dup,
+          () => executeSavePatient(pData, opNoManual, opNoValue),
+          async () => {
+            try {
+              const newVisitEntry = {
+                date: visitDate,
+                time: visitTime,
+                doctor: docName,
+                consultationType,
+                reason,
+                diagnosis,
+                timestamp: new Date().toISOString()
+              };
+
+              await updateDoc(doc(db, 'patients', dup.id), {
+                visitDate,
+                visitTime,
+                doctor: docName,
+                consultationType,
+                reason: reason || dup.reason || '',
+                diagnosis: diagnosis || dup.diagnosis || '',
+                age: age || dup.age || null,
+                bloodGroup: bloodGroup || dup.bloodGroup || '',
+                address: address || dup.address || '',
+                visits: arrayUnion(newVisitEntry)
+              });
+
+              showToast(`Visit added to existing record of ${dup.name} (OP ${dup.opNo || '—'})`);
+              closeFormModal();
+              await fetchAllPatients();
+              loadPatientPage(currentPageIndex);
+              refreshStats();
+            } catch(e) {
+              showToast('Error adding visit to old record: ' + e.message, 'error');
+            }
+          }
+        );
+        return;
+      }
+    } catch (err) {
+      console.warn('Duplicate check failed (non-blocking):', err);
     }
-    closeFormModal();
-    loadPatientPage(currentPageIndex);
-    refreshStats();
-  } catch(err) {
-    showToast('Error: ' + err.message, 'error');
   }
+
+  await executeSavePatient(pData, opNoManual, opNoValue);
 };
 
 window.editPatient = id => {
-  const p = currentPatients.find(x => x.id === id);
+  const p = allLoadedPatients.find(x => x.id === id) || currentPatients.find(x => x.id === id);
   if (!p) return;
   window.openFormModal();
   window.editingId = id;
@@ -1440,6 +1904,8 @@ window.editPatient = id => {
   setConsultationType(p.consultationType || 'Orthopedic');
   document.getElementById('f-doctor').value = p.doctor || 'Dr. N. Gopala Krishnan';
   document.getElementById('f-visit-date').value = p.visitDate || '';
+  const vTimeEl = document.getElementById('f-visit-time');
+  if (vTimeEl) vTimeEl.value = p.visitTime || fmtTime('', p.createdAt) || '';
   document.getElementById('f-reason').value = p.reason || '';
   document.getElementById('f-diagnosis').value = p.diagnosis || '';
 
@@ -1455,6 +1921,7 @@ document.getElementById('confirm-delete').addEventListener('click', async () => 
     try {
       await deleteDoc(doc(db, 'patients', deleteId));
       showToast('Patient deleted.');
+      await fetchAllPatients();
       loadPatientPage(currentPageIndex);
       refreshStats();
     } catch(err) {
@@ -1499,14 +1966,33 @@ window.startSpeech = (fieldId, nextFieldId) => {
   rec.start();
 };
 
+// Import instant patient search module
+import { setupInstantPatientSearch } from './patient-search.js';
+
+// Setup Instant Search with floating suggestions and live table sync
+setupInstantPatientSearch({
+  searchInput: document.getElementById('search-input'),
+  dropdownContainer: document.getElementById('search-suggestions-dropdown'),
+  db,
+  fs: { collection, query, where, getDocs, orderBy, limit },
+  onSelectPatient: (p) => {
+    window.viewPatient(p.id);
+  },
+  onTableFilter: (q) => {
+    window.handleSearch(q);
+  }
+});
+
 // Initial Language load
 window.setLang(currentLang);
 updateThemeIcons();
 
-// Initial patient list load (no realtime listener — see note above on why the
-// list is fetched on demand instead of subscribed to at 20,000+ record scale)
-loadPatientPage(0);
-refreshStats();
+// Initial patient list load
+(async () => {
+  await fetchAllPatients();
+  refreshStats();
+  await loadPatientPage(0);
+})();
 
 // Keyboard shortcuts for fast desktop use: Escape closes whichever modal/
 // popover is open, and "/" jumps straight to the search box (unless already
@@ -1536,6 +2022,8 @@ document.addEventListener('keydown', e => {
   const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
   if (!isCustom) return;
   const map = {
+    'nav-overview': '/overview',
+    'nav-reception': '/reception',
     'nav-dashboard': '/dashboard',
     'nav-room': '/room',
     'nav-bill': '/bill',
@@ -1549,6 +2037,30 @@ document.addEventListener('keydown', e => {
   // Also fix any bill.html links in table
   document.querySelectorAll('a[href^="bill.html"]').forEach(a => {
     a.setAttribute('href', a.getAttribute('href').replace('bill.html', '/bill'));
+  });
+
+  // Always close sidebar when navigating
+  document.querySelectorAll('.nav-item, .sidebar__logo').forEach(item => {
+    item.addEventListener('click', () => {
+      document.body.classList.add('sidebar-collapsed');
+      const sb = document.getElementById('sidebar');
+      if (sb) sb.classList.remove('open');
+    });
+  });
+
+  // Close sidebar if clicking outside
+  document.addEventListener('click', (e) => {
+    const sb = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    if (window.innerWidth <= 960) {
+      if (sb && sb.classList.contains('open') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        sb.classList.remove('open');
+      }
+    } else {
+      if (sb && !document.body.classList.contains('sidebar-collapsed') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        document.body.classList.add('sidebar-collapsed');
+      }
+    }
   });
 })();
 </script>

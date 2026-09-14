@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview & Analytics – Gopal Ortho Care</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --primary:#0A6EBD;--primary-dark:#064A80;--primary-darker:#062A45;
+      --primary-ul:#E6F1FE;--gold:#C8973A;--gold-light:#E8C776;
+      --bg:#F0F7FF;--bg-dark:#062A45;--bg-darker:#041C30;
+      --surface:#ffffff;--surface-card:#F8FBFF;
+      --border:#D6E6F5;--border-med:#B0CCE8;
+      --text-dark:#1A1A1A;--text-med:#4A4A4A;--text-light:#8A8A8A;
+      --success:#2D7A4F;--success-bg:#EDF7F2;
+      --error:#B94040;--error-bg:#FEF2F2;--warning:#D97706;
+      --sidebar-w:260px;
+    }
+    html{font-size:16px;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-dark);min-height:100vh;display:flex;overflow-x:hidden;}
+    [data-lang="ta"] body,[data-lang="ta"] input,[data-lang="ta"] select,[data-lang="ta"] button{font-family:'Noto Sans Tamil','DM Sans',sans-serif;}
+
+    /* ── SIDEBAR ── */
+    #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-darker);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);}
+    body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+    body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+    body.sidebar-collapsed #main { margin-left: 0; }
+    @media (min-width: 961px) {
+      body:not(.sidebar-collapsed) #sidebar { transform: translateX(0); }
+      body:not(.sidebar-collapsed) #main { margin-left: var(--sidebar-w); }
+      body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
+      body.sidebar-collapsed #main { margin-left: 0; }
+    }
+    @media (max-width: 960px) {
+      #sidebar { transform: translateX(-100%); }
+      #sidebar.open { transform: translateX(0); }
+      #main { margin-left: 0 !important; }
+    }
+
+    #sidebar-toggle-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dark);
+      transition: all 0.2s;
+    }
+    #sidebar-toggle-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-ul);
+      color: var(--primary);
+    }
+    .sidebar__brand{padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid rgba(255,255,255,.06);}
+    .sidebar__logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;}
+    .sidebar__logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(10,110,189,.35);}
+    .sidebar__logo-text .gopal{display:block;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1;}
+    .sidebar__logo-text .ortho{display:block;font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;}
+    .sidebar__badge{margin:.5rem 1.25rem;padding:.2rem .625rem;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:5px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-block;}
+    .sidebar__nav{flex:1;padding:.875rem .75rem;display:flex;flex-direction:column;gap:.2rem;}
+    .nav-item{display:flex;align-items:center;gap:.625rem;padding:.65rem .875rem;border-radius:9px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;text-decoration:none;border:1px solid transparent;background:none;width:100%;text-align:left;}
+    .nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);}
+    .nav-item.active{background:rgba(10,110,189,.2);color:#fff;border-color:rgba(10,110,189,.35);}
+    .nav-item svg{width:16px;height:16px;stroke:rgba(255,255,255,.4);fill:none;flex-shrink:0;transition:stroke .2s;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;}
+    .nav-item.active svg{stroke:#5EB1F0;}
+    .nav-item:hover svg{stroke:rgba(255,255,255,.8);}
+    .nav-divider{height:1px;background:rgba(255,255,255,.06);margin:.375rem 0;}
+    .sidebar__footer{padding:.875rem .75rem 1rem;border-top:1px solid rgba(255,255,255,.06);}
+    .user-pill{display:flex;align-items:center;gap:.5rem;padding:.625rem;background:rgba(255,255,255,.05);border-radius:9999px;margin-bottom:.625rem;}
+    .user-pill__avatar{width:30px;height:30px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0;}
+    .user-pill__name{font-size:.75rem;font-weight:500;color:rgba(255,255,255,.75);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .btn-logout{width:100%;height:36px;background:rgba(185,64,64,.12);border:1px solid rgba(185,64,64,.25);border-radius:7px;color:rgba(255,100,100,.85);font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:all .2s;}
+    .btn-logout:hover{background:rgba(185,64,64,.22);color:#ff8080;}
+
+    /* ── MAIN ── */
+    #main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column;transition:margin-left .3s cubic-bezier(.4,0,.2,1);}
+
+    /* ── TOPBAR ── */
+    .topbar{height:64px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem;}
+    .topbar__left{display:flex;align-items:center;gap:.875rem;}
+    .topbar__title{font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text-dark);}
+    .topbar__right{display:flex;align-items:center;gap:.75rem;}
+
+    /* Date Filter Controls */
+    .date-filter-group{display:flex;align-items:center;background:var(--surface-card);border:1.5px solid var(--border);border-radius:10px;padding:3px;gap:2px;}
+    .date-filter-btn{height:30px;padding:0 .75rem;border-radius:7px;border:none;font-family:inherit;font-size:.775rem;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--text-med);}
+    .date-filter-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 6px rgba(10,110,189,.3);}
+    .date-picker-input{height:30px;padding:0 .5rem;border:1px solid var(--border);border-radius:7px;background:var(--surface);font-family:inherit;font-size:.75rem;color:var(--text-dark);outline:none;}
+
+    /* Language & Theme toggle */
+    .lang-toggle{display:flex;align-items:center;background:var(--surface-card);border:1.5px solid var(--border);border-radius:9999px;padding:3px;gap:2px;}
+    .lang-btn{height:28px;padding:0 .75rem;border-radius:9999px;border:none;font-family:inherit;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--text-light);letter-spacing:.02em;}
+    .lang-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(10,110,189,.3);}
+
+    .btn-action-icon{width:34px;height:34px;border-radius:9999px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-med);transition:all .2s;flex-shrink:0;}
+    .btn-action-icon:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-ul);}
+
+    /* ── OVERVIEW CONTENT ── */
+    .overview-content{padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem;}
+
+    /* Top Greeting Banner */
+    .hero-banner{
+      background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+      border-radius: 18px;
+      padding: 1.5rem 1.75rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 12px 32px rgba(4,28,48,.18);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(10,110,189,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-title{font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:.25rem;}
+    .hero-subtitle{font-size:.85rem;color:rgba(255,255,255,.65);}
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.4rem .875rem;
+      border-radius:9999px;
+      background:rgba(200,151,58,.2);
+      border:1px solid rgba(200,151,58,.4);
+      color:var(--gold-light);
+      font-size:.75rem;
+      font-weight:600;
+    }
+
+    /* Stats Grid */
+    .metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;}
+    .metric-card{
+      background:var(--surface);
+      border:1.5px solid var(--border);
+      border-radius:16px;
+      padding:1.25rem 1.4rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      box-shadow:0 2px 8px rgba(10,110,189,.03);
+      transition:transform .2s, box-shadow .2s;
+      position:relative;
+      overflow:hidden;
+    }
+    .metric-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(10,110,189,.08);border-color:var(--border-med);}
+    .metric-card__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;}
+    .metric-card__icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .metric-card__icon svg{width:22px;height:22px;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+    .metric-card__num{font-family:'DM Sans',sans-serif;font-size:2.1rem;font-weight:700;line-height:1;color:var(--text-dark);letter-spacing:-0.03em;}
+    .metric-card__label{font-size:.8rem;font-weight:600;color:var(--text-med);margin-top:.35rem;}
+    .metric-card__sub{font-size:.725rem;color:var(--text-light);margin-top:.35rem;display:flex;align-items:center;gap:.35rem;}
+    .metric-pill{display:inline-flex;align-items:center;padding:.15rem .45rem;border-radius:5px;font-size:.675rem;font-weight:600;}
+    .metric-pill.blue{background:var(--primary-ul);color:var(--primary);}
+    .metric-pill.gold{background:rgba(200,151,58,.15);color:#926715;}
+    .metric-pill.green{background:var(--success-bg);color:var(--success);}
+
+    /* Visual Charts Grid */
+    .charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;}
+    @media (max-width: 1100px){.charts-grid{grid-template-columns:1fr;}}
+
+    .chart-card{
+      background:var(--surface);
+      border:1.5px solid var(--border);
+      border-radius:16px;
+      padding:1.4rem;
+      display:flex;
+      flex-direction:column;
+      box-shadow:0 2px 8px rgba(10,110,189,.03);
+    }
+    .chart-card__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;}
+    .chart-card__title{font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:.5rem;}
+    .chart-card__subtitle{font-size:.75rem;color:var(--text-light);margin-top:.15rem;}
+    .chart-canvas-wrap{position:relative;flex:1;min-height:240px;width:100%;}
+
+    .sub-charts-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;}
+
+    /* Activity table */
+    .table-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;}
+    .table-scroll{overflow-x:auto;}
+    table{width:100%;border-collapse:collapse;}
+    thead th{background:var(--surface-card);border-bottom:1px solid var(--border);padding:.75rem 1.1rem;text-align:left;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light);white-space:nowrap;}
+    tbody tr{border-bottom:1px solid rgba(214,230,245,.6);transition:background .15s;}
+    tbody tr:last-child{border-bottom:none;}
+    tbody tr:hover{background:var(--surface-card);}
+    tbody td{padding:.85rem 1.1rem;font-size:.85rem;color:var(--text-dark);vertical-align:middle;}
+
+    /* Dark Mode Overrides */
+    html[data-theme="dark"] {
+      --bg: #07121e;
+      --bg-dark: #091a2b;
+      --bg-darker: #040d16;
+      --surface: #0e1e30;
+      --surface-card: #13273c;
+      --border: #1e3753;
+      --border-med: #2b4e75;
+      --text-dark: #f0f6fc;
+      --text-med: #c9d1d9;
+      --text-light: #8b949e;
+      --success: #3fb950;
+      --success-bg: rgba(63,185,80,0.1);
+      --primary-ul: rgba(10,110,189,0.25);
+    }
+    html[data-theme="dark"] .metric-card{box-shadow:none;}
+    html[data-theme="dark"] .chart-card{box-shadow:none;}
+    html[data-theme="dark"] .date-picker-input{background:var(--surface);color:var(--text-dark);border-color:var(--border);}
+    html[data-theme="dark"] .metric-pill.gold{background:rgba(200,151,58,.2);color:var(--gold-light);}
+  </style>
+</head>
+<body class="sidebar-collapsed">
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<aside id="sidebar">
+  <div class="sidebar__brand">
+    <a href="#" class="sidebar__logo">
+      <div class="sidebar__logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="rgba(255,255,255,.15)" stroke="white" stroke-width="1.5"/><path d="M9 12h6M12 9v6" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="sidebar__logo-text"><span class="gopal">GOPAL</span><span class="ortho">Ortho Care</span></div>
+    </a>
+  </div>
+  <nav class="sidebar__nav" style="margin-top:.75rem;">
+    <a id="nav-overview" href="overview.html" class="nav-item active">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span data-i18n="overview">Overview</span>
+    </a>
+    <a id="nav-reception" href="reception.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <span data-i18n="reception">Reception Record</span>
+    </a>
+    <a id="nav-dashboard" href="dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      <span data-i18n="patients">Patient Records</span>
+    </a>
+    <a id="nav-room" href="room.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span data-i18n="rooms">Room Management</span>
+    </a>
+    <a id="nav-bill" href="bill.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+      <span data-i18n="bills">Billing</span>
+    </a>
+    <a id="nav-noticeboard" href="noticeboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span data-i18n="noticeboard">Notice Board</span>
+    </a>
+    <div class="nav-divider"></div>
+    <a id="nav-settings" href="settings.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <span data-i18n="settings">Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar__footer">
+    <div class="user-pill">
+      <div class="user-pill__avatar" id="user-avatar">DR</div>
+      <div style="flex:1;min-width:0;">
+        <div class="user-pill__name" id="user-name-display">Doctor</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('displayName');
+      if (saved && saved.trim()) {
+        const av = document.getElementById('user-avatar');
+        const nd = document.getElementById('user-name-display');
+        if (av) av.textContent = saved.trim().slice(0,2).toUpperCase();
+        if (nd) nd.textContent = saved.trim();
+      }
+    })();
+  </script>
+</aside>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div id="main">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <button id="sidebar-toggle-btn" onclick="window.toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-dark)" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <h1 class="topbar__title" data-i18n="overview">Overview & Daily Stats</h1>
+    </div>
+    <div class="topbar__right">
+      <!-- Date Filter Bar -->
+      <div class="date-filter-group">
+        <button class="date-filter-btn active" id="btn-date-today" onclick="selectDateFilter('today')">Today</button>
+        <button class="date-filter-btn" id="btn-date-yesterday" onclick="selectDateFilter('yesterday')">Yesterday</button>
+        <input type="date" id="date-picker" class="date-picker-input" onchange="onCustomDateChange(this.value)">
+      </div>
+
+      <button class="btn-action-icon" onclick="refreshOverview()" title="Refresh Data">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </button>
+
+      <!-- Language Toggle -->
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="lang-ta" onclick="setLang('ta')">தமிழ்</button>
+      </div>
+
+      <!-- Theme Toggle -->
+      <button id="theme-toggle-btn" class="btn-action-icon" onclick="window.toggleTheme()" title="Toggle Dark/Light Mode">
+        <svg id="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="theme-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- OVERVIEW PAGE CONTENT -->
+  <div class="overview-content">
+    
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div>
+        <h2 class="hero-title" id="banner-greeting">Hospital Performance Dashboard</h2>
+        <p class="hero-subtitle" id="banner-date-display">Real-time stats and clinical operational flow</p>
+      </div>
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="live-indicator">Live Active</span>
+      </div>
+    </div>
+
+    <!-- 4 Key Metrics Cards -->
+    <div class="metrics-grid">
+      <!-- 1. Total Patients Today -->
+      <div class="metric-card">
+        <div class="metric-card__header">
+          <div class="metric-card__icon" style="background:rgba(10,110,189,.12);color:var(--primary);">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <span class="metric-pill blue" id="pill-patients-badge">Daily Volume</span>
+        </div>
+        <div class="metric-card__num" id="stat-total-patients">0</div>
+        <div class="metric-card__label" data-i18n="patientsCameToday">Total Patients Came Today</div>
+        <div class="metric-card__sub" id="stat-patients-breakdown">
+          <span>Orthopaedic: <strong id="stat-ortho-count">0</strong></span> &bull; <span>General: <strong id="stat-general-count">0</strong></span>
+        </div>
+      </div>
+
+      <!-- 2. Rooms Booked That Day -->
+      <div class="metric-card">
+        <div class="metric-card__header">
+          <div class="metric-card__icon" style="background:rgba(45,122,79,.12);color:var(--success);">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span class="metric-pill green" id="pill-rooms-badge">Occupancy</span>
+        </div>
+        <div class="metric-card__num" id="stat-rooms-booked">0</div>
+        <div class="metric-card__label" data-i18n="roomsBookedToday">Rooms Booked That Day</div>
+        <div class="metric-card__sub" id="stat-rooms-breakdown">
+          <span>Active Inpatients: <strong id="stat-rooms-occupied">0</strong></span> &bull; <span>Available: <strong id="stat-rooms-available">0</strong></span>
+        </div>
+      </div>
+
+      <!-- 3. Doctor Consultations -->
+      <div class="metric-card">
+        <div class="metric-card__header">
+          <div class="metric-card__icon" style="background:rgba(200,151,58,.15);color:var(--gold);">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span class="metric-pill gold">Consultants</span>
+        </div>
+        <div class="metric-card__num" id="stat-consultations">0</div>
+        <div class="metric-card__label" data-i18n="consultationsToday">Consultations Done</div>
+        <div class="metric-card__sub" id="stat-doctors-breakdown">
+          <span>Dr. Gopal: <strong id="stat-doc-gopal">0</strong></span> &bull; <span>Dr. Shiny: <strong id="stat-doc-shiny">0</strong></span>
+        </div>
+      </div>
+
+      <!-- 4. Occupancy Rate -->
+      <div class="metric-card">
+        <div class="metric-card__header">
+          <div class="metric-card__icon" style="background:rgba(13,148,136,.12);color:#0D9488;">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <span class="metric-pill blue" id="stat-occupancy-rate-pill">0% Rate</span>
+        </div>
+        <div class="metric-card__num" id="stat-occupancy-rate">0%</div>
+        <div class="metric-card__label" data-i18n="occupancyRate">Ward Occupancy Rate</div>
+        <div class="metric-card__sub">
+          <span>Total Ward Capacity: <strong id="stat-total-capacity">0 Rooms</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Patient Log Summary Table (First) -->
+    <div class="table-wrap" style="margin-bottom:1.5rem;">
+      <div style="padding:1.1rem 1.4rem;background:var(--surface-card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <h3 style="font-size:1rem;font-weight:700;color:var(--text-dark);" id="table-heading">Today's Registered Patients</h3>
+        <a href="dashboard.html" style="font-size:.8rem;font-weight:600;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:.3rem;">
+          View in Patient Records &rarr;
+        </a>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>OP No</th>
+              <th>Patient Name</th>
+              <th>Age / Gender</th>
+              <th>Consultation</th>
+              <th>Doctor</th>
+              <th>Diagnosis / Complaint</th>
+            </tr>
+          </thead>
+          <tbody id="overview-patient-rows">
+            <tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--text-light);">Loading statistics…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Visual Graphs Section (Row 1) -->
+    <div class="charts-grid">
+      <!-- Chart 1: Hourly Patient Flow -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div>
+            <h3 class="chart-card__title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span data-i18n="patientArrivalFlow">Today's Patient Arrival Flow (Hourly)</span>
+            </h3>
+            <p class="chart-card__subtitle">Distribution of patient registrations across clinic hours</p>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-hourly-flow"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Consultation Specialty Breakdown -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div>
+            <h3 class="chart-card__title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <span data-i18n="consultationSplit">Consultation Breakdown</span>
+            </h3>
+            <p class="chart-card__subtitle">Orthopaedic vs General Outpatient share</p>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-consultation-type"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual Graphs Section (Row 2) -->
+    <div class="sub-charts-row">
+      <!-- Chart 3: Room Occupancy Status -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div>
+            <h3 class="chart-card__title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              <span data-i18n="roomOccupancyTitle">Room & Ward Capacity</span>
+            </h3>
+            <p class="chart-card__subtitle">Available vs Occupied patient rooms</p>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-room-occupancy"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 4: 7-Day Patient Trend -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div>
+            <h3 class="chart-card__title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+              <span data-i18n="weeklyTrend">7-Day Patient Volume</span>
+            </h3>
+            <p class="chart-card__subtitle">Recent daily traffic pattern</p>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-7day-trend"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 5: Demographics (Age & Gender) -->
+      <div class="chart-card">
+        <div class="chart-card__header">
+          <div>
+            <h3 class="chart-card__title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span data-i18n="demographicsTitle">Age Demographics</span>
+            </h3>
+            <p class="chart-card__subtitle">Patient volume across age brackets</p>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-demographics"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Firebase & Script Imports -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import {
+    getFirestore, collection, query, where, getDocs, orderBy, limit, doc, getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // Import Separate Overview Statistics and Charts Modules
+  import { fetchOverviewMetrics, getTodayIST, formatDisplayDate } from './overview-stats.js';
+  import { renderOverviewCharts, updateChartsTheme } from './overview-charts.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
+    authDomain: "gopalorthocare-e97cf.firebaseapp.com",
+    projectId: "gopalorthocare-e97cf",
+    storageBucket: "gopalorthocare-e97cf.firebasestorage.app",
+    messagingSenderId: "263458525081",
+    appId: "1:263458525081:web:78c763dac387f9ab4bcd08",
+    measurementId: "G-3EHZ3EQFHL"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const authFB = getAuth(app);
+  const db = getFirestore(app);
+
+  const ADMIN_EMAILS = ['gopalorthocare@gmail.com'];
+  const SESSION_MS = 24 * 60 * 60 * 1000;
+  let _activityTimer = null;
+
+  const getLoginDest = (reason = '') => {
+    const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
+    let dest = isCustom ? '/login' : 'login.html';
+    return reason ? `${dest}?reason=${reason}` : dest;
+  };
+
+  const checkSessionTimeout = async () => {
+    const last = parseInt(localStorage.getItem('lastActivity') || '0');
+    const idleFor = Date.now() - last;
+    if (idleFor >= SESSION_MS) {
+      await signOut(authFB);
+      window.location.href = getLoginDest('timeout');
+    } else {
+      _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS - idleFor);
+    }
+  };
+
+  const resetActivityTimer = () => {
+    if (_activityTimer) clearTimeout(_activityTimer);
+    localStorage.setItem('lastActivity', Date.now());
+    _activityTimer = setTimeout(checkSessionTimeout, SESSION_MS);
+  };
+
+  document.addEventListener('mousemove', resetActivityTimer, { passive: true });
+  document.addEventListener('keydown', resetActivityTimer, { passive: true });
+  document.addEventListener('click', resetActivityTimer, { passive: true });
+
+  const isAuthorizedAdmin = async email => {
+    if (ADMIN_EMAILS.includes(email)) return true;
+    try {
+      const snap = await getDoc(doc(db, 'admins', email));
+      return snap.exists() && snap.data()?.role === 'admin';
+    } catch (e) { return false; }
+  };
+
+  onAuthStateChanged(authFB, async user => {
+    if (!user) { window.location.href = getLoginDest(); return; }
+    const email = (user.email||'').toLowerCase();
+    if (!(await isAuthorizedAdmin(email))) {
+      await signOut(authFB);
+      window.location.href = getLoginDest('denied');
+      return;
+    }
+    const last = parseInt(localStorage.getItem('lastActivity') || '0');
+    if (last && Date.now() - last > SESSION_MS) {
+      await signOut(authFB);
+      window.location.href = getLoginDest('timeout');
+      return;
+    }
+    resetActivityTimer();
+    const displayName = user.displayName || (user.email||'Doctor').split('@')[0];
+    const savedName = localStorage.getItem('displayName') || displayName;
+    localStorage.setItem('displayName', savedName);
+    const av = document.getElementById('user-avatar');
+    const nd = document.getElementById('user-name-display');
+    if (av) av.textContent = savedName.slice(0,2).toUpperCase();
+    if (nd) nd.textContent = savedName;
+  });
+
+  window.addEventListener('storage', e => {
+    if (e.key === 'displayName' && e.newValue) {
+      const av = document.getElementById('user-avatar');
+      const nd = document.getElementById('user-name-display');
+      if (av) av.textContent = e.newValue.slice(0,2).toUpperCase();
+      if (nd) nd.textContent = e.newValue;
+    }
+  });
+
+  // State
+  let currentDate = getTodayIST();
+  let currentMetrics = null;
+
+  // i18n Dictionary
+  const i18n = {
+    en: {
+      overview: 'Overview',
+      patients: 'Patient Records',
+      rooms: 'Room Management',
+      bills: 'Billing',
+      noticeboard: 'Notice Board',
+      settings: 'Settings',
+      patientsCameToday: 'Total Patients Came Today',
+      roomsBookedToday: 'Rooms Booked That Day',
+      consultationsToday: 'Consultations Done',
+      occupancyRate: 'Ward Occupancy Rate',
+      patientArrivalFlow: "Today's Patient Arrival Flow (Hourly)",
+      consultationSplit: 'Consultation Breakdown',
+      roomOccupancyTitle: 'Room & Ward Capacity',
+      weeklyTrend: '7-Day Patient Volume',
+      demographicsTitle: 'Age Demographics'
+    },
+    ta: {
+      overview: 'கண்ணோட்டம்',
+      patients: 'நோயாளர் பதிவுகள்',
+      rooms: 'அறை மேலாண்மை',
+      bills: 'கட்டண மசோதா',
+      noticeboard: 'அறிவிப்பு பலகை',
+      settings: 'அமைப்புகள்',
+      patientsCameToday: 'இன்று வந்த மொத்த நோயாளர்கள்',
+      roomsBookedToday: 'அன்று பதிவு செய்யப்பட்ட அறைகள்',
+      consultationsToday: 'ஆலோசனைகள் முடிந்தது',
+      occupancyRate: 'அறை ஆக்கிரமிப்பு விகிதம்',
+      patientArrivalFlow: 'நோயாளர் வருகை ஓட்டம் (மணிநேரம்)',
+      consultationSplit: 'ஆலோசனை வகை பகிர்வு',
+      roomOccupancyTitle: 'அறை நிலை மற்றும் திறன்',
+      weeklyTrend: '7 நாள் நோயாளர் எண்ணிக்கை',
+      demographicsTitle: 'வயது விவரங்கள்'
+    }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'en';
+  window.setLang = lang => {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('lang-ta').classList.toggle('active', lang === 'ta');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+  };
+
+  window.toggleTheme = () => {
+    const current = document.documentElement.getAttribute('data-theme') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcons();
+    updateChartsTheme(currentMetrics);
+  };
+
+  const updateThemeIcons = () => {
+    const theme = document.documentElement.getAttribute('data-theme') || 'light';
+    const sun = document.getElementById('theme-sun');
+    const moon = document.getElementById('theme-moon');
+    if(sun && moon) {
+      sun.style.display = theme === 'dark' ? 'block' : 'none';
+      moon.style.display = theme === 'dark' ? 'none' : 'block';
+    }
+  };
+
+  window.toggleSidebar = () => {
+    if (window.innerWidth > 960) {
+      document.body.classList.toggle('sidebar-collapsed');
+    } else {
+      document.getElementById('sidebar')?.classList.toggle('open');
+    }
+  };
+
+  const esc = str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // Load and populate overview
+  async function loadOverviewData(targetDate) {
+    currentDate = targetDate;
+    document.getElementById('date-picker').value = targetDate;
+    const isToday = targetDate === getTodayIST();
+    document.getElementById('btn-date-today').classList.toggle('active', isToday);
+    
+    const yesterdayStr = new Date(Date.now() - 86400000 + 5.5 * 3600000).toISOString().slice(0, 10);
+    document.getElementById('btn-date-yesterday').classList.toggle('active', targetDate === yesterdayStr);
+
+    document.getElementById('banner-date-display').textContent = `Showing operational statistics for ${formatDisplayDate(targetDate)}`;
+
+    // Fetch metrics via overview-stats module
+    const fsModules = { collection, query, where, getDocs, orderBy, limit };
+    currentMetrics = await fetchOverviewMetrics(db, fsModules, targetDate);
+
+    // Update Top Stat Cards
+    document.getElementById('stat-total-patients').textContent = currentMetrics.patients.total;
+    document.getElementById('stat-ortho-count').textContent = currentMetrics.patients.ortho;
+    document.getElementById('stat-general-count').textContent = currentMetrics.patients.general;
+
+    document.getElementById('stat-rooms-booked').textContent = currentMetrics.rooms.bookedToday;
+    document.getElementById('stat-rooms-occupied').textContent = currentMetrics.rooms.occupied;
+    document.getElementById('stat-rooms-available').textContent = currentMetrics.rooms.available;
+
+    document.getElementById('stat-consultations').textContent = currentMetrics.patients.total;
+    document.getElementById('stat-doc-gopal').textContent = currentMetrics.patients.doctorGopal;
+    document.getElementById('stat-doc-shiny').textContent = currentMetrics.patients.doctorShiny;
+
+    const totalRooms = currentMetrics.rooms.total || 1;
+    const occRate = Math.round((currentMetrics.rooms.occupied / totalRooms) * 100);
+    document.getElementById('stat-occupancy-rate').textContent = `${occRate}%`;
+    document.getElementById('stat-occupancy-rate-pill').textContent = `${occRate}% Rate`;
+    document.getElementById('stat-total-capacity').textContent = `${currentMetrics.rooms.total} Rooms`;
+
+    // Render Charts
+    renderOverviewCharts(currentMetrics);
+
+    // Render Today's Patient Rows
+    const tbody = document.getElementById('overview-patient-rows');
+    const pList = currentMetrics.patients.list || [];
+    if (!pList.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--text-light);">No patient records found for ${formatDisplayDate(targetDate)}.</td></tr>`;
+    } else {
+      tbody.innerHTML = pList.slice(0, 10).map(p => `
+        <tr>
+          <td><span style="font-family:monospace;font-weight:600;color:var(--primary);">${p.opNo ?? '—'}</span></td>
+          <td style="font-weight:600;">${esc(p.name)}</td>
+          <td>${p.age || '—'}y / ${p.gender || '—'}</td>
+          <td><span style="font-weight:500;color:${(p.consultationType||'').includes('Ortho')?'#0A6EBD':'#C8973A'}">${esc(p.consultationType || 'General')}</span></td>
+          <td>${esc(p.doctor || '—')}</td>
+          <td>${esc(p.diagnosis || p.reason || '—')}</td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  window.selectDateFilter = type => {
+    if (type === 'today') loadOverviewData(getTodayIST());
+    else if (type === 'yesterday') {
+      const yStr = new Date(Date.now() - 86400000 + 5.5 * 3600000).toISOString().slice(0, 10);
+      loadOverviewData(yStr);
+    }
+  };
+
+  window.onCustomDateChange = val => {
+    if (val) loadOverviewData(val);
+  };
+
+  window.refreshOverview = () => {
+    loadOverviewData(currentDate);
+  };
+
+  // Initial Load
+  window.setLang(currentLang);
+  updateThemeIcons();
+  loadOverviewData(getTodayIST());
+</script>
+
+<script>
+// Clean URL handling for custom domain
+(function() {
+  const isCustom = window.location.hostname === 'admin.gopalorthocare.com';
+  if (isCustom) {
+    const map = {
+      'nav-overview': '/overview',
+      'nav-reception': '/reception',
+      'nav-dashboard': '/dashboard',
+      'nav-room': '/room',
+      'nav-bill': '/bill',
+      'nav-noticeboard': '/noticeboard',
+      'nav-settings': '/settings'
+    };
+    Object.entries(map).forEach(([id, path]) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('href', path);
+    });
+  }
+
+  // Always close sidebar when navigating
+  document.querySelectorAll('.nav-item, .sidebar__logo').forEach(item => {
+    item.addEventListener('click', () => {
+      document.body.classList.add('sidebar-collapsed');
+      const sb = document.getElementById('sidebar');
+      if (sb) sb.classList.remove('open');
+    });
+  });
+
+  // Close sidebar if clicking outside
+  document.addEventListener('click', (e) => {
+    const sb = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    if (window.innerWidth <= 960) {
+      if (sb && sb.classList.contains('open') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        sb.classList.remove('open');
+      }
+    } else {
+      if (sb && !document.body.classList.contains('sidebar-collapsed') && !sb.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        document.body.classList.add('sidebar-collapsed');
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
