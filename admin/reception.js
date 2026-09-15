@@ -372,7 +372,7 @@ export function initReceptionModule({ db, fs, authFB }) {
             <div class="token-pill">#${tokenNo}</div>
           </td>
           <td>
-            <span class="op-tag">OP ${p.opNo ?? '—'}</span>
+            <span class="op-tag">${p.opNo ?? '—'}</span>
           </td>
           <td>
             <div style="display:flex;align-items:center;gap:.6rem;">
@@ -446,7 +446,7 @@ export function initReceptionModule({ db, fs, authFB }) {
       return `
         <tr>
           <td>
-            <span class="op-tag">OP ${p.opNo ?? '—'}</span>
+            <span class="op-tag">${p.opNo ?? '—'}</span>
           </td>
           <td>
             <div>
@@ -550,7 +550,7 @@ export function initReceptionModule({ db, fs, authFB }) {
       <div class="search-match-item" onclick="window.selectExistingPatient('${p.id}')">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;">
           <div style="font-weight:700;color:var(--text-dark);font-size:.92rem;word-break:break-word;white-space:normal;line-height:1.35;flex:1;min-width:0;">${esc(p.name)}</div>
-          <span class="op-tag" style="flex-shrink:0;">OP ${p.opNo ?? '—'}</span>
+          <span class="op-tag" style="flex-shrink:0;">${p.opNo ?? '—'}</span>
         </div>
         <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.775rem;color:var(--text-light);">
           <span>${p.age ? p.age + ' yrs' : ''} ${p.gender || ''}</span>
@@ -569,7 +569,7 @@ export function initReceptionModule({ db, fs, authFB }) {
     selectedExistingPatient = patient;
 
     document.getElementById('existing-search-results').style.display = 'none';
-    document.getElementById('existing-search-input').value = `OP ${patient.opNo ?? '—'} - ${patient.name}`;
+    document.getElementById('existing-search-input').value = `${patient.opNo ?? '—'} - ${patient.name}`;
 
     const preview = document.getElementById('existing-patient-preview');
     preview.style.display = 'block';
@@ -578,7 +578,7 @@ export function initReceptionModule({ db, fs, authFB }) {
         <div>
           <div style="display:flex;align-items:center;gap:.5rem;">
             <strong style="font-size:1.05rem;color:var(--primary);">${esc(patient.name)}</strong>
-            <span class="op-tag" style="background:#fff;">OP ${patient.opNo ?? '—'}</span>
+            <span class="op-tag" style="background:#fff;">${patient.opNo ?? '—'}</span>
           </div>
           <div style="font-size:.8rem;color:var(--text-med);margin-top:.25rem;">
             ${patient.age ? patient.age + ' yrs • ' : ''}${patient.gender || ''} • Phone: ${patient.phone || 'No phone'} • Blood: ${patient.bloodGroup || 'Unknown'}

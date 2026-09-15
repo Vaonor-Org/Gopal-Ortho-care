@@ -1622,7 +1622,7 @@ const renderPatientsTable = (totalCount = currentPatients.length) => {
         <td style="text-align:center;" onclick="event.stopPropagation();">
           <input type="checkbox" class="excel-checkbox patient-row-chk" data-id="${p.id}" ${isSelected ? 'checked' : ''} onchange="window.togglePatientSelection('${p.id}', this.checked, event)">
         </td>
-        <td><span style="font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;color:var(--primary);background:var(--primary-ul);padding:.15rem .45rem;border-radius:4px;">OP ${p.opNo ?? '—'}</span></td>
+        <td><span style="font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;color:var(--primary);background:var(--primary-ul);padding:.15rem .45rem;border-radius:4px;">${p.opNo ?? '—'}</span></td>
         <td>
           <div class="patient-name" style="color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:.4rem;">
             <span>${esc(p.name)}</span>

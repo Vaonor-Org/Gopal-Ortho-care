@@ -321,7 +321,7 @@ export async function loadPatientProfile({ db, fs, patientId, opNo, containerId 
                   ${esc(patient.name)}
                 </h1>
                 <span class="op-tag" style="font-family:'DM Mono',monospace;font-size:.8rem;font-weight:700;color:var(--primary);background:var(--primary-ul);padding:.2rem .6rem;border-radius:6px;">
-                  OP ${patient.opNo ?? '—'}
+                  ${patient.opNo ?? '—'}
                 </span>
                 <span class="badge ${genderBadgeClass}" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:700;padding:.2rem .55rem;border-radius:6px;">
                   ${genderSvg} ${gender}
