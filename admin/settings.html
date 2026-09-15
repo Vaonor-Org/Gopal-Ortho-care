@@ -417,7 +417,7 @@
 
           <!-- Room rates -->
           <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Room Rates (per night)</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem;">
             <div class="f-group">
               <label class="f-label" data-i18n="roomRateIns">With Insurance</label>
               <input class="f-input" id="setting-room-rate-ins" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
@@ -426,6 +426,13 @@
               <label class="f-label" data-i18n="roomRateNoIns">Without Insurance</label>
               <input class="f-input" id="setting-room-rate-no-ins" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
+          </div>
+
+          <!-- Bill Footer Note -->
+          <p style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.625rem;">Bill &amp; Invoice Footer Note</p>
+          <div class="f-group" style="margin-bottom:1.5rem;">
+            <label class="f-label">Thank You Message (Printed on Bills)</label>
+            <textarea class="f-textarea" id="setting-bill-footer-msg" style="height:65px;padding:.5rem .75rem;resize:vertical;" placeholder="Enter footer thank-you message…"></textarea>
           </div>
 
           <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">
@@ -554,7 +561,8 @@ const STANDARD_BILLING_DEFAULTS = {
   anaesthetistFee: 300,
   procedureCharge: 0,
   roomRateIns: 2000,
-  roomRateNoIns: 1500
+  roomRateNoIns: 1500,
+  billFooterMsg: 'We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.'
 };
 
 let billingDefaults = { ...STANDARD_BILLING_DEFAULTS };
@@ -574,6 +582,8 @@ const populateBillingInputs = (data = billingDefaults) => {
   document.getElementById('setting-procedure-charge').value = data.procedureCharge ?? 0;
   document.getElementById('setting-room-rate-ins').value = data.roomRateIns ?? 2000;
   document.getElementById('setting-room-rate-no-ins').value = data.roomRateNoIns ?? 1500;
+  const footerEl = document.getElementById('setting-bill-footer-msg');
+  if (footerEl) footerEl.value = data.billFooterMsg ?? STANDARD_BILLING_DEFAULTS.billFooterMsg;
 };
 
 window.resetBillingToDefaults = () => {
@@ -589,7 +599,8 @@ window.resetBillingToDefaults = () => {
     anaesthetistFee: document.getElementById('setting-anaesthetist-fee').value,
     procedureCharge: document.getElementById('setting-procedure-charge').value,
     roomRateIns: document.getElementById('setting-room-rate-ins').value,
-    roomRateNoIns: document.getElementById('setting-room-rate-no-ins').value
+    roomRateNoIns: document.getElementById('setting-room-rate-no-ins').value,
+    billFooterMsg: document.getElementById('setting-bill-footer-msg')?.value || ''
   };
 
   // 2. Set default values into form inputs
@@ -836,6 +847,7 @@ window.saveBillingSettings = async () => {
     const v = parseFloat(document.getElementById(id)?.value);
     return Math.max(0, isNaN(v) ? 0 : Math.round(v * 100) / 100);
   };
+  const footerMsg = document.getElementById('setting-bill-footer-msg')?.value.trim() || STANDARD_BILLING_DEFAULTS.billFooterMsg;
   billingDefaults = {
     consultFee:      g('setting-consult-fee'),
     dressingFee:     g('setting-dressing-fee'),
@@ -848,6 +860,7 @@ window.saveBillingSettings = async () => {
     procedureCharge: g('setting-procedure-charge'),
     roomRateIns:     g('setting-room-rate-ins'),
     roomRateNoIns:   g('setting-room-rate-no-ins'),
+    billFooterMsg:   footerMsg,
     updatedAt:       new Date().toISOString()
   };
   localStorage.setItem('billingDefaults', JSON.stringify(billingDefaults));

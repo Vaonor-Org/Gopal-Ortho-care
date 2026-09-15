@@ -822,12 +822,20 @@ let billingDefaults = {
   anaesthetistFee: 300,
   procedureCharge: 0,
   roomRateIns: 2000,
-  roomRateNoIns: 1500
+  roomRateNoIns: 1500,
+  billFooterMsg: 'We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.'
 };
-const loadBillingDefaults = () => {
+const loadBillingDefaults = async () => {
   try {
     const saved = JSON.parse(localStorage.getItem('billingDefaults') || '{}');
     billingDefaults = { ...billingDefaults, ...saved };
+  } catch(e) {}
+  try {
+    const snap = await getDoc(doc(db, 'settings', 'billing'));
+    if (snap.exists()) {
+      billingDefaults = { ...billingDefaults, ...snap.data() };
+      localStorage.setItem('billingDefaults', JSON.stringify(billingDefaults));
+    }
   } catch(e) {}
 };
 loadBillingDefaults();
@@ -1424,11 +1432,29 @@ window.saveBillAndPrint = async () => {
     items: [...window.billItemsData],
     total,
     paid: false,
+    paymentStatus: 'Unpaid',
     createdAt: serverTimestamp()
   };
   try {
     billData.billNumber = await getNextBillNumber();
     const ref = await addDoc(collection(db, 'bills'), billData);
+
+    // Sync bill reference & payment status to patient record in Firestore
+    if (pid) {
+      try {
+        await updateDoc(doc(db, 'patients', pid), {
+          lastBillId: ref.id,
+          lastBillNumber: billData.billNumber,
+          lastBillDate: date,
+          lastBillAmount: total,
+          lastBillPaid: false,
+          hasUnpaidBill: true
+        });
+      } catch (pe) {
+        console.warn('Could not sync bill to patient doc:', pe);
+      }
+    }
+
     document.getElementById('bill-gen-modal').classList.remove('show');
     document.body.style.overflow = '';
     showToast('Bill saved.');
@@ -1458,6 +1484,7 @@ window.printBill = async (id) => {
 };
 
 const renderBillTemplate = (b, p) => {
+  const footerNote = esc(billingDefaults.billFooterMsg || 'We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.');
   document.getElementById('bill-template').innerHTML = `
     <div class="bill-hospital-name">Gopal Ortho Care</div>
     <div class="bill-reg">Reg. No.: JM 4463</div>
@@ -1494,11 +1521,25 @@ const renderBillTemplate = (b, p) => {
         <tr class="bill-total-row"><td>Total</td><td>₹${round2(b.total)}</td></tr>
       </tbody>
     </table>
-    <div class="bill-footer-note" style="margin-top:1.5rem;">We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.</div>`;
+    <div class="bill-footer-note" style="margin-top:1.5rem;">${footerNote}</div>`;
 };
 
 window.togglePaid = async (id, paid) => {
-  await updateDoc(doc(db, 'bills', id), { paid });
+  const b = currentBills.find(x => x.id === id) || lastFetchedBills.find(x => x.id === id);
+  await updateDoc(doc(db, 'bills', id), { paid, paymentStatus: paid ? 'Paid' : 'Unpaid' });
+
+  // Sync paid status back to patient document
+  if (b && b.patientId) {
+    try {
+      await updateDoc(doc(db, 'patients', b.patientId), {
+        lastBillPaid: paid,
+        hasUnpaidBill: !paid
+      });
+    } catch (pe) {
+      console.warn('Could not sync paid status to patient doc:', pe);
+    }
+  }
+
   showToast(paid ? 'Marked as paid.' : 'Marked as unpaid.');
   loadBillsPage(billsPageIndex);
 };

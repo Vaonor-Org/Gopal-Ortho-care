@@ -208,14 +208,43 @@ export async function loadPatientProfile({ db, fs, patientId, opNo, containerId 
         .map(d => ({ id: d.id, ...d.data() }))
         .filter(b => (
           b.patientId === patient.id ||
-          (patient.opNo && b.opNo === patient.opNo) ||
+          (patient.opNo && (b.patientOpNo === patient.opNo || b.opNo === patient.opNo || Number(b.patientOpNo) === Number(patient.opNo))) ||
           (normPhone && normalizePhone(b.patientPhone) === normPhone) ||
           (b.patientName && patient.name && b.patientName.trim().toLowerCase() === patient.name.trim().toLowerCase())
         ))
-        .sort((a, b) => (b.billDate || '').localeCompare(a.billDate || ''));
-    } catch (e) {
-      console.warn('Billing fetch error:', e);
-    }
+        .sort((a, b) => (b.date || b.billDate || '').localeCompare(a.date || a.billDate || ''));
+    // Extract surgeries, implants, and procedures from bills and visits
+    const surgeryAndImplants = [];
+    billsList.forEach(b => {
+      (b.items || []).forEach(it => {
+        const desc = (it.desc || '').trim();
+        if (!desc) return;
+        const lower = desc.toLowerCase();
+        // Check if item is a surgery, implant, procedure, xray, dressing or clinical intervention
+        const isProcedure = 
+          lower.includes('surgeon') ||
+          lower.includes('implant') ||
+          lower.includes('procedure') ||
+          lower.includes('surgery') ||
+          lower.includes('operation') ||
+          lower.includes('repair') ||
+          lower.includes('arthro') ||
+          lower.includes('replacement') ||
+          lower.includes('fixation') ||
+          lower.includes('dressing') ||
+          lower.includes('x-ray') ||
+          lower.includes('c-arm');
+
+        if (isProcedure && !surgeryAndImplants.some(s => s.desc.toLowerCase() === lower && s.date === (b.date || b.billDate))) {
+          surgeryAndImplants.push({
+            desc,
+            amount: it.amount,
+            date: b.date || b.billDate,
+            billNumber: b.billNumber || b.billNo
+          });
+        }
+      });
+    });
 
     // Determine Gender Colors and SVGs
     const gender = (patient.gender || 'Male').trim();
@@ -409,7 +438,31 @@ export async function loadPatientProfile({ db, fs, patientId, opNo, containerId 
               <div>
                 <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;font-weight:600;margin-bottom:.35rem;">Diagnosis / Clinical Assessment</div>
                 <div style="background:var(--surface-card);padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border);color:var(--text-dark);line-height:1.45;font-weight:600;">
-                  ${esc(patient.diagnosis) || 'No diagnosis recorded'}
+                  ${esc(patient.diagnosis) || (allVisits[0]?.diagnosis ? esc(allVisits[0].diagnosis) : 'No diagnosis recorded')}
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;font-weight:600;margin-bottom:.35rem;">Surgeries, Implants &amp; Procedures</div>
+                <div style="background:var(--surface-card);padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border);">
+                  ${surgeryAndImplants.length === 0 ? `
+                    <div style="font-size:.825rem;color:var(--text-light);font-weight:500;">No surgeries or implants recorded yet. (Add surgeon fee or implant fee in bill to display here)</div>
+                  ` : `
+                    <div style="display:flex;flex-direction:column;gap:.5rem;">
+                      ${surgeryAndImplants.map(s => `
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:.35rem 0;border-bottom:1px dashed var(--border);font-size:.825rem;">
+                          <div style="display:flex;align-items:center;gap:.5rem;">
+                            <span style="width:7px;height:7px;border-radius:50%;background:var(--primary);flex-shrink:0;"></span>
+                            <span style="font-weight:700;color:var(--text-dark);">${esc(s.desc)}</span>
+                          </div>
+                          <div style="display:flex;align-items:center;gap:.6rem;">
+                            <span style="font-family:'DM Mono',monospace;font-weight:600;color:var(--primary);">₹${Number(s.amount || 0).toLocaleString('en-IN')}</span>
+                            <span style="font-size:.75rem;color:var(--text-light);font-family:'DM Mono',monospace;">${fmtDate(s.date)}</span>
+                          </div>
+                        </div>
+                      `).join('')}
+                    </div>
+                  `}
                 </div>
               </div>
             </div>
@@ -479,20 +532,25 @@ export async function loadPatientProfile({ db, fs, patientId, opNo, containerId 
             <div style="display:flex;flex-direction:column;gap:.75rem;max-height:300px;overflow-y:auto;">
               ${billsList.length === 0 ? `
                 <div style="text-align:center;padding:1.5rem;color:var(--text-light);font-size:.85rem;">No bills generated yet for this patient.</div>
-              ` : billsList.map(b => `
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--surface-card);border:1px solid var(--border);border-radius:10px;font-size:.85rem;">
-                  <div>
-                    <div style="font-family:'DM Mono',monospace;font-weight:700;color:var(--text-dark);">${b.billNo || 'Bill #' + b.id.slice(0,6)}</div>
-                    <div style="font-size:.75rem;color:var(--text-light);">${fmtDate(b.billDate)}</div>
-                  </div>
-                  <div style="text-align:right;">
-                    <div style="font-weight:700;color:var(--text-dark);font-family:'DM Mono',monospace;">₹${(Number(b.totalAmount || b.grandTotal || 0)).toLocaleString('en-IN')}</div>
-                    <span style="font-size:.7rem;font-weight:700;padding:1px 6px;border-radius:4px;background:${(b.paymentStatus||'').toLowerCase()==='paid' ? 'rgba(34,197,94,.15);color:#16a34a;' : 'rgba(239,68,68,.15);color:#dc2626;'}">
-                      ${b.paymentStatus || 'Paid'}
-                    </span>
-                  </div>
-                </div>
-              `).join('')}
+              ` : billsList.map(b => {
+                const isPaid = b.paid === true || (b.paymentStatus || '').toLowerCase() === 'paid';
+                const billNum = b.billNumber || b.billNo || 'Bill #' + b.id.slice(0,6);
+                const billDt = b.date || b.billDate || b.createdAt;
+                const amt = Number(b.total || b.totalAmount || b.grandTotal || 0);
+                return `
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--surface-card);border:1px solid var(--border);border-radius:10px;font-size:.85rem;">
+                    <div>
+                      <div style="font-family:'DM Mono',monospace;font-weight:700;color:var(--text-dark);">${esc(billNum)}</div>
+                      <div style="font-size:.75rem;color:var(--text-light);">${fmtDate(billDt)}</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <div style="font-weight:700;color:var(--text-dark);font-family:'DM Mono',monospace;">₹${amt.toLocaleString('en-IN')}</div>
+                      <span style="font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:4px;display:inline-block;margin-top:2px;background:${isPaid ? 'rgba(34,197,94,.15);color:#16a34a;' : 'rgba(239,68,68,.15);color:#dc2626;'}">
+                        ${isPaid ? 'Paid' : 'Unpaid'}
+                      </span>
+                    </div>
+                  </div>`;
+              }).join('')}
             </div>
           </div>
 

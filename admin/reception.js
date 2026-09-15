@@ -18,28 +18,6 @@ export function initReceptionModule({ db, fs, authFB }) {
     arrayUnion
   } = fs;
 
-  // State
-  let todayPatients = [];
-  let allPatientsList = [];
-  let selectedExistingPatient = null;
-  let currentMode = 'new'; // 'new' | 'existing'
-  let isSubmitting = false;
-
-  // IST Helpers
-  const getTodayIST = () => new Date(Date.now() + 5.5 * 3600000).toISOString().slice(0, 10);
-  const getCurrentTimeIST = (includeSeconds = false) => {
-    const d = new Date(Date.now() + 5.5 * 3600000);
-    let hours = d.getUTCHours();
-    const minutes = String(d.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(d.getUTCSeconds()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    if (includeSeconds) {
-      return `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
-    }
-    return `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
-  };
-
   const normalizePhone = s => {
     let d = String(s || '').replace(/\D/g, '');
     if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
@@ -141,23 +119,56 @@ export function initReceptionModule({ db, fs, authFB }) {
     });
   };
 
-  // Check if date string or timestamp matches today
-  const isTodayMatch = (visitDate, createdAt) => {
-    const t = getTodayIST();
-    if (visitDate) {
-      const vd = String(visitDate).trim();
-      if (vd === t || vd.startsWith(t)) return true;
-      const parts = t.split('-');
-      if (parts.length === 3) {
-        const [y, m, d] = parts;
-        if (vd === `${d}-${m}-${y}` || vd === `${d}/${m}/${y}`) return true;
-      }
+  // State
+  let todayPatients = [];
+  let todayActivePatients = [];
+  let todayArchivePatients = [];
+  let allPatientsList = [];
+  let selectedExistingPatient = null;
+  let currentMode = 'new'; // 'new' | 'existing'
+  let queueTab = 'active'; // 'active' | 'archive'
+  let isSubmitting = false;
+
+  // IST Helpers
+  const getTodayIST = () => new Date(Date.now() + 5.5 * 3600000).toISOString().slice(0, 10);
+  const getCurrentTimeIST = (includeSeconds = false) => {
+    const d = new Date(Date.now() + 5.5 * 3600000);
+    let hours = d.getUTCHours();
+    const minutes = String(d.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(d.getUTCSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    if (includeSeconds) {
+      return `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
     }
-    if (createdAt) {
+    return `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+  };
+
+  const isDateToday = (dVal) => {
+    if (!dVal) return false;
+    const today = getTodayIST();
+    const s = String(dVal).trim();
+    if (s === today || s.startsWith(today)) return true;
+    const parts = today.split('-');
+    if (parts.length === 3) {
+      const [y, m, d] = parts;
+      if (s === `${d}-${m}-${y}` || s === `${d}/${m}/${y}`) return true;
+    }
+    return false;
+  };
+
+  const isPatientForToday = (p) => {
+    // Check if the patient's LATEST visit is today
+    if (Array.isArray(p.visits) && p.visits.length > 0) {
+      const latestVisit = p.visits[p.visits.length - 1];
+      if (latestVisit && isDateToday(latestVisit.date || latestVisit.visitDate)) return true;
+    }
+    if (isDateToday(p.visitDate)) return true;
+    if (p.createdAt) {
       try {
-        const d = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
+        const d = p.createdAt.toDate ? p.createdAt.toDate() : new Date(p.createdAt);
         const istStr = new Date(d.getTime() + 5.5 * 3600000).toISOString().slice(0, 10);
-        if (istStr === t) return true;
+        if (istStr === getTodayIST()) return true;
       } catch(e) {}
     }
     return false;
@@ -180,33 +191,23 @@ export function initReceptionModule({ db, fs, authFB }) {
       const snap = await getDocs(collection(db, 'patients'));
       const rawList = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-      // Strictly show ONLY today's patients (visitDate matches today in IST or a visit entry is for today)
-      const queueList = rawList.filter(p => {
-        if (p.visitDate) {
-          const vd = String(p.visitDate).trim();
-          if (vd === today || vd.startsWith(today)) return true;
-          const parts = today.split('-');
-          if (parts.length === 3) {
-            const [y, m, d] = parts;
-            if (vd === `${d}-${m}-${y}` || vd === `${d}/${m}/${y}`) return true;
-          }
-        }
-        if (Array.isArray(p.visits) && p.visits.length > 0) {
-          return p.visits.some(v => {
-            const vDate = String(v.date || v.visitDate || '').trim();
-            if (vDate === today || vDate.startsWith(today)) return true;
-            const parts = today.split('-');
-            if (parts.length === 3) {
-              const [y, m, d] = parts;
-              if (vDate === `${d}-${m}-${y}` || vDate === `${d}/${m}/${y}`) return true;
-            }
-            return false;
-          });
-        }
-        return false;
-      });
+      // Strictly filter patients whose latest visit/registration is strictly today in IST
+      const todayList = rawList.filter(isPatientForToday);
 
-      // Priority sort:
+      // Separate into Active Queue vs Today's Archive
+      todayArchivePatients = todayList.filter(p => (
+        p.isArchivedToday === true ||
+        p.archivedDate === today ||
+        p.queueStatus === 'Archived'
+      ));
+
+      todayActivePatients = todayList.filter(p => !(
+        p.isArchivedToday === true ||
+        p.archivedDate === today ||
+        p.queueStatus === 'Archived'
+      ));
+
+      // Priority sort for Active Queue:
       // 1. In Consultation (Top)
       // 2. Waiting (Middle)
       // 3. Completed (Bottom)
@@ -217,7 +218,7 @@ export function initReceptionModule({ db, fs, authFB }) {
         return 4;
       };
 
-      queueList.sort((a, b) => {
+      todayActivePatients.sort((a, b) => {
         const rankA = getStatusRank(a.queueStatus || 'Waiting');
         const rankB = getStatusRank(b.queueStatus || 'Waiting');
         if (rankA !== rankB) return rankA - rankB;
@@ -228,12 +229,75 @@ export function initReceptionModule({ db, fs, authFB }) {
         return (Number(a.opNo) || 0) - (Number(b.opNo) || 0);
       });
 
-      todayPatients = queueList;
+      // Sort Archive list by archived time / created time descending
+      todayArchivePatients.sort((a, b) => {
+        const timeA = a.archivedAt?.seconds || a.createdAt?.seconds || 0;
+        const timeB = b.archivedAt?.seconds || b.createdAt?.seconds || 0;
+        return timeB - timeA;
+      });
+
+      todayPatients = todayActivePatients;
       renderQueueTable();
+      renderArchiveTable();
       renderReceptionStats();
     } catch (err) {
       console.error('Error fetching today queue:', err);
       showToast('Error loading queue: ' + err.message, 'error');
+    }
+  };
+
+  // Switch between Active Queue and Archive Tabs
+  window.setQueueTab = tab => {
+    queueTab = tab;
+    const btnActive = document.getElementById('btn-tab-active-queue');
+    const btnArchive = document.getElementById('btn-tab-archive-queue');
+    const viewActive = document.getElementById('view-active-queue');
+    const viewArchive = document.getElementById('view-archive-queue');
+
+    if (tab === 'active') {
+      btnActive?.classList.add('active');
+      btnArchive?.classList.remove('active');
+      if (viewActive) viewActive.style.display = 'block';
+      if (viewArchive) viewArchive.style.display = 'none';
+    } else {
+      btnActive?.classList.remove('active');
+      btnArchive?.classList.add('active');
+      if (viewActive) viewActive.style.display = 'none';
+      if (viewArchive) viewArchive.style.display = 'block';
+    }
+  };
+
+  // Mark Patient Done and Move to Today's Archive
+  window.markPatientDone = async (patientId) => {
+    try {
+      const today = getTodayIST();
+      const nowTime = getCurrentTimeIST(false);
+      await updateDoc(doc(db, 'patients', patientId), {
+        queueStatus: 'Completed',
+        isArchivedToday: true,
+        archivedDate: today,
+        archivedTime: nowTime,
+        archivedAt: serverTimestamp()
+      });
+      showToast('Patient marked as Done and moved to Archive.');
+      await loadTodayQueue();
+    } catch (err) {
+      showToast('Error: ' + err.message, 'error');
+    }
+  };
+
+  // Restore Patient from Archive back to Active Queue
+  window.restorePatientFromArchive = async (patientId) => {
+    try {
+      await updateDoc(doc(db, 'patients', patientId), {
+        isArchivedToday: false,
+        archivedDate: null,
+        queueStatus: 'Waiting'
+      });
+      showToast('Patient restored to active queue.');
+      await loadTodayQueue();
+    } catch (err) {
+      showToast('Error: ' + err.message, 'error');
     }
   };
 
@@ -243,18 +307,23 @@ export function initReceptionModule({ db, fs, authFB }) {
     const newEl = document.getElementById('stat-today-new');
     const returnEl = document.getElementById('stat-today-return');
     const waitingEl = document.getElementById('stat-today-waiting');
+    const badgeActive = document.getElementById('badge-active-count');
+    const badgeArchive = document.getElementById('badge-archive-count');
 
-    const total = todayPatients.length;
+    const total = todayActivePatients.length + todayArchivePatients.length;
     let newCount = 0;
     let returnCount = 0;
     let waitingCount = 0;
 
-    todayPatients.forEach(p => {
+    [...todayActivePatients, ...todayArchivePatients].forEach(p => {
       if (p.isReturnVisit || (p.visits && p.visits.length > 1)) {
         returnCount++;
       } else {
         newCount++;
       }
+    });
+
+    todayActivePatients.forEach(p => {
       const status = p.queueStatus || 'Waiting';
       if (status === 'Waiting') waitingCount++;
     });
@@ -263,6 +332,8 @@ export function initReceptionModule({ db, fs, authFB }) {
     if (newEl) newEl.textContent = newCount;
     if (returnEl) returnEl.textContent = returnCount;
     if (waitingEl) waitingEl.textContent = waitingCount;
+    if (badgeActive) badgeActive.textContent = todayActivePatients.length;
+    if (badgeArchive) badgeArchive.textContent = todayArchivePatients.length;
   };
 
   // Render Live Queue Table
@@ -270,22 +341,22 @@ export function initReceptionModule({ db, fs, authFB }) {
     const tbody = document.getElementById('queue-table-body');
     if (!tbody) return;
 
-    if (!todayPatients.length) {
+    if (!todayActivePatients.length) {
       tbody.innerHTML = `
         <tr>
           <td colspan="7" style="text-align:center;padding:3.5rem 1rem;color:var(--text-light);">
             <div style="width:48px;height:48px;border-radius:50%;background:var(--primary-ul);color:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <h4 style="font-size:1.05rem;font-weight:600;color:var(--text-dark);margin-bottom:.35rem;">No Walk-in Patients in Queue</h4>
-            <p style="font-size:.85rem;">Use the form to register a new walk-in patient or check in an existing returning patient.</p>
+            <h4 style="font-size:1.05rem;font-weight:600;color:var(--text-dark);margin-bottom:.35rem;">No Active Patients in Queue</h4>
+            <p style="font-size:.85rem;">All registered patients have been completed or no walk-ins yet today.</p>
           </td>
         </tr>
       `;
       return;
     }
 
-    tbody.innerHTML = todayPatients.map((p, idx) => {
+    tbody.innerHTML = todayActivePatients.map((p, idx) => {
       const tokenNo = idx + 1;
       const isReturn = p.isReturnVisit || (p.visits && p.visits.length > 1);
       const vTime = fmtTime(p.visitTime, p.createdAt) || '—';
@@ -319,8 +390,7 @@ export function initReceptionModule({ db, fs, authFB }) {
             <div style="font-size:.75rem;color:var(--text-light);">${esc(p.consultationType) || 'Orthopaedic'}</div>
           </td>
           <td>
-            <div style="font-family:'DM Mono',monospace;font-size:.82rem;font-weight:600;color:var(--text-dark);">${fmtDate(p.visitDate)}</div>
-            <div style="font-size:.75rem;color:var(--primary);font-weight:500;display:flex;align-items:center;gap:3px;margin-top:2px;">
+            <div style="font-size:.8rem;color:var(--primary);font-weight:600;display:flex;align-items:center;gap:3px;">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               ${vTime}
             </div>
@@ -333,11 +403,88 @@ export function initReceptionModule({ db, fs, authFB }) {
             </select>
           </td>
           <td>
-            <div style="display:flex;align-items:center;gap:.4rem;">
+            <div style="display:flex;align-items:center;gap:.35rem;">
               <a href="bill.html?patientId=${p.id}&op=${p.opNo || ''}&name=${encodeURIComponent(p.name || '')}" class="action-btn-sm bill" title="Create Bill">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
                 Bill
               </a>
+              <button type="button" class="action-btn-sm done" onclick="window.markPatientDone('${p.id}')" title="Mark Done & Move to Archive">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Done
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  };
+
+  // Render Today's Archive Table
+  const renderArchiveTable = () => {
+    const tbody = document.getElementById('archive-table-body');
+    if (!tbody) return;
+
+    if (!todayArchivePatients.length) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align:center;padding:3.5rem 1rem;color:var(--text-light);">
+            <div style="width:48px;height:48px;border-radius:50%;background:rgba(34,197,94,.1);color:#16a34a;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h4 style="font-size:1.05rem;font-weight:600;color:var(--text-dark);margin-bottom:.35rem;">No Completed Patients Archived Yet Today</h4>
+            <p style="font-size:.85rem;">When you click "Done" on any patient in the live queue, they will appear here.</p>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = todayArchivePatients.map(p => {
+      const doneTime = p.archivedTime || fmtTime(p.visitTime, p.createdAt) || '—';
+      const isPaid = p.lastBillPaid === true;
+
+      return `
+        <tr>
+          <td>
+            <span class="op-tag">OP ${p.opNo ?? '—'}</span>
+          </td>
+          <td>
+            <div>
+              <div style="font-weight:700;color:var(--text-dark);">${esc(p.name)}</div>
+              <div style="font-size:.75rem;color:var(--text-light);margin-top:2px;">
+                ${p.age ? p.age + 'y • ' : ''}${p.gender || ''} ${p.phone ? '• ' + p.phone : ''}
+              </div>
+            </div>
+          </td>
+          <td>
+            <div style="font-weight:600;color:var(--text-dark);font-size:.85rem;">${esc(p.doctor) || 'Dr. N. Gopala Krishnan'}</div>
+            <div style="font-size:.75rem;color:var(--text-light);">${esc(p.consultationType) || 'Orthopaedic'}</div>
+          </td>
+          <td>
+            <div style="font-size:.8rem;color:#16a34a;font-weight:600;display:flex;align-items:center;gap:3px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              ${doneTime}
+            </div>
+          </td>
+          <td>
+            ${p.lastBillNumber ? `
+              <span style="font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${isPaid ? 'rgba(34,197,94,.15);color:#16a34a;' : 'rgba(219,119,6,.15);color:#d97706;'}">
+                ${isPaid ? 'Paid' : 'Billed'}
+              </span>
+            ` : `
+              <span style="font-size:.72rem;color:var(--text-light);">No Bill</span>
+            `}
+          </td>
+          <td>
+            <div style="display:flex;align-items:center;gap:.35rem;">
+              <a href="bill.html?patientId=${p.id}&op=${p.opNo || ''}&name=${encodeURIComponent(p.name || '')}" class="action-btn-sm bill" title="Create / View Bill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+                Bill
+              </a>
+              <button type="button" class="action-btn-sm restore" onclick="window.restorePatientFromArchive('${p.id}')" title="Restore to active queue">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                Restore
+              </button>
             </div>
           </td>
         </tr>
@@ -603,6 +750,8 @@ export function initReceptionModule({ db, fs, authFB }) {
         diagnosis: diagnosis || selectedExistingPatient.diagnosis || '',
         queueStatus: 'Waiting',
         isReturnVisit: true,
+        isArchivedToday: false,
+        archivedDate: null,
         visits: arrayUnion(newVisitEntry)
       });
 

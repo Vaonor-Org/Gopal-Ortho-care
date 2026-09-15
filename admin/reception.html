@@ -184,6 +184,19 @@ tbody td { padding: .85rem 1rem; font-size: .85rem; color: var(--text-dark); ver
 .action-btn-sm:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-ul); }
 .action-btn-sm.bill { border-color: rgba(200,151,58,.4); color: var(--gold); background: var(--gold-light); }
 .action-btn-sm.bill:hover { border-color: var(--gold); background: rgba(200,151,58,.25); }
+.action-btn-sm.done { border-color: rgba(34,197,94,.4); color: #16a34a; background: rgba(34,197,94,.08); }
+.action-btn-sm.done:hover { border-color: #16a34a; background: rgba(34,197,94,.2); color: #15803d; }
+.action-btn-sm.restore { border-color: rgba(14,110,189,.3); color: var(--primary); background: var(--primary-ul); }
+.action-btn-sm.restore:hover { border-color: var(--primary); background: rgba(10,110,189,.2); }
+
+.queue-nav-tabs { display: inline-flex; background: var(--surface-card); padding: 3px; border-radius: 9px; border: 1px solid var(--border); gap: 4px; }
+.queue-nav-btn { display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .75rem; border-radius: 7px; border: none; background: transparent; font-family: inherit; font-size: .775rem; font-weight: 700; color: var(--text-light); cursor: pointer; transition: all .2s; }
+.queue-nav-btn:hover { color: var(--text-dark); }
+.queue-nav-btn.active { background: var(--surface); color: var(--primary); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+html[data-theme="dark"] .queue-nav-btn.active { background: var(--surface); color: #60a5fa; }
+.tab-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9999px; font-size: .65rem; font-weight: 800; background: var(--border); color: var(--text-dark); }
+.queue-nav-btn.active .tab-badge { background: var(--primary); color: #fff; }
+.queue-nav-btn.active.archive-tab .tab-badge { background: #16a34a; color: #fff; }
 
 /* Toast */
 .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--surface); border: 1.5px solid var(--border); box-shadow: 0 8px 30px rgba(0,0,0,.15); border-radius: 12px; padding: .85rem 1.25rem; display: flex; align-items: center; gap: .75rem; z-index: 9999; transform: translateY(100px); opacity: 0; transition: all .3s cubic-bezier(.4,0,.2,1); pointer-events: none; }
@@ -494,19 +507,28 @@ tbody td { padding: .85rem 1rem; font-size: .85rem; color: var(--text-dark); ver
 
       <!-- RIGHT: Today's Live Reception Queue & Walk-in Records Table -->
       <div class="card-box table-card">
-        <div class="card-box__header">
-          <div class="card-box__title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Today's Walk-in Queue &amp; Reception Records
+        <div class="card-box__header" style="flex-wrap:wrap;gap:.75rem;">
+          <div class="queue-nav-tabs">
+            <button class="queue-nav-btn active" id="btn-tab-active-queue" onclick="setQueueTab('active')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span>Live Queue</span>
+              <span class="tab-badge" id="badge-active-count">0</span>
+            </button>
+            <button class="queue-nav-btn archive-tab" id="btn-tab-archive-queue" onclick="setQueueTab('archive')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Today's Archive (Done)</span>
+              <span class="tab-badge" id="badge-archive-count">0</span>
+            </button>
           </div>
-          <div style="font-size:.775rem;color:var(--text-light);font-weight:600;">
-            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--success);margin-right:4px;"></span>
-            Live Updates
+          <div style="font-size:.775rem;color:var(--text-light);font-weight:600;display:flex;align-items:center;gap:.35rem;">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--success);"></span>
+            <span>Live Today (IST)</span>
           </div>
         </div>
 
         <div class="card-box__body" style="padding:0;">
-          <div class="table-scroll">
+          <!-- 1. Active Queue View -->
+          <div id="view-active-queue" class="table-scroll">
             <table>
               <thead>
                 <tr>
@@ -514,13 +536,32 @@ tbody td { padding: .85rem 1rem; font-size: .85rem; color: var(--text-dark); ver
                   <th>OP No</th>
                   <th>Patient Details</th>
                   <th>Doctor &amp; Dept</th>
-                  <th>Visiting Date &amp; Time</th>
+                  <th>Visiting Time</th>
                   <th>Queue Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="queue-table-body">
                 <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-light);">Loading reception records…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 2. Today's Archive (Done) View -->
+          <div id="view-archive-queue" class="table-scroll" style="display:none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>OP No</th>
+                  <th>Patient Details</th>
+                  <th>Doctor &amp; Dept</th>
+                  <th>Completed At</th>
+                  <th>Billing</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="archive-table-body">
+                <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-light);">No patients archived yet today.</td></tr>
               </tbody>
             </table>
           </div>
