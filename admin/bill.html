@@ -1222,7 +1222,7 @@ const renderBills = () => {
   tbody.innerHTML = currentBills.map(b => {
     const itemsSummary = (b.items || []).map(it => it.desc).filter(Boolean).join(', ') || 'Consultation';
     const billNum = b.billNumber || b.id.slice(0, 6).toUpperCase();
-    const opNo = b.patientOpNo ? `OP ${b.patientOpNo}` : '—';
+    const opNo = b.patientOpNo ? `${b.patientOpNo}` : '—';
     return `
       <tr>
         <td><button class="bill-no-btn" onclick="openBillDetails('${b.id}')" title="View bill details">#${esc(billNum)}</button></td>
@@ -1582,7 +1582,7 @@ window.openBillDetails = (id) => {
         </div>
         <div>
           <div style="font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);">OP Number</div>
-          <div style="margin-top:2px;"><span style="font-family:'DM Mono',monospace;font-size:.8rem;font-weight:600;color:var(--primary);background:var(--primary-ul);padding:.15rem .45rem;border-radius:6px;border:1px solid rgba(10,110,189,.2);">${b.patientOpNo ? `OP ${b.patientOpNo}` : '—'}</span></div>
+          <div style="margin-top:2px;"><span style="font-family:'DM Mono',monospace;font-size:.8rem;font-weight:600;color:var(--primary);background:var(--primary-ul);padding:.15rem .45rem;border-radius:6px;border:1px solid rgba(10,110,189,.2);">${b.patientOpNo ? `${b.patientOpNo}` : '—'}</span></div>
         </div>
         <div>
           <div style="font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-light);">Doctor</div>
