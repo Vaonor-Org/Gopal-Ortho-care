@@ -826,15 +826,46 @@ window.handleRoomSearch = (val) => {
   renderRooms();
 };
 
+const formatExactStay = (inTime, outTime) => {
+  if (!inTime) return { text: '—', compact: '—', isLive: false };
+  const start = inTime.toDate ? inTime.toDate() : new Date(inTime);
+  const isLive = !outTime;
+  const end = isLive ? new Date() : (outTime.toDate ? outTime.toDate() : new Date(outTime));
+  
+  const startMs = start.getTime();
+  const endMs = end.getTime();
+  if (isNaN(startMs) || isNaN(endMs)) return { text: '—', compact: '—', isLive: false };
+  
+  const diffMs = Math.max(0, endMs - startMs);
+  const days = Math.floor(diffMs / 86400000);
+  const hours = Math.floor((diffMs % 86400000) / 3600000);
+  const minutes = Math.floor((diffMs % 3600000) / 60000);
+  const seconds = Math.floor((diffMs % 60000) / 1000);
+  
+  const parts = [];
+  if (days > 0) parts.push(`${days} day${days > 1 ? 's' : ''}`);
+  if (hours > 0) parts.push(`${hours} hr${hours > 1 ? 's' : ''}`);
+  if (minutes > 0) parts.push(`${minutes} min${minutes > 1 ? 's' : ''}`);
+  if (parts.length === 0) {
+    parts.push(seconds > 0 ? `${seconds} sec${seconds > 1 ? 's' : ''}` : '< 1 min');
+  }
+  
+  const compactParts = [];
+  if (days > 0) compactParts.push(`${days}d`);
+  if (hours > 0) compactParts.push(`${hours}h`);
+  if (minutes > 0 || compactParts.length === 0) compactParts.push(`${minutes}m`);
+  
+  return {
+    text: parts.join(' '),
+    compact: compactParts.join(' '),
+    isLive
+  };
+};
+
 const getStayDuration = (checkInTime) => {
   if (!checkInTime) return '';
-  const d = checkInTime.toDate ? checkInTime.toDate() : new Date(checkInTime);
-  const diffMs = Math.max(0, Date.now() - d.getTime());
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays >= 1) return `${diffDays} day${diffDays > 1 ? 's' : ''}`;
-  if (diffHours >= 1) return `${diffHours} hr${diffHours > 1 ? 's' : ''}`;
-  return 'Admitted today';
+  const stay = formatExactStay(checkInTime, null);
+  return stay.text;
 };
 
 // Render rooms grid
@@ -1208,32 +1239,44 @@ window.applyLogFilter = () => {
     const cin = lg.checkInTime ? fmtTs(lg.checkInTime) : '—';
     const isActive = !lg.checkOutTime;
     const cout = isActive ? 'Currently Checked In' : fmtTs(lg.checkOutTime);
-    let dur = '—';
-    if (lg.checkInTime && lg.checkOutTime) {
-      const ms = (lg.checkOutTime.toDate ? lg.checkOutTime.toDate() : new Date(lg.checkOutTime)).getTime() - (lg.checkInTime.toDate ? lg.checkInTime.toDate() : new Date(lg.checkInTime)).getTime();
-      const h = Math.floor(ms / 3600000);
-      const m = Math.floor((ms % 3600000) / 60000);
-      dur = h > 0 ? `${h}h ${m}m` : `${m}m`;
-    }
+    const stay = formatExactStay(lg.checkInTime, lg.checkOutTime);
     const ini = (lg.patientName || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
     return `
       <div style="display:flex;gap:.875rem;margin-bottom:1.1rem;padding-bottom:1.1rem;border-bottom:1px solid var(--border);">
-        <div style="width:40px;height:40px;border-radius:10px;background:${isActive ? 'linear-gradient(135deg,var(--primary),var(--primary-dark))' : 'var(--surface-card)'};border:2px solid ${isActive ? 'var(--primary)' : 'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:${isActive ? '#fff' : 'var(--text-med)'};flex-shrink:0;">${ini}</div>
+        <div style="width:42px;height:42px;border-radius:10px;background:${isActive ? 'linear-gradient(135deg,var(--primary),var(--primary-dark))' : 'var(--surface-card)'};border:2px solid ${isActive ? 'var(--primary)' : 'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:${isActive ? '#fff' : 'var(--text-med)'};flex-shrink:0;">${ini}</div>
         <div style="flex:1;">
-          <div style="font-weight:600;font-size:.9rem;margin-bottom:.375rem;display:flex;align-items:center;gap:.5rem;justify-content:space-between;">
-            <div>
-              ${esc(lg.patientName || '—')}
-              ${isActive ? '<span style="padding:.1rem .5rem;background:rgba(10,110,189,.1);color:var(--primary);border-radius:9999px;font-size:.6rem;font-weight:700;margin-left:.5rem;">IN ROOM</span>' : ''}
+          <div style="font-weight:600;font-size:.92rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem;justify-content:space-between;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:.5rem;">
+              <span style="color:var(--text-dark);font-weight:700;">${esc(lg.patientName || '—')}</span>
+              ${isActive ? '<span style="padding:.12rem .55rem;background:rgba(10,110,189,.12);color:var(--primary);border:1px solid rgba(10,110,189,.25);border-radius:9999px;font-size:.65rem;font-weight:700;">ACTIVE IN ROOM</span>' : '<span style="padding:.12rem .55rem;background:rgba(34,197,94,.12);color:#16a34a;border:1px solid rgba(34,197,94,.25);border-radius:9999px;font-size:.65rem;font-weight:700;">COMPLETED</span>'}
             </div>
-            <span style="font-size:.75rem;font-weight:500;color:var(--text-light);background:var(--surface-card);padding:.15rem .5rem;border-radius:6px;border:1px solid var(--border);">${esc(lg.roomName || 'Room')}</span>
+            <span style="font-size:.75rem;font-weight:600;color:var(--primary);background:var(--primary-ul);padding:.18rem .55rem;border-radius:6px;border:1px solid rgba(10,110,189,.2);">${esc(lg.roomName || 'Room')}</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.375rem;">
-            <div style="font-size:.75rem;"><span style="color:var(--text-light);">Check In</span><br><strong style="font-family:monospace;font-size:.7rem;">${cin}</strong></div>
-            <div style="font-size:.75rem;"><span style="color:var(--text-light);">Check Out</span><br><strong style="font-family:monospace;font-size:.7rem;color:${isActive ? 'var(--success)' : 'var(--text-dark)'};">${cout}</strong></div>
-            ${!isActive ? `<div style="font-size:.75rem;"><span style="color:var(--text-light);">Duration</span><br><strong>${dur}</strong></div>` : ''}
-            ${lg.patientPhone ? `<div style="font-size:.75rem;"><span style="color:var(--text-light);">Phone</span><br><strong style="font-family:monospace;font-size:.7rem;">${esc(lg.patientPhone)}</strong></div>` : ''}
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:.6rem;background:var(--surface-card);padding:.65rem .85rem;border-radius:8px;border:1px solid var(--border);">
+            <div>
+              <div style="font-size:.68rem;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Check In</div>
+              <div style="font-family:'DM Mono',monospace;font-size:.75rem;font-weight:600;color:var(--text-dark);margin-top:2px;">${cin}</div>
+            </div>
+            <div>
+              <div style="font-size:.68rem;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Check Out</div>
+              <div style="font-family:'DM Mono',monospace;font-size:.75rem;font-weight:600;color:${isActive ? 'var(--primary)' : 'var(--text-dark)'};margin-top:2px;">${cout}</div>
+            </div>
+            <div>
+              <div style="font-size:.68rem;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Time Spent in Room</div>
+              <div style="font-family:'DM Mono',monospace;font-size:.78rem;font-weight:700;color:${isActive ? 'var(--primary)' : '#16a34a'};margin-top:2px;display:flex;align-items:center;gap:4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>${stay.text}</span>
+                ${isActive ? '<span style="font-size:.65rem;color:var(--text-light);font-weight:500;">(live)</span>' : ''}
+              </div>
+            </div>
+            ${lg.patientPhone ? `
+              <div>
+                <div style="font-size:.68rem;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Phone</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.75rem;font-weight:600;color:var(--text-dark);margin-top:2px;">${esc(lg.patientPhone)}</div>
+              </div>
+            ` : ''}
           </div>
-          ${lg.notes ? `<div style="margin-top:.375rem;font-size:.75rem;color:var(--text-med);padding:.375rem .5rem;background:var(--surface-card);border-radius:6px;border:1px solid var(--border);">${esc(lg.notes)}</div>` : ''}
+          ${lg.notes ? `<div style="margin-top:.4rem;font-size:.75rem;color:var(--text-med);padding:.375rem .6rem;background:var(--surface);border-radius:6px;border:1px solid var(--border);"><strong>Note:</strong> ${esc(lg.notes)}</div>` : ''}
         </div>
       </div>`;
   }).join('');
