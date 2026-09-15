@@ -213,6 +213,9 @@ export async function loadPatientProfile({ db, fs, patientId, opNo, containerId 
           (b.patientName && patient.name && b.patientName.trim().toLowerCase() === patient.name.trim().toLowerCase())
         ))
         .sort((a, b) => (b.date || b.billDate || '').localeCompare(a.date || a.billDate || ''));
+    } catch (e) {
+      console.warn('Could not fetch bills for patient profile:', e);
+    }
     // Extract surgeries, implants, and procedures from bills and visits
     const surgeryAndImplants = [];
     billsList.forEach(b => {
