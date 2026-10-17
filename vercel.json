@@ -257,6 +257,66 @@
         }
       ],
       "destination": "/admin/noticeboard"
+    },
+    {
+      "source": "/patient-search.js",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/patient-search.js"
+    },
+    {
+      "source": "/reception.js",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/reception.js"
+    },
+    {
+      "source": "/patient-profile.js",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/patient-profile.js"
+    },
+    {
+      "source": "/overview-stats.js",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/overview-stats.js"
+    },
+    {
+      "source": "/overview-charts.js",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/overview-charts.js"
+    },
+    {
+      "source": "/:file.js",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.gopalorthocare.com"
+        }
+      ],
+      "destination": "/admin/:file.js"
     }
   ]
 }

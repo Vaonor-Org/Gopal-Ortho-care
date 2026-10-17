@@ -491,6 +491,13 @@
         if (nd) nd.textContent = saved.trim();
       }
     })();
+    window.toggleSidebar = function() {
+      if (window.innerWidth > 960) {
+        document.body.classList.toggle('sidebar-collapsed');
+      } else {
+        document.getElementById('sidebar')?.classList.toggle('open');
+      }
+    };
   </script>
 </aside>
 
@@ -1967,22 +1974,31 @@ window.startSpeech = (fieldId, nextFieldId) => {
   rec.start();
 };
 
-// Import instant patient search module
-import { setupInstantPatientSearch } from './patient-search.js';
-
 // Setup Instant Search with floating suggestions and live table sync
-setupInstantPatientSearch({
-  searchInput: document.getElementById('search-input'),
-  dropdownContainer: document.getElementById('search-suggestions-dropdown'),
-  db,
-  fs: { collection, query, where, getDocs, orderBy, limit },
-  onSelectPatient: (p) => {
-    window.viewPatient(p.id);
-  },
-  onTableFilter: (q) => {
-    window.handleSearch(q);
+try {
+  let searchMod;
+  try {
+    searchMod = await import('./patient-search.js');
+  } catch (e1) {
+    searchMod = await import('/admin/patient-search.js');
   }
-});
+  if (searchMod && searchMod.setupInstantPatientSearch) {
+    searchMod.setupInstantPatientSearch({
+      searchInput: document.getElementById('search-input'),
+      dropdownContainer: document.getElementById('search-suggestions-dropdown'),
+      db,
+      fs: { collection, query, where, getDocs, orderBy, limit },
+      onSelectPatient: (p) => {
+        window.viewPatient(p.id);
+      },
+      onTableFilter: (q) => {
+        window.handleSearch(q);
+      }
+    });
+  }
+} catch (err) {
+  console.warn('Instant patient search initialization deferred:', err);
+}
 
 // Initial Language load
 window.setLang(currentLang);
