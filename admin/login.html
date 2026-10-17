@@ -84,12 +84,21 @@
     .brand__icon {
       width: 48px;
       height: 48px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: #ffffff;
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 24px rgba(10,110,189,0.35);
+      padding: 5px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      flex-shrink: 0;
+    }
+
+    .brand__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .brand__name { text-align: left; }
@@ -312,10 +321,7 @@
     <div class="brand">
       <div class="brand__logo">
         <div class="brand__icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
-            <path d="M9 12h6M12 9v6" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <img src="../assets/Logo.png" alt="Gopal Ortho Care Logo" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='/assets/Logo.png';}">
         </div>
         <div class="brand__name">
           <span class="brand__gopal">GOPAL</span>
