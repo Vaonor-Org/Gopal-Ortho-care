@@ -409,9 +409,13 @@
               <label class="f-label" data-i18n="anaesthetistFee">Anaesthetist Fee</label>
               <input class="f-input" id="setting-anaesthetist-fee" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
             </div>
-            <div class="f-group" style="grid-column:1/-1;">
+            <div class="f-group">
               <label class="f-label" data-i18n="procedureCharge">Procedure Charge</label>
               <input class="f-input" id="setting-procedure-charge" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)">
+            </div>
+            <div class="f-group">
+              <label class="f-label" data-i18n="roomsFee">Rooms</label>
+              <input class="f-input" id="setting-room-rate" type="text" inputmode="decimal" onkeypress="validateBillingInput(event)" oninput="sanitizeBillingInput(this)" placeholder="1000">
             </div>
           </div>
 
@@ -560,6 +564,7 @@ const STANDARD_BILLING_DEFAULTS = {
   implantFee: 0,
   anaesthetistFee: 300,
   procedureCharge: 0,
+  roomRate: 1000,
   roomRateIns: 2000,
   roomRateNoIns: 1500,
   billFooterMsg: 'We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.'
@@ -580,6 +585,7 @@ const populateBillingInputs = (data = billingDefaults) => {
   document.getElementById('setting-implant-fee').value = data.implantFee ?? 0;
   document.getElementById('setting-anaesthetist-fee').value = data.anaesthetistFee ?? 300;
   document.getElementById('setting-procedure-charge').value = data.procedureCharge ?? 0;
+  document.getElementById('setting-room-rate').value = data.roomRate ?? 1000;
   document.getElementById('setting-room-rate-ins').value = data.roomRateIns ?? 2000;
   document.getElementById('setting-room-rate-no-ins').value = data.roomRateNoIns ?? 1500;
   const footerEl = document.getElementById('setting-bill-footer-msg');
@@ -598,6 +604,7 @@ window.resetBillingToDefaults = () => {
     implantFee: document.getElementById('setting-implant-fee').value,
     anaesthetistFee: document.getElementById('setting-anaesthetist-fee').value,
     procedureCharge: document.getElementById('setting-procedure-charge').value,
+    roomRate: document.getElementById('setting-room-rate').value,
     roomRateIns: document.getElementById('setting-room-rate-ins').value,
     roomRateNoIns: document.getElementById('setting-room-rate-no-ins').value,
     billFooterMsg: document.getElementById('setting-bill-footer-msg')?.value || ''
@@ -715,6 +722,7 @@ const i18n = {
     nursingFee: 'Nursing Fee', drVisitCharge: 'Dr. Visiting Charge',
     surgeonFee: 'Surgeon Fee', implantFee: 'Implant Fee',
     anaesthetistFee: 'Anaesthetist Fee', procedureCharge: 'Procedure Charge',
+    roomsFee: 'Rooms',
     roomRateIns: 'With Insurance', roomRateNoIns: 'Without Insurance',
     setToDefault: 'Set Values to Default', save: 'Save',
     saveBillingDefaults: 'Save'
@@ -730,6 +738,7 @@ const i18n = {
     nursingFee: 'நர்சிங் கட்டணம்', drVisitCharge: 'மருத்துவர் வருகை கட்டணம்',
     surgeonFee: 'அறுவை சிகிச்சை கட்டணம்', implantFee: 'இம்பிளன்ட் கட்டணம்',
     anaesthetistFee: 'மயக்கமருந்து கட்டணம்', procedureCharge: 'சிகிச்சை கட்டணம்',
+    roomsFee: 'அறைகள்',
     roomRateIns: 'காப்பீட்டுடன்', roomRateNoIns: 'காப்பீடு இல்லாமல்',
     setToDefault: 'இயல்புநிலைக்கு மாற்றவும்', save: 'சேமி',
     saveBillingDefaults: 'சேமி'
@@ -858,6 +867,7 @@ window.saveBillingSettings = async () => {
     implantFee:      g('setting-implant-fee'),
     anaesthetistFee: g('setting-anaesthetist-fee'),
     procedureCharge: g('setting-procedure-charge'),
+    roomRate:        g('setting-room-rate'),
     roomRateIns:     g('setting-room-rate-ins'),
     roomRateNoIns:   g('setting-room-rate-no-ins'),
     billFooterMsg:   footerMsg,

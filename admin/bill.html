@@ -604,6 +604,7 @@
           <button type="button" onclick="addPresetBillItem('Implant Fee')" class="preset-chip" title="Implant Fee">+ Implant</button>
           <button type="button" onclick="addPresetBillItem('Anaesthetist Fee')" class="preset-chip" title="Anaesthetist Fee">+ Anaes.</button>
           <button type="button" onclick="addPresetBillItem('Procedure Charge')" class="preset-chip" title="Procedure Charge">+ Procedure</button>
+          <button type="button" onclick="addPresetBillItem('Rooms')" class="preset-chip" title="Rooms">+ Rooms</button>
           <button type="button" onclick="addRoomRentPreset()" class="preset-chip" style="border-color:var(--primary);color:var(--primary);" title="Calculate Room Rent">+ Room Rent</button>
         </div>
       </div>
@@ -821,6 +822,7 @@ let billingDefaults = {
   implantFee: 0,
   anaesthetistFee: 300,
   procedureCharge: 0,
+  roomRate: 1000,
   roomRateIns: 2000,
   roomRateNoIns: 1500,
   billFooterMsg: 'We hope you have wonderful health and a speedy recovery. Feel free to contact us for any further assistance.'
@@ -989,12 +991,28 @@ const getNextBillNumber = async () => {
   return `INV${String(seq).padStart(5, '0')}`;
 };
 
-// Same field-detection approach as dashboard.html's patient search — kept in
-// sync there since Firestore has no native "contains anywhere" search.
-// Queries on demand instead of loading every patient. OP No and phone are
-// both plain digit strings; length tells them apart (OP registers stay
-// short, Indian phone numbers are 10+ digits). OP No is a Number field, so
-// it's an exact match rather than a "starts with" prefix query.
+// In-memory patient cache for instant, universal patient search (finds all records including legacy ones without nameLower)
+let cachedPatients = [];
+let isPatientCacheLoaded = false;
+let patientCachePromise = null;
+
+const loadAllPatientsCache = async () => {
+  if (patientCachePromise) return patientCachePromise;
+  patientCachePromise = (async () => {
+    try {
+      const snap = await getDocs(collection(db, 'patients'));
+      cachedPatients = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      isPatientCacheLoaded = true;
+    } catch (e) {
+      console.warn('Could not cache all patients in bill.html:', e);
+    } finally {
+      patientCachePromise = null;
+    }
+  })();
+  return patientCachePromise;
+};
+loadAllPatientsCache();
+
 const detectSearchField = q => {
   const v = q.trim();
   if (!v) return null;
@@ -1002,18 +1020,64 @@ const detectSearchField = q => {
   if (/^\d+$/.test(digitsOnly)) return digitsOnly.length >= 8 ? 'phone' : 'opNo';
   return 'nameLower';
 };
-const PREFIX_END = String.fromCharCode(0xf8ff); // Firestore "starts with" trick: high private-use codepoint as the range's upper bound
+const PREFIX_END = String.fromCharCode(0xf8ff);
+
 const searchPatients = async q => {
-  const field = detectSearchField(q);
-  if (!field) return [];
-  let snap;
-  if (field === 'opNo') {
-    snap = await getDocs(query(collection(db, 'patients'), where('opNo', '==', Number(q.trim())), limit(10)));
-  } else {
-    const value = field === 'phone' ? q.trim() : q.trim().toLowerCase();
-    snap = await getDocs(query(collection(db, 'patients'), where(field, '>=', value), where(field, '<=', value + PREFIX_END), orderBy(field), limit(10)));
+  const queryStr = String(q || '').trim();
+  if (!queryStr) return [];
+  const qLower = queryStr.toLowerCase();
+  const digitsOnly = queryStr.replace(/\D/g, '');
+
+  // 1. Ensure cache is loaded
+  if (!isPatientCacheLoaded || !cachedPatients.length) {
+    await loadAllPatientsCache();
   }
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+  // 2. Search in-memory cache first (substring match across name, nameLower, phone, and OP No)
+  if (cachedPatients.length > 0) {
+    const matches = cachedPatients.filter(p => {
+      const name = String(p.name || '').toLowerCase();
+      const nameLower = String(p.nameLower || '').toLowerCase();
+      const phone = String(p.phone || '').replace(/\D/g, '');
+      const opNo = String(p.opNo ?? '');
+
+      const nameMatch = name.includes(qLower) || nameLower.includes(qLower);
+      const opMatch = digitsOnly && (opNo === digitsOnly || opNo.startsWith(digitsOnly) || opNo.includes(digitsOnly));
+      const phoneMatch = digitsOnly && phone.includes(digitsOnly);
+
+      return nameMatch || opMatch || phoneMatch;
+    });
+
+    if (matches.length > 0) {
+      return matches.slice(0, 10);
+    }
+  }
+
+  // 3. Fallback direct server query
+  const field = detectSearchField(queryStr);
+  if (!field) return [];
+  try {
+    let snap;
+    if (field === 'opNo') {
+      snap = await getDocs(query(collection(db, 'patients'), where('opNo', '==', Number(digitsOnly)), limit(10)));
+    } else if (field === 'phone') {
+      snap = await getDocs(query(collection(db, 'patients'), where('phone', '>=', digitsOnly), where('phone', '<=', digitsOnly + PREFIX_END), limit(10)));
+    } else {
+      snap = await getDocs(query(collection(db, 'patients'), where('nameLower', '>=', qLower), where('nameLower', '<=', qLower + PREFIX_END), limit(10)));
+      if (snap.empty) {
+        const capitalized = queryStr.charAt(0).toUpperCase() + queryStr.slice(1);
+        snap = await getDocs(query(collection(db, 'patients'), where('name', '>=', capitalized), where('name', '<=', capitalized + PREFIX_END), limit(10)));
+      }
+    }
+    const serverDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    serverDocs.forEach(sd => {
+      if (!cachedPatients.some(cp => cp.id === sd.id)) cachedPatients.push(sd);
+    });
+    return serverDocs;
+  } catch (err) {
+    console.warn('Fallback server patient search failed:', err);
+    return [];
+  }
 };
 
 // Same idea for the bills list: search on whichever bill field the query
@@ -1290,7 +1354,7 @@ window.filterBillPatients = (q) => {
 };
 
 window.selectBillPatient = async (id) => {
-  const p = billSearchMatches.find(x => x.id === id);
+  const p = billSearchMatches.find(x => x.id === id) || cachedPatients.find(x => x.id === id);
   if (!p) return;
   selectedBillPatient = p;
   document.getElementById('bill-patient').value = id;
@@ -1353,6 +1417,7 @@ window.addPresetBillItem = (desc) => {
   else if(desc === 'Implant Fee') amount = billingDefaults.implantFee || 0;
   else if(desc === 'Anaesthetist Fee') amount = billingDefaults.anaesthetistFee || 300;
   else if(desc === 'Procedure Charge') amount = billingDefaults.procedureCharge || 0;
+  else if(desc === 'Rooms' || desc === 'Room' || desc === 'Room Charge' || desc === 'Room Rent') amount = billingDefaults.roomRate || 1000;
   window.billItemsData.push({ desc, amount });
   renderBillItems();
   calcBillTotal();
@@ -1398,6 +1463,7 @@ window.confirmRoomRent = () => {
 };
 
 window.openBillGenerator = () => {
+  loadAllPatientsCache(); // Re-sync patient cache in background
   const consultFee = billingDefaults.consultFee || 250;
   window.billItemsData = [
     { desc: 'Consulting Fee', amount: consultFee }
