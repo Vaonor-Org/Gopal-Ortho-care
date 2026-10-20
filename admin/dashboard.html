@@ -552,7 +552,7 @@
         <!-- Quick Preset Filter Pills -->
         <div class="filter-pills-group">
           <button type="button" class="filter-pill active" id="btn-filter-all" onclick="window.setQuickFilter('all')">
-            <span>All Patients (A–Z)</span>
+            <span>All Patients (OP No)</span>
           </button>
           <button type="button" class="filter-pill" id="btn-filter-today" onclick="window.setQuickFilter('today')">
             <span>Today's Visits</span>
@@ -1438,8 +1438,20 @@ const fetchAllPatients = async () => {
 
     allLoadedPatients = Array.from(patientMap.values());
 
-    // Sort alphabetically A to Z by default as requested
+    // Sort by OP number ascending (from OP No 1 upwards)
     allLoadedPatients.sort((a, b) => {
+      const opA = Number(a.opNo);
+      const opB = Number(b.opNo);
+      const validA = !isNaN(opA) && opA > 0;
+      const validB = !isNaN(opB) && opB > 0;
+
+      if (validA && validB) {
+        return opA - opB;
+      }
+      if (validA && !validB) return -1;
+      if (!validA && validB) return 1;
+
+      // Fallback for records without OP number: sort alphabetically by name
       const nameA = (a.name || '').trim();
       const nameB = (b.name || '').trim();
       return nameA.localeCompare(nameB, undefined, { sensitivity: 'base' });
