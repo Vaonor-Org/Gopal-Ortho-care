@@ -104,17 +104,43 @@ export function initReceptionModule({ db, fs, authFB }) {
     }
   };
 
-  // Fetch Next OP Number atomically
+  // Fetch Next OP Number atomically (based on highest existing patient to reclaim deleted numbers)
   const getNextOpNo = async () => {
     const counterRef = doc(db, 'meta', 'opNoCounter');
     return await runTransaction(db, async transaction => {
       const snap = await transaction.get(counterRef);
-      let nextVal = 20001;
+      let targetNext = 0;
+      let counterVal = 0;
       if (snap.exists()) {
-        const cur = snap.data().current;
-        nextVal = (typeof cur === 'number' && cur >= 20001) ? cur + 1 : 20001;
+        const d = snap.data();
+        counterVal = Math.max(d.current || 0, d.seq || 0);
+        targetNext = typeof d.targetNext === 'number' ? d.targetNext : 0;
       }
-      transaction.set(counterRef, { current: nextVal }, { merge: true });
+
+      // Query highest OP number among actual currently existing patients
+      let highestPatientOp = 0;
+      try {
+        const pSnap = await getDocs(query(collection(db, 'patients'), orderBy('opNo', 'desc'), limit(10)));
+        pSnap.docs.forEach(docSnap => {
+          const op = Number(docSnap.data().opNo);
+          if (!isNaN(op) && op > highestPatientOp && op < 100000) {
+            highestPatientOp = op;
+          }
+        });
+      } catch (e) {
+        console.warn('Could not query highest patient opNo:', e);
+      }
+
+      let nextVal;
+      if (targetNext > highestPatientOp) {
+        nextVal = targetNext;
+      } else if (highestPatientOp > 0) {
+        nextVal = highestPatientOp + 1;
+      } else {
+        nextVal = counterVal > 0 ? counterVal + 1 : 1;
+      }
+
+      transaction.set(counterRef, { current: nextVal, seq: nextVal, targetNext: 0, updatedAt: serverTimestamp() }, { merge: true });
       return nextVal;
     });
   };

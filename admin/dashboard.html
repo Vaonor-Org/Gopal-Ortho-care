@@ -1184,11 +1184,51 @@ const opNoCounterRef = () => doc(db, 'meta', 'opNoCounter');
 // the form). Stored as a real Number (not a padded string) so the patient
 // list can sort by it correctly.
 const getNextOpNo = async () => {
+  const counterRef = opNoCounterRef();
   const seq = await runTransaction(db, async tx => {
-    const snap = await tx.get(opNoCounterRef());
-    const next = (snap.exists() ? (snap.data().seq || 0) : 0) + 1;
-    tx.set(opNoCounterRef(), { seq: next }, { merge: true });
-    return next;
+    const snap = await tx.get(counterRef);
+    let targetNext = 0;
+    let counterVal = 0;
+    if (snap.exists()) {
+      const d = snap.data();
+      counterVal = Math.max(d.current || 0, d.seq || 0);
+      targetNext = typeof d.targetNext === 'number' ? d.targetNext : 0;
+    }
+
+    // Determine highest OP number among currently existing patients
+    let highestPatientOp = 0;
+    if (allLoadedPatients && allLoadedPatients.length > 0) {
+      allLoadedPatients.forEach(p => {
+        const op = Number(p.opNo);
+        if (!isNaN(op) && op > highestPatientOp && op < 100000) {
+          highestPatientOp = op;
+        }
+      });
+    } else {
+      try {
+        const pSnap = await getDocs(query(collection(db, 'patients'), orderBy('opNo', 'desc'), limit(10)));
+        pSnap.docs.forEach(docSnap => {
+          const op = Number(docSnap.data().opNo);
+          if (!isNaN(op) && op > highestPatientOp && op < 100000) {
+            highestPatientOp = op;
+          }
+        });
+      } catch (e) {
+        console.warn('Could not query highest patient opNo:', e);
+      }
+    }
+
+    let nextVal;
+    if (targetNext > highestPatientOp) {
+      nextVal = targetNext;
+    } else if (highestPatientOp > 0) {
+      nextVal = highestPatientOp + 1;
+    } else {
+      nextVal = counterVal > 0 ? counterVal + 1 : 1;
+    }
+
+    tx.set(counterRef, { current: nextVal, seq: nextVal, targetNext: 0, updatedAt: serverTimestamp() }, { merge: true });
+    return nextVal;
   });
   return seq;
 };
@@ -1438,6 +1478,14 @@ const fetchAllPatients = async () => {
 
     allLoadedPatients = Array.from(patientMap.values());
 
+    // Correct patient test with OP 25427 back to 25418 if present
+    allLoadedPatients.forEach(p => {
+      if ((p.name || '').toLowerCase() === 'test' && Number(p.opNo) === 25427) {
+        p.opNo = 25418;
+        updateDoc(doc(db, 'patients', p.id), { opNo: 25418 }).catch(console.warn);
+      }
+    });
+
     // Sort by OP number ascending (from OP No 1 upwards)
     allLoadedPatients.sort((a, b) => {
       const opA = Number(a.opNo);
@@ -1456,6 +1504,24 @@ const fetchAllPatients = async () => {
       const nameB = (b.name || '').trim();
       return nameA.localeCompare(nameB, undefined, { sensitivity: 'base' });
     });
+
+    // Auto-reconcile counter if patients were deleted
+    let maxRemainingOp = 0;
+    allLoadedPatients.forEach(p => {
+      const n = Number(p.opNo);
+      if (!isNaN(n) && n > maxRemainingOp && n < 100000) maxRemainingOp = n;
+    });
+    if (maxRemainingOp > 0) {
+      getDoc(opNoCounterRef()).then(cSnap => {
+        if (cSnap.exists()) {
+          const d = cSnap.data();
+          const cur = Math.max(d.current || 0, d.seq || 0);
+          if (cur > maxRemainingOp && !d.targetNext) {
+            setDoc(opNoCounterRef(), { current: maxRemainingOp, seq: maxRemainingOp, targetNext: 0 }, { merge: true });
+          }
+        }
+      }).catch(console.warn);
+    }
   } catch (err) {
     showToast('Error loading records: ' + err.message, 'error');
   }
@@ -1944,6 +2010,16 @@ document.getElementById('confirm-delete').addEventListener('click', async () => 
       await fetchAllPatients();
       loadPatientPage(currentPageIndex);
       refreshStats();
+
+      // Immediately roll back counter to highest remaining patient
+      let maxRemainingOp = 0;
+      allLoadedPatients.forEach(p => {
+        const n = Number(p.opNo);
+        if (!isNaN(n) && n > maxRemainingOp && n < 100000) maxRemainingOp = n;
+      });
+      if (maxRemainingOp > 0) {
+        await setDoc(opNoCounterRef(), { current: maxRemainingOp, seq: maxRemainingOp, targetNext: 0 }, { merge: true });
+      }
     } catch(err) {
       showToast('Error deleting: ' + err.message, 'error');
     }

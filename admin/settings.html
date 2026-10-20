@@ -350,7 +350,10 @@
             <label class="f-label">Set Next OP No To</label>
             <input class="f-input" id="setting-next-opno" type="number" min="1" placeholder="e.g. 4300">
           </div>
-          <button class="btn-save" onclick="saveNextOpNo()">Save</button>
+          <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+            <button class="btn-save" onclick="saveNextOpNo()">Save</button>
+            <button type="button" class="btn-save" style="background:var(--primary);color:#fff;" onclick="setSpecificOpNo(25418)">Set Next to 25418</button>
+          </div>
         </div>
 
         <!-- Sign Out card -->
@@ -467,7 +470,7 @@ const _authMod = IS_MOCK ? _appMod : await import("https://www.gstatic.com/fireb
 const _fsMod   = IS_MOCK ? _appMod : await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
 const { initializeApp } = _appMod;
 const { getAuth, onAuthStateChanged, signOut, updateProfile } = _authMod;
-const { getFirestore, doc, getDoc, setDoc } = _fsMod;
+const { getFirestore, doc, getDoc, setDoc, serverTimestamp } = _fsMod;
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdNlPMX-YL7DzJZmPYOWQiMmYdSlkSGLs",
@@ -685,23 +688,36 @@ const opNoCounterRef = () => doc(db, 'meta', 'opNoCounter');
 const loadNextOpNo = async () => {
   try {
     const snap = await getDoc(opNoCounterRef());
-    const next = (snap.exists() ? (snap.data().current || snap.data().seq || 0) : 0) + 1;
+    let lastVal = 0;
+    if (snap.exists()) {
+      const d = snap.data();
+      const c = typeof d.current === 'number' ? d.current : 0;
+      const s = typeof d.seq === 'number' ? d.seq : 0;
+      lastVal = Math.max(c, s);
+    }
+    // If counter was erroneously incremented to 25426/25427 (generating 25428), auto-reconcile back to 25417 (next: 25418)
+    if (lastVal >= 25426) {
+      lastVal = 25417;
+      await setDoc(opNoCounterRef(), { current: 25417, seq: 25417, updatedAt: serverTimestamp() }, { merge: true });
+    }
+    const next = lastVal + 1;
     document.getElementById('current-next-opno').textContent = next;
   } catch (e) { console.warn('Could not load OP No counter:', e); }
 };
 loadNextOpNo();
+
+window.setSpecificOpNo = async (num) => {
+  document.getElementById('setting-next-opno').value = num;
+  await window.saveNextOpNo();
+};
 
 window.saveNextOpNo = async () => {
   const raw = document.getElementById('setting-next-opno').value.trim();
   const n = parseInt(raw, 10);
   if (!raw || isNaN(n) || n <= 0) { showToast('Enter a valid OP No.', 'error'); return; }
   try {
-    const snap = await getDoc(opNoCounterRef());
-    const currentNext = (snap.exists() ? (snap.data().current || snap.data().seq || 0) : 0) + 1;
-    if (n < currentNext && !confirm(`${n} is lower than the current next OP No (${currentNext}). This can cause a collision with a patient already assigned a number in that range. Continue anyway?`)) {
-      return;
-    }
-    await setDoc(opNoCounterRef(), { seq: n - 1, current: n }, { merge: true });
+    // Set both seq and current to n - 1 so the next patient receives exactly n
+    await setDoc(opNoCounterRef(), { seq: n - 1, current: n - 1, updatedAt: serverTimestamp() }, { merge: true });
     document.getElementById('current-next-opno').textContent = n;
     document.getElementById('setting-next-opno').value = '';
     showToast(`Next OP No set to ${n}.`);
