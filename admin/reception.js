@@ -219,6 +219,7 @@ export function initReceptionModule({ db, fs, authFB }) {
     try {
       const snap = await getDocs(collection(db, 'patients'));
       const rawList = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      allPatientsList = rawList;
 
       // Strictly filter patients whose latest visit/registration is strictly today in IST
       const todayList = rawList.filter(isPatientForToday);
@@ -979,7 +980,6 @@ export function initReceptionModule({ db, fs, authFB }) {
     if (eDate) eDate.value = today;
     if (eTime) eTime.value = time;
 
-    await loadAllPatientsCache();
     await loadTodayQueue();
   };
 
