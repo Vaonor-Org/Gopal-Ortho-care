@@ -146,6 +146,9 @@ export function initReceptionModule({ db, fs, authFB }) {
   };
 
   // State
+  const QUEUE_PER_PAGE = 25;
+  let queueCurrentPage = 1;
+  let archiveCurrentPage = 1;
   let todayPatients = [];
   let todayActivePatients = [];
   let todayArchivePatients = [];
@@ -362,12 +365,87 @@ export function initReceptionModule({ db, fs, authFB }) {
     if (badgeArchive) badgeArchive.textContent = todayArchivePatients.length;
   };
 
-  // Render Live Queue Table
+  // Pagination Controls Renderer
+  const renderPaginationControls = (containerId, infoId, btnsId, currentPage, totalItems, perPage, onPageChangeName) => {
+    const container = document.getElementById(containerId);
+    const info = document.getElementById(infoId);
+    const btns = document.getElementById(btnsId);
+    if (!container || !info || !btns) return;
+
+    if (totalItems <= 0) {
+      container.style.display = 'none';
+      return;
+    }
+
+    container.style.display = 'flex';
+    const totalPages = Math.ceil(totalItems / perPage) || 1;
+    const startRecord = (currentPage - 1) * perPage + 1;
+    const endRecord = Math.min(currentPage * perPage, totalItems);
+
+    info.innerHTML = `Showing <strong>${startRecord}–${endRecord}</strong> of <strong>${totalItems}</strong> entries (Page <strong>${currentPage}</strong> of <strong>${totalPages}</strong>)`;
+
+    if (totalPages <= 1) {
+      btns.innerHTML = '';
+      return;
+    }
+
+    let buttonsHtml = '';
+    // Previous button
+    buttonsHtml += `<button type="button" class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="${onPageChangeName}(${currentPage - 1})" title="Previous Page">‹ Prev</button>`;
+
+    // Page numbers with ellipsis
+    const maxVisible = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+    if (endPage - startPage + 1 < maxVisible) {
+      startPage = Math.max(1, endPage - maxVisible + 1);
+    }
+
+    if (startPage > 1) {
+      buttonsHtml += `<button type="button" class="page-btn" onclick="${onPageChangeName}(1)">1</button>`;
+      if (startPage > 2) {
+        buttonsHtml += `<span style="padding:0 4px;color:var(--text-light);font-size:.8rem;">…</span>`;
+      }
+    }
+
+    for (let p = startPage; p <= endPage; p++) {
+      buttonsHtml += `<button type="button" class="page-btn ${p === currentPage ? 'active' : ''}" onclick="${onPageChangeName}(${p})">${p}</button>`;
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        buttonsHtml += `<span style="padding:0 4px;color:var(--text-light);font-size:.8rem;">…</span>`;
+      }
+      buttonsHtml += `<button type="button" class="page-btn" onclick="${onPageChangeName}(${totalPages})">${totalPages}</button>`;
+    }
+
+    // Next button
+    buttonsHtml += `<button type="button" class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="${onPageChangeName}(${currentPage + 1})" title="Next Page">Next ›</button>`;
+
+    btns.innerHTML = buttonsHtml;
+  };
+
+  window.setQueuePage = (p) => {
+    queueCurrentPage = p;
+    renderQueueTable();
+  };
+
+  window.setArchivePage = (p) => {
+    archiveCurrentPage = p;
+    renderArchiveTable();
+  };
+
+  // Render Live Queue Table (Paginated 25 per page)
   const renderQueueTable = () => {
     const tbody = document.getElementById('queue-table-body');
     if (!tbody) return;
 
-    if (!todayActivePatients.length) {
+    const total = todayActivePatients.length;
+    const totalPages = Math.ceil(total / QUEUE_PER_PAGE) || 1;
+    if (queueCurrentPage > totalPages) queueCurrentPage = totalPages;
+    if (queueCurrentPage < 1) queueCurrentPage = 1;
+
+    if (!total) {
       tbody.innerHTML = `
         <tr>
           <td colspan="7" style="text-align:center;padding:3.5rem 1rem;color:var(--text-light);">
@@ -379,11 +457,15 @@ export function initReceptionModule({ db, fs, authFB }) {
           </td>
         </tr>
       `;
+      renderPaginationControls('queue-pagination', 'queue-page-info', 'queue-page-btns', 1, 0, QUEUE_PER_PAGE, 'setQueuePage');
       return;
     }
 
-    tbody.innerHTML = todayActivePatients.map((p, idx) => {
-      const tokenNo = idx + 1;
+    const startIdx = (queueCurrentPage - 1) * QUEUE_PER_PAGE;
+    const pagePatients = todayActivePatients.slice(startIdx, startIdx + QUEUE_PER_PAGE);
+
+    tbody.innerHTML = pagePatients.map((p, idx) => {
+      const tokenNo = startIdx + idx + 1;
       const isReturn = p.isReturnVisit || (p.visits && p.visits.length > 1);
       const vTime = fmtTime(p.visitTime, p.createdAt) || '—';
       const status = p.queueStatus || 'Waiting';
@@ -443,14 +525,21 @@ export function initReceptionModule({ db, fs, authFB }) {
         </tr>
       `;
     }).join('');
+
+    renderPaginationControls('queue-pagination', 'queue-page-info', 'queue-page-btns', queueCurrentPage, total, QUEUE_PER_PAGE, 'setQueuePage');
   };
 
-  // Render Today's Archive Table
+  // Render Today's Archive Table (Paginated 25 per page)
   const renderArchiveTable = () => {
     const tbody = document.getElementById('archive-table-body');
     if (!tbody) return;
 
-    if (!todayArchivePatients.length) {
+    const total = todayArchivePatients.length;
+    const totalPages = Math.ceil(total / QUEUE_PER_PAGE) || 1;
+    if (archiveCurrentPage > totalPages) archiveCurrentPage = totalPages;
+    if (archiveCurrentPage < 1) archiveCurrentPage = 1;
+
+    if (!total) {
       tbody.innerHTML = `
         <tr>
           <td colspan="6" style="text-align:center;padding:3.5rem 1rem;color:var(--text-light);">
@@ -462,10 +551,14 @@ export function initReceptionModule({ db, fs, authFB }) {
           </td>
         </tr>
       `;
+      renderPaginationControls('archive-pagination', 'archive-page-info', 'archive-page-btns', 1, 0, QUEUE_PER_PAGE, 'setArchivePage');
       return;
     }
 
-    tbody.innerHTML = todayArchivePatients.map(p => {
+    const startIdx = (archiveCurrentPage - 1) * QUEUE_PER_PAGE;
+    const pagePatients = todayArchivePatients.slice(startIdx, startIdx + QUEUE_PER_PAGE);
+
+    tbody.innerHTML = pagePatients.map(p => {
       const doneTime = p.archivedTime || fmtTime(p.visitTime, p.createdAt) || '—';
       const isPaid = p.lastBillPaid === true;
 
@@ -516,6 +609,8 @@ export function initReceptionModule({ db, fs, authFB }) {
         </tr>
       `;
     }).join('');
+
+    renderPaginationControls('archive-pagination', 'archive-page-info', 'archive-page-btns', archiveCurrentPage, total, QUEUE_PER_PAGE, 'setArchivePage');
   };
 
   // Switch Registration Mode (New Walk-in vs Existing Patient Return)

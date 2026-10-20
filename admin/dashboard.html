@@ -924,7 +924,7 @@ const _fsMod   = IS_MOCK ? _appMod : await import("https://www.gstatic.com/fireb
 const { initializeApp } = _appMod;
 const { getAuth, onAuthStateChanged, signOut } = _authMod;
 const {
-  getFirestore, collection, addDoc, updateDoc, deleteDoc,
+  getFirestore, collection, addDoc, updateDoc, deleteDoc, setDoc,
   doc, query, orderBy, serverTimestamp, getDocs, limit, where, startAfter,
   getDoc, runTransaction, writeBatch, getCountFromServer, arrayUnion
 } = _fsMod;

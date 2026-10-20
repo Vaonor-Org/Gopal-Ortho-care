@@ -50,6 +50,11 @@ service cloud.firestore {
       allow read, write: if isAdmin();
     }
 
+    // Settings — billing defaults and hospital configuration. Admin only.
+    match /settings/{id} {
+      allow read, write: if isAdmin();
+    }
+
     // Block everything else
     match /{document=**} {
       allow read, write: if false;

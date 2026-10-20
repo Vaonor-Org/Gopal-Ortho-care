@@ -203,6 +203,15 @@ html[data-theme="dark"] .queue-nav-btn.active { background: var(--surface); colo
 .toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
 .toast svg { width: 20px; height: 20px; stroke: var(--success); fill: none; stroke-width: 2; flex-shrink: 0; }
 .toast.error svg { stroke: var(--error); }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: .85rem 1.25rem; border-top: 1px solid var(--border); background: var(--surface); gap: 1rem; flex-wrap: wrap; }
+.pagination__info { font-size: .775rem; color: var(--text-light); font-weight: 500; }
+.pagination__btns { display: flex; gap: .35rem; align-items: center; }
+.page-btn { height: 32px; min-width: 32px; padding: 0 .6rem; border: 1.5px solid var(--border); border-radius: 7px; background: var(--surface); font-family: inherit; font-size: .8rem; font-weight: 600; color: var(--text-med); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all .2s; }
+.page-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-ul); }
+.page-btn.active { border-color: var(--primary); color: #fff; background: var(--primary); }
+.page-btn:disabled { opacity: .4; cursor: not-allowed; pointer-events: none; }
 </style>
 </head>
 <body class="sidebar-collapsed">
@@ -528,42 +537,56 @@ html[data-theme="dark"] .queue-nav-btn.active { background: var(--surface); colo
 
         <div class="card-box__body" style="padding:0;">
           <!-- 1. Active Queue View -->
-          <div id="view-active-queue" class="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width:50px;">Token</th>
-                  <th>OP No</th>
-                  <th>Patient Details</th>
-                  <th>Doctor &amp; Dept</th>
-                  <th>Visiting Time</th>
-                  <th>Queue Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="queue-table-body">
-                <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-light);">Loading reception records…</td></tr>
-              </tbody>
-            </table>
+          <div id="view-active-queue">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:50px;">Token</th>
+                    <th>OP No</th>
+                    <th>Patient Details</th>
+                    <th>Doctor &amp; Dept</th>
+                    <th>Visiting Time</th>
+                    <th>Queue Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="queue-table-body">
+                  <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-light);">Loading reception records…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination for Active Queue -->
+            <div class="pagination" id="queue-pagination" style="display:none;">
+              <span class="pagination__info" id="queue-page-info"></span>
+              <div class="pagination__btns" id="queue-page-btns"></div>
+            </div>
           </div>
 
           <!-- 2. Today's Archive (Done) View -->
-          <div id="view-archive-queue" class="table-scroll" style="display:none;">
-            <table>
-              <thead>
-                <tr>
-                  <th>OP No</th>
-                  <th>Patient Details</th>
-                  <th>Doctor &amp; Dept</th>
-                  <th>Completed At</th>
-                  <th>Billing</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="archive-table-body">
-                <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-light);">No patients archived yet today.</td></tr>
-              </tbody>
-            </table>
+          <div id="view-archive-queue" style="display:none;">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>OP No</th>
+                    <th>Patient Details</th>
+                    <th>Doctor &amp; Dept</th>
+                    <th>Completed At</th>
+                    <th>Billing</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="archive-table-body">
+                  <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-light);">No patients archived yet today.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination for Archive Queue -->
+            <div class="pagination" id="archive-pagination" style="display:none;">
+              <span class="pagination__info" id="archive-page-info"></span>
+              <div class="pagination__btns" id="archive-page-btns"></div>
+            </div>
           </div>
         </div>
       </div>
